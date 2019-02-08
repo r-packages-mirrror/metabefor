@@ -10,7 +10,7 @@ query_toInterfaceLang <- function(queryObject,
 
   query <- queryObject$Get(function(node)
       return(node$Get("name",
-                      filterFun=isLeaf)),
+                      filterFun=data.tree::isLeaf)),
     filterFun=function(n)
       return(!n$isLeaf && !n$isRoot));
 
@@ -166,7 +166,7 @@ query_toInterfaceLang <- function(queryObject,
 #' @export
 print.mbf_query_toInterfaceLang <- function(x, header = "3", ...) {
   cat(paste0(ufs::repStr("#", header), " PUBMED QUERY:\n", x$output$pubmed, "\n\n"));
-  cat(paste0(ufsrepStr("#", header), " EBSCOHOST QUERY:\n", x$output$ebscohost, "\n\n"));
-  cat(paste0(ufsrepStr("#", header), " OVID QUERY:\n", x$output$ovid, "\n\n"));
+  cat(paste0(ufs::repStr("#", header), " EBSCOHOST QUERY:\n", x$output$ebscohost, "\n\n"));
+  cat(paste0(ufs::repStr("#", header), " OVID QUERY:\n", x$output$ovid, "\n\n"));
   cat(paste0("NOTE: export the results as .RIS files, called 'MEDLINE' in PubMed."));
 }
