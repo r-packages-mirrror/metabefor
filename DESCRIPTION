@@ -17,4 +17,3 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports: data.tree (>= 0.7.8)
-         
