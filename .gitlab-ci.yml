@@ -16,15 +16,14 @@ metabefor-CI:
     - docker
 #    - r-packages
 
-deploying-pkgdown-site:
+pages:
+  stage: deploy
   image: alpine:latest
-  pages:
-    stage: deploy
-    script:
-      - echo 'Nothing to do...'
-    artifacts:
-      paths:
-      - public
-    only:
-      - master
+  script:
+    - echo 'Nothing to do...'
+  artifacts:
+    paths:
+    - public
+  only:
+    - master
 
