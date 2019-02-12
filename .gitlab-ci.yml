@@ -8,9 +8,10 @@
 
 metabefor-CI:
   stage: test
-  image: rocker/tidyverse
+  image: r-base
   script:
     - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr", "ufs"))'
     - R -e 'devtools::check()'
   tags:
     - r-packages
+
