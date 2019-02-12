@@ -96,13 +96,15 @@ plot(searches[[1]]$query);
 ```{r search-1-figure-export, screenshot.force=FALSE, fig.height=5, echo=FALSE}
 ### Saving file as .png and including it afterwards to show it on
 ### GitHub preview
-forExport <- data.tree::ToDiagrammeRGraph(searches[[1]]$query);
-search1query_export <- file.path(workingPath, "search-1-query.png");
-DiagrammeR::export_graph(forExport,
-                         search1query_export);
+#forExport <- data.tree::ToDiagrammeRGraph(searches[[1]]$query);
+#search1query_export <- file.path(workingPath, "search-1-query.png");
+#DiagrammeR::export_graph(forExport,
+#                         search1query_export);
 ```
 
-![Figure 1: Conceptual visualisation of the query used in search 1.](`r search1query_export`)
+    Temporarily removed figure until I get V8 to work in GitLab CI.
+
+<!-- ![Figure 1: Conceptual visualisation of the query used in search 1.](`r search1query_export`) -->
 
 In this query, the searched terms must occur in entries' `r searches[[1]]$fields` fields.
 
