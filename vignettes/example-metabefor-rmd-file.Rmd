@@ -104,7 +104,7 @@ plot(searches[[1]]$query);
 
     Temporarily removed figure until I get V8 to work in GitLab CI.
 
-<!-- ![Figure 1: Conceptual visualisation of the query used in search 1.](`r search1query_export`) -->
+<!-- ![Figure 1: Conceptual visualisation of the query used in search 1.](`r #search1query_export`) -->
 
 In this query, the searched terms must occur in entries' `r searches[[1]]$fields` fields.
 
