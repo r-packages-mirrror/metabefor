@@ -3,7 +3,9 @@
 #' @param date The date that the search is conducted.
 #' @param query The query used in the search (as specified using the
 #' functions for [queries]).
-#' @param databases The databases that were searched.
+#' @param databases The databases that were searched, as a named list of
+#' vectors, where each vector's name is the name of the interface used to
+#' access the databases in the vector.
 #' @param fields The fields in which the query terms were searched.
 #'
 #' @return An `mbf_search` object with the search specifications.
@@ -16,8 +18,8 @@ specify_search <- function(date,
   res <-
     list(date = date,
          query = query,
-         databases=databases,
-         fields=fields);
+         databases = databases,
+         fields = fields);
   
   class(res) <- "mbf_search";
   
