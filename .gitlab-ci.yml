@@ -10,7 +10,7 @@ metabefor-CI:
   stage: test
   image: rocker/tidyverse
   script:
-    - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr", "ufs"))'
+    - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr", "ufs", "DiagrammeRsvg"))'
     - R -e 'devtools::check()'
   tags:
     - docker
