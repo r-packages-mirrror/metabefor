@@ -13,7 +13,7 @@ pages:
     - echo 'Nothing to do...'
   artifacts:
     paths:
-    - docs
+      - docs
   only:
     - master
 
