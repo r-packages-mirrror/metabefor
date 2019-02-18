@@ -3,3 +3,7 @@
 ^docs$
 ^\.gitlab-ci\.yml$
 ^README\.Rmd$
+
+### pkgdown website
+public
+

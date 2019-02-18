@@ -12,7 +12,9 @@ specify_search(date, query, databases, fields)
 \item{query}{The query used in the search (as specified using the
 functions for \link{queries}).}
 
-\item{databases}{The databases that were searched.}
+\item{databases}{The databases that were searched, as a named list of
+vectors, where each vector's name is the name of the interface used to
+access the databases in the vector.}
 
 \item{fields}{The fields in which the query terms were searched.}
 }
