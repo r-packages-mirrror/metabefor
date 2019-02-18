@@ -6,6 +6,17 @@
 #    - R CMD build . --no-build-vignettes --no-manual
 #    - R CMD check *tar.gz --no-build-vignettes --no-manual --as-cran
 
+pages:
+  stage: test
+  image: alpine:latest
+  script:
+    - echo 'Nothing to do...'
+  artifacts:
+    paths:
+    - docs
+  only:
+    - master
+
 metabefor-CI:
   stage: test
   image: rocker/tidyverse
@@ -15,15 +26,4 @@ metabefor-CI:
   tags:
     - docker
 #    - r-packages
-
-pages:
-  stage: deploy
-  image: alpine:latest
-  script:
-    - echo 'Nothing to do...'
-  artifacts:
-    paths:
-    - docs
-  only:
-    - master
 
