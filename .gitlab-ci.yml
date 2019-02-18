@@ -7,7 +7,7 @@
 #    - R CMD check *tar.gz --no-build-vignettes --no-manual --as-cran
 
 pages:
-  stage: test
+  stage: build
   image: alpine:latest
   script:
     - echo 'Nothing to do...'
