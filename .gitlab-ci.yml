@@ -1,10 +1,7 @@
-#image: r-base
-#
-#test:
-#  script:
-#    - R -e 'install.packages(c("dplyr", "purrr", "testthat", "data.tree", "knitr", "ufs"))'
-#    - R CMD build . --no-build-vignettes --no-manual
-#    - R CMD check *tar.gz --no-build-vignettes --no-manual --as-cran
+variables:
+  _R_CHECK_CRAN_INCOMING_: "false"
+  _R_CHECK_FORCE_SUGGESTS_: "true"
+  APT_PKGS: "libcurl4-openssl-dev libssh2-1-dev libssl-dev libxml2-dev zlib1g-dev git libgsl0-dev"
 
 pages:
   stage: build
@@ -18,10 +15,15 @@ pages:
   - master
 
 metabefor-CI:
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends ${APT_PKGS}
+    - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
   stage: test
   image: rocker/tidyverse
   script:
-    - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr", "ufs", "DiagrammeRsvg"))'
+    - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr", "DiagrammeRsvg"))'
+    - R -e 'devtools::install_github("matherion/ufs")'
     - R -e 'devtools::check()'
   tags:
     - docker
