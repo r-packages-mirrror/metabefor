@@ -4,7 +4,7 @@ context("PRISMA flowchart tests")
 ###-----------------------------------------------------------------------------
 ###-----------------------------------------------------------------------------
 
-test_that("reading a source with no ROCK stuff works properly", {
+test_that("a PRISMA flowchart is built properly", {
   
   res1 <- specify_search(date = "2019-09-03",
                          query = "Blabla",
