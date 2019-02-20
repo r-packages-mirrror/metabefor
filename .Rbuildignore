@@ -1,9 +1,13 @@
+### R Studio files
 ^metabefor\.Rproj$
 ^\.Rproj\.user$
-^docs$
+
+### CI files
 ^\.gitlab-ci\.yml$
-^README\.Rmd$
 
-### pkgdown website
+### pkgdown websites
 public
+^docs$
 
+### Uncompiled documentation files
+^README\.Rmd$
