@@ -1,13 +1,23 @@
 ### R Studio files
-^metabefor\.Rproj$
+\.Rproj$
 ^\.Rproj\.user$
 
-### CI files
+### Configuration
+^\.travis\.yml$
+^codecov\.yml$
 ^\.gitlab-ci\.yml$
+^_pkgdown\.yml$
 
 ### pkgdown websites
 public
 ^docs$
 
+### Obsolete files/directories
+^delete/
+
 ### Uncompiled documentation files
 ^README\.Rmd$
+
+### License
+^LICENSE\.md$
+
