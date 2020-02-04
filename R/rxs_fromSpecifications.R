@@ -135,7 +135,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                                           entities[[eC$identifierCol]]);
   valueTemplates[[valueTemplateCols$identifierCol]] <-
     gsub("[^a-zA-Z0-9_.]+", "",
-         entities[[valueTemplateCols$identifierCol]]);
+         valueTemplates[[valueTemplateCols$identifierCol]]);
   
   ### Write local backup, if need be
   if (!is.null(localBackup$entities)) {
