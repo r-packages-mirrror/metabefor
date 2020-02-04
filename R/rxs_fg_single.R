@@ -6,7 +6,7 @@ rxs_fg_single <- function(node,
                           commentCharacter = "#",
                           fillerCharacter = "#",
                           repeatingSuffix = "__1__",
-                          eC = entityColNames(),
+                          eC = metabefor::opts$get(entityColNames),
                           silent=FALSE,
                           overrideLevel = NULL) {
 

@@ -1,3 +1,21 @@
+#' Title
+#'
+#' @param rxsStructure 
+#' @param yamlMetadata 
+#' @param gs_url 
+#' @param indent 
+#' @param indentSpaces 
+#' @param fullWidth 
+#' @param commentCharacter 
+#' @param fillerCharacter 
+#' @param eC 
+#' @param repeatingSuffix 
+#' @param silent 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 rxs_buildTemplate <- function(rxsStructure,
                               yamlMetadata = list(title = "Systematic Review Extraction Script Template",
                                                   author = NULL,
@@ -8,7 +26,7 @@ rxs_buildTemplate <- function(rxsStructure,
                               fullWidth = 80,
                               commentCharacter = "#",
                               fillerCharacter = "#",
-                              eC = entityColNames(),
+                              eC = metabefor::opts$get(entityColNames),
                               repeatingSuffix = "__1__",
                               silent=FALSE) {
 

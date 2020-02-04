@@ -5,7 +5,7 @@ rxs_fg_list <- function(node,
                         fullWidth = 80,
                         commentCharacter = "#",
                         fillerCharacter = "#",
-                        eC = entityColNames(),
+                        eC = metabefor::opts$get(entityColNames),
                         repeatingSuffix = "__1__",
                         silent=FALSE,
                         overrideLevel = NULL,
@@ -78,7 +78,7 @@ rxs_fg_list <- function(node,
                                     commentCharacter = commentCharacter,
                                     fillerCharacter = fillerCharacter,
                                     eC = eC);
-    return(paste0(node$name, " = ", trim(valueAssignment)));
+    return(paste0(node$name, " = ", trimws(valueAssignment)));
   }, filterFun = isLeaf);
 
   entityValidations <- node$Get(function(node) {

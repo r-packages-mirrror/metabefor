@@ -14,10 +14,10 @@ License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
 Imports: data.tree (>= 0.7.8),
-         googlesheets (0.3.0)
+         googlesheets (>= 0.3.0)

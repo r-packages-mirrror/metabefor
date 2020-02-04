@@ -6,7 +6,7 @@ rxs_fg_valueTemplateDescription <- function(node,
                                             fullWidth = 80,
                                             commentCharacter = "#",
                                             fillerCharacter = "#",
-                                            eC = entityColNames(),
+                                            eC = metabefor::opts$get(entityColNames),
                                             listVersion = FALSE) {
 
   ### This function look up (or generates) the default value for

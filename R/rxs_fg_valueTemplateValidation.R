@@ -6,7 +6,7 @@ rxs_fg_valueTemplateValidation <- function(node,
                                            fullWidth = 80,
                                            commentCharacter = "#",
                                            fillerCharacter = "#",
-                                           eC = entityColNames()) {
+                                           eC = metabefor::opts$get(entityColNames)) {
 
   ### This function looks up (or generates) the validation sets for
   ### an extractable entity.
@@ -68,14 +68,14 @@ rxs_fg_valueTemplateValidation <- function(node,
   }
 
   ### Then look in the value template specification
-  allValueTemplateFieldNames <- paste0("<<", valueTemplateColNames(), ">>");
+  allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get(valueTemplateColNames), ">>");
   matchesInValueTemplateFieldNames <-
     sapply(allValueTemplateFieldNames, grepl, x=res);
   if (any(matchesInValueTemplateFieldNames)) {
     valueTemplateFieldValues <-
-      valueTemplate[[unlist(valueTemplateColNames()[matchesInValueTemplateFieldNames])]];
+      valueTemplate[[unlist(metabefor::opts$get(valueTemplateColNames)[matchesInValueTemplateFieldNames])]];
     names(valueTemplateFieldValues) <-
-      valueTemplateColNames()[matchesInValueTemplateFieldNames]
+      metabefor::opts$get(valueTemplateColNames)[matchesInValueTemplateFieldNames]
   } else {
     valueTemplateFieldValues <- c();
   }
@@ -124,7 +124,7 @@ rxs_fg_valueTemplateValidation <- function(node,
       ### It's multiple elements, so change it into a valid vector
       fieldNameReplacementContents <-
         paste0("c(",
-               paste0(trim(unlist(strsplit(gsub("\n", " ", fullReplacementList[i]),
+               paste0(trimws(unlist(strsplit(gsub("\n", " ", fullReplacementList[i]),
                                            "||", fixed=TRUE))),
                       collapse=", "),
                ")");

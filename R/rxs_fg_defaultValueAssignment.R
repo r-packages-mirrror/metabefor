@@ -6,7 +6,7 @@ rxs_fg_defaultValueAssignment <- function(node,
                                           fullWidth = 80,
                                           commentCharacter = "#",
                                           fillerCharacter = "#",
-                                          eC = entityColNames()) {
+                                          eC = metabefor::opts$get(entityColNames)) {
 
   ### This function looks up (or generates) the default value for
   ### an extractable entity.

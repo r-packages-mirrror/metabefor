@@ -5,7 +5,7 @@ rxs_fg_dispatcher <- function(node,
                               fullWidth = 80,
                               commentCharacter = "#",
                               fillerCharacter = "#",
-                              eC = entityColNames(),
+                              eC = metabefor::opts$get(entityColNames),
                               repeatingSuffix = "__1__",
                               silent=FALSE) {
 
@@ -15,7 +15,7 @@ rxs_fg_dispatcher <- function(node,
           "class 'parsedValuetemplates', which implies that you have ",
           "not yet parsed the original spreadsheet. I will attempt to ",
           "do so myself now. Note that this means I will use (i.e. expect) ",
-          "the default column names as specified in `valueTemplateColNames()`.\n");
+          "the default column names as specified in the `valueTemplateColNames` option.\n");
     }
     valueTemplates <- parseValueTemplates(valuetemplates);
     if (!silent) {

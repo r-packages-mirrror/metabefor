@@ -1,5 +1,5 @@
 rxs_parseEntities <- function(entities,
-                              eC = entityColNames(),
+                              eC = metabefor::opts$get(entityColNames),
                               rootName = 'study') {
 
   ### Prepare dataframe with entities for conversion to a tree
@@ -52,16 +52,16 @@ rxs_parseEntities <- function(entities,
   ### nodes, then for the recurring nodes, because all recursing
   ### nodes are recurring nodes.
   recursingNodes <-
-    Traverse(extractionScriptTree,
-             traversal="level",
-             filterFun=function(node) {
-               return(isRecursingEntityDefinition(node,
-                                                  recursingColName=eC$recursingCol));
-             });
+    data.tree::Traverse(extractionScriptTree,
+                        traversal="level",
+                        filterFun=function(node) {
+                          return(isRecursingEntityDefinition(node,
+                                                             recursingColName=eC$recursingCol));
+                        });
   ### Remove all recursing node definitions from the extraction
   ### script tree
   numberOfRecursingEntities <-
-    Prune(extractionScriptTree,
+    data.tree::Prune(extractionScriptTree,
           pruneFun=function(node) {
             return(!isRecursingEntityDefinition(node,
                                                 recursingColName=eC$recursingCol));
@@ -73,16 +73,16 @@ rxs_parseEntities <- function(entities,
   ### Retrieve all recurring node definitions and place them
   ### in a separate list
   recurringNodes <-
-    Traverse(extractionScriptTree,
-             traversal="level",
-             filterFun=function(node) {
-               return(isRecurringEntityDefinition(node,
-                                                  recurringColName=eC$recurringCol));
-             });
+    data.tree::Traverse(extractionScriptTree,
+                        traversal="level",
+                        filterFun=function(node) {
+                          return(isRecurringEntityDefinition(node,
+                                                             recurringColName=eC$recurringCol));
+                        });
   ### Remove all recursing node definitions from the extraction
   ### script tree
   numberOfRecurringEntities <-
-    Prune(extractionScriptTree,
+    data.tree::Prune(extractionScriptTree,
           pruneFun=function(node) {
             return(!isRecurringEntityDefinition(node,
                                                 recurringColName=eC$recurringCol));

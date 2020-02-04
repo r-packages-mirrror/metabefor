@@ -6,7 +6,7 @@ rxs_fg_valueTemplateExamples <- function(node,
                                          fullWidth = 80,
                                          commentCharacter = "#",
                                          fillerCharacter = "#",
-                                         eC = entityColNames(),
+                                         eC = metabefor::opts$get(entityColNames),
                                          listVersion = FALSE) {
 
   ### This function looks up (or generates) the examples for
@@ -55,7 +55,7 @@ rxs_fg_valueTemplateExamples <- function(node,
 
   # ### Do fieldname replacement using regular expressions, if need be
   # allEntityFieldNames <- paste0("<<", eC, ">>");
-  # allValueTemplateFieldNames <- paste0("<<", valueTemplateColNames(), ">>");
+  # allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get(valueTemplateColNames), ">>");
   #
   # fieldNameReplacementHits <- sapply(allEntityFieldNames, grepl, x=res);
   # if (any(fieldNameReplacementHits)) {
@@ -86,14 +86,14 @@ rxs_fg_valueTemplateExamples <- function(node,
   }
 
   ### Then look in the value template specification
-  allValueTemplateFieldNames <- paste0("<<", valueTemplateColNames(), ">>");
+  allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get(valueTemplateColNames), ">>");
   matchesInValueTemplateFieldNames <-
     sapply(allValueTemplateFieldNames, grepl, x=res);
   if (any(matchesInValueTemplateFieldNames)) {
     valueTemplateFieldValues <-
-      valueTemplate[[unlist(valueTemplateColNames()[matchesInValueTemplateFieldNames])]];
+      valueTemplate[[unlist(metabefor::opts$get(valueTemplateColNames)[matchesInValueTemplateFieldNames])]];
     names(valueTemplateFieldValues) <-
-      valueTemplateColNames()[matchesInValueTemplateFieldNames]
+      metabefor::opts$get(valueTemplateColNames)[matchesInValueTemplateFieldNames]
   } else {
     valueTemplateFieldValues <- c();
   }
@@ -140,7 +140,7 @@ rxs_fg_valueTemplateExamples <- function(node,
         ### It's multiple elements, so change it into a valid vector
         fieldNameReplacementContents <-
           paste0("c(",
-                 paste0(trim(unlist(strsplit(fullReplacementList[i],
+                 paste0(trimws(unlist(strsplit(fullReplacementList[i],
                                              "||", fixed=TRUE))),
                         collapse=", "),
                  ")");
@@ -169,8 +169,8 @@ rxs_fg_valueTemplateExamples <- function(node,
     #                         commentCharacter = commentCharacter,
     #                         fillerCharacter = fillerCharacter);
     # res <- paste0(lV$commentPrefix,
-    #               trim(unlist(strsplit(res, "||", fixed=TRUE))));
-    res <- trim(unlist(strsplit(res, "||", fixed=TRUE)));
+    #               trimws(unlist(strsplit(res, "||", fixed=TRUE))));
+    res <- trimws(unlist(strsplit(res, "||", fixed=TRUE)));
     return(res);
   } else {
     lV <- rxs_fg_layoutVars(level = level,
@@ -180,7 +180,7 @@ rxs_fg_valueTemplateExamples <- function(node,
                             commentCharacter = commentCharacter,
                             fillerCharacter = fillerCharacter);
     res <- paste0(lV$commentPrefix,
-                  trim(unlist(strsplit(res, "||", fixed=TRUE))));
+                  trimws(unlist(strsplit(res, "||", fixed=TRUE))));
   }
 
   if (!listVersion) {

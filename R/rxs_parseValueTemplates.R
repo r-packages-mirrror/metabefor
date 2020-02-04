@@ -1,10 +1,10 @@
 rxs_parseValueTemplates <- function(valueTemplateDataframe,
-                                    valueTemplateCols = valueTemplateColNames()) {
+                                    valueTemplateCols = metabefor::opts$get(valueTemplateColNames)) {
   ### Convert the dataframe to a list
   res <- as.list(valueTemplateDataframe);
 
   ### Set column names to standard column names
-  names(res) <- valueTemplateColNames();
+  names(res) <- metabefor::opts$get(valueTemplateColNames);
 
   ### Extract the value template names (identifiers; using [[ because it's a tibble)
   valueTemplateNames <-

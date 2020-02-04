@@ -39,7 +39,7 @@ rxs_validation <- function(studyTree,
                       rxsStructure$parsedValueTemplates[[valueTemplateName]]$error;
                     if (is.null(errorMsg) ||
                         is.na(errorMsg) ||
-                        (nchar(trim(errorMsg)) == 0)) {
+                        (nchar(trimws(errorMsg)) == 0)) {
                       errorMsg <- "";
                     } else {
                       errorMsg <- gsub('NAME',
@@ -48,7 +48,7 @@ rxs_validation <- function(studyTree,
                     }
                   }
                 }
-                if (nchar(trim(errorMsg)) > 0) {
+                if (nchar(trimws(errorMsg)) > 0) {
                   errorMsg <-
                     paste0(": ", errorMsg);
                 }
@@ -92,7 +92,7 @@ rxs_validation <- function(studyTree,
               rxsStructure$parsedValueTemplates[[valueTemplateName]]$error;
             if (is.null(errorMsg) ||
                 is.na(errorMsg) ||
-                (nchar(trim(errorMsg)) == 0)) {
+                (nchar(trimws(errorMsg)) == 0)) {
               errorMsg <- "";
             } else {
               errorMsg <- gsub('NAME',
@@ -101,7 +101,7 @@ rxs_validation <- function(studyTree,
             }
           }
         }
-        if (nchar(trim(errorMsg)) > 0) {
+        if (nchar(trimws(errorMsg)) > 0) {
           errorMsg <-
             paste0(": ", errorMsg);
         }
