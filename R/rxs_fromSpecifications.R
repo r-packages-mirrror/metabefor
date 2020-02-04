@@ -125,18 +125,19 @@ rxs_fromSpecifications <- function(gs_url = NULL,
 
   }
   
+  ### Sanitize whitespace and unpermitted characters
   entities[[eC$identifierCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
                                        entities[[eC$identifierCol]]);
   entities[[eC$parentCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                   entities[[eC$identifierCol]]);
+                                   entities[[eC$parentCol]]);
   entities[[eC$entityRefCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                      entities[[eC$identifierCol]]);
+                                      entities[[eC$entityRefCol]]);
   entities[[eC$valueTemplateCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                          entities[[eC$identifierCol]]);
+                                          entities[[eC$valueTemplateCol]]);
   valueTemplates[[valueTemplateCols$identifierCol]] <-
     gsub("[^a-zA-Z0-9_.]+", "",
          valueTemplates[[valueTemplateCols$identifierCol]]);
-  
+
   ### Write local backup, if need be
   if (!is.null(localBackup$entities)) {
     utils::write.csv(entities,
