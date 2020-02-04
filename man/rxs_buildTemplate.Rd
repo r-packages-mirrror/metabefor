@@ -14,7 +14,7 @@ rxs_buildTemplate(
   fullWidth = 80,
   commentCharacter = "#",
   fillerCharacter = "#",
-  eC = entityColNames(),
+  eC = metabefor::opts$get(entityColNames),
   repeatingSuffix = "__1__",
   silent = FALSE
 )
