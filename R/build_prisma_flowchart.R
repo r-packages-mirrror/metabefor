@@ -1,7 +1,7 @@
-build_prisma_flowchart <- function(searches,
-                                   screening) {
-  
-  
-  
-}
-
+# build_prisma_flowchart <- function(searches,
+#                                    screening) {
+#   
+#   
+#   
+# }
+# 
