@@ -150,7 +150,7 @@ rxs_buildTemplate <- function(rxsStructure,
   }
 
   showExtractedDataChunk <- c("```{r rxsChunk-show-extracted-data, results='asis'}",
-                              "metabefor::print.rxs(study);",
+                              "print(study);",
                               "```");
 
   validationChunk <- c("```{r rxsChunk-validation, results='asis'}",
