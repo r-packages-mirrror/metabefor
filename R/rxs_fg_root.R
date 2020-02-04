@@ -42,7 +42,7 @@ rxs_fg_root <- function(node,
   ### This should actually be called 'nodeCreation'
   childAddition <- paste0(lV$indentSpaces,
                           currentEntityName,
-                          " <- Node$new('", currentEntityName, "');");
+                          " <- data.tree::Node$new('", currentEntityName, "');");
 
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
