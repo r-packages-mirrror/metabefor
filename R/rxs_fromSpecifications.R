@@ -192,6 +192,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   
   instructions <-
     paste0(
+      "\n\n# Extraction instructions\n\n",
       lapply(
         1:nrow(instructionSheet),
         function(i) {
@@ -202,7 +203,8 @@ rxs_fromSpecifications <- function(gs_url = NULL,
             )
           );
         }
-      )
+      ),
+      collapse = "\n\n"
     );
 
   if (returnFullObject) {
