@@ -51,6 +51,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                                    repeatingSuffix = "__1__",
                                    rootName = "study",
                                    silent=FALSE,
+                                   instructionHeadingLevel = 3,
                                    returnFullObject = FALSE) {
 
   ### Import sheets, if sheets identifier (gs_url) was provided
@@ -198,8 +199,10 @@ rxs_fromSpecifications <- function(gs_url = NULL,
         function(i) {
           return(
             paste0(
-              "\n\n## ", instructionSheet$title[i],
-              "\n\n", instructionSheet$description[i]
+              "\n\n",
+              ufs::repStr("#", instructionHeadingLevel), " ",
+              instructionSheet$title[i], "\n\n",
+              instructionSheet$description[i]
             )
           );
         }
