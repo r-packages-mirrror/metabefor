@@ -194,11 +194,11 @@ rxs_fromSpecifications <- function(gs_url = NULL,
     paste0(
       lapply(
         1:nrow(instructionSheet),
-        function(x) {
+        function(i) {
           return(
             paste0(
-              "\n\n## ", x['title'],
-              "\n\n", x['description']
+              "\n\n## ", instructionSheet$title[i],
+              "\n\n", instructionSheet$description[i]
             )
           );
         }
