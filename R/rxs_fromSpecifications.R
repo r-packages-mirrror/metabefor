@@ -19,6 +19,7 @@
 #' @param repeatingSuffix 
 #' @param rootName 
 #' @param silent 
+#' @param instructionHeadingLevel
 #' @param returnFullObject 
 #'
 #' @return
@@ -193,21 +194,25 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   
   instructions <-
     paste0(
-      "\n\n# Extraction instructions\n\n",
-      lapply(
-        1:nrow(instructionSheet),
-        function(i) {
-          return(
-            paste0(
-              "\n\n",
-              ufs::repStr("#", instructionHeadingLevel), " ",
-              instructionSheet$title[i], "\n\n",
-              instructionSheet$description[i]
-            )
-          );
-        }
-      ),
-      collapse = "\n\n"
+      "\n\n",
+      ufs::repStr("#", instructionHeadingLevel), " ",
+      " Extraction instructions\n\n",
+      paste0(
+        lapply(
+          1:nrow(instructionSheet),
+          function(i) {
+            return(
+              paste0(
+                "\n\n",
+                ufs::repStr("#", instructionHeadingLevel+1), " ",
+                instructionSheet$title[i], "\n\n",
+                instructionSheet$description[i]
+              )
+            );
+          }
+        ),
+        collapse = "\n\n"
+      )
     );
 
   if (returnFullObject) {
