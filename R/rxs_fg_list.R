@@ -79,7 +79,7 @@ rxs_fg_list <- function(node,
                                     fillerCharacter = fillerCharacter,
                                     eC = eC);
     return(paste0(node$name, " = ", trimws(valueAssignment)));
-  }, filterFun = isLeaf);
+  }, filterFun = data.tree::isLeaf);
 
   entityValidations <- node$Get(function(node) {
     return(rxs_fg_valueTemplateValidation(node=node,
@@ -91,7 +91,7 @@ rxs_fg_list <- function(node,
                                           commentCharacter = commentCharacter,
                                           fillerCharacter = fillerCharacter,
                                           eC = eC));
-  }, filterFun = isLeaf);
+  }, filterFun = data.tree::isLeaf);
 
   ### If this list has a child entity that is marked as an identifying
   ### entity, rename it to the value of this entity
@@ -130,7 +130,7 @@ rxs_fg_list <- function(node,
     nodeRenaming <- NULL;
   }
 
-  listElementNames <- node$Get('name', filterFun = isLeaf);
+  listElementNames <- node$Get('name', filterFun = data.tree::isLeaf);
 
   entityReferences <- node$Get('entityRef');
   entityReferences <- entityReferences[!is.na(entityReferences)];
@@ -212,16 +212,16 @@ rxs_fg_list <- function(node,
                                             fillerCharacter = fillerCharacter,
                                             eC = eC,
                                             listVersion = TRUE));
-      }, filterFun = isLeaf);
+      }, filterFun = data.tree::isLeaf);
     codingHelpStrings_examples <-
       unlist(lapply(codingHelpStrings_examples,
                     paste0,
                     collapse=codingHelpSep));
 
     codingHelpStrings_entityDescriptions <-
-      node$Get(eC$descriptionCol, filterFun = isLeaf);
+      node$Get(eC$descriptionCol, filterFun = data.tree::isLeaf);
     codingHelpStrings_entityTitles <-
-      node$Get(eC$titleCol, filterFun = isLeaf);
+      node$Get(eC$titleCol, filterFun = data.tree::isLeaf);
 
     codingHelpStrings_valueDescriptions <-
       node$Get(function(node) {
@@ -235,7 +235,7 @@ rxs_fg_list <- function(node,
                                                fillerCharacter = fillerCharacter,
                                                eC = eC,
                                                listVersion = TRUE));
-      }, filterFun = isLeaf);
+      }, filterFun = data.tree::isLeaf);
 
     valueAssignment <- paste0(valueAssignment,
                               sapply(spacesToAdd, repStr));
