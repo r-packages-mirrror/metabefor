@@ -28,7 +28,8 @@
 rxs_fromSpecifications <- function(gs_url = NULL,
                                    ws = list(entities = 'entities',
                                              valueTemplates = 'valueTemplates',
-                                             definitions = 'definitions'),
+                                             definitions = 'definitions',
+                                             instructions = 'instructions'),
                                    entitiesFilename = NULL,
                                    valueTemplatesFilename = NULL,
                                    definitionsFilename = NULL,
@@ -63,6 +64,9 @@ rxs_fromSpecifications <- function(gs_url = NULL,
       valueTemplates <- googlesheets::gs_read(gsObject, ws = ws$valueTemplates);
       if (!is.null(ws$definitions)) {
         definitions <- googlesheets::gs_read(gsObject, ws = ws$definitions);
+      }
+      if (!is.null(ws$instructions)) {
+        instructionSheet <- googlesheets::gs_read(gsObject, ws = ws$instructions);
       }
       if (!silent) {
         cat("Successfully read the extraction script specifications from Google sheets.\n");
@@ -185,6 +189,21 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   if (!silent) {
     cat("Parsed extraction script specifications into extraction script template.\n");
   }
+  
+  instructions <-
+    paste0(
+      lapply(
+        1:nrow(instructionSheet),
+        function(x) {
+          return(
+            paste0(
+              "\n\n## ", x['title'],
+              "\n\n", x['description']
+            )
+          );
+        }
+      )
+    );
 
   if (returnFullObject) {
     res <- list(rxsSpecification = list(entities = entities,
@@ -199,7 +218,8 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                                         commentCharacter = commentCharacter,
                                         fillerCharacter = fillerCharacter),
                 rxsStructure = rxsStructure,
-                rxsTemplate = rxsTemplate);
+                rxsTemplate = rxsTemplate,
+                rxsInstructions = instructions);
     class(res) <- "rxsStructure";
   } else {
     res <- rxsTemplate;
