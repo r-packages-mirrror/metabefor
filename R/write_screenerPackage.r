@@ -1,12 +1,11 @@
 #' @export
 write_screenerPackage <- function(bibliographyDf,
+                                  outputPath,
                                   screeners = c("a", "b"),
                                   screenerFieldsPrefix = "screener",
                                   screenerFieldsSuffix = "status",
                                   duplicateField = NULL,
-                                  outputPath = getwd(),
                                   basename = "screening_",
-                                  screeningType = "screening",
                                   suffixedConfigFiles = FALSE,
                                   ...) {
   
@@ -60,6 +59,6 @@ write_screenerPackage <- function(bibliographyDf,
                                        ...);
   }
   
-  return(res);
+  return(invisible(res));
 
 }
