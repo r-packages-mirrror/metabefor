@@ -15,7 +15,7 @@ find \%IN\% table
 A logical vector.
 }
 \description{
-This is simply 'in', but applies \code{\link[base:toupper]{base::toupper()}} to both
+This is simply 'in', but applies \code{\link[base:chartr]{base::toupper()}} to both
 arguments, first.
 }
 \examples{

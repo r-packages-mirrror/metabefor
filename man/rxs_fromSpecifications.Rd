@@ -7,7 +7,7 @@
 rxs_fromSpecifications(
   gs_url = NULL,
   ws = list(entities = "entities", valueTemplates = "valueTemplates", definitions =
-    "definitions"),
+    "definitions", instructions = "instructions"),
   entitiesFilename = NULL,
   valueTemplatesFilename = NULL,
   definitionsFilename = NULL,
@@ -26,6 +26,7 @@ rxs_fromSpecifications(
   repeatingSuffix = "__1__",
   rootName = "study",
   silent = FALSE,
+  instructionHeadingLevel = 3,
   returnFullObject = FALSE
 )
 }

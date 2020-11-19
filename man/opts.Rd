@@ -7,7 +7,9 @@
 \alias{get}
 \alias{reset}
 \title{Options for the rock package}
-\format{An object of class \code{list} of length 4.}
+\format{
+An object of class \code{list} of length 4.
+}
 \usage{
 opts
 }
