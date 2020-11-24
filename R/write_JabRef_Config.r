@@ -3,8 +3,8 @@ write_JabRef_Config <- function(outputPath,
                                 screeners = c("a", "b"),
                                 screenerFieldsPrefix = "screener",
                                 screenerFieldsSuffix = "status",
-                                screenerConfidencePrefix = "screener".
-                                screenerConfidenceSuffix = "confidence".
+                                screenerConfidencePrefix = "screener",
+                                screenerConfidenceSuffix = "confidence",
                                 fields = c("title", "abstract"),
                                 duplicateField = NULL,
                                 sortField = "title",
