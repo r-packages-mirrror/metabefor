@@ -128,7 +128,11 @@ write_JabRef_Config <- function(outputPath,
     res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_SCREENERFIELD", screenerFieldReplacement, res$intermediate$screenerXML[[currentScreener]]);
 
     ### Replace fields to screen
-    res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_FIELDS", paste0(fields, collapse=";"), res$intermediate$screenerXML[[currentScreener]]);
+    res$intermediate$screenerXML[[currentScreener]] <-
+      gsub("SYSREV_FIELDS",
+           paste0(c(res$intermediate$screenerConfidenceFields[currentScreener], fields),
+                  collapse=";"),
+           res$intermediate$screenerXML[[currentScreener]]);
 
     ### Replace field widths
     fieldWidths <- paste0(paste(round(rep(1000/length(fields), length(fields))), collapse=";"), ";100");
