@@ -82,7 +82,7 @@ write_JabRef_Config <- function(outputPath,
             <entry key="preview0" value="\\begin{title} \\format[HTMLChars]{\\title} \\end{title}&lt;BR&gt;"/>
             <entry key="preview1" value="\\begin{title} \\format[HTMLChars]{\\title} \\end{title}&lt;BR&gt;"/>
             <entry key="customTabName_0" value="Screening"/>
-            <entry key="customTabFields_0" value="SYSREV_FIELDS;SYSREV_SCREENERFIELD"/>
+            <entry key="customTabFields_0" value="SYSREV_FIELDS;SYSREV_SCREENERFIELD;SYSREV_CONF_FIELD"/>
             <entry key="columnNames" value="SYSREV_FIELDS;SYSREV_SCREENERFIELD"/>
             <entry key="columnWidths" value="SYSREV_FIELDWIDTHS"/>
             <entry key="numberColWidth" value="50"/>
@@ -116,16 +116,17 @@ write_JabRef_Config <- function(outputPath,
     
     ### Replace screenerfield for this screener
     if (!is.null(screenerConfidencePrefix)) {
-      screenerFieldReplacement <-
-        paste0(res$intermediate$screenerFields[currentScreener],
-               ";",
-               res$intermediate$screenerConfidenceFields[currentScreener]
-        );
+      res$intermediate$screenerXML[[currentScreener]] <-
+        gsub("SYSREV_CONF_FIELD",
+             res$intermediate$screenerConfidenceFields[currentScreener],
+             res$intermediate$screenerXML[[currentScreener]]);
     } else {
-      screenerFieldReplacement <-
-        res$intermediate$screenerFields[currentScreener];
+      res$intermediate$screenerXML[[currentScreener]] <-
+        gsub("SYSREV_CONF_FIELD",
+             "",
+             res$intermediate$screenerXML[[currentScreener]]);
     }
-    res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_SCREENERFIELD", screenerFieldReplacement, res$intermediate$screenerXML[[currentScreener]]);
+    res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_SCREENERFIELD", res$intermediate$screenerFields[currentScreener], res$intermediate$screenerXML[[currentScreener]]);
 
     ### Replace fields to screen
     res$intermediate$screenerXML[[currentScreener]] <-
