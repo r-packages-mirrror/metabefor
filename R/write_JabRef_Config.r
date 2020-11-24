@@ -3,7 +3,9 @@ write_JabRef_Config <- function(outputPath,
                                 screeners = c("a", "b"),
                                 screenerFieldsPrefix = "screener",
                                 screenerFieldsSuffix = "status",
-                                fields = (c("title", "abstract")),
+                                screenerConfidencePrefix = "screener".
+                                screenerConfidenceSuffix = "confidence".
+                                fields = c("title", "abstract"),
                                 duplicateField = NULL,
                                 sortField = "title",
                                 sortDesc = FALSE,
@@ -21,6 +23,9 @@ write_JabRef_Config <- function(outputPath,
 
   res$intermediate$screenerFields <-
     paste0(screenerFieldsPrefix, screeners, screenerFieldsSuffix);
+  
+  res$intermediate$screenerConfidenceFields <-
+    paste0(screenerConfidencePrefix, screeners, screenerConfidenceSuffix);
   
   if (!is.null(duplicateField)) {
     res$intermediate$fields <- fields <- c(fields, duplicateField);
@@ -110,11 +115,21 @@ write_JabRef_Config <- function(outputPath,
     res$intermediate$screenerXML[[currentScreener]] <- jabrefXML;
     
     ### Replace screenerfield for this screener
-    res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_SCREENERFIELD", res$intermediate$screenerFields[currentScreener], res$intermediate$screenerXML[[currentScreener]]);
-    
+    if (!is.null(screenerConfidencePrefix)) {
+      screenerFieldReplacement <-
+        paste0(res$intermediate$screenerFields[currentScreener],
+               ";",
+               res$intermediate$screenerConfidenceFields[currentScreener]
+        );
+    } else {
+      screenerFieldReplacement <-
+        res$intermediate$screenerFields[currentScreener];
+    }
+    res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_SCREENERFIELD", screenerFieldReplacement, res$intermediate$screenerXML[[currentScreener]]);
+
     ### Replace fields to screen
     res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_FIELDS", paste0(fields, collapse=";"), res$intermediate$screenerXML[[currentScreener]]);
-    
+
     ### Replace field widths
     fieldWidths <- paste0(paste(round(rep(1000/length(fields), length(fields))), collapse=";"), ";100");
     res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_FIELDWIDTHS", fieldWidths, res$intermediate$screenerXML[[currentScreener]]);
