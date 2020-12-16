@@ -109,16 +109,13 @@ rxs_buildTemplate <- function(rxsStructure,
                   "ufs::checkPkgs('googlesheets');     ### To import data from google sheets in metabefor",
                   "ufs::checkPkgs('jsonlite');         ### To import a list of country codes in metabefor",
                   "ufs::checkPkgs('data.tree');        ### To work with data structured in a tree in metabefor",
-                  "ufs::checkPkgs('pander');           ### To print the dataframe with results in a nice way",
-                  "ufs::checkPkgs('devtools');         ### To install metabefor from github repo",
+                  "ufs::checkPkgs('remotes');          ### To install metabefor from GitLab repo",
                   "                                    ### ... Which we then do here:",
-                  "devtools::install_gitlab('r-packages/metabefor',",
-                  "                         quiet=TRUE);",
+                  "ufs::quietGitLabUpdate('r-packages/metabefor');",
                   "",
                   "### Settings",
                   "knitr::opts_chunk$set(echo = FALSE);             ### Suppress R command printing",
                   "knitr::opts_chunk$set(comment=NA);               ### Suppress output prefix",
-                  "pander::panderOptions('table.split.table', Inf); ### Disable table splitting",
                   "```");
 
 
@@ -149,13 +146,13 @@ rxs_buildTemplate <- function(rxsStructure,
                               "```");
   }
 
-  showExtractedDataChunk <- c("```{r rxsChunk-show-extracted-data, results='asis'}",
+  showExtractedDataChunk <- c("```{r rxsChunk-show-extracted-data}",
                               "print(study);",
                               "```");
 
   validationChunk <- c("```{r rxsChunk-validation, results='asis'}",
-                       "metabefor::rxs_validation(study);",
-                       "pander::pandoc.header('Validation results', level=1)",
+                       "#metabefor::rxs_validation(study);",
+                       "ufs::heading('Validation results', headingLevel = 1);",
                        "#rxs_validation(study,",
                        "#               rxsStructure = fullResults$rxsStructure);",
                        "if (length(study$validationResults) > 2) {",

@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param studyTree 
+#' @param rxsStructure 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 rxs_validation <- function(studyTree,
                            rxsStructure=NULL) {
   studyTree$Set(validationResults = paste0("Validation run starting at ",
