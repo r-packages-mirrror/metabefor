@@ -59,7 +59,7 @@ print.rxs <- function(studyTree,
                         nodeValue = flattenNodeValues(nodeValue),
                         stringsAsFactors = FALSE));
     }
-  }, filterFun = isLeaf,
+  }, filterFun = data.tree::isLeaf,
      simplify=FALSE);
 
   res <- do.call("rbind", res)
