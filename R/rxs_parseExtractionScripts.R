@@ -1,5 +1,18 @@
+#' Read and parse the extraction scripts in a directory
+#'
+#' @param path The path containing the extraction scripts.
+#' @param pattern The regular expression specifying which files to read.
+#' @param exclude A regular expression specifying which files to ignore.
+#' @param ignore.case Whether the regular expression is case sensitive.
+#' @param recursive Whether to also look in subdirectories.
+#' @param quiet Whether to be quiet or chatty.
+#' @param showErrors Whether to show or hide errors that are encountered.
+#' @param encoding The files' encoding.
+#'
+#' @return A list of parsed extraction scripts.
+#' @export
 rxs_parseExtractionScripts <- function(path,
-                                       pattern="\\.rxs\\.Rmd",
+                                       pattern="\\.rxs\\.Rmd$|\\.rxs$",
                                        exclude=c("extractionScriptTemplate.rxs.Rmd",
                                                  "\\[EXCLUDED]"),
                                        ignore.case=TRUE,
