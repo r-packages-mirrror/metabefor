@@ -1,0 +1,77 @@
+
+<div style="display:block;clear:both;" class="rxs-start"></div>
+  <div class="rxs-container">
+    
+```{r, eval=TRUE, echo=FALSE}
+
+  oldKableViewOption <- getOption("kableExtra_view_html", NULL);
+  options(kableExtra_view_html = FALSE);
+  
+  if (!exists('headingLevel') || !is.numeric(headingLevel) || (length(headingLevel) != 1)) {
+    headingLevel <- 0;
+  }
+  
+```
+  
+```{r, results='asis', eval=TRUE}
+  ufs::heading("Extracted Study", headingLevel=headingLevel);
+```
+
+```{r, echo=echoPartial, results='asis', eval=TRUE}
+
+  res <-
+    studyTree_to_dataframe(studyTree);
+
+  ufs::heading("Tree of extracted entities", headingLevel=headingLevel+1);
+
+  if (getOption('metabefor.debug', FALSE)) {
+    cat("\n\n\n\n");
+  }
+    
+  printableStudyTree <- data.tree::Clone(studyTree);
+  class(printableStudyTree) <- setdiff(class(studyTree), "rxs");
+
+```
+
+<pre>
+
+```{r, echo=echoPartial, results='asis', eval=TRUE}
+
+  ### Suppress warnings until bug in data.tree is fixed, see:
+  ### https://github.com/gluc/data.tree/issues/106
+  suppressWarnings(print(printableStudyTree));
+
+```
+
+</pre>
+
+```{r, echo=echoPartial, results='asis', eval=TRUE}
+
+  ufs::heading("Table with extracted entities and extracted values",
+               headingLevel=headingLevel+1);
+
+      # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
+      #                 quiet = TRUE));
+  knitr::kable(res, row.names=FALSE);
+
+```
+
+
+```{r, echo=echoPartial, results='asis', eval=(!is.null(x$output$plot)), fig.width=5, fig.height=5, fig.cap="Scatterplot with regression line" }
+  
+  ufs::heading("Scatterplot",
+               headingLevel = headingLevel+1);
+  
+  x$output$plot;
+  
+```
+
+  
+```{r echo=FALSE}
+  if (!is.null(oldKableViewOption)) {
+    options(kableExtra_view_html = oldKableViewOption);
+  }
+```
+  
+  </div>
+<div style="display:block;clear:both;" class="rxs-end"></div>

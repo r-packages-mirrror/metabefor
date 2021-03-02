@@ -1,89 +1,116 @@
-#' Title
+#' Printing a tree of R extraction scripts
 #'
-#' @param studyTree 
-#' @param rxsStructure 
-#' @param knit 
+#' @param studyTree The study tree
+#' @param rxsStructure Optionally, the rxs structure
 #' @param headerPrefix 
 #' @param ... 
 #'
-#' @return
-#'
-#' @examples
+#' @return invisibly, the dataframe with paths and values.
+#' 
+#' @rdname printrxs
+
+
+###-----------------------------------------------------------------------------
+
+#' @rdname printrxs
 #' @export
+rxs_partial <- function(studyTree,
+                        rxsStructure=NULL,
+                        headingLevel = x$headingLevel,
+                        printPlots = TRUE,
+                        echoPartial = FALSE,
+                        partialFile = NULL,
+                        ...) {
+  
+  ### Get filename
+  if (!is.null(partialFile) && file.exists(partialFile)) {
+    rmdPartialFilename <-
+      partialFile;
+  } else {
+    rmdPartialFilename <-
+      system.file("partials", "_rxs_partial.Rmd", package="metabefor");
+  }
+  
+  rmdpartials::partial(rmdPartialFilename);
+  
+}
+
+###-----------------------------------------------------------------------------
+
+#' @rdname printrxs
+#' @method knit_print rxs
+#' @importFrom knitr knit_print
+#' @export
+knit_print.rxs <- function(studyTree,
+                           rxsStructure=NULL,
+                           headingLevel = 3,
+                           echoPartial = FALSE,
+                           partialFile = NULL,
+                           ...) {
+  
+  rxs_partialfunction(studyTree,
+                      rxsStructure=rxsStructure,
+                      headingLevel=headingLevel,
+                      echoPartial=echoPartial,
+                      partialFile=partialFile,
+                      ...);
+}
+
+###-----------------------------------------------------------------------------
+
+#' @export
+#' @rdname printrxs
 print.rxs <- function(studyTree,
                       rxsStructure=NULL,
-                      knit=TRUE,
-                      headerPrefix = "### ",
+                      headingLevel = 3,
+                      echoPartial = FALSE,
+                      partialFile = NULL,
                       ...) {
-
-  flattenNodeValues <- function(x) {
-    if (!is.list(x)) x <- list(x);
-    res <- lapply(x, function(singleValue) {
-      if (is.null(singleValue)) {
-        return(NULL);
-      } else if (all(is.na(singleValue))) {
-        return(NA);
-      } else if (length(singleValue) == 1) {
-        return(singleValue);
-      } else if (is.vector(singleValue)) {
-        return(ufs::vecTxtQ(singleValue));
-      } else if (is.matrix(singleValue)) {
-        return(paste(apply(singleValue, 1, vecTxtQ), collapse="\n"));
-      } else {
-        return(utils::capture.output(str(singleValue)));
-      }
-    });
-    return(unlist(res));
-  }
-
-  res <- studyTree$Get(function(node) {
-    nodeName <- node$name;
-    nodeValue <- node$value;
-    if (is.null(nodeValue)) {
-      nodeValue <- "NULL (element absent from extraction script)";
-    }
-    if (is.list(nodeValue)) {
-      pathString <- node$pathString;
-
-      ### Note - this will become problematic if the list contains
-      ### more complicated values such as vectors or tables!!!
-
-      return(data.frame(path = rep(pathString, length(nodeValue)),
-                        entity = names(nodeValue),
-                        nodeValue = flattenNodeValues(nodeValue),
-                        stringsAsFactors = FALSE));
-    } else {
-      pathString <- node$parent$pathString;
-      return(data.frame(path = pathString,
-                        entity = nodeName,
-                        nodeValue = flattenNodeValues(nodeValue),
-                        stringsAsFactors = FALSE));
-    }
-  }, filterFun = data.tree::isLeaf,
-     simplify=FALSE);
-
-  res <- do.call("rbind", res)
-
-  print(paste0(headerPrefix, " Tree of extracted entities\n\n"));
-
-  printableStudyTree <- data.tree::Clone(studyTree);
-  class(printableStudyTree) <- setdiff(class(studyTree), "rxs");
-
-  if (knit) cat("\n\n<pre>");
-  ### Suppress warnings until bug in data.tree is fixed, see:
-  ### https://github.com/gluc/data.tree/issues/106
-  suppressWarnings(print(printableStudyTree));
-  if (knit) cat("</pre>\n\n");
-
-  print(paste0(headerPrefix, " Table with extracted entities and extracted values\n\n"));
-
-  if (knit) {
-    # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
-    #                 quiet = TRUE));
-    print(knitr::kable(res, row.names=FALSE));
-    return(invisible(res));
+  
+  if (isTRUE(getOption('knitr.in.progress')) || forceKnitrOutput) {
+    
+    rxs_partial(studyTree = studyTree,
+                rxsStructure = rxsStructure,
+                headingLevel = headingLevel,
+                echoPartial = echoPartial,
+                partialFile = partialFile,
+                ...);
+    
   } else {
-    return(res);
-  }
+    
+    headerPrefix <-
+      paste0(paste(rep("#", headingLevel), collapse=""), " " );
+    
+    res <-
+      studyTree_to_dataframe(studyTree);
 
+    print(paste0(headerPrefix, " Tree of extracted entities\n\n"));
+    
+    if (getOption('metabefor.debug', FALSE)) {
+      cat("\n\n\n\n");
+    }
+    
+    printableStudyTree <- data.tree::Clone(studyTree);
+    class(printableStudyTree) <- setdiff(class(studyTree), "rxs");
+    
+    if (knit) cat("\n\n<pre>");
+    ### Suppress warnings until bug in data.tree is fixed, see:
+    ### https://github.com/gluc/data.tree/issues/106
+    suppressWarnings(print(printableStudyTree));
+    if (knit) cat("</pre>\n\n");
+    
+    print(paste0(headerPrefix, " Table with extracted entities and extracted values\n\n"));
+    
+    if (knit) {
+      # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
+      #                 quiet = TRUE));
+      print(knitr::kable(res, row.names=FALSE));
+      return(invisible(res));
+    } else {
+      return(res);
+    }
+    
+    
+  }
+  
 }
