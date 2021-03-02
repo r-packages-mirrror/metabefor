@@ -52,7 +52,7 @@
 
       # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
       #                 quiet = TRUE));
-  knitr::kable(res, row.names=FALSE);
+  print(knitr::kable(res, row.names=FALSE));
 
 ```
 

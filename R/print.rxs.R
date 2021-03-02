@@ -63,6 +63,7 @@ knit_print.rxs <- function(studyTree,
 print.rxs <- function(studyTree,
                       rxsStructure=NULL,
                       headingLevel = 3,
+                      forceKnitrOutput = FALSE,
                       echoPartial = FALSE,
                       partialFile = NULL,
                       ...) {
