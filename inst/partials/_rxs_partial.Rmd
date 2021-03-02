@@ -1,14 +1,7 @@
 
 <div style="display:block;clear:both;" class="rxs-start"></div>
   <div class="rxs-container">
-  
-  
 
-<h1>This is the RMD partial file.</h1>
-
-
-
-    
 ```{r, eval=TRUE, echo=FALSE}
 
   oldKableViewOption <- getOption("kableExtra_view_html", NULL);
