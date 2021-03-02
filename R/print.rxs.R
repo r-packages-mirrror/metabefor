@@ -64,7 +64,7 @@ print.rxs <- function(studyTree,
 
   res <- do.call("rbind", res)
 
-  cat0(headerPrefix, "\n\nTree of extracted entities\n\n");
+  cat0(headerPrefix, " Tree of extracted entities\n\n");
 
   printableStudyTree <- data.tree::Clone(studyTree);
   class(printableStudyTree) <- setdiff(class(studyTree), "rxs");
@@ -75,7 +75,7 @@ print.rxs <- function(studyTree,
   suppressWarnings(print(printableStudyTree));
   if (knit) cat("</pre>\n\n");
 
-  cat0(headerPrefix, "\n\nTable with extracted entities and extracted values\n\n");
+  cat0(headerPrefix, " Table with extracted entities and extracted values\n\n");
 
   if (knit) {
     cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
