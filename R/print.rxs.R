@@ -8,11 +8,6 @@
 #' @return invisibly, the dataframe with paths and values.
 #' 
 #' @rdname printrxs
-
-
-###-----------------------------------------------------------------------------
-
-#' @rdname printrxs
 #' @export
 rxs_partial <- function(studyTree,
                         rxsStructure=NULL,
