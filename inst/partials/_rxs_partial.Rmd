@@ -59,6 +59,7 @@
 
       # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
       #                 quiet = TRUE));
+
   print(knitr::kable(res, row.names=FALSE));
 
 ```
@@ -66,10 +67,10 @@
 
 ```{r, echo=echoPartial, results='asis', eval=(!is.null(studyTree$output$plot)), fig.width=5, fig.height=5, fig.cap="Scatterplot with regression line" }
   
-  ufs::heading("Scatterplot",
+  ufs::heading("Plot",
                headingLevel = headingLevel+1);
   
-  x$output$plot;
+  studyTree$output$plot;
   
 ```
 
