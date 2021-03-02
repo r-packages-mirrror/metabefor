@@ -9,7 +9,7 @@
 #' 
 #' @rdname printrxs
 #' @export
-rxs_partial <- function(studyTree,
+rxs_partial <- function(x,
                         rxsStructure=NULL,
                         headingLevel = x$headingLevel,
                         printPlots = TRUE,
@@ -36,14 +36,14 @@ rxs_partial <- function(studyTree,
 #' @method knit_print rxs
 #' @importFrom knitr knit_print
 #' @export
-knit_print.rxs <- function(studyTree,
+knit_print.rxs <- function(x,
                            rxsStructure=NULL,
                            headingLevel = 3,
                            echoPartial = FALSE,
                            partialFile = NULL,
                            ...) {
   
-  rxs_partialfunction(studyTree,
+  rxs_partialfunction(x = x,
                       rxsStructure=rxsStructure,
                       headingLevel=headingLevel,
                       echoPartial=echoPartial,
@@ -55,7 +55,7 @@ knit_print.rxs <- function(studyTree,
 
 #' @export
 #' @rdname printrxs
-print.rxs <- function(studyTree,
+print.rxs <- function(x,
                       rxsStructure=NULL,
                       headingLevel = 3,
                       forceKnitrOutput = FALSE,
@@ -65,7 +65,7 @@ print.rxs <- function(studyTree,
   
   if (isTRUE(getOption('knitr.in.progress')) || forceKnitrOutput) {
     
-    rxs_partial(studyTree = studyTree,
+    rxs_partial(x = x,
                 rxsStructure = rxsStructure,
                 headingLevel = headingLevel,
                 echoPartial = echoPartial,
@@ -73,6 +73,8 @@ print.rxs <- function(studyTree,
                 ...);
     
   } else {
+    
+    studyTree <- x;
     
     headerPrefix <-
       paste0(paste(rep("#", headingLevel), collapse=""), " " );
