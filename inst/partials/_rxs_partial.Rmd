@@ -27,7 +27,7 @@
 ```{r, echo=echoPartial, results='asis', eval=TRUE}
 
   res <-
-    studyTree_to_dataframe(studyTree);
+    studyTree_to_dataframe(x);
 
   ufs::heading("Tree of extracted entities", headingLevel=headingLevel+1);
 
@@ -35,8 +35,8 @@
     cat("\n\n\n\n");
   }
     
-  printableStudyTree <- data.tree::Clone(studyTree);
-  class(printableStudyTree) <- setdiff(class(studyTree), "rxs");
+  printableStudyTree <- data.tree::Clone(x);
+  class(printableStudyTree) <- setdiff(class(x), "rxs");
 
 ```
 
