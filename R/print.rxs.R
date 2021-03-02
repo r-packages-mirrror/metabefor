@@ -75,11 +75,12 @@ print.rxs <- function(studyTree,
   suppressWarnings(print(printableStudyTree));
   if (knit) cat("</pre>\n\n");
 
-  cat0(headerPrefix, " Table with extracted entities and extracted values\n\n");
+  cat(headerPrefix, " Table with extracted entities and extracted values\n\n", sep="");
 
   if (knit) {
-    cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
-                    quiet = TRUE));
+    # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
+    #                 quiet = TRUE));
+    cat(print(knitr::kable(res, row.names=FALSE)));
     return(invisible(res));
   } else {
     return(res);
