@@ -95,7 +95,9 @@ rxs_buildTemplate <- function(rxsStructure,
                   "    self-contained: yes",
                   "    toc: false",
                   "params:",
-                  "  rxsVersion = \"0.1.0\"",
+                  "  rxsVersion = \"0.2.0\"",
+                  "editor_options:",
+                  "  chunk_output_type: console",
                   "---",
                   "");
 

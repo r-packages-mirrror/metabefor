@@ -7,9 +7,9 @@
 #' @param ... 
 #'
 #' @return
-#' @export
 #'
 #' @examples
+#' @export
 print.rxs <- function(studyTree,
                       rxsStructure=NULL,
                       knit=TRUE,
