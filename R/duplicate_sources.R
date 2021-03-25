@@ -26,6 +26,16 @@ duplicate_sources <- function(primarySources,
                               forDeduplicationSuffix = "_forDeduplication",
                               silent = metabefor::opts$get("silent")) {
   
+  if (!(doiCol %in% names(primarySources))) {
+    stop("The column specified for the DOIs with argument `doiCol`, '",
+         doiCol, "', does not occur in the `primarySources` dataframe.");
+  }
+  if (!(titleCol %in% names(primarySources))) {
+    stop("The column specified for the source titles with argument ",
+         "`titleCol`, '", titleCol,
+         "', does not occur in the `primarySources` dataframe.");
+  }
+  
   ### For convenience
   doi_forDeduplicationCol <- paste0(doiCol, forDeduplicationSuffix);
   title_forDeduplicationCol <- paste0(titleCol, forDeduplicationSuffix);
