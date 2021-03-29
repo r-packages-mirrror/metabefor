@@ -39,7 +39,7 @@ duplicate_sources <- function(primarySources,
   ### For convenience
   doi_forDeduplicationCol <- paste0(doiCol, forDeduplicationSuffix);
   title_forDeduplicationCol <- paste0(titleCol, forDeduplicationSuffix);
-  
+
   ### Clean up DOIs
   primarySources[, doi_forDeduplicationCol] <-
     trimws(tolower(primarySources[, doiCol]));
@@ -139,9 +139,9 @@ duplicate_sources <- function(primarySources,
         primarySources[, title_forDeduplicationCol],
         method = stringDistanceMethod
       );
-    
+
   }
-  
+
   ### Flag duplicates
   stringDistancesFlagged <-
     stringDistances < stringDistance;

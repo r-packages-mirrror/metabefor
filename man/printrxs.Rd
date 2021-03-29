@@ -7,7 +7,7 @@
 \title{Printing a tree of R extraction scripts}
 \usage{
 rxs_partial(
-  studyTree,
+  x,
   rxsStructure = NULL,
   headingLevel = x$headingLevel,
   printPlots = TRUE,
@@ -17,7 +17,7 @@ rxs_partial(
 )
 
 \method{knit_print}{rxs}(
-  studyTree,
+  x,
   rxsStructure = NULL,
   headingLevel = 3,
   echoPartial = FALSE,
@@ -26,7 +26,7 @@ rxs_partial(
 )
 
 \method{print}{rxs}(
-  studyTree,
+  x,
   rxsStructure = NULL,
   headingLevel = 3,
   forceKnitrOutput = FALSE,
@@ -36,11 +36,11 @@ rxs_partial(
 )
 }
 \arguments{
-\item{studyTree}{The study tree}
-
 \item{rxsStructure}{Optionally, the rxs structure}
 
 \item{...}{}
+
+\item{studyTree}{The study tree}
 
 \item{headerPrefix}{}
 }
