@@ -24,6 +24,7 @@ duplicate_sources <- function(primarySources,
                               doiCol = "doi",
                               titleCol = "title",
                               forDeduplicationSuffix = "_forDeduplication",
+                              returnRawStringDistances = FALSE,
                               silent = metabefor::opts$get("silent")) {
   
   if (!(doiCol %in% names(primarySources))) {
@@ -114,13 +115,13 @@ duplicate_sources <- function(primarySources,
     
     ### Prepare vector with results
     res <- rep("", nrow(secondarySources));
-    
+
     ### Find duplicates based on DOIs
     res <-
       ifelse(
-        !is.na(secondarySources[, doi_forDeduplicationCol]) *
-          (secondarySources[, doi_forDeduplicationCol] %in%
-             primarySources[, doi_forDeduplicationCol]),
+        !is.na(secondarySources[, doi_forDeduplicationCol]) &
+          isTRUE(secondarySources[, doi_forDeduplicationCol] %in%
+                 primarySources[, doi_forDeduplicationCol]),
         paste0(res, ">doi"),
         res
       );
@@ -145,7 +146,7 @@ duplicate_sources <- function(primarySources,
   ### Flag duplicates
   stringDistancesFlagged <-
     stringDistances < stringDistance;
-  
+
   ### Get indices of duplicates for each entry
   stringDistanceDuplicates <-
     apply(
@@ -153,6 +154,15 @@ duplicate_sources <- function(primarySources,
       1,
       which
     );
+  
+  stringDistances_forFlagged <-
+    lapply(
+      seq_along(stringDistanceDuplicates),
+      function(rowIndex) {
+        return(stringDistances[rowIndex, stringDistanceDuplicates[[rowIndex]]]);
+      }
+    );
+
   stringDistanceDuplicates_asString <-
     unlist(lapply(stringDistanceDuplicates, ufs::vecTxtQ));
   stringDistance_nrOfDuplicates <-
@@ -205,11 +215,20 @@ duplicate_sources <- function(primarySources,
   }
 
   attr(res, "duplicateInfo") <-
-    list(secondaryRowsWithDuplicates = which(stringDistance_hasDuplicates),
-         primaryDuplicateRows = sort(unique(unlist(stringDistanceDuplicates))),
-         stringDistanceDuplicates = stringDistanceDuplicates[which(stringDistance_hasDuplicates)],
-         stringDistance_duplicateTitles = stringDistance_duplicateTitles[which(stringDistance_hasDuplicates)],
-         stringDistance_originalTitles = stringDistance_originalTitles);
+    list(
+      secondaryRowsWithDuplicates = which(stringDistance_hasDuplicates),
+      primaryDuplicateRows = sort(unique(unlist(stringDistanceDuplicates))),
+      stringDistanceDuplicates = stringDistanceDuplicates[which(stringDistance_hasDuplicates)],
+      stringDistance_duplicateTitles = stringDistance_duplicateTitles[which(stringDistance_hasDuplicates)],
+      stringDistance_originalTitles = stringDistance_originalTitles,
+      actualStringDistances = stringDistances_forFlagged[which(stringDistance_hasDuplicates)]
+    );
+  
+  if (returnRawStringDistances) {
+    attr(res, "duplicateInfo") <-
+      c(attr(res, "duplicateInfo"),
+        list(rawStringDistances = stringDistances));
+  }
   
   return(res);
   
