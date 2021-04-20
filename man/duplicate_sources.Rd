@@ -14,6 +14,7 @@ duplicate_sources(
   doiCol = "doi",
   titleCol = "title",
   forDeduplicationSuffix = "_forDeduplication",
+  returnRawStringDistances = FALSE,
   silent = metabefor::opts$get("silent")
 )
 }

@@ -82,33 +82,20 @@ print.rxs <- function(x,
     res <-
       studyTree_to_dataframe(studyTree);
 
-    print(paste0(headerPrefix, " Tree of extracted entities\n\n"));
-    
-    if (getOption('metabefor.debug', FALSE)) {
-      cat("\n\n\n\n");
-    }
-    
+    cat(paste0(headerPrefix, " Tree of extracted entities\n\n"));
+
     printableStudyTree <- data.tree::Clone(studyTree);
     class(printableStudyTree) <- setdiff(class(studyTree), "rxs");
     
-    if (knit) cat("\n\n<pre>");
     ### Suppress warnings until bug in data.tree is fixed, see:
     ### https://github.com/gluc/data.tree/issues/106
     suppressWarnings(print(printableStudyTree));
-    if (knit) cat("</pre>\n\n");
+
+    cat(paste0(headerPrefix, " Table with extracted entities and extracted values\n\n"));
     
-    print(paste0(headerPrefix, " Table with extracted entities and extracted values\n\n"));
-    
-    if (knit) {
-      # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
-      #                 quiet = TRUE));
-      print(knitr::kable(res, row.names=FALSE));
-      return(invisible(res));
-    } else {
-      return(res);
-    }
-    
-    
+    ### This will print the data frame
+    return(res);
+
   }
   
 }
