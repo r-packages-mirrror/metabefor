@@ -20,7 +20,7 @@
 ```{r, echo=echoPartial, results='asis', eval=TRUE}
 
   res <-
-    studyTree_to_dataframe(x);
+    studyTree_to_valueDf(x);
 
   ufs::heading("Tree of extracted entities", headingLevel=headingLevel+1);
 

@@ -1,4 +1,4 @@
-studyTree_to_dataframe <- function(studyTree) {
+studyTree_to_valueDf <- function(studyTree) {
   
   res <- studyTree$Get(function(node) {
     nodeName <- node$name;
@@ -27,7 +27,7 @@ studyTree_to_dataframe <- function(studyTree) {
   simplify=FALSE);
   
   res <- do.call("rbind", res);
-  
+
   return(res);
   
 }

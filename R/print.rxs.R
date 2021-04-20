@@ -80,7 +80,7 @@ print.rxs <- function(x,
       paste0(paste(rep("#", headingLevel), collapse=""), " " );
     
     res <-
-      studyTree_to_dataframe(studyTree);
+      studyTree_to_valueDf(studyTree);
 
     cat(paste0(headerPrefix, " Tree of extracted entities\n\n"));
 
