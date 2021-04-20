@@ -93,7 +93,8 @@ print.rxs <- function(x,
 
     cat(paste0(headerPrefix, " Table with extracted entities and extracted values\n\n"));
     
-    ### This will print the data frame
+    print(res);
+    
     return(res);
 
   }
