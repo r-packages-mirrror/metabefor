@@ -20,5 +20,5 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports: data.tree (>= 0.7),
-         googlesheets (>= 0.3),
+         googlesheets4 (>= 0.3),
          revtools (>= 0.4)
