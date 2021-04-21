@@ -61,14 +61,19 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                        ### no definitions are loaded
   if (!is.null(gs_url)) {
     tryCatch({
-      gsObject <- googlesheets::gs_url(gs_url);
-      entities <- googlesheets::gs_read(gsObject, ws = ws$entities);
-      valueTemplates <- googlesheets::gs_read(gsObject, ws = ws$valueTemplates);
+      googlesheets4::deauth();
+      entities <- googlesheets4::read_sheet(gs_url, ws = ws$entities);
+      valueTemplates <- googlesheets4::read_sheet(gs_url, ws = ws$valueTemplates);
+      # gsObject <- googlesheets::gs_url(gs_url);
+      # entities <- googlesheets::gs_read(gsObject, ws = ws$entities);
+      # valueTemplates <- googlesheets::gs_read(gsObject, ws = ws$valueTemplates);
       if (!is.null(ws$definitions)) {
-        definitions <- googlesheets::gs_read(gsObject, ws = ws$definitions);
+        entities <- googlesheets4::read_sheet(gs_url, ws = ws$definitions);
+        # definitions <- googlesheets::gs_read(gsObject, ws = ws$definitions);
       }
       if (!is.null(ws$instructions)) {
-        instructionSheet <- googlesheets::gs_read(gsObject, ws = ws$instructions);
+        instructionSheet <- googlesheets4::read_sheet(gs_url, ws = ws$instructions);
+        #instructionSheet <- googlesheets::gs_read(gsObject, ws = ws$instructions);
       }
       if (!silent) {
         cat("Successfully read the extraction script specifications from Google sheets.\n");
