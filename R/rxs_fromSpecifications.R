@@ -63,12 +63,14 @@ rxs_fromSpecifications <- function(gs_url = NULL,
     tryCatch({
       googlesheets4::gs4_deauth();
       entities <- googlesheets4::read_sheet(gs_url, sheet = ws$entities);
+      entities <-
+        as.data.frame(entities);
       valueTemplates <- googlesheets4::read_sheet(gs_url, sheet = ws$valueTemplates);
       # gsObject <- googlesheets::gs_url(gs_url);
       # entities <- googlesheets::gs_read(gsObject, ws = ws$entities);
       # valueTemplates <- googlesheets::gs_read(gsObject, ws = ws$valueTemplates);
       if (!is.null(ws$definitions)) {
-        entities <- googlesheets4::read_sheet(gs_url, sheet = ws$definitions);
+        definitions <- googlesheets4::read_sheet(gs_url, sheet = ws$definitions);
         # definitions <- googlesheets::gs_read(gsObject, ws = ws$definitions);
       }
       if (!is.null(ws$instructions)) {
@@ -94,7 +96,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
 
   ### If the sheets identifier was not provided, or loading it failed,
   ### load from a local file
-  if (all(entities == FALSE)) {
+  if (!is.data.frame(entities)) {
 
     ### Check whether the files exist
     if (!is.null(entitiesFilename)) {
