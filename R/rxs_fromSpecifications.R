@@ -61,7 +61,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                        ### no definitions are loaded
   if (!is.null(gs_url)) {
     tryCatch({
-      googlesheets4::deauth();
+      googlesheets4::gs4_deauth();
       entities <- googlesheets4::read_sheet(gs_url, ws = ws$entities);
       valueTemplates <- googlesheets4::read_sheet(gs_url, ws = ws$valueTemplates);
       # gsObject <- googlesheets::gs_url(gs_url);
