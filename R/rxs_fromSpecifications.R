@@ -153,9 +153,48 @@ rxs_fromSpecifications <- function(gs_url = NULL,
 
   ### Write local backup, if need be
   if (!is.null(localBackup$entities)) {
-    utils::write.csv(entities,
-                     row.names=FALSE,
-                     localBackup$entities);
+
+    if (any(unlist(lapply(entities, is.list)))) {
+      entitiesToWrite <-
+        as.data.frame(
+          lapply(
+            entities,
+            function(column) {
+              if (is.list(column)) {
+                return(
+                  vecTxtQ(
+                    as.character(
+                      unlist(
+                        column
+                      )
+                    )
+                  )
+                );
+              } else {
+                return(column);
+              }
+            }
+          )
+        );
+    } else {
+      entitiesToWrite <- entities;
+    }
+    
+    if (tolower(tools::file_ext(localBackup$entities)) == "csv") {
+      utils::write.csv(entitiesToWrite,
+                       row.names=FALSE,
+                       localBackup$entities);
+    } else if (tolower(tools::file_ext(localBackup$entities)) == "xlsx") {
+      openxlsx::write.xlsx(
+        entitiesToWrite,
+        localBackup$entities
+      );
+    } else {
+      stop("For the entities spreadsheet, you passed an extension implying ",
+           "you want me to export to a format I don't know (",
+           tools::file_ext(localBackup$entities), ")!");
+    }
+    
     if (!silent) {
       cat0("Stored local backup of entities to '", localBackup$entities, "'.\n");
     }
