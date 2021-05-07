@@ -8,21 +8,29 @@
 
 <title>Building queries — query_conceptTerms • metabefor</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,15 +38,15 @@
 
 
 
-<meta property="og:title" content="Building queries — query_conceptTerms" />
 
+<meta property="og:title" content="Building queries — query_conceptTerms" />
 <meta property="og:description" content="This group of functions generates a symbolic representation of
 a query that can then be translated to different interface
 languages. A query is built by specifying, for each required
 concept, a list of concept terms (e.g. synonyms), as well as the
 relationship between the concepts (normally they all have to occur;
 sometimes there are also a number of terms to exclude)." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,9 +60,10 @@ sometimes there are also a number of terms to exclude)." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -76,7 +85,7 @@ sometimes there are also a number of terms to exclude)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -93,10 +102,12 @@ sometimes there are also a number of terms to exclude)." />
     <li>
       <a href="../articles/example-metabefor-rmd-file.html">Example metabefor Rmd file</a>
     </li>
+    <li>
+      <a href="../articles/r-extraction-scripts.html">R Extraction Scripts</a>
+    </li>
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -106,6 +117,7 @@ sometimes there are also a number of terms to exclude)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,36 +129,34 @@ sometimes there are also a number of terms to exclude)." />
     </div>
 
     <div class="ref-description">
-    
     <p>This group of functions generates a symbolic representation of
 a query that can then be translated to different interface
 languages. A query is built by specifying, for each required
 concept, a list of concept terms (e.g. synonyms), as well as the
 relationship between the concepts (normally they all have to occur;
 sometimes there are also a number of terms to exclude).</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>query_conceptTerms</span>(<span class='no'>...</span>, <span class='kw'>conceptName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>operator</span> <span class='kw'>=</span> <span class='st'>"OR"</span>)
+    <pre class="usage"><span class='fu'>query_conceptTerms</span><span class='op'>(</span><span class='va'>...</span>, conceptName <span class='op'>=</span> <span class='cn'>NULL</span>, operator <span class='op'>=</span> <span class='st'>"OR"</span><span class='op'>)</span>
 
 <span class='co'># S3 method for mbf_query_conceptTerms</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>query_full</span>(<span class='no'>inclusion</span>, <span class='kw'>exclusion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>queryName</span> <span class='kw'>=</span> <span class='st'>"query"</span>)
+<span class='fu'>query_full</span><span class='op'>(</span><span class='va'>inclusion</span>, exclusion <span class='op'>=</span> <span class='cn'>NULL</span>, queryName <span class='op'>=</span> <span class='st'>"query"</span><span class='op'>)</span>
 
 <span class='co'># S3 method for mbf_query_full</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>query_requiredConcepts</span>(<span class='no'>...</span>, <span class='kw'>conceptName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>query_requiredConcepts</span><span class='op'>(</span><span class='va'>...</span>, conceptName <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S3 method for mbf_query_requiredConcepts</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>query_toInterfaceLang</span>(<span class='no'>queryObject</span>, <span class='kw'>fields</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>exclude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>query_toInterfaceLang</span><span class='op'>(</span><span class='va'>queryObject</span>, fields <span class='op'>=</span> <span class='st'>"title"</span>, exclude <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S3 method for mbf_query_toInterfaceLang</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='st'>"3"</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, header <span class='op'>=</span> <span class='st'>"3"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -185,7 +195,7 @@ only include 'title', 'abstract', or both.</p></td>
       <td><p>The name of the query.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>query_full</code> returns an <code>mbf_query_full</code> object;
@@ -194,7 +204,6 @@ object;
 <code>query_conceptTerms</code> returns an <code>mbf_query_conceptTerms</code> object;
 <code>query_toInterfaceLang</code> returns an <code>mbf_query_toInterfaceLang</code>
 object; and the print methods return <code>x</code> invisibly.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>query_full</code> combines required concepts with a concept to exclude using
@@ -205,28 +214,28 @@ using the <code>AND</code> operator.
 operator.
 A query can be translated to one or more interface languages with
 <code>query_toInterfaceLang</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>query_full</span>(
-  <span class='kw'>inclusion</span> <span class='kw'>=</span>
-    <span class='fu'>query_requiredConcepts</span>(
-      <span class='kw'>conceptName</span> <span class='kw'>=</span> <span class='st'>"inclusion"</span>,
-      <span class='fu'>query_conceptTerms</span>(
-        <span class='kw'>conceptName</span><span class='kw'>=</span><span class='st'>"fluffiness"</span>,
+    <pre class="examples"><div class='input'><span class='fu'>query_full</span><span class='op'>(</span>
+  inclusion <span class='op'>=</span>
+    <span class='fu'>query_requiredConcepts</span><span class='op'>(</span>
+      conceptName <span class='op'>=</span> <span class='st'>"inclusion"</span>,
+      <span class='fu'>query_conceptTerms</span><span class='op'>(</span>
+        conceptName<span class='op'>=</span><span class='st'>"fluffiness"</span>,
         <span class='st'>"fluffy"</span>,
         <span class='st'>"hairy"</span>,
-        <span class='st'>"soft"</span>),
-      <span class='fu'>query_conceptTerms</span>(
-        <span class='kw'>conceptName</span><span class='kw'>=</span><span class='st'>"aggression"</span>,
+        <span class='st'>"soft"</span><span class='op'>)</span>,
+      <span class='fu'>query_conceptTerms</span><span class='op'>(</span>
+        conceptName<span class='op'>=</span><span class='st'>"aggression"</span>,
         <span class='st'>"aggressi*"</span>,
         <span class='st'>"predator*"</span>,
-        <span class='st'>"kill*"</span>)),
-  <span class='kw'>exclusion</span> <span class='kw'>=</span>
-    <span class='fu'>query_conceptTerms</span>(
-      <span class='kw'>conceptName</span> <span class='kw'>=</span> <span class='st'>"exclude non-empirical work"</span>,
+        <span class='st'>"kill*"</span><span class='op'>)</span><span class='op'>)</span>,
+  exclusion <span class='op'>=</span> 
+    <span class='fu'>query_conceptTerms</span><span class='op'>(</span>
+      conceptName <span class='op'>=</span> <span class='st'>"exclude non-empirical work"</span>,
       <span class='st'>"review"</span>,
-      <span class='st'>"meta-analysis"</span>));</div><div class='output co'>#&gt;                         levelName
+      <span class='st'>"meta-analysis"</span><span class='op'>)</span><span class='op'>)</span>;
+</div><div class='output co'>#&gt;                         levelName
 #&gt; 1  query                         
 #&gt; 2   ¦--inclusion                 
 #&gt; 3   ¦   ¦--fluffiness            
@@ -242,20 +251,13 @@ A query can be translated to one or more interface languages with
 #&gt; 13      °--meta-analysis         </div><div class='input'>                         
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -263,13 +265,16 @@ A query can be translated to one or more interface languages with
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

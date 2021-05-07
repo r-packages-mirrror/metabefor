@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Specify a search — specify_search • metabefor</title>
+<title>Title — rxs_fromSpecifications • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Specify a search — specify_search" />
-<meta property="og:description" content="Specify a search" />
+<meta property="og:title" content="Title — rxs_fromSpecifications" />
+<meta property="og:description" content="Title" />
 
 
 
@@ -118,44 +118,131 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Specify a search</h1>
+    <h1>Title</h1>
     
-    <div class="hidden name"><code>specify_search.Rd</code></div>
+    <div class="hidden name"><code>rxs_fromSpecifications.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Specify a search</p>
+    <p>Title</p>
     </div>
 
-    <pre class="usage"><span class='fu'>specify_search</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>query</span>, <span class='va'>databases</span>, <span class='va'>fields</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>rxs_fromSpecifications</span><span class='op'>(</span>
+  gs_url <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ws <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>entities <span class='op'>=</span> <span class='st'>"entities"</span>, valueTemplates <span class='op'>=</span> <span class='st'>"valueTemplates"</span>, definitions <span class='op'>=</span>
+    <span class='st'>"definitions"</span>, instructions <span class='op'>=</span> <span class='st'>"instructions"</span><span class='op'>)</span>,
+  entitiesFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
+  valueTemplatesFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
+  definitionsFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
+  localBackup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>entities <span class='op'>=</span> <span class='cn'>NULL</span>, valueTemplates <span class='op'>=</span> <span class='cn'>NULL</span>, definitions <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>,
+  outputFile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  yamlMetadata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Systematic Review Extraction Script Template"</span>, author <span class='op'>=</span>
+    <span class='cn'>NULL</span>, date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"%d %b %Y at %H:%M:%S"</span><span class='op'>)</span><span class='op'>)</span>,
+  author <span class='op'>=</span> <span class='cn'>NULL</span>,
+  indent <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  indentSpaces <span class='op'>=</span> <span class='fl'>2</span>,
+  fullWidth <span class='op'>=</span> <span class='fl'>80</span>,
+  commentCharacter <span class='op'>=</span> <span class='st'>"#"</span>,
+  fillerCharacter <span class='op'>=</span> <span class='st'>"#"</span>,
+  eC <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>entityColNames</span><span class='op'>)</span>,
+  valueTemplateCols <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>valueTemplateColNames</span><span class='op'>)</span>,
+  repeatingSuffix <span class='op'>=</span> <span class='st'>"__1__"</span>,
+  rootName <span class='op'>=</span> <span class='st'>"study"</span>,
+  silent <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  instructionHeadingLevel <span class='op'>=</span> <span class='fl'>3</span>,
+  returnFullObject <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>date</th>
-      <td><p>The date that the search is conducted.</p></td>
+      <th>gs_url</th>
+      <td></td>
     </tr>
     <tr>
-      <th>query</th>
-      <td><p>The query used in the search (as specified using the
-functions for queries).</p></td>
+      <th>ws</th>
+      <td></td>
     </tr>
     <tr>
-      <th>databases</th>
-      <td><p>The databases that were searched, as a named list of
-vectors, where each vector's name is the name of the interface used to
-access the databases in the vector.</p></td>
+      <th>entitiesFilename</th>
+      <td></td>
     </tr>
     <tr>
-      <th>fields</th>
-      <td><p>The fields in which the query terms were searched.</p></td>
+      <th>valueTemplatesFilename</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>definitionsFilename</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>localBackup</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>outputFile</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>yamlMetadata</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>author</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>indent</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>indentSpaces</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>fullWidth</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>commentCharacter</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>fillerCharacter</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>eC</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>valueTemplateCols</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>repeatingSuffix</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>rootName</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>silent</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>returnFullObject</th>
+      <td></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code>mbf_search</code> object with the search specifications.</p>
+    
+
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

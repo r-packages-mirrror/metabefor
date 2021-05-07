@@ -62,37 +62,63 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   if (!is.null(gs_url)) {
     tryCatch({
       googlesheets4::gs4_deauth();
-      entities <- googlesheets4::read_sheet(gs_url, sheet = ws$entities);
-      entities <-
-        as.data.frame(entities);
-      valueTemplates <- googlesheets4::read_sheet(gs_url, sheet = ws$valueTemplates);
-      # gsObject <- googlesheets::gs_url(gs_url);
-      # entities <- googlesheets::gs_read(gsObject, ws = ws$entities);
-      # valueTemplates <- googlesheets::gs_read(gsObject, ws = ws$valueTemplates);
-      if (!is.null(ws$definitions)) {
-        definitions <- googlesheets4::read_sheet(gs_url, sheet = ws$definitions);
-        # definitions <- googlesheets::gs_read(gsObject, ws = ws$definitions);
-      }
-      if (!is.null(ws$instructions)) {
-        instructionSheet <- googlesheets4::read_sheet(gs_url, sheet = ws$instructions);
-        #instructionSheet <- googlesheets::gs_read(gsObject, ws = ws$instructions);
-      }
-      if (!silent) {
-        cat("Successfully read the extraction script specifications from Google sheets.\n");
-      }
+      sheetNames <- sheet_names(gs_url);
     },
-             error = function(e) {
-               if (!silent) {
-                 cat("You specified a google sheet, but I have problems",
-                     "accessing it - trying to access local files.\n");
-               }
-               if (getOption("metabefor.debug", FALSE)) {
-                 cat0("Error message:\n  ",
-                      e$message,
-                      "\n");
-               }
-             });
-  }
+    error = function(e) {
+      if (!silent) {
+        cat("You specified a google sheet, but I have problems",
+            "accessing it - trying to access local files.\n");
+      }
+      if (getOption("metabefor.debug", FALSE)) {
+        cat0("Error message:\n  ",
+             e$message,
+             "\n");
+      }
+    });
+    
+    if (!(ws$entities %in% sheetNames)) {
+      stop("In the google sheet you specified, the worksheet names are ",
+           vecTxtQ(sheetNames), ", while in argument `ws$entities`, you ",
+           "passed '", ws$entities, "' as the name of the worksheet ",
+           "that specifies the entities to extract.");
+    }
+    
+    if (!(ws$valueTemplates %in% sheetNames)) {
+      stop("In the google sheet you specified, the worksheet names are ",
+           vecTxtQ(sheetNames), ", while in argument `ws$valueTemplates`, ",
+           "you passed '", ws$valueTemplates, "' as the name of the worksheet ",
+           "that specifies the value templates to use.");
+    }
+    
+    entities <- as.data.frame(
+      googlesheets4::read_sheet(gs_url, sheet = ws$entities)
+    );
+
+    valueTemplates <- as.data.frame(
+      googlesheets4::read_sheet(gs_url, sheet = ws$valueTemplates)
+    );
+    
+    if (!is.null(ws$definitions) && (ws$definitions %in% sheetNames)) {
+      definitions <- as.data.frame(
+        googlesheets4::read_sheet(gs_url, sheet = ws$definitions)
+      );
+    } else {
+      definitions <- NULL;
+    }
+    
+    if (!is.null(ws$instructions) && (ws$instructions %in% sheetNames)) {
+      instructionSheet <- as.data.frame(
+        googlesheets4::read_sheet(gs_url, sheet = ws$instructions)
+      );
+    } else {
+      instructionSheet <- NULL;
+    }
+    
+    if (!silent) {
+      cat("Successfully read the extraction script specifications from Google sheets.\n");
+    }
+    
+  }      
 
   ### If the sheets identifier was not provided, or loading it failed,
   ### load from a local file
@@ -238,28 +264,32 @@ rxs_fromSpecifications <- function(gs_url = NULL,
     cat("Parsed extraction script specifications into extraction script template.\n");
   }
   
-  instructions <-
-    paste0(
-      "\n\n",
-      ufs::repStr("#", instructionHeadingLevel), " ",
-      " Extraction instructions\n\n",
+  if (!is.null(instructions)) {
+    instructions <-
       paste0(
-        lapply(
-          1:nrow(instructionSheet),
-          function(i) {
-            return(
-              paste0(
-                "\n\n",
-                ufs::repStr("#", instructionHeadingLevel+1), " ",
-                instructionSheet$title[i], "\n\n",
-                instructionSheet$description[i]
-              )
-            );
-          }
-        ),
-        collapse = "\n\n"
-      )
-    );
+        "\n\n",
+        ufs::repStr("#", instructionHeadingLevel), " ",
+        " Extraction instructions\n\n",
+        paste0(
+          lapply(
+            1:nrow(instructionSheet),
+            function(i) {
+              return(
+                paste0(
+                  "\n\n",
+                  ufs::repStr("#", instructionHeadingLevel+1), " ",
+                  instructionSheet$title[i], "\n\n",
+                  instructionSheet$description[i]
+                )
+              );
+            }
+          ),
+          collapse = "\n\n"
+        )
+      );
+  } else {
+    instructions <- "No extraction insturctions specified.";
+  }
 
   if (returnFullObject) {
     res <- list(rxsSpecification = list(entities = entities,

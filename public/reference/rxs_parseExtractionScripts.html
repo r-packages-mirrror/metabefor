@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • metabefor</title>
+<title>Read and parse the extraction scripts in a directory — rxs_parseExtractionScripts • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Read and parse the extraction scripts in a directory — rxs_parseExtractionScripts" />
+<meta property="og:description" content="Read and parse the extraction scripts in a directory" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -115,144 +116,70 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Read and parse the extraction scripts in a directory</h1>
+    
+    <div class="hidden name"><code>rxs_parseExtractionScripts.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Read and parse the extraction scripts in a directory</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>rxs_parseExtractionScripts</span><span class='op'>(</span>
+  <span class='va'>path</span>,
+  pattern <span class='op'>=</span> <span class='st'>"\\.rxs\\.Rmd$|\\.rxs$"</span>,
+  exclude <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"extractionScriptTemplate.rxs.Rmd"</span>, <span class='st'>"\\[EXCLUDED]"</span><span class='op'>)</span>,
+  ignore.case <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  recursive <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  quiet <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  showErrors <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  encoding <span class='op'>=</span> <span class='st'>"UTF-8"</span>
+<span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="base30conversion.html">base30toNumeric()</a></code> <code><a href="base30conversion.html">numericToBase30()</a></code> </p>
-        </td>
-        <td><p>Conversion between base10 and base30</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cat0.html">cat0()</a></code> </p>
-        </td>
-        <td><p>Concatenate to screen without spaces</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="duplicate_sources.html">duplicate_sources()</a></code> </p>
-        </td>
-        <td><p>Detect duplicate sources</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="extract_doi.html">extract_doi()</a></code> </p>
-        </td>
-        <td><p>Extract DOI(s) from a character vector</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="IN.html">`%IN%`</a></code> </p>
-        </td>
-        <td><p>Case insensitive version of %in%</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="opts.html">opts</a></code> </p>
-        </td>
-        <td><p>Options for the metabefor package</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="printrxs.html">rxs_partial()</a></code> <code><a href="printrxs.html">knit_print(<i>&lt;rxs&gt;</i>)</a></code> <code><a href="printrxs.html">print(<i>&lt;rxs&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Printing a tree of R extraction scripts</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="queries.html">query_conceptTerms()</a></code> <code><a href="queries.html">print(<i>&lt;mbf_query_conceptTerms&gt;</i>)</a></code> <code><a href="queries.html">query_full()</a></code> <code><a href="queries.html">print(<i>&lt;mbf_query_full&gt;</i>)</a></code> <code><a href="queries.html">query_requiredConcepts()</a></code> <code><a href="queries.html">print(<i>&lt;mbf_query_requiredConcepts&gt;</i>)</a></code> <code><a href="queries.html">query_toInterfaceLang()</a></code> <code><a href="queries.html">print(<i>&lt;mbf_query_toInterfaceLang&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Building queries</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbind_dfs.html">rbind_dfs()</a></code> </p>
-        </td>
-        <td><p>Simple alternative for rbind.fill or bind_rows</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rbind_df_list.html">rbind_df_list()</a></code> </p>
-        </td>
-        <td><p>Bind lots of dataframes together rowwise</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="repeatStr.html">repeatStr()</a></code> </p>
-        </td>
-        <td><p>Repeat a string a number of times</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rxs_buildTemplate.html">rxs_buildTemplate()</a></code> </p>
-        </td>
-        <td><p>Title</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rxs_fromSpecifications.html">rxs_fromSpecifications()</a></code> </p>
-        </td>
-        <td><p>Title</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rxs_parseExtractionScripts.html">rxs_parseExtractionScripts()</a></code> </p>
-        </td>
-        <td><p>Read and parse the extraction scripts in a directory</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rxs_parseSpecifications.html">rxs_parseSpecifications()</a></code> </p>
-        </td>
-        <td><p>Title</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rxs_validation.html">rxs_validation()</a></code> </p>
-        </td>
-        <td><p>Title</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="specify_search.html">specify_search()</a></code> </p>
-        </td>
-        <td><p>Specify a search</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vecTxt.html">vecTxt()</a></code> <code><a href="vecTxt.html">vecTxtQ()</a></code> </p>
-        </td>
-        <td><p>Easily parse a vector into a character value</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>The path containing the extraction scripts.</p></td>
+    </tr>
+    <tr>
+      <th>pattern</th>
+      <td><p>The regular expression specifying which files to read.</p></td>
+    </tr>
+    <tr>
+      <th>exclude</th>
+      <td><p>A regular expression specifying which files to ignore.</p></td>
+    </tr>
+    <tr>
+      <th>ignore.case</th>
+      <td><p>Whether the regular expression is case sensitive.</p></td>
+    </tr>
+    <tr>
+      <th>recursive</th>
+      <td><p>Whether to also look in subdirectories.</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>Whether to be quiet or chatty.</p></td>
+    </tr>
+    <tr>
+      <th>showErrors</th>
+      <td><p>Whether to show or hide errors that are encountered.</p></td>
+    </tr>
+    <tr>
+      <th>encoding</th>
+      <td><p>The files' encoding.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list of parsed extraction scripts.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

@@ -1,6 +1,8 @@
-pandoc: 1.19.2.1
-pkgdown: 1.3.0
+pandoc: 2.9.2.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  example-metabefor-rmd-file: ../../../../../../B:/Data/R/metabefor/vignettes/example-metabefor-rmd-file.html
+  example-metabefor-rmd-file: example-metabefor-rmd-file.html
+  r-extraction-scripts: r-extraction-scripts.html
+last_built: 2021-05-07T17:27Z
 
