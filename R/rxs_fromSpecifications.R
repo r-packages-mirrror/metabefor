@@ -53,6 +53,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                                    rootName = "study",
                                    silent=FALSE,
                                    instructionHeadingLevel = 3,
+                                   graphTheme = list(c("fontname", "Arial", "node")),
                                    returnFullObject = TRUE) {
   
   ###---------------------------------------------------------------------------
@@ -335,21 +336,19 @@ rxs_fromSpecifications <- function(gs_url = NULL,
       rxsTreeDiagram_simple_prep
     );
   
-  rxsTreeDiagram_simple <-
-    apply_graph_theme(rxsTreeDiagram_simple,
-                      c("layout", "dot", "graph"),
-                      c("rankdir", "LR", "graph"),
-                      c("outputorder", "edgesfirst", "graph"),
-                      c("fixedsize", "false", "node"),
-                      c("shape", "box", "node"),
-                      c("style", "filled", "node"),
-                      c("color", "#000000", "node"),
-                      c("color", "#888888", "edge"),
-                      c("dir", "none", "edge"),
-                      c("headclip", "false", "edge"),
-                      c("tailclip", "false", "edge"),
-                      c("fillcolor", "#FFFFFF", "node"));
+  graphTheme <-
+    supplementDefaultGraphTheme(
+      graphTheme
+    );
   
+  rxsTreeDiagram_simple <-
+    do.call(
+      apply_graph_theme,
+      c(
+        list(graph = rxsTreeDiagram_simple),
+        graphTheme
+      )
+    );
   
   if (!silent) {
     cat("Created diagrams representing the extraction tree.\n");

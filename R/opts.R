@@ -141,6 +141,24 @@ opts$defaults <-
         "extraction."
       ),
     
+    defaultGraphTheme = list(
+      c("fontname", "Arial", "graph"),
+      c("fontname", "Arial", "node"),
+      c("fontname", "Arial", "edge"),
+      c("layout", "dot", "graph"),
+      c("rankdir", "LR", "graph"),
+      c("outputorder", "edgesfirst", "graph"),
+      c("fixedsize", "false", "node"),
+      c("shape", "box", "node"),
+      c("style", "filled", "node"),
+      c("color", "#000000", "node"),
+      c("color", "#888888", "edge"),
+      c("dir", "none", "edge"),
+      c("headclip", "false", "edge"),
+      c("tailclip", "false", "edge"),
+      c("fillcolor", "#FFFFFF", "node")
+    ),
+    
     diagrammerSanitization = list(c("\\\"", "`"),
                                   c("\\'", "`"),
                                   c("\\\\", "/"),
