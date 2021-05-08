@@ -53,7 +53,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                                    rootName = "study",
                                    silent=FALSE,
                                    instructionHeadingLevel = 3,
-                                   returnFullObject = FALSE) {
+                                   returnFullObject = TRUE) {
   
   ###---------------------------------------------------------------------------
   ### Get options
