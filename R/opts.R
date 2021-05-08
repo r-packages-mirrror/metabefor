@@ -124,6 +124,27 @@ opts$defaults <-
                                  examplesCol = "examples",
                                  validationCol = "validation",
                                  errorCol = "error"),
+    
+    extractionOverview_list_intro =
+      paste0(
+        "This is an overview of the entities to extract, their titles ",
+        "and descriptions, and other details that will become part of the ",
+        "extraction script template that will be used for the actual ",
+        "extraction."
+      ),
+    
+    extractionOverview_compact_intro =
+      paste0(
+        "This is an overview of the entities to extract, their titles ",
+        "and descriptions, and other details that will become part of the ",
+        "extraction script template that will be used for the actual ",
+        "extraction."
+      ),
+    
+    diagrammerSanitization = list(c("\\\"", "`"),
+                                  c("\\'", "`"),
+                                  c("\\\\", "/"),
+                                  c("[^a-zA-Z0-9;)(,._/`-]", " ")),
 
     ### Used throughout for working with files
     encoding = "UTF-8",

@@ -54,20 +54,38 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                                    silent=FALSE,
                                    instructionHeadingLevel = 3,
                                    returnFullObject = FALSE) {
-
+  
+  ###---------------------------------------------------------------------------
+  ### Get options
+  ###---------------------------------------------------------------------------
+  
+  diagrammerSanitization <-
+    metabefor::opts$get('diagrammerSanitization');
+  
+  extractionOverview_list_intro <-
+    metabefor::opts$get('extractionOverview_list_intro');
+  
+  extractionOverview_compact_intro <-
+    metabefor::opts$get('extractionOverview_compact_intro');
+  
+  ###---------------------------------------------------------------------------
   ### Import sheets, if sheets identifier (gs_url) was provided
+  ###---------------------------------------------------------------------------
+  
   entities <- FALSE;
   definitions <- NULL; ### In case the full object is requested but
                        ### no definitions are loaded
   if (!is.null(gs_url)) {
     tryCatch({
       googlesheets4::gs4_deauth();
-      sheetNames <- sheet_names(gs_url);
+      sheetNames <- googlesheets4::sheet_names(gs_url);
     },
     error = function(e) {
       if (!silent) {
         cat("You specified a google sheet, but I have problems",
-            "accessing it - trying to access local files.\n");
+            "accessing it (error: '",
+            e$message,
+            "'). Trying to access local files.\n");
       }
       if (getOption("metabefor.debug", FALSE)) {
         cat0("Error message:\n  ",
@@ -119,7 +137,11 @@ rxs_fromSpecifications <- function(gs_url = NULL,
     }
     
   }      
-
+  
+  ###---------------------------------------------------------------------------
+  ### Read sheets from local file
+  ###---------------------------------------------------------------------------
+  
   ### If the sheets identifier was not provided, or loading it failed,
   ### load from a local file
   if (!is.data.frame(entities)) {
@@ -164,6 +186,10 @@ rxs_fromSpecifications <- function(gs_url = NULL,
 
   }
   
+  ###---------------------------------------------------------------------------
+  ### Sanitize identifiers
+  ###---------------------------------------------------------------------------
+  
   ### Sanitize whitespace and unpermitted characters
   entities[[eC$identifierCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
                                        entities[[eC$identifierCol]]);
@@ -176,8 +202,11 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   valueTemplates[[valueTemplateCols$identifierCol]] <-
     gsub("[^a-zA-Z0-9_.]+", "",
          valueTemplates[[valueTemplateCols$identifierCol]]);
-
+  
+  ###---------------------------------------------------------------------------
   ### Write local backup, if need be
+  ###---------------------------------------------------------------------------
+  
   if (!is.null(localBackup$entities)) {
 
     if (any(unlist(lapply(entities, is.list)))) {
@@ -241,30 +270,96 @@ rxs_fromSpecifications <- function(gs_url = NULL,
       cat0("Stored local backup of definitions to '", localBackup$definitions, "'.\n");
     }
   }
+  if (!is.null(localBackup$instructions) && !is.null(instructions)) {
+    utils::write.csv(instructions,
+                     row.names=FALSE,
+                     localBackup$instructions);
+    if (!silent) {
+      cat0("Stored local backup of instructions to '", localBackup$instructions, "'.\n");
+    }
+  }
+  
+  ###---------------------------------------------------------------------------
+  ### Process entities and value templates into rxsStructure
+  ###---------------------------------------------------------------------------
+  
+  rxsStructure <- rxs_parseSpecifications(
+    entities = entities,
+    valueTemplates = valueTemplates,
+    definitions = definitions,
+    eC = eC,
+    valueTemplateCols = valueTemplateCols,
+    rootName = rootName
+  );
 
-  ### Finally start processing
-  rxsStructure <- rxs_parseSpecifications(entities = entities,
-                                          valueTemplates = valueTemplates,
-                                          definitions = definitions,
-                                          eC = eC,
-                                          valueTemplateCols = valueTemplateCols,
-                                          rootName = rootName);
-
-  rxsTemplate <- rxs_buildTemplate(rxsStructure = rxsStructure,
-                                   yamlMetadata = yamlMetadata,
-                                   indent = indent,
-                                   indentSpaces = indentSpaces,
-                                   fullWidth = fullWidth,
-                                   commentCharacter = commentCharacter,
-                                   fillerCharacter = fillerCharacter,
-                                   eC = eC,
-                                   repeatingSuffix = repeatingSuffix,
-                                   silent=silent);
+  rxsTemplate <- rxs_buildTemplate(
+    rxsStructure = rxsStructure,
+    yamlMetadata = yamlMetadata,
+    indent = indent,
+    indentSpaces = indentSpaces,
+    fullWidth = fullWidth,
+    commentCharacter = commentCharacter,
+    fillerCharacter = fillerCharacter,
+    eC = eC,
+    repeatingSuffix = repeatingSuffix,
+    silent=silent
+  );
+  
   if (!silent) {
     cat("Parsed extraction script specifications into extraction script template.\n");
   }
   
-  if (!is.null(instructions)) {
+  ###---------------------------------------------------------------------------
+  ### rxsTree Diagram
+  ###---------------------------------------------------------------------------
+  
+  rxsTreeDiagram_simple_prep <-
+    data.tree::Clone(
+      rxsStructure$parsedEntities$extractionScriptTree
+    );
+  
+  rxsTreeDiagram_simple_prep$Do(
+    function(node) {
+      data.tree::SetNodeStyle(
+        node,
+        label =
+          sanitize_for_DiagrammeR(
+            node$title
+          )
+      );
+    }
+  );
+  
+  rxsTreeDiagram_simple <-
+    data.tree::ToDiagrammeRGraph(
+      rxsTreeDiagram_simple_prep
+    );
+  
+  rxsTreeDiagram_simple <-
+    apply_graph_theme(rxsTreeDiagram_simple,
+                      c("layout", "dot", "graph"),
+                      c("rankdir", "LR", "graph"),
+                      c("outputorder", "edgesfirst", "graph"),
+                      c("fixedsize", "false", "node"),
+                      c("shape", "box", "node"),
+                      c("style", "filled", "node"),
+                      c("color", "#000000", "node"),
+                      c("color", "#888888", "edge"),
+                      c("dir", "none", "edge"),
+                      c("headclip", "false", "edge"),
+                      c("tailclip", "false", "edge"),
+                      c("fillcolor", "#FFFFFF", "node"));
+  
+  
+  if (!silent) {
+    cat("Created diagrams representing the extraction tree.\n");
+  }
+  
+  ###---------------------------------------------------------------------------
+  ### Extraction instructions
+  ###---------------------------------------------------------------------------
+  
+  if (!is.null(instructionSheet)) {
     instructions <-
       paste0(
         "\n\n",
@@ -288,9 +383,171 @@ rxs_fromSpecifications <- function(gs_url = NULL,
         )
       );
   } else {
-    instructions <- "No extraction insturctions specified.";
+    instructions <- "No extraction instructions specified.";
   }
+  
+  ###---------------------------------------------------------------------------
+  ### Entity overview: list
+  ###---------------------------------------------------------------------------
+  
+  entityOverview_list <-
+    rxsStructure$parsedEntities$extractionScriptTree$Get(
+      function(node) {
+        if (node$isRoot) {
+          return(NULL);
+        } else {
+          res <- ufs::heading(
+            node$title,
+            headingLevel = instructionHeadingLevel + 1,
+            cat = FALSE
+          );
+          
+          if (is.null(node$valueTemplate)) {
+            type <- "Entity Container";
+          } else {
+            type <- "Extractable Entity";
+          }
+          
+          res <-
+            paste0(
+              res,
+              node$description,
+              "\n\n**Type:** ",
+              type,
+              "  \n**Identifier:** `",
+              node$name
+            );
+          
+          if (!is.null(node$valueTemplate)) {
+            res <-
+              paste0(
+                res,
+                "`  \n**Value template**: `",
+                node$valueTemplate
+              );
+          }
+          
+          res <-
+            paste0(
+              res,
+              "`  \n**Repeating**: `",
+              ifelse(is.null(node$repeating) || !node$repeating,
+                     "FALSE",
+                     "TRUE")
+            );
+          
+          res <-
+            paste0(
+              res,
+              "`  \n**Path in extraction script tree:** `",
+              paste0(node$path, collapse=" > "),
+              "`\n\n-----\n\n"
+            );
+          return(res);
+        }
+      }
+    );
+  
+  entityOverview_list <-
+    paste0(
+      ufs::heading(
+        "Entity overview (list)",
+        headingLevel = instructionHeadingLevel,
+        cat = FALSE
+      ),
+      extractionOverview_list_intro,
+      "\n\n",
+      paste0(
+        unlist(
+          entityOverview_list[!unlist(lapply(entityOverview_list, is.na))]
+        ),
+        collapse = ""
+      )
+    );
+  
+  ###---------------------------------------------------------------------------
+  ### Entity overview: compact
+  ###---------------------------------------------------------------------------
+  
+  entityOverview_compact <-
+    rxsStructure$parsedEntities$extractionScriptTree$Get(
+      function(node) {
+        if (node$isRoot) {
+          return(NULL);
+        } else {
+          res <- ufs::heading(
+            node$title,
+            headingLevel = instructionHeadingLevel + 1,
+            cat = FALSE
+          );
+          
+          if (is.null(node$valueTemplate)) {
+            type <- "Entity Container";
+          } else {
+            type <- "Extractable Entity";
+          }
+          
+          res <-
+            paste0(
+              res,
+              node$description,
+              "\n\n**Type:** ",
+              type,
+              "  \n**Identifier:** `",
+              node$name
+            );
+          
+          if (!is.null(node$valueTemplate)) {
+            res <-
+              paste0(
+                res,
+                "`  \n**Value template**: `",
+                node$valueTemplate
+              );
+          }
+          
+          res <-
+            paste0(
+              res,
+              "`  \n**Repeating**: `",
+              ifelse(is.null(node$repeating) || !node$repeating,
+                     "FALSE",
+                     "TRUE")
+            );
+          
+          res <-
+            paste0(
+              res,
+              "`  \n**Path in extraction script tree:** `",
+              paste0(node$path, collapse=" > "),
+              "`\n\n-----\n\n"
+            );
+          return(res);
+        }
+      }
+    );
 
+  entityOverview_compact <-
+    paste0(
+      ufs::heading(
+        "Entity overview (compact)",
+        headingLevel = instructionHeadingLevel,
+        cat = FALSE
+      ),
+      extractionOverview_compact_intro,
+      "\n\n",
+      paste0(
+        unlist(
+          entityOverview_compact[!unlist(lapply(entityOverview_compact, is.na))]
+        ),
+        collapse = ""
+      )
+    );
+  
+  ###---------------------------------------------------------------------------
+  ### Prepare result
+  ###---------------------------------------------------------------------------
+  
   if (returnFullObject) {
     res <- list(rxsSpecification = list(entities = entities,
                                         valueTemplates = valueTemplates,
@@ -304,13 +561,20 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                                         commentCharacter = commentCharacter,
                                         fillerCharacter = fillerCharacter),
                 rxsStructure = rxsStructure,
+                rxsTreeDiagram_simple = rxsTreeDiagram_simple,
                 rxsTemplate = rxsTemplate,
-                rxsInstructions = instructions);
+                rxsInstructions = instructions,
+                entityOverview_list = entityOverview_list,
+                entityOverview_compact = entityOverview_compact);
     class(res) <- "rxsStructure";
   } else {
     res <- rxsTemplate;
   }
-
+  
+  ###---------------------------------------------------------------------------
+  ### Potential write template and then return result
+  ###---------------------------------------------------------------------------
+  
   if (!is.null(outputFile)) {
     if (isTRUE(outputFile)) {
       ### Write to current working directory
