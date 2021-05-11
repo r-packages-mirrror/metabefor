@@ -9,6 +9,11 @@ write_screenerPackage <- function(bibliographyDf,
                                   suffixedConfigFiles = FALSE,
                                   ...) {
   
+  if (!requireNamespace("revtools", quietly = TRUE)) {
+    stop("To write a screener package, the `revtools` package is required!",
+         " You can install it with:\n\n  install.packages('revtools');\n");
+  }
+  
   res<- list(input = c(list(call = sys.call()),
                        as.list(environment()),
                        list(sysCall = as.list(sys.call()))),
