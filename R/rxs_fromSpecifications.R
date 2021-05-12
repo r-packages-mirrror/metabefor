@@ -238,7 +238,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
     valueTemplatesToWrite <-
       purgeListsFromDf(valueTemplates);
     
-    utils::write.csv(valueTemplates,
+    utils::write.csv(valueTemplatesToWrite,
                      row.names=FALSE,
                      localBackup$valueTemplates);
     if (!silent) {
