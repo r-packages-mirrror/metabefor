@@ -40,16 +40,6 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
             res <-
               paste0(
                 res,
-                "  \n**Value template**: `",
-                node$valueTemplate,
-                "`"
-              );
-          }
-          
-          if (!is.null(node$valueTemplate)) {
-            res <-
-              paste0(
-                res,
                 "  \n**Value description**: ",
                 trimws(
                   rxs_fg_valueTemplateDescription(
@@ -64,7 +54,24 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
               );
           }
           
-                    
+          res <-
+            paste0(
+              res,
+              "  \n**Path in extraction script tree:** `",
+              paste0(node$path, collapse=" > "),
+              "`"
+            );
+          
+          if (!is.null(node$valueTemplate)) {
+            res <-
+              paste0(
+                res,
+                "  \n**Value template**: `",
+                node$valueTemplate,
+                "`"
+              );
+          }
+          
           res <-
             paste0(
               res,
@@ -75,13 +82,12 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
               "`"
             );
           
-          res <-
-            paste0(
-              res,
-              "`  \n**Path in extraction script tree:** `",
-              paste0(node$path, collapse=" > "),
-              "`\n\n-----\n\n"
-            );
+          res <- paste0(
+            res,
+            "\n\n-----\n\n"
+          );
+            
+          
           return(res);
         }
       }
