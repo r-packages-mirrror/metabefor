@@ -370,11 +370,11 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   ###---------------------------------------------------------------------------
   ### Entity overview: list
   ###---------------------------------------------------------------------------
-  
+
   entityOverview_list <-
     rxsTree_to_entityOverview_list(
       rxsStructure$parsedEntities$extractionScriptTree,
-      valueTemplates = valueTemplates,
+      valueTemplates = rxsStructure$parsedValueTemplates,
       headingLevel = instructionHeadingLevel
     );
 

@@ -32,15 +32,17 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
               "\n\n**Type:** ",
               type,
               "  \n**Identifier:** `",
-              node$name
+              node$name,
+              "`"
             );
           
           if (!is.null(node$valueTemplate)) {
             res <-
               paste0(
                 res,
-                "`  \n**Value template**: `",
-                node$valueTemplate
+                "  \n**Value template**: `",
+                node$valueTemplate,
+                "`"
               );
           }
           
@@ -48,14 +50,16 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
             res <-
               paste0(
                 res,
-                "`  \n**Value description**: `",
-                rxs_fg_valueTemplateDescription(
-                  node,
-                  valueTemplates,
-                  commentCharacter = "",
-                  fillerCharacter = "",
-                  indentSpaces = 0,
-                  indent = FALSE
+                "  \n**Value description**: ",
+                trimws(
+                  rxs_fg_valueTemplateDescription(
+                    node,
+                    valueTemplates,
+                    commentCharacter = "",
+                    fillerCharacter = "",
+                    indentSpaces = 0,
+                    indent = FALSE
+                  )
                 )
               );
           }
@@ -64,10 +68,11 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
           res <-
             paste0(
               res,
-              "`  \n**Repeating**: `",
+              "  \n**Repeating**: `",
               ifelse(is.null(node$repeating) || !node$repeating,
                      "FALSE",
-                     "TRUE")
+                     "TRUE"),
+              "`"
             );
           
           res <-
