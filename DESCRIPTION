@@ -1,15 +1,14 @@
 Package: metabefor
-Title: Facilitating the first stages of systematic reviews and meta-analyses
-Version: 0.0.1
+Title: Facilitating the data extraction for systematic reviews and meta-analyses
+Version: 0.1.0
 Authors@R: 
     person(given = "Gjalt-Jorn",
            family = "Peters",
            role = c("aut", "cre"),
            email = "gjalt-jorn@userfriendlyscience.com")
 Description: The metabefor package is intended to assist with
-             efficient, transparent, and traceable query generation,
-             screening and data extraction for systematic reviews
-             and meta-analyses.
+             efficient, transparent, and traceable data extraction
+             for systematic reviews and meta-analyses.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true

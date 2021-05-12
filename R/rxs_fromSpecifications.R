@@ -63,9 +63,6 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   diagrammerSanitization <-
     metabefor::opts$get('diagrammerSanitization');
   
-  extractionOverview_list_intro <-
-    metabefor::opts$get('extractionOverview_list_intro');
-  
   extractionOverview_compact_intro <-
     metabefor::opts$get('extractionOverview_compact_intro');
   
@@ -209,33 +206,12 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   ###---------------------------------------------------------------------------
   
   if (!is.null(localBackup$entities)) {
-
-    if (any(unlist(lapply(entities, is.list)))) {
-      entitiesToWrite <-
-        as.data.frame(
-          lapply(
-            entities,
-            function(column) {
-              if (is.list(column)) {
-                return(
-                  vecTxtQ(
-                    as.character(
-                      unlist(
-                        column
-                      )
-                    )
-                  )
-                );
-              } else {
-                return(column);
-              }
-            }
-          )
-        );
-    } else {
-      entitiesToWrite <- entities;
-    }
     
+    ### Sometimes, for some odd reason, columns have the 'list' class;
+    ### convert those to character.
+    entitiesToWrite <-
+      purgeListsFromDf(entities);
+
     if (tolower(tools::file_ext(localBackup$entities)) == "csv") {
       utils::write.csv(entitiesToWrite,
                        row.names=FALSE,
@@ -256,6 +232,12 @@ rxs_fromSpecifications <- function(gs_url = NULL,
     }
   }
   if (!is.null(localBackup$valueTemplates)) {
+    
+    ### Sometimes, for some odd reason, columns have the 'list' class;
+    ### convert those to character.
+    valueTemplatesToWrite <-
+      purgeListsFromDf(valueTemplates);
+    
     utils::write.csv(valueTemplates,
                      row.names=FALSE,
                      localBackup$valueTemplates);
@@ -390,80 +372,11 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   ###---------------------------------------------------------------------------
   
   entityOverview_list <-
-    rxsStructure$parsedEntities$extractionScriptTree$Get(
-      function(node) {
-        if (node$isRoot) {
-          return(NULL);
-        } else {
-          res <- ufs::heading(
-            node$title,
-            headingLevel = instructionHeadingLevel + 1,
-            cat = FALSE
-          );
-          
-          if (is.null(node$valueTemplate)) {
-            type <- "Entity Container";
-          } else {
-            type <- "Extractable Entity";
-          }
-          
-          res <-
-            paste0(
-              res,
-              node$description,
-              "\n\n**Type:** ",
-              type,
-              "  \n**Identifier:** `",
-              node$name
-            );
-          
-          if (!is.null(node$valueTemplate)) {
-            res <-
-              paste0(
-                res,
-                "`  \n**Value template**: `",
-                node$valueTemplate
-              );
-          }
-          
-          res <-
-            paste0(
-              res,
-              "`  \n**Repeating**: `",
-              ifelse(is.null(node$repeating) || !node$repeating,
-                     "FALSE",
-                     "TRUE")
-            );
-          
-          res <-
-            paste0(
-              res,
-              "`  \n**Path in extraction script tree:** `",
-              paste0(node$path, collapse=" > "),
-              "`\n\n-----\n\n"
-            );
-          return(res);
-        }
-      }
+    rxsTree_to_entityOverview_list(
+      rxsStructure$parsedEntities$extractionScriptTree,
+      headingLevel = instructionHeadingLevel
     );
-  
-  entityOverview_list <-
-    paste0(
-      ufs::heading(
-        "Entity overview (list)",
-        headingLevel = instructionHeadingLevel,
-        cat = FALSE
-      ),
-      extractionOverview_list_intro,
-      "\n\n",
-      paste0(
-        unlist(
-          entityOverview_list[!unlist(lapply(entityOverview_list, is.na))]
-        ),
-        collapse = ""
-      )
-    );
-  
+
   ###---------------------------------------------------------------------------
   ### Entity overview: compact
   ###---------------------------------------------------------------------------
