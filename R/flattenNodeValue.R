@@ -1,3 +1,4 @@
+#' @export
 flattenNodeValue <- function(singleValue) {
   if (is.null(singleValue)) {
     return(NULL);

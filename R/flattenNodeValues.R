@@ -1,3 +1,4 @@
+#' @export
 flattenNodeValues <- function(x) {
   if (!is.list(x)) x <- list(x);
   res <- lapply(x, function(singleValue) {
