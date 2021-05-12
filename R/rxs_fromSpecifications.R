@@ -374,6 +374,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   entityOverview_list <-
     rxsTree_to_entityOverview_list(
       rxsStructure$parsedEntities$extractionScriptTree,
+      valueTemplates = valueTemplates,
       headingLevel = instructionHeadingLevel
     );
 

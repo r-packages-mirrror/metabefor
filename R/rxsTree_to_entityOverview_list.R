@@ -1,4 +1,5 @@
 rxsTree_to_entityOverview_list <- function(rxsTree,
+                                           valueTemplates,
                                            headingLevel = 3) {
   
   extractionOverview_list_intro <-
@@ -47,8 +48,15 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
             res <-
               paste0(
                 res,
-                "`  \n**Value template**: `",
-                node$valueTemplate
+                "`  \n**Value description**: `",
+                rxs_fg_valueTemplateDescription(
+                  node,
+                  valueTemplates,
+                  commentCharacter = "",
+                  fillerCharacter = "",
+                  indentSpaces = 0,
+                  indent = FALSE
+                )
               );
           }
           
