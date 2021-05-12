@@ -27,7 +27,8 @@ rxs_fromSpecifications(
   rootName = "study",
   silent = FALSE,
   instructionHeadingLevel = 3,
-  returnFullObject = FALSE
+  graphTheme = list(c("fontname", "Arial", "node")),
+  returnFullObject = TRUE
 )
 }
 \arguments{
