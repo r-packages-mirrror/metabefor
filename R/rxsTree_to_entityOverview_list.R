@@ -41,14 +41,17 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
               paste0(
                 res,
                 "  \n**Value description**: ",
-                trimws(
-                  rxs_fg_valueTemplateDescription(
-                    node,
-                    valueTemplates,
-                    commentCharacter = "",
-                    fillerCharacter = "",
-                    indentSpaces = 0,
-                    indent = FALSE
+                paste0(
+                  trimws(
+                    rxs_fg_valueTemplateDescription(
+                      node,
+                      valueTemplates,
+                      commentCharacter = "",
+                      fillerCharacter = "",
+                      indentSpaces = 0,
+                      indent = FALSE
+                    ),
+                    collapse=" "
                   )
                 )
               );
