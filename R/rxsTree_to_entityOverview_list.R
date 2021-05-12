@@ -50,9 +50,9 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
                       fillerCharacter = "",
                       indentSpaces = 0,
                       indent = FALSE
-                    ),
-                    collapse=" "
-                  )
+                    )
+                  ),
+                  collapse=" "
                 )
               );
           }
