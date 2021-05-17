@@ -10,13 +10,15 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
   
   resTree$Do(
     function(node) {
-      childTitles <- node$Get(eC$titleCol);
-      childDescriptions <- node$Get(eC$descriptionCol);
+      childTitles <- node$Get(eC$titleCol,
+                              filterFun = data.tree::isLeaf);
+      childDescriptions <- node$Get(eC$descriptionCol,
+                                    filterFun = data.tree::isLeaf);
       node$entityOverview_list_fragment <-
         paste0(
           "\n\n<table>\n",
           paste0(
-            "\n<tr><td>", childTitles,
+            "\n<tr><td style='font-weight: bold;'>", childTitles,
             "</td><td>", childDescriptions,
             "</td></tr>",
             collapse="\n"
