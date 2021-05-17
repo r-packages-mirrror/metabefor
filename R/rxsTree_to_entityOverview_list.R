@@ -1,30 +1,61 @@
 rxsTree_to_entityOverview_list <- function(rxsTree,
                                            valueTemplates,
-                                           headingLevel = 3) {
+                                           headingLevel = 3,
+                                           eC = metabefor::opts$get('entityColNames')) {
   
   extractionOverview_list_intro <-
     metabefor::opts$get('extractionOverview_list_intro');
-  
+
   resTree <- data.tree::Clone(rxsTree);
   
+  resTree$Do(
+    function(node) {
+      childTitles <- node$Get(eC$titleCol);
+      childDescriptions <- node$Get(eC$descriptionCol);
+      node$entityOverview_list_fragment <-
+        paste0(
+          "\n\n<table>\n",
+          paste0(
+            "\n<tr><td>", childTitles,
+            "</td><td>", childDescriptions,
+            "</td></tr>",
+            collapse="\n"
+          ),
+          "\n</table>\n\n"
+        );
+    },
+    filterFun = function(node) {
+      return(isTRUE(node[[eC$listCol]]));
+    }
+  );
+    
   entityOverview_list <-
     resTree$Get(
       function(node) {
         if (node$isRoot) {
           return(NULL);
+        } else if (isTRUE(node$parent[[eC$listCol]])) {
+          ### Skip children of entity lists
+          return(NULL);
         } else {
+          
           res <- ufs::heading(
-            node$title,
+            node[[eC$titleCol]],
             headingLevel = headingLevel + 1,
             cat = FALSE
           );
           
-          if (is.null(node$valueTemplate)) {
-            type <- "Entity Container";
-          } else {
+          if (!is.null(node[[eC$valueTemplateCol]])) {
             type <- "Extractable Entity";
+            listFragment <- FALSE;
+          } else if (isTRUE(node[[eC$listCol]])) {
+            type <- "Extractable Entity List";
+            listFragment <- node$entityOverview_list_fragment;
+          } else {
+            type <- "Entity Container";
+            listFragment <- FALSE;
           }
-          
+
           res <-
             paste0(
               res,
@@ -36,24 +67,32 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
               "`"
             );
           
-          if (!is.null(node$valueTemplate)) {
+          if (isFALSE(listFragment)) {
+            if (!is.null(node$valueTemplate)) {
+              res <-
+                paste0(
+                  res,
+                  "  \n**Value description**: ",
+                  paste0(
+                    trimws(
+                      rxs_fg_valueTemplateDescription(
+                        node,
+                        valueTemplates,
+                        commentCharacter = "",
+                        fillerCharacter = "",
+                        indentSpaces = 0,
+                        indent = FALSE
+                      )
+                    ),
+                    collapse=" "
+                  )
+                );
+            }
+          } else {
             res <-
               paste0(
                 res,
-                "  \n**Value description**: ",
-                paste0(
-                  trimws(
-                    rxs_fg_valueTemplateDescription(
-                      node,
-                      valueTemplates,
-                      commentCharacter = "",
-                      fillerCharacter = "",
-                      indentSpaces = 0,
-                      indent = FALSE
-                    )
-                  ),
-                  collapse=" "
-                )
+                listFragment
               );
           }
           
