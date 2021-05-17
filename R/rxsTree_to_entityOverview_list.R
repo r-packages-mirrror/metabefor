@@ -16,7 +16,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
                                     filterFun = data.tree::isLeaf);
       node$entityOverview_list_fragment <-
         paste0(
-          "\n\n<table>\n",
+          "\n\n<table style='margin:15px;0px;20px;0px;'>\n",
           paste0(
             "\n<tr><td style='font-weight: bold;'>", childTitles,
             "</td><td>", childDescriptions,
