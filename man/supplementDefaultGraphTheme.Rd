@@ -6,7 +6,7 @@
 \usage{
 supplementDefaultGraphTheme(
   graphTheme,
-  defaultGraphTheme = defaultGraphTheme()
+  defaultGraphTheme = metabefor::defaultGraphTheme()
 )
 }
 \arguments{
