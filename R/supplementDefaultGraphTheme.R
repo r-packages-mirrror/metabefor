@@ -1,8 +1,22 @@
+#' Supplement / edit the default graph theme
+#'
+#' @param graphTheme Changes, as a list with vectors, where each vector has
+#' three elements corresponding to field name, field value, and what to set
+#' that setting for, e.g. `c("fontname", "Arial", "graph")`,
+#' `c("shape", "box", "node")`, or `c("dir", "none", "edge")`.
+#' @param defaultGraphTheme The default graph theme to use / supplement / edit.
+#'
+#' @return The supplemented / edited graph theme.
+#' @export
+#'
+#' @examples supplementDefaultGraphTheme(
+#'   list(
+#'     c("dir", "both", "edge")
+#'   )
+#' );
 supplementDefaultGraphTheme <- function (graphTheme,
                                          defaultGraphTheme =
-                                           metabefor::opts$get(
-                                             'defaultGraphTheme'
-                                           )
+                                           metabefor::defaultGraphTheme()
                                          ) {
   
   if (is.null(graphTheme)) {
