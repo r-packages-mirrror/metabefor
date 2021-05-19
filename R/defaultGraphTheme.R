@@ -6,7 +6,7 @@
 #' @return `metabefor::opts$get('defaultGraphTheme')`
 #' @export
 #'
-#' @example metabefor::defaultGraphTheme();
+#' @examples metabefor::defaultGraphTheme();
 defaultGraphTheme <- function() {
   return(
     metabefor::opts$get(

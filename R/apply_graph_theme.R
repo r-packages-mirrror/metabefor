@@ -39,7 +39,14 @@
 #' @export
 apply_graph_theme <- function(graph,
                               ...) {
-  for (currentSetting in list(...)) {
+  
+  settingList <- list(...);
+  
+  if ((length(settingList) == 1) && is.list(settingList[[1]])) {
+    settingList <- settingList[[1]];
+  }
+  
+  for (currentSetting in settingList) {
     if ((length(currentSetting) != 3) && is.character(currentSetting)) {
       stop("Only provide character vectors of length 3 in the dots (...) argument!");
     } else {

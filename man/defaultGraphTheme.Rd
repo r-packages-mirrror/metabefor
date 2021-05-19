@@ -13,3 +13,6 @@ defaultGraphTheme()
 Convenience function that just returns
 \code{metabefor::opts$get('defaultGraphTheme')}.
 }
+\examples{
+metabefor::defaultGraphTheme();
+}
