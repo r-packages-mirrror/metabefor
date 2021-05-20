@@ -4,10 +4,10 @@
 \alias{read_aggregationTree_from_gs}
 \title{Read an aggregation tree from a Google Sheets URL}
 \usage{
-read_aggregationTree_from_gs(aggregationTreeURL)
+read_aggregationTree_from_gs(x)
 }
 \arguments{
-\item{aggregationTreeURL}{The URL (make sure it's publicly viewable)}
+\item{x}{The URL (make sure it's publicly viewable)}
 }
 \value{
 The data.tree object
