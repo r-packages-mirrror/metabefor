@@ -125,7 +125,7 @@ getSingleValue <- function(x,
                            entityId,
                            returnDf = TRUE) {
   
-  if (inherits(studies, "rxs_parsedExtractionScripts")) {
+  if (inherits(x, "rxs_parsedExtractionScripts")) {
     return(
       getSingleValue_fromTreeList(
         x = x$rxsTrees,
