@@ -22,18 +22,24 @@ maximizeMatrix <- function(x,
                            colNames,
                            fillValue = 0) {
   
+  rowNames[is.na(rowNames)] <-
+    "NA";
+  colNames[is.na(colNames)] <-
+    "NA";
+  
   rowsToAdd <- rowNames[!(rowNames %in% rownames(x))];
   colsToAdd <- colNames[!(colNames %in% colnames(x))];
   
   if (length(rowsToAdd) > 0) {
     
     newRows <-
-      t(
+      matrix(
         sapply(
           rep(fillValue, length(rowsToAdd)),
           rep,
           times=ncol(x)
-        )
+        ),
+        ncol = ncol(x)
       );
     
     colnames(newRows) <- colnames(x);
@@ -49,10 +55,13 @@ maximizeMatrix <- function(x,
   if (length(colsToAdd) > 0) {
     
     newCols <-
-      sapply(
-        rep(fillValue, length(colsToAdd)),
-        rep,
-        times=nrow(x)
+      matrix(
+        sapply(
+          rep(fillValue, length(colsToAdd)),
+          rep,
+          times=nrow(x)
+        ),
+        nrow = nrow(x)
       );
     
     colnames(newCols) <- colsToAdd;

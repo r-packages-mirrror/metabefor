@@ -5,11 +5,13 @@ studyTree_to_freqTab <- function(x,
                                  colRegex,
                                  rowTargetValue = NULL,
                                  colTargetValue = NULL,
+                                 valuePreprocessingFunction = vectorValue_to_valueList,
                                  rowColMultiplicationFunction = `*`,
                                  rowTargetFunction = `==`,
                                  colTargetFunction = `==`,
                                  includeValueListsOfMatch = TRUE,
-                                 excludeParentWhenValueListReturned = TRUE) {
+                                 excludeParentWhenValueListReturned = TRUE,
+                                 silent = metabefor::opts$get("silent")) {
 
   rowEntityIDs <- 
     studyTree_matchingUniqueEntityIdentifiers(
@@ -27,10 +29,13 @@ studyTree_to_freqTab <- function(x,
       excludeParentWhenValueListReturned = excludeParentWhenValueListReturned
     );
   
+  rowNames <- rowEntityIDs$name;
+  colNames <- colEntityIDs$name;
+  
   rowValues <-
     unlist(
       lapply(
-        rowEntityIDs$name,
+        rowNames,
         metabefor::getSingleValue_fromTree,
         x = x
       )
@@ -39,11 +44,27 @@ studyTree_to_freqTab <- function(x,
   colValues <-
     unlist(
       lapply(
-        colEntityIDs$name,
+        colNames,
         metabefor::getSingleValue_fromTree,
         x = x
       )
     );
+  
+  if (!is.null(valuePreprocessingFunction)) {
+    rowValues <-
+      valuePreprocessingFunction(rowValues);
+    colValues <-
+      valuePreprocessingFunction(colValues);
+    rowNames <- names(rowValues);
+    colNames <- names(colValues);
+  }
+  
+  if (is.list(rowValues)) {
+    rowValues <- unlist(rowValues);
+  }
+  if (is.list(colValues)) {
+    colValues <- unlist(colValues);
+  }
   
   if (!is.null(rowTargetValue)) {
     rowValues <- do.call(
@@ -64,13 +85,18 @@ studyTree_to_freqTab <- function(x,
       )
     );
   }
+
+  combinations <- 
+    matrix(
+      sapply(
+        as.matrix(colValues, nrow=1),
+        rowColMultiplicationFunction,
+        as.matrix(rowValues, ncol=1)),
+      ncol=length(colValues)
+    );
   
-  combinations <- sapply(t(colValues),
-                         rowColMultiplicationFunction,
-                         rowValues);
-  
-  rownames(combinations) <- rowEntityIDs$name;
-  colnames(combinations) <- colEntityIDs$name;
+  rownames(combinations) <- rowNames;
+  colnames(combinations) <- colNames;
   
   return(combinations);
   

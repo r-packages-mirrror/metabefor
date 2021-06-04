@@ -11,8 +11,9 @@ studies_to_freqTab <- function(x,
                                colTargetFunction = `==`,
                                aggregationFunction = `+`,
                                includeValueListsOfMatch = TRUE,
-                               excludeParentWhenValueListReturned = TRUE) {
-  
+                               excludeParentWhenValueListReturned = TRUE,
+                               silent = metabefor::opts$get("silent")) {
+
   return(
     studyTreeList_to_freqTab(
       x = x$rxsTrees,
@@ -26,7 +27,8 @@ studies_to_freqTab <- function(x,
       colTargetFunction = colTargetFunction,
       aggregationFunction = aggregationFunction,
       includeValueListsOfMatch = includeValueListsOfMatch,
-      excludeParentWhenValueListReturned = excludeParentWhenValueListReturned
+      excludeParentWhenValueListReturned = excludeParentWhenValueListReturned,
+      silent = silent
     )
   );
   

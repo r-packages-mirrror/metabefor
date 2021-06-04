@@ -37,7 +37,8 @@ studyTreeList_to_freqTab <- function(x,
                                      colTargetFunction = `==`,
                                      aggregationFunction = `+`,
                                      includeValueListsOfMatch = TRUE,
-                                     excludeParentWhenValueListReturned = TRUE) {
+                                     excludeParentWhenValueListReturned = TRUE,
+                                     silent = metabefor::opts$get("silent")) {
   
   usableElements <-
     unlist(
@@ -61,14 +62,26 @@ studyTreeList_to_freqTab <- function(x,
   
   res <-
     lapply(
-      x,
-      studyTree_to_freqTab,
-      rowRegex = rowRegex,
-      colRegex = colRegex,
-      rowColMultiplicationFunction = rowColMultiplicationFunction,
-      includeValueListsOfMatch = includeValueListsOfMatch,
-      excludeParentWhenValueListReturned = excludeParentWhenValueListReturned
+      names(x),
+      function(i) {
+        if (!silent) {
+          cat("\nProcessing ", i, "...");
+        }
+        return(
+          studyTree_to_freqTab(
+            x[[i]],
+            rowRegex = rowRegex,
+            colRegex = colRegex,
+            rowColMultiplicationFunction = rowColMultiplicationFunction,
+            includeValueListsOfMatch = includeValueListsOfMatch,
+            excludeParentWhenValueListReturned = excludeParentWhenValueListReturned,
+            silent = silent
+          )
+        );
+      }
     );
+  
+  names(res) <- names(x);
   
   res <-
     maximizeMatrices(

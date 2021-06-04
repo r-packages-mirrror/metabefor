@@ -12,6 +12,9 @@ maximizeMatrices <- function(x,
   allRowIds <- unique(do.call(c, uniqueRowIds));
   allColIds <- unique(do.call(c, uniqueColIds));
   
+  allRowIds[is.na(allRowIds)] <- "NA";
+  allColIds[is.na(allColIds)] <- "NA";
+  
   res <-
     lapply(
       x,

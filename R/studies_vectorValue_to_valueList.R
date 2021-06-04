@@ -5,11 +5,12 @@ studies_vectorValue_to_valueList <- function(x,
                                              allPossibleValues = NULL) {
   
   x$rxsTrees <-
-    lapply(x$rxsTrees,
-           studyTree_vectorValue_to_valueList,
-           entityId = entityId,
-           allPossibleValues = allPossibleValues);
+    studyTreeList_vectorValue_to_valueList(
+      x$rxsTrees,
+      entityId = entityId,
+      allPossibleValues = allPossibleValues
+    );
   
-  return(x$rxsTrees);
+  return(x);
   
 }

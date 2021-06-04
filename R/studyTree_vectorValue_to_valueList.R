@@ -16,40 +16,29 @@ studyTree_vectorValue_to_valueList <- function(x,
                                                entityId,
                                                allPossibleValues = NULL) {
   
+  if (!(inherits(x, c("rxs", "Node")))) {
+    return(invisible(x));
+  }
+
+  res <- x;
+
   foundNode <- data.tree::FindNode(
-    x,
+    res,
     entityId
   );
   
-  value <- foundNode$value;
-  
-  valueList <- as.list(rep(1, length(value)));
-  
-  names(valueList) <- value;
-  
-  if (!is.null(allPossibleValues)) {
-    valueNamesToAdd <-
-      allPossibleValues[!(allPossibleValues %in% value)];
-    
-    valuesToAdd <- as.list(rep(0, length(valueNamesToAdd)));
-    
-    names(valuesToAdd) <- valueNamesToAdd;
-
-    valueList <-
-      c(valueList,
-        valuesToAdd);
-    
-    valueList <-
-      valueList[allPossibleValues];
-    
+  if (is.null(foundNode)) {
+    return(invisible(x));
   }
+
+  value <- foundNode$Get('value');
   
-  foundNode$`__originalValue__` <-
-    value;
+  valueList <- vectorValue_to_valueList(value);
+
+  foundNode$Set(`__originalValue__` = value);
   
-  foundNode$value <-
-    valueList
-  
-  return(invisible(valueList));
+  foundNode$value <- valueList;
+
+  return(invisible(res));
   
 }
