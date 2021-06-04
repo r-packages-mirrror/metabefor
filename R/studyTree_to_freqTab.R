@@ -50,22 +50,25 @@ studyTree_to_freqTab <- function(x,
       )
     );
   
-  if (!is.null(valuePreprocessingFunction)) {
-    rowValues <-
-      valuePreprocessingFunction(rowValues);
-    colValues <-
-      valuePreprocessingFunction(colValues);
-    rowNames <- names(rowValues);
-    colNames <- names(colValues);
+  if ((!all(rowEntityIDs$fromList)) &&
+      (!all(colEntityIDs$fromList))) {
+    if (!is.null(valuePreprocessingFunction)) {
+      rowValues <-
+        valuePreprocessingFunction(rowValues);
+      colValues <-
+        valuePreprocessingFunction(colValues);
+      rowNames <- names(rowValues);
+      colNames <- names(colValues);
+    }
+    
+    if (is.list(rowValues)) {
+      rowValues <- unlist(rowValues);
+    }
+    if (is.list(colValues)) {
+      colValues <- unlist(colValues);
+    }
   }
-  
-  if (is.list(rowValues)) {
-    rowValues <- unlist(rowValues);
-  }
-  if (is.list(colValues)) {
-    colValues <- unlist(colValues);
-  }
-  
+
   if (!is.null(rowTargetValue)) {
     rowValues <- do.call(
       rowTargetFunction,
