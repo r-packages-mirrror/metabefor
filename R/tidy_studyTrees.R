@@ -4,12 +4,15 @@
 #' @param studyTree The study tree to convert
 #' @param studyName The name of the study
 #' @param eC The names of the entity columns
+#' @param flattenToString Whether to flatten lists to a string
+#' or explode to separate variables.
 #'
 #' @return A data frame
 #' @rdname tidy_studyTrees
 #' @export
 tidy_studyTrees <- function(x,
-                            eC = metabefor::opts$get('entityColNames')) {
+                            eC = metabefor::opts$get('entityColNames'),
+                            flattenToString = TRUE) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
     x <- x$rxsTrees;
@@ -28,7 +31,8 @@ tidy_studyTrees <- function(x,
             tidy_studyTree(
               studyTree = x[[treeName]],
               studyName = treeName,
-              eC = eC
+              eC = eC,
+              flattenToString = flattenToString
             )
           );
         }

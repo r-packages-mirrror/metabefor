@@ -8,10 +8,15 @@
 tidy_studyTree(
   studyTree,
   studyName = "",
-  eC = metabefor::opts$get("entityColNames")
+  eC = metabefor::opts$get("entityColNames"),
+  flattenToString = TRUE
 )
 
-tidy_studyTrees(listOfStudyTrees, eC = metabefor::opts$get("entityColNames"))
+tidy_studyTrees(
+  x,
+  eC = metabefor::opts$get("entityColNames"),
+  flattenToString = TRUE
+)
 }
 \arguments{
 \item{studyTree}{The study tree to convert}
@@ -20,7 +25,10 @@ tidy_studyTrees(listOfStudyTrees, eC = metabefor::opts$get("entityColNames"))
 
 \item{eC}{The names of the entity columns}
 
-\item{listOfStudyTrees}{A list of study trees}
+\item{flattenToString}{Whether to flatten lists to a string
+or explode to separate variables.}
+
+\item{x}{A list of study trees}
 }
 \value{
 A data frame

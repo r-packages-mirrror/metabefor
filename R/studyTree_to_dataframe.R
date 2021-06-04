@@ -4,7 +4,7 @@ studyTree_to_valueDf <- function(studyTree) {
     nodeName <- node$name;
     nodeValue <- node$value;
     if (is.null(nodeValue)) {
-      nodeValue <- "NULL (element absent from extraction script)";
+      nodeValue <- "NULL (element absent from imported extraction script)";
     }
     if (is.list(nodeValue)) {
       pathString <- node$pathString;
