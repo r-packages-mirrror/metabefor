@@ -11,6 +11,7 @@
 #' the regular expression) should be excluded.
 #'
 #' @return
+#' @rdname matchingUniqueEntityIdentifiers
 #' @export
 #'
 #' @examples
