@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Title — rxs_fromSpecifications • metabefor</title>
+<title>Supplement / edit the default graph theme — supplementDefaultGraphTheme • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Title — rxs_fromSpecifications" />
-<meta property="og:description" content="Title" />
+<meta property="og:title" content="Supplement / edit the default graph theme — supplementDefaultGraphTheme" />
+<meta property="og:description" content="Supplement / edit the default graph theme" />
 
 
 
@@ -118,133 +118,91 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Title</h1>
+    <h1>Supplement / edit the default graph theme</h1>
     
-    <div class="hidden name"><code>rxs_fromSpecifications.Rd</code></div>
+    <div class="hidden name"><code>supplementDefaultGraphTheme.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Title</p>
+    <p>Supplement / edit the default graph theme</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rxs_fromSpecifications</span><span class='op'>(</span>
-  gs_url <span class='op'>=</span> <span class='cn'>NULL</span>,
-  ws <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>entities <span class='op'>=</span> <span class='st'>"entities"</span>, valueTemplates <span class='op'>=</span> <span class='st'>"valueTemplates"</span>, definitions <span class='op'>=</span>
-    <span class='st'>"definitions"</span>, instructions <span class='op'>=</span> <span class='st'>"instructions"</span><span class='op'>)</span>,
-  entitiesFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  valueTemplatesFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  definitionsFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  localBackup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>entities <span class='op'>=</span> <span class='cn'>NULL</span>, valueTemplates <span class='op'>=</span> <span class='cn'>NULL</span>, definitions <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>,
-  outputFile <span class='op'>=</span> <span class='cn'>NULL</span>,
-  yamlMetadata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Systematic Review Extraction Script Template"</span>, author <span class='op'>=</span>
-    <span class='cn'>NULL</span>, date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"%d %b %Y at %H:%M:%S"</span><span class='op'>)</span><span class='op'>)</span>,
-  author <span class='op'>=</span> <span class='cn'>NULL</span>,
-  indent <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  indentSpaces <span class='op'>=</span> <span class='fl'>2</span>,
-  fullWidth <span class='op'>=</span> <span class='fl'>80</span>,
-  commentCharacter <span class='op'>=</span> <span class='st'>"#"</span>,
-  fillerCharacter <span class='op'>=</span> <span class='st'>"#"</span>,
-  eC <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>entityColNames</span><span class='op'>)</span>,
-  valueTemplateCols <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>valueTemplateColNames</span><span class='op'>)</span>,
-  repeatingSuffix <span class='op'>=</span> <span class='st'>"__1__"</span>,
-  rootName <span class='op'>=</span> <span class='st'>"study"</span>,
-  silent <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  instructionHeadingLevel <span class='op'>=</span> <span class='fl'>3</span>,
-  graphTheme <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fontname"</span>, <span class='st'>"Arial"</span>, <span class='st'>"node"</span><span class='op'>)</span><span class='op'>)</span>,
-  returnFullObject <span class='op'>=</span> <span class='cn'>TRUE</span>
+    <pre class="usage"><span class='fu'>supplementDefaultGraphTheme</span><span class='op'>(</span>
+  <span class='va'>graphTheme</span>,
+  defaultGraphTheme <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='fu'><a href='defaultGraphTheme.html'>defaultGraphTheme</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>gs_url</th>
-      <td></td>
+      <th>graphTheme</th>
+      <td><p>Changes, as a list with vectors, where each vector has
+three elements corresponding to field name, field value, and what to set
+that setting for, e.g. <code><a href='https://rdrr.io/r/base/c.html'>c("fontname", "Arial", "graph")</a></code>,
+<code><a href='https://rdrr.io/r/base/c.html'>c("shape", "box", "node")</a></code>, or <code><a href='https://rdrr.io/r/base/c.html'>c("dir", "none", "edge")</a></code>.</p></td>
     </tr>
     <tr>
-      <th>ws</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>entitiesFilename</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>valueTemplatesFilename</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>definitionsFilename</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>localBackup</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>outputFile</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>yamlMetadata</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>author</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>indent</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>indentSpaces</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>fullWidth</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>commentCharacter</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>fillerCharacter</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>eC</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>valueTemplateCols</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>repeatingSuffix</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>rootName</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>silent</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>returnFullObject</th>
-      <td></td>
+      <th>defaultGraphTheme</th>
+      <td><p>The default graph theme to use / supplement / edit.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>The supplemented / edited graph theme.</p>
 
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>supplementDefaultGraphTheme</span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dir"</span>, <span class='st'>"both"</span>, <span class='st'>"edge"</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>;
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "dir"  "both" "edge"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "fontname" "Arial"    "graph"   
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] "fontname" "Arial"    "node"    
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] "fontname" "Arial"    "edge"    
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] "layout" "dot"    "graph" 
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] "rankdir" "LR"      "graph"  
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] "outputorder" "edgesfirst"  "graph"      
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] "fixedsize" "false"     "node"     
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] "shape" "box"   "node" 
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] "style"  "filled" "node"  
+#&gt; 
+#&gt; [[11]]
+#&gt; [1] "color"   "#000000" "node"   
+#&gt; 
+#&gt; [[12]]
+#&gt; [1] "color"   "#888888" "edge"   
+#&gt; 
+#&gt; [[13]]
+#&gt; [1] "headclip" "false"    "edge"    
+#&gt; 
+#&gt; [[14]]
+#&gt; [1] "tailclip" "false"    "edge"    
+#&gt; 
+#&gt; [[15]]
+#&gt; [1] "fillcolor" "#FFFFFF"   "node"     
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

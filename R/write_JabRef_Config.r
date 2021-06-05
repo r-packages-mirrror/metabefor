@@ -1,4 +1,26 @@
+#' Write a JabRef configuration file
+#'
+#' @param outputPath 
+#' @param screeners 
+#' @param screenerFieldsPrefix 
+#' @param screenerFieldsSuffix 
+#' @param screenerConfidencePrefix 
+#' @param screenerConfidenceSuffix 
+#' @param fields 
+#' @param duplicateField 
+#' @param sortField 
+#' @param sortDesc 
+#' @param screeningType 
+#' @param jabrefVersion 
+#' @param jabrefXML 
+#' @param batFile 
+#' @param generateSettingRemovalBatchFile 
+#' @param screenerSuffixInFilename 
+#'
+#' @return
 #' @export
+#'
+#' @examples
 write_JabRef_Config <- function(outputPath,
                                 screeners = c("a", "b"),
                                 screenerFieldsPrefix = "screener",

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Title — rxs_fromSpecifications • metabefor</title>
+<title>Write a 'screener package' to disk — write_screenerPackage • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Title — rxs_fromSpecifications" />
-<meta property="og:description" content="Title" />
+<meta property="og:title" content="Write a 'screener package' to disk — write_screenerPackage" />
+<meta property="og:description" content="This function prepares a 'screener package': a set of files that one or
+more screeners can use to independently screen a set of bibliographic
+records." />
 
 
 
@@ -118,132 +120,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Title</h1>
+    <h1>Write a 'screener package' to disk</h1>
     
-    <div class="hidden name"><code>rxs_fromSpecifications.Rd</code></div>
+    <div class="hidden name"><code>write_screenerPackage.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Title</p>
+    <p>This function prepares a 'screener package': a set of files that one or
+more screeners can use to independently screen a set of bibliographic
+records.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rxs_fromSpecifications</span><span class='op'>(</span>
-  gs_url <span class='op'>=</span> <span class='cn'>NULL</span>,
-  ws <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>entities <span class='op'>=</span> <span class='st'>"entities"</span>, valueTemplates <span class='op'>=</span> <span class='st'>"valueTemplates"</span>, definitions <span class='op'>=</span>
-    <span class='st'>"definitions"</span>, instructions <span class='op'>=</span> <span class='st'>"instructions"</span><span class='op'>)</span>,
-  entitiesFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  valueTemplatesFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  definitionsFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  localBackup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>entities <span class='op'>=</span> <span class='cn'>NULL</span>, valueTemplates <span class='op'>=</span> <span class='cn'>NULL</span>, definitions <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>,
-  outputFile <span class='op'>=</span> <span class='cn'>NULL</span>,
-  yamlMetadata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Systematic Review Extraction Script Template"</span>, author <span class='op'>=</span>
-    <span class='cn'>NULL</span>, date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"%d %b %Y at %H:%M:%S"</span><span class='op'>)</span><span class='op'>)</span>,
-  author <span class='op'>=</span> <span class='cn'>NULL</span>,
-  indent <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  indentSpaces <span class='op'>=</span> <span class='fl'>2</span>,
-  fullWidth <span class='op'>=</span> <span class='fl'>80</span>,
-  commentCharacter <span class='op'>=</span> <span class='st'>"#"</span>,
-  fillerCharacter <span class='op'>=</span> <span class='st'>"#"</span>,
-  eC <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>entityColNames</span><span class='op'>)</span>,
-  valueTemplateCols <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>valueTemplateColNames</span><span class='op'>)</span>,
-  repeatingSuffix <span class='op'>=</span> <span class='st'>"__1__"</span>,
-  rootName <span class='op'>=</span> <span class='st'>"study"</span>,
-  silent <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  instructionHeadingLevel <span class='op'>=</span> <span class='fl'>3</span>,
-  graphTheme <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fontname"</span>, <span class='st'>"Arial"</span>, <span class='st'>"node"</span><span class='op'>)</span><span class='op'>)</span>,
-  returnFullObject <span class='op'>=</span> <span class='cn'>TRUE</span>
+    <pre class="usage"><span class='fu'>write_screenerPackage</span><span class='op'>(</span>
+  <span class='va'>bibliographyDf</span>,
+  <span class='va'>outputPath</span>,
+  screeners <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>,
+  screenerFieldsPrefix <span class='op'>=</span> <span class='st'>"screener"</span>,
+  screenerFieldsSuffix <span class='op'>=</span> <span class='st'>"status"</span>,
+  prevRoundField <span class='op'>=</span> <span class='cn'>NULL</span>,
+  duplicateField <span class='op'>=</span> <span class='cn'>NULL</span>,
+  basename <span class='op'>=</span> <span class='st'>"screening_"</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>gs_url</th>
-      <td></td>
+      <th>bibliographyDf</th>
+      <td><p>A dataframe with bibliographic entries</p></td>
     </tr>
     <tr>
-      <th>ws</th>
-      <td></td>
+      <th>outputPath</th>
+      <td><p>The path where to write the screener package(s)</p></td>
     </tr>
     <tr>
-      <th>entitiesFilename</th>
-      <td></td>
+      <th>screeners</th>
+      <td><p>The unique identifiers to use for each screener; a character
+vector where each value represented one screener. This will be used for the
+directory and filenames as well as fields in the bibliographic database.</p></td>
     </tr>
     <tr>
-      <th>valueTemplatesFilename</th>
-      <td></td>
+      <th>screenerFieldsPrefix, screenerFieldsSuffix</th>
+      <td><p>The pre- and suffixes to
+pre- and append to the screener identifier in the field names in the
+bibliographic database</p></td>
     </tr>
     <tr>
-      <th>definitionsFilename</th>
-      <td></td>
+      <th>prevRoundField</th>
+      <td><p>A field containing information from previous screening
+rounds</p></td>
     </tr>
     <tr>
-      <th>localBackup</th>
-      <td></td>
+      <th>duplicateField</th>
+      <td><p>The field containing information about duplicates;
+if specified, information from this field is appended to whatever is already
+stored in the</p></td>
     </tr>
     <tr>
-      <th>outputFile</th>
-      <td></td>
+      <th>basename</th>
+      <td><p>The base name for the directories and files (appended
+with the screener identifiers)</p></td>
     </tr>
     <tr>
-      <th>yamlMetadata</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>author</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>indent</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>indentSpaces</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>fullWidth</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>commentCharacter</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>fillerCharacter</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>eC</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>valueTemplateCols</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>repeatingSuffix</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>rootName</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>silent</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>returnFullObject</th>
-      <td></td>
+      <th>...</th>
+      <td><p>Any additional arguments are passed to <code><a href='write_JabRef_Config.html'>write_JabRef_Config()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>Invisibly, a results object with intermediate results and the
+written configuration file</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

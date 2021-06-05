@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Title — rxs_fromSpecifications • metabefor</title>
+<title>Write a JabRef configuration file — write_JabRef_Config • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Title — rxs_fromSpecifications" />
-<meta property="og:description" content="Title" />
+<meta property="og:title" content="Write a JabRef configuration file — write_JabRef_Config" />
+<meta property="og:description" content="Write a JabRef configuration file" />
 
 
 
@@ -118,123 +118,99 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Title</h1>
+    <h1>Write a JabRef configuration file</h1>
     
-    <div class="hidden name"><code>rxs_fromSpecifications.Rd</code></div>
+    <div class="hidden name"><code>write_JabRef_Config.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Title</p>
+    <p>Write a JabRef configuration file</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rxs_fromSpecifications</span><span class='op'>(</span>
-  gs_url <span class='op'>=</span> <span class='cn'>NULL</span>,
-  ws <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>entities <span class='op'>=</span> <span class='st'>"entities"</span>, valueTemplates <span class='op'>=</span> <span class='st'>"valueTemplates"</span>, definitions <span class='op'>=</span>
-    <span class='st'>"definitions"</span>, instructions <span class='op'>=</span> <span class='st'>"instructions"</span><span class='op'>)</span>,
-  entitiesFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  valueTemplatesFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  definitionsFilename <span class='op'>=</span> <span class='cn'>NULL</span>,
-  localBackup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>entities <span class='op'>=</span> <span class='cn'>NULL</span>, valueTemplates <span class='op'>=</span> <span class='cn'>NULL</span>, definitions <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>,
-  outputFile <span class='op'>=</span> <span class='cn'>NULL</span>,
-  yamlMetadata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Systematic Review Extraction Script Template"</span>, author <span class='op'>=</span>
-    <span class='cn'>NULL</span>, date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"%d %b %Y at %H:%M:%S"</span><span class='op'>)</span><span class='op'>)</span>,
-  author <span class='op'>=</span> <span class='cn'>NULL</span>,
-  indent <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  indentSpaces <span class='op'>=</span> <span class='fl'>2</span>,
-  fullWidth <span class='op'>=</span> <span class='fl'>80</span>,
-  commentCharacter <span class='op'>=</span> <span class='st'>"#"</span>,
-  fillerCharacter <span class='op'>=</span> <span class='st'>"#"</span>,
-  eC <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>entityColNames</span><span class='op'>)</span>,
-  valueTemplateCols <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='va'>valueTemplateColNames</span><span class='op'>)</span>,
-  repeatingSuffix <span class='op'>=</span> <span class='st'>"__1__"</span>,
-  rootName <span class='op'>=</span> <span class='st'>"study"</span>,
-  silent <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  instructionHeadingLevel <span class='op'>=</span> <span class='fl'>3</span>,
-  graphTheme <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fontname"</span>, <span class='st'>"Arial"</span>, <span class='st'>"node"</span><span class='op'>)</span><span class='op'>)</span>,
-  returnFullObject <span class='op'>=</span> <span class='cn'>TRUE</span>
+    <pre class="usage"><span class='fu'>write_JabRef_Config</span><span class='op'>(</span>
+  <span class='va'>outputPath</span>,
+  screeners <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>,
+  screenerFieldsPrefix <span class='op'>=</span> <span class='st'>"screener"</span>,
+  screenerFieldsSuffix <span class='op'>=</span> <span class='st'>"status"</span>,
+  screenerConfidencePrefix <span class='op'>=</span> <span class='st'>"screener"</span>,
+  screenerConfidenceSuffix <span class='op'>=</span> <span class='st'>"confidence"</span>,
+  fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"title"</span>, <span class='st'>"abstract"</span><span class='op'>)</span>,
+  duplicateField <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sortField <span class='op'>=</span> <span class='st'>"title"</span>,
+  sortDesc <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  screeningType <span class='op'>=</span> <span class='st'>"screening"</span>,
+  jabrefVersion <span class='op'>=</span> <span class='st'>"2.11.1"</span>,
+  jabrefXML <span class='op'>=</span> <span class='cn'>NULL</span>,
+  batFile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  generateSettingRemovalBatchFile <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  screenerSuffixInFilename <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>gs_url</th>
+      <th>outputPath</th>
       <td></td>
     </tr>
     <tr>
-      <th>ws</th>
+      <th>screeners</th>
       <td></td>
     </tr>
     <tr>
-      <th>entitiesFilename</th>
+      <th>screenerFieldsPrefix</th>
       <td></td>
     </tr>
     <tr>
-      <th>valueTemplatesFilename</th>
+      <th>screenerFieldsSuffix</th>
       <td></td>
     </tr>
     <tr>
-      <th>definitionsFilename</th>
+      <th>screenerConfidencePrefix</th>
       <td></td>
     </tr>
     <tr>
-      <th>localBackup</th>
+      <th>screenerConfidenceSuffix</th>
       <td></td>
     </tr>
     <tr>
-      <th>outputFile</th>
+      <th>fields</th>
       <td></td>
     </tr>
     <tr>
-      <th>yamlMetadata</th>
+      <th>duplicateField</th>
       <td></td>
     </tr>
     <tr>
-      <th>author</th>
+      <th>sortField</th>
       <td></td>
     </tr>
     <tr>
-      <th>indent</th>
+      <th>sortDesc</th>
       <td></td>
     </tr>
     <tr>
-      <th>indentSpaces</th>
+      <th>screeningType</th>
       <td></td>
     </tr>
     <tr>
-      <th>fullWidth</th>
+      <th>jabrefVersion</th>
       <td></td>
     </tr>
     <tr>
-      <th>commentCharacter</th>
+      <th>jabrefXML</th>
       <td></td>
     </tr>
     <tr>
-      <th>fillerCharacter</th>
+      <th>batFile</th>
       <td></td>
     </tr>
     <tr>
-      <th>eC</th>
+      <th>generateSettingRemovalBatchFile</th>
       <td></td>
     </tr>
     <tr>
-      <th>valueTemplateCols</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>repeatingSuffix</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>rootName</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>silent</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>returnFullObject</th>
+      <th>screenerSuffixInFilename</th>
       <td></td>
     </tr>
     </table>

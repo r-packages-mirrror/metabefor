@@ -19,7 +19,8 @@ studies_to_freqTab(
   colTargetFunction = `==`,
   aggregationFunction = `+`,
   includeValueListsOfMatch = TRUE,
-  excludeParentWhenValueListReturned = TRUE
+  excludeParentWhenValueListReturned = TRUE,
+  silent = metabefor::opts$get("silent")
 )
 
 studyTreeList_to_freqTab(
@@ -34,7 +35,8 @@ studyTreeList_to_freqTab(
   colTargetFunction = `==`,
   aggregationFunction = `+`,
   includeValueListsOfMatch = TRUE,
-  excludeParentWhenValueListReturned = TRUE
+  excludeParentWhenValueListReturned = TRUE,
+  silent = metabefor::opts$get("silent")
 )
 
 studyTree_to_freqTab(
@@ -43,11 +45,13 @@ studyTree_to_freqTab(
   colRegex,
   rowTargetValue = NULL,
   colTargetValue = NULL,
+  valuePreprocessingFunction = vectorValue_to_valueList,
   rowColMultiplicationFunction = `*`,
   rowTargetFunction = `==`,
   colTargetFunction = `==`,
   includeValueListsOfMatch = TRUE,
-  excludeParentWhenValueListReturned = TRUE
+  excludeParentWhenValueListReturned = TRUE,
+  silent = metabefor::opts$get("silent")
 )
 }
 \arguments{

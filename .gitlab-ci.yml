@@ -23,7 +23,8 @@ metabefor-CI:
   image: rocker/tidyverse
   script:
     - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr", "DiagrammeRsvg"))'
-    - R -e 'devtools::install_github("matherion/ufs")'
+    - R -e 'install.packages(c("synthesisr", "googlesheets4", "stringdist"))'
+    - R -e 'devtools::install_gitlab("r-packages/ufs")'
     - R -e 'devtools::check()'
   tags:
     - docker
