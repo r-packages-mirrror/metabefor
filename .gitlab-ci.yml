@@ -14,19 +14,17 @@ pages:
   only:
   - master
 
-metabefor-CI:
+devtools_check:
+  stage: test
+  image: rocker/tidyverse
   before_script:
     - apt-get update
     - apt-get install -y --no-install-recommends ${APT_PKGS}
     - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
-  stage: test
-  image: rocker/tidyverse
-  script:
-    - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr", "DiagrammeRsvg"))'
+    - R -e 'install.packages(c("DiagrammeR", "DiagrammeRsvg"))'
+    - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr"))'
     - R -e 'install.packages(c("synthesisr", "googlesheets4", "stringdist"))'
     - R -e 'devtools::install_gitlab("r-packages/ufs")'
+  script:
     - R -e 'devtools::check()'
-  tags:
-    - docker
-#    - r-packages
 
