@@ -11,7 +11,9 @@
 #' @param forDeduplicationSuffix Suffix to add to optional deduplication columns
 #' @param silent 
 #'
-#' @return
+#' @return A vector indicating for each record whether it's a duplicate, with
+#' an attribute called `duplicateInfo` that holds more detailed information
+#' and that can be accessed using the [attributes()] function.
 #' @export
 #'
 #' @examples

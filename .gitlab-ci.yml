@@ -7,7 +7,7 @@ pages:
   stage: build
   image: alpine:latest
   script:
-    - echo 'Nothing to do...'
+    - ls public
   artifacts:
     paths:
     - public
@@ -19,7 +19,7 @@ devtools_check:
   image: rocker/tidyverse
   before_script:
     - apt-get update
-    - apt-get install -y --no-install-recommends ${APT_PKGS}
+#    - apt-get install -y --no-install-recommends ${APT_PKGS}
     - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
     - R -e 'install.packages(c("DiagrammeR", "DiagrammeRsvg"))'
     - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr"))'

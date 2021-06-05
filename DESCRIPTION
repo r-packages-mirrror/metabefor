@@ -16,10 +16,10 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
-    knitr,
     rmarkdown,
     synthesisr (>= 0.3)
 VignetteBuilder: knitr
 Imports: data.tree (>= 0.7),
          DiagrammeR (>= 1.0),
-         googlesheets4 (>= 0.3)
+         googlesheets4 (>= 0.3),
+         knitr (>= 1.3)
