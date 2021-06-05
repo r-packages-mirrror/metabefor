@@ -17,6 +17,8 @@
 #' @param duplicateField The field containing information about duplicates;
 #' if specified, information from this field is appended to whatever is already
 #' stored in the 
+#' @param initializeScreenerFields Whether to copy the contents of the
+#' initialization field to the screener fields.
 #' @param basename The base name for the directories and files (appended
 #' with the screener identifiers)
 # #' @param suffixedConfigFiles 
@@ -34,13 +36,20 @@ write_screenerPackage <- function(bibliographyDf,
                                   screenerFieldsSuffix = "status",
                                   prevRoundField = NULL,
                                   duplicateField = NULL,
+                                  initializeScreenerFields = TRUE,
                                   basename = "screening_",
                                   #suffixedConfigFiles = FALSE,
+                                  silent = metabefor::opts$get("silent"),
                                   ...) {
   
   if (!requireNamespace("synthesisr", quietly = TRUE)) {
     stop("To write a screener package, the `synthesisr` package is required!",
          " You can install it with:\n\n  install.packages('synthesisr');\n");
+  }
+  
+  if (!silent) {
+    cat0("Starting to write screener packages for ", length(screeners),
+         " screeners with identifiers ", vecTxtQ(screeners), ".");
   }
   
   res<- list(input = c(list(call = sys.call()),
@@ -57,13 +66,16 @@ write_screenerPackage <- function(bibliographyDf,
         return(
           paste0(
             screenerFieldsPrefix,
-            screeners[currentScreener],
+            currentScreener,
             screenerFieldsSuffix)
         );
       }
     );
   names(res$intermediate$screenerFields) <-
     screeners;
+  
+  ### For convenience
+  screenerFields <- res$intermediate$screenerFields;
   
   ### Create initialization field for this round
   
@@ -77,41 +89,106 @@ write_screenerPackage <- function(bibliographyDf,
   ### Check whether we have information from a previous round
   if (!is.null(prevRoundField) && (prevRoundField %in% names(bibliographyDf))) {
     
+    if (!silent) {
+      cat0("\nCopying info in previous round field `", prevRoundField,
+           "` (", length(unique(bibliographyDf[, prevRoundField])),
+           " distinct values (for ",
+           sum((!is.na(bibliographyDf[, prevRoundField])) &
+                 nchar(bibliographyDf[, prevRoundField]) > 0),
+           " records) to initialization field `",
+           initializationFieldName, "`.");
+    }
+    
     bibliographyDf[, initializationFieldName] <-
       ifelse(
-        nchar(bibliographyDf[, initializationFieldName]) > 0 &
-          nchar(bibliographyDf[, prevRoundField]) > 0,
-        paste0(
-          bibliographyDf[, initializationFieldName],
-          ">",
-          bibliographyDf[, prevRoundField]
-        ),
-        bibliographyDf[, initializationFieldName]
+        is.na(bibliographyDf[, initializationFieldName]) |
+          nchar(bibliographyDf[, initializationFieldName]) == 0,
+        bibliographyDf[, prevRoundField],
+        ifelse(
+          (!is.na(bibliographyDf[, prevRoundField])) &
+            nchar(bibliographyDf[, prevRoundField]) > 0,
+          paste0(
+            bibliographyDf[, initializationFieldName],
+            ">",
+            bibliographyDf[, prevRoundField]
+          ),
+          bibliographyDf[, initializationFieldName]
+        )
       );
-        
+
+  } else {
+    
+    if (!silent) {
+      cat0("\nNo previous round field specified or it was not present in the ",
+           "data frame, so not copying its content to `",
+           initializationFieldName, "`.");
+    }
+    
   }
   
   ### Check whether we have information about duplicates
   if (!is.null(duplicateField) && (duplicateField %in% names(bibliographyDf))) {
     
+    if (!silent) {
+      cat0("\nCopying info in duplicate record field `", duplicateField,
+           "` (", length(unique(bibliographyDf[, duplicateField])),
+           " distinct values (for ",
+           sum((!is.na(bibliographyDf[, duplicateField])) &
+                 nchar(bibliographyDf[, duplicateField]) > 0),
+           " records) to initialization field `",
+           initializationFieldName, "`.");
+    }
+    
     bibliographyDf[, initializationFieldName] <-
       ifelse(
-        nchar(bibliographyDf[, initializationFieldName]) > 0 &
-          nchar(bibliographyDf[, duplicateField]) > 0,
-        paste0(
-          bibliographyDf[, initializationFieldName],
-          ">",
-          bibliographyDf[, duplicateField]
-        ),
-        bibliographyDf[, initializationFieldName]
+        is.na(bibliographyDf[, initializationFieldName]) |
+          nchar(bibliographyDf[, initializationFieldName]) == 0,
+        bibliographyDf[, duplicateField],
+        ifelse(
+          (!is.na(bibliographyDf[, duplicateField])) &
+            nchar(bibliographyDf[, duplicateField]) > 0,
+          paste0(
+            bibliographyDf[, initializationFieldName],
+            ">",
+            bibliographyDf[, duplicateField]
+          ),
+          bibliographyDf[, initializationFieldName]
+        )
       );
-
+    
+  } else {
+    if (!silent) {
+      cat0("\nNo duplicate record field specified or it was not present in the ",
+           "data frame, so not copying its contents to `",
+           initializationFieldName, "`.");
+    }
   }
   
   res$intermediate$screenerDirs <- list();
   res$intermediate$screenerLibraryNames <- list();
+
+  if (!silent) {
+    cat0("\nThe initialization field `", initializationFieldName, "` now has ",
+         length(unique(bibliographyDf[, initializationFieldName])),
+         " distinct values (for ",
+         sum((!is.na(bibliographyDf[, initializationFieldName])) &
+               nchar(bibliographyDf[, initializationFieldName]) > 0),
+         " records) which will ",
+         ifelse(initializeScreenerFields, "also", "not"),
+         " be copied to the screener fields (", vecTxtQ(screenerFields),
+         ").");
+  }
   
-  for (currentScreener in 1:length(screeners)) {
+  if (!silent) {
+    cat("\nStarting to process screener identifiers.\n");
+  }
+  
+  for (currentScreener in screeners) {
+    
+    if (!silent) {
+      cat0("\nStarting to process screener identifier '",
+           currentScreener, "'.");
+    }
     
     currentScreenerField <-
       res$intermediate$screenerFields[[currentScreener]];
@@ -119,28 +196,55 @@ write_screenerPackage <- function(bibliographyDf,
     if (!(currentScreenerField %in% names(bibliographyDf))) {
       bibliographyDf[, currentScreenerField] <-
         "";
+      if (!silent) {
+        cat0("\nScreener field '", currentScreenerField,
+             "' did not yet exist; created it.");
+      }
+    } else {
+      if (!silent) {
+        cat0("\nScreener field '", currentScreenerField,
+             "' already existed.");
+      }
     }
     
-    bibliographyDf[, currentScreenerField] <-
-      ifelse(
-        nchar(bibliographyDf[, currentScreenerField]) > 0 &
-          nchar(bibliographyDf[, initializationFieldName]) > 0,
-        paste0(
-          bibliographyDf[, currentScreenerField],
-          ">",
-          bibliographyDf[, initializationFieldName]
-        ),
-        bibliographyDf[, currentScreenerField]
-      );
+    if (initializeScreenerFields) {
+      
+      bibliographyDf[, currentScreenerField] <-
+        ifelse(
+          is.na(bibliographyDf[, currentScreenerField]) |
+            nchar(bibliographyDf[, currentScreenerField]) == 0,
+          bibliographyDf[, initializationFieldName],
+          ifelse(
+            (!is.na(bibliographyDf[, initializationFieldName])) &
+              nchar(bibliographyDf[, initializationFieldName]) > 0,
+            paste0(
+              bibliographyDf[, currentScreenerField],
+              ">",
+              bibliographyDf[, initializationFieldName]
+            ),
+            bibliographyDf[, currentScreenerField]
+          )
+        );
+
+      if (!silent) {
+        cat0("\nCopied contents of the initialization field to the contents ",
+             "of the current screeners field where that was still empty - ",
+             "it is now empty for ",
+             sum(is.na(bibliographyDf[, currentScreenerField]) |
+                   (nchar(bibliographyDf[, currentScreenerField]) == 0)),
+             " records.");
+      }
+      
+    }
 
     res$intermediate$screenerDirs[[currentScreener]] <-
       file.path(
         outputPath,
-        paste0(basename, screeners[currentScreener])
+        paste0(basename, currentScreener)
       );
     
     res$intermediate$screenerLibraryNames[[currentScreener]] <-
-      paste0(basename, screeners[currentScreener], ".bib");
+      paste0(basename, currentScreener, ".bib");
     
     ### Create directory if it doesn't exist yet
     if (!file.exists(res$intermediate$screenerDirs[[currentScreener]])) {
@@ -162,15 +266,28 @@ write_screenerPackage <- function(bibliographyDf,
       format = "bib"
     );
 
+    if (!silent) {
+      cat0("\nStored bibliography to '",
+           file.path(
+             res$intermediate$screenerDirs[[currentScreener]],
+             res$intermediate$screenerLibraryNames[[currentScreener]]
+           ),
+           "'.");
+    }
+    
     ### Generate Jabref configuration files
     res$output$configFiles[[currentScreener]] <-
       write_JabRef_Config(
-        screeners = screeners[currentScreener],
+        screeners = currentScreener,
         screenerFieldsPrefix = screenerFieldsPrefix,
         screenerFieldsSuffix = screenerFieldsSuffix,
         outputPath = res$intermediate$screenerDirs[[currentScreener]],
         ...
       );
+    
+    if (!silent) {
+      cat0("\nStored JabRef configuration file to that same path.\n");
+    }
     
   }
   

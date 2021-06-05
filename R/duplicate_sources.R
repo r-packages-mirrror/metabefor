@@ -67,14 +67,21 @@ duplicate_sources <- function(primarySources,
   
   if (is.null(secondarySources)) {
     
+    if (!silent) {
+      cat("Starting to look for internally duplicate DOIs within ",
+          nrow(primarySources),
+          " primary sources.\n",
+          sep="");
+    }
+    
     ### Prepare vector with results
     res <- rep("", nrow(primarySources));
     
     ### Find duplicates based on DOIs
     res <-
       ifelse(
-        !is.na(primarySources[, doi_forDeduplicationCol]) &
-          duplicated(primarySources[, doi_forDeduplicationCol]),
+        (!is.na(primarySources[, doi_forDeduplicationCol])) &
+          (duplicated(primarySources[, doi_forDeduplicationCol])),
         paste0(res, ">doi"),
         res
       );
@@ -84,6 +91,10 @@ duplicate_sources <- function(primarySources,
           sum(grepl("doi", res)),
           " duplicates based on DOI.\n",
           sep="");
+    }
+    
+    if (!silent) {
+      cat("Starting to look for internal duplicates based on string distance.");
     }
     
     ### Get the string distances (takes a few seconds)
@@ -112,16 +123,20 @@ duplicate_sources <- function(primarySources,
           nrow(secondarySources), " secondary sources.\n",
           sep="");
     }
-    
+
+    if (!silent) {
+      cat("Starting to look for duplicate DOIs.\n");
+    }
+
     ### Prepare vector with results
     res <- rep("", nrow(secondarySources));
 
     ### Find duplicates based on DOIs
     res <-
       ifelse(
-        !is.na(secondarySources[, doi_forDeduplicationCol]) &
-          isTRUE(secondarySources[, doi_forDeduplicationCol] %in%
-                 primarySources[, doi_forDeduplicationCol]),
+        (!is.na(secondarySources[, doi_forDeduplicationCol])) &
+          (isTRUE(secondarySources[, doi_forDeduplicationCol] %in%
+                 primarySources[, doi_forDeduplicationCol])),
         paste0(res, ">doi"),
         res
       );
@@ -131,6 +146,10 @@ duplicate_sources <- function(primarySources,
           sum(grepl("doi", res)),
           " duplicates based on DOI.\n",
           sep="");
+    }
+
+    if (!silent) {
+      cat("Starting to look for duplicates based on string distance.");
     }
     
     ### Get the string distances (takes a few seconds)
