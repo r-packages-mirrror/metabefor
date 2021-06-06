@@ -40,7 +40,9 @@ duplicate_sources(
 \item{silent}{}
 }
 \value{
-
+A vector indicating for each record whether it's a duplicate, with
+an attribute called \code{duplicateInfo} that holds more detailed information
+and that can be accessed using the \code{\link[=attributes]{attributes()}} function.
 }
 \description{
 Detect duplicate sources

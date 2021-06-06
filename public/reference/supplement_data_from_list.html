@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Title — supplement_data_from_list • metabefor</title>
+<title>Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Title — supplement_data_from_list" />
-<meta property="og:description" content="Title" />
+<meta property="og:title" content="Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list" />
+<meta property="og:description" content="This function supplements an entity node with clustered entity values
+from an entity specified in the target entity node. Both the
+target entity and the source entity have to be clustering entities." />
 
 
 
@@ -72,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metabefor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -95,10 +97,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/definitions.html">Definitions</a>
+    </li>
+    <li>
       <a href="../articles/example-metabefor-rmd-file.html">Example metabefor Rmd file</a>
     </li>
     <li>
-      <a href="../articles/r-extraction-scripts.html">R Extraction Scripts</a>
+      <a href="../articles/r-extraction-scripts.html">R Extraction Scripts (Rxs)</a>
     </li>
   </ul>
 </li>
@@ -118,21 +123,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Title</h1>
+    <h1>Supplement a target entitity node with clustered entity values from another entity node</h1>
     
     <div class="hidden name"><code>supplement_data_from_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Title</p>
+    <p>This function supplements an entity node with clustered entity values
+from an entity specified in the target entity node. Both the
+target entity and the source entity have to be clustering entities.</p>
     </div>
 
     <pre class="usage"><span class='fu'>supplement_data_from_list</span><span class='op'>(</span>
   <span class='va'>studyTree</span>,
-  <span class='va'>targetNode_id</span>,
-  <span class='va'>targetNode_sourceNodeIdField</span>,
-  idField_in_sourceNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  idField_in_targetNode <span class='op'>=</span> <span class='cn'>NULL</span>
+  <span class='va'>targetEntityNodeId</span>,
+  <span class='va'>sourceEntityNodeIdField_in_targetEntity</span>,
+  idField_in_targetEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
+  idField_in_sourceEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fieldsToCopy_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -140,29 +149,36 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>studyTree</th>
-      <td><p>THe study tree</p></td>
+      <td><p>The study tree</p></td>
     </tr>
     <tr>
-      <th>targetNode_id</th>
-      <td><p>The identifier of the target node (the node to
+      <th>targetEntityNodeId</th>
+      <td><p>The identifier of the target entity node (the node to
 supplement)</p></td>
     </tr>
     <tr>
-      <th>targetNode_sourceNodeIdField</th>
-      <td><p>Inside the target node, the field name
-holding that identifier of the source node (the node supplying the data)</p></td>
+      <th>sourceEntityNodeIdField_in_targetEntity</th>
+      <td><p>Inside the target entity node,
+the name holding the identifier of the source entity node (the node supplying
+the data). Note that that field is itself an entity as specified in the entity
+specification spreadsheet.</p></td>
     </tr>
     <tr>
-      <th>idField_in_sourceNode</th>
+      <th>idField_in_targetEntityNode</th>
+      <td><p><code>NULL</code> if the target node's name is also its
+identifier; otherwise, the name of the field containing the identifier in
+the target node.</p></td>
+    </tr>
+    <tr>
+      <th>idField_in_sourceEntityNode</th>
       <td><p><code>NULL</code> if the source node's name is also its
 identifier; otherwise, the name of the field containing the identifier in
 the source node.</p></td>
     </tr>
     <tr>
-      <th>idField_in_TargetNode</th>
-      <td><p><code>NULL</code> if the target node's name is also its
-identifier; otherwise, the name of the field containing the identifier in
-the target node.</p></td>
+      <th>fieldsToCopy_regex</th>
+      <td><p>A regular expression that can optionally be
+used to select fields to copy over from the source node to the target node.</p></td>
     </tr>
     </table>
 

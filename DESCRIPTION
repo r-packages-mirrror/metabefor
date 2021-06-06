@@ -1,6 +1,6 @@
 Package: metabefor
 Title: Facilitating the first stages of systematic reviews and meta-analyses
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     person(given = "Gjalt-Jorn",
            family = "Peters",

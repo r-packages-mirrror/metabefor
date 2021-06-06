@@ -74,7 +74,7 @@ records." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metabefor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -97,10 +97,13 @@ records." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/definitions.html">Definitions</a>
+    </li>
+    <li>
       <a href="../articles/example-metabefor-rmd-file.html">Example metabefor Rmd file</a>
     </li>
     <li>
-      <a href="../articles/r-extraction-scripts.html">R Extraction Scripts</a>
+      <a href="../articles/r-extraction-scripts.html">R Extraction Scripts (Rxs)</a>
     </li>
   </ul>
 </li>
@@ -139,7 +142,9 @@ records.</p>
   screenerFieldsSuffix <span class='op'>=</span> <span class='st'>"status"</span>,
   prevRoundField <span class='op'>=</span> <span class='cn'>NULL</span>,
   duplicateField <span class='op'>=</span> <span class='cn'>NULL</span>,
+  initializeScreenerFields <span class='op'>=</span> <span class='cn'>TRUE</span>,
   basename <span class='op'>=</span> <span class='st'>"screening_"</span>,
+  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -176,6 +181,11 @@ rounds</p></td>
       <td><p>The field containing information about duplicates;
 if specified, information from this field is appended to whatever is already
 stored in the</p></td>
+    </tr>
+    <tr>
+      <th>initializeScreenerFields</th>
+      <td><p>Whether to copy the contents of the
+initialization field to the screener fields.</p></td>
     </tr>
     <tr>
       <th>basename</th>

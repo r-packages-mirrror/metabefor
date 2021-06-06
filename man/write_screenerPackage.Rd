@@ -12,7 +12,9 @@ write_screenerPackage(
   screenerFieldsSuffix = "status",
   prevRoundField = NULL,
   duplicateField = NULL,
+  initializeScreenerFields = TRUE,
   basename = "screening_",
+  silent = metabefor::opts$get("silent"),
   ...
 )
 }
@@ -35,6 +37,9 @@ rounds}
 \item{duplicateField}{The field containing information about duplicates;
 if specified, information from this field is appended to whatever is already
 stored in the}
+
+\item{initializeScreenerFields}{Whether to copy the contents of the
+initialization field to the screener fields.}
 
 \item{basename}{The base name for the directories and files (appended
 with the screener identifiers)}

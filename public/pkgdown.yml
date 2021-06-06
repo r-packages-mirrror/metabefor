@@ -2,7 +2,8 @@ pandoc: 2.9.2.1
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  definitions: definitions.html
   example-metabefor-rmd-file: example-metabefor-rmd-file.html
   r-extraction-scripts: r-extraction-scripts.html
-last_built: 2021-06-05T07:42Z
+last_built: 2021-06-06T11:01Z
 

@@ -1,0 +1,78 @@
+---
+title: "Definitions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Definitions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Container entity
+  : An entity that does not have a value (i.e. cannot itself be extracted) but serves to organise other entities in a hierarchy.
+
+Cluster
+  : A set of entities specified in a list in a parent entity.
+
+Clustered entity
+  : An *entity* that is specified in a list within a *clustering entity*. To specify that an entity is a value list entity, specify as its parent entity a *clustering entity*. Clustering entities are presented in a list in the `Rxs template` (within the parent entity).
+
+Clustering entity
+  : An *entity* that as its value contains a list of *clustered entities*. To specify that an entity is a clustering entity, set the `list` column in the *Rxs specification* spreadsheet to `TRUE`. All entities that specify that clustering entity as parent will then be presented in a list within that entity in the `Rxs template`.
+
+Entity
+  : Something that can be extracted from a *source*: examples are effect sizes, sample sizes, study design characteristics, author names, publication dates, journal names, whether sampling strategies were justified, or the literal text used to phrase the main conclusion. Once an *extraction script* has been parsed, entities are also commonly referred to as *fields* that hold *values*. However, note that entities can be repeating: they refer to a type of thing that can be extracted, not to any specific thing that has been extracted, whereas a field always holds a specific extracted value. For example, it is possible to specify a *clustering entity* called `result_association` used to extract various effect sizes or other statistics that may be specified to describe an association between two variables, each as a *clustered entity*, e.g. entities called `pearson_r` and `cohen_d`. In any given extraction script, multiple instances of that `result_association` entity can be extracted, each being represented by a different `entity node`, and each of those *clustering entities* holding multiple *clustered entities* or *fields*. Each entity node holds a `pearson_r` field and a `cohen_d` field, but in the *extraction script specification*, only one entity is specified for each of `result_association`, `pearson_r`, and `cohen_d`. To refer explicitly to the entity as a "thing that can be extracted", you can use the terms *entity specification* or *extractable entity*. To refer explicitly to an entity that has been extracted, use `field` or `extracted entity`.
+
+Entity container
+  : See *container entity*.
+
+Entity identifier
+  : The unique identifier of an *entity* as specified in the `identifier` column of the *extraction script specification*.
+
+Entity node
+  : In the `data.tree` object representing each extracted source, *entities* are stored as nodes in a hierarchical tree. In this tree, each entity correponds to one or more entity nodes, except for *clustered entities*, which are stored as *values* in a list in the entity node representing their *clustering entity* (i.e. their parent entity).
+
+Entity node identifier
+  : The unique identifier of an *extracted entity* (i.e. an instance of an *entity specification*)
+
+Entity specification
+  : A way to explicitly refer to an entity in its generic definition, as a class of things that can be extracted, as opposed to as a *field* or *entity node*, which represents an extracted entity. This distinction is important because entities can be repeated (see *entity*).
+
+Extractable entity
+  : See *entity specification*.
+
+Extracted entity
+  : A way to explicitly refer to an entity that has been extracted, as an instance of the *entity specification* or *extractable entity* (a generic description of a class of things that can be extracted). Extracted entities are *entity nodes* unless they are *clustered entities*, in which case they are stored as *fields* holding *values* in a *list* in their parent entity (i.e. their *clustering entity*). Extracted entities that are entity nodes are either *container entities* (if they don't store a value themselves, but instead are used to organise other entities), *fields* (if they hold a single *value*), or *clustering entities* (if they hold a *list* specifying the values for multiple *clustered entities*).
+
+Extraction
+  : The act of registering an *entity* in an *extraction script* (or extraction form, if `metabefor` isn't used) in the form of a text string or an entity conform the coding instructions (as specified in the *Rxs specification* if `metabefor` is used).
+
+Extraction script (`.Rxs` file)
+  : An R Markdown file with the extension `.rxs.Rmd` that is a completed *Rxs template*, and as such, set up such that it can be parsed by `metabefor`.
+
+Extraction script specification
+  : A spreadsheet specifying which entities to extract, how they are hierarchically structured, which *value templates* they use, and their extraction instructions (or coding instructions).
+
+Field
+  : A synonym of entity that is used when it is referred to as a specific value holder in a context completed extraction script. For example, when in an *extraction script specification* an entity is specified to extract the source's publication date with entity identifier `pub_date`, in the parsed *extraction script*, the value of that date can be referred to as being stored in the `pub_date` field. A field represents an instance of an *entity*: see that definition for more details.
+
+List
+  : A list of multiple *clustered entities*. Lists are an efficient way to extract closely related entities, such as measurement details about a given variable, descriptives for an outcome, or various effect size metrics that may be reported.
+
+Rxs specification
+  : See *extraction script specification*.
+
+Rxs template
+  : The structured R Markdown file produced by `metabefor` after it parsed the *Rxs specification* spreadsheet.
+
+Source
+  : Something that *entities* can be *extracted* from, such as an article, book, case law, report, webpage, or other source.
+
+Value
+  : A value; usually a single number or character string, but values can be more complex, too, e.g. vectors of numbers of strings, or even tables (matrices or arrays).
+
+Value list
+  : A list of *values*; a synonym for all *extracted clustered entities* stored in an *extracted clustering entity*.
+
+Value templates
+  : In an *Rxs specification*, a template for a data type that can be extracted, specifying the values that are allowed, the default value, instructions, and validation rules.
+

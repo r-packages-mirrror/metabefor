@@ -1,36 +1,241 @@
-#' Title
+#' Supplement a target entitity node with clustered entity values from another entity node
+#' 
+#' This function supplements an entity node with clustered entity values
+#' from an entity specified in the target entity node. Both the
+#' target entity and the source entity have to be clustering entities.
 #'
-#' @param studyTree THe study tree
-#' @param targetNode_id The identifier of the target node (the node to
+#' @param studyTree The study tree
+#' @param targetEntityNodeId The identifier of the target entity node (the node to
 #' supplement)
-#' @param targetNode_sourceNodeIdField Inside the target node, the field name
-#' holding that identifier of the source node (the node supplying the data)
-#' @param idField_in_TargetNode `NULL` if the target node's name is also its
+#' @param sourceEntityNodeIdField_in_targetEntity Inside the target entity node,
+#' the name holding the identifier of the source entity node (the node supplying
+#' the data). Note that that field is itself an entity as specified in the entity
+#' specification spreadsheet.
+#' @param idField_in_targetEntityNode `NULL` if the target node's name is also its
 #' identifier; otherwise, the name of the field containing the identifier in
 #' the target node.
-#' @param idField_in_sourceNode `NULL` if the source node's name is also its
+#' @param idField_in_sourceEntityNode `NULL` if the source node's name is also its
 #' identifier; otherwise, the name of the field containing the identifier in
 #' the source node.
+#' @param fieldsToCopy_regex A regular expression that can optionally be
+#' used to select fields to copy over from the source node to the target node.
 #'
 #' @return
 #' @export
 #'
 #' @examples
 supplement_data_from_list <- function(studyTree,
-                                      targetNode_id,
-                                      targetNode_sourceNodeIdField,
-                                      idField_in_sourceNode = NULL,
-                                      idField_in_targetNode = NULL) {
+                                      targetEntityNodeId,
+                                      sourceEntityNodeIdField_in_targetEntity,
+                                      idField_in_targetEntityNode = NULL,
+                                      idField_in_sourceEntityNode = NULL,
+                                      fieldsToCopy_regex = NULL,
+                                      silent = metabefor::opts$get("silent")) {
   
-  if (is.null(idField_in_sourceNode)) {
+  if (is.null(studyTree)) {
+    if (!silent) {
+      cat("What you passed as `studyTree` is NULL!");
+    }
+    return(invisible(NULL));
+  }
+  
+  if (!(inherits(studyTree, "Node"))) {
+    if (!silent) {
+      cat("What you passed as `studyTree` is not actually a study tree!");
+    }
+    return(invisible(studyTree));
+  }
+  
+  ###---------------------------------------------------------------------------
+  ### Start looking for the target node
+  ###---------------------------------------------------------------------------
+  
+  if (is.null(idField_in_targetEntityNode)) {
     
-    
+    ### The node identifier is its name
+    targetNode <- data.tree::FindNode(
+      studyTree,
+      targetEntityNodeId
+    );
     
   } else {
     
-    ### The `sourceNode_idField`
-    
+    ### The node identifier is stored as a value in a value list inside the
+    ### target node
+    targetNode <- data.tree::Traverse(
+      studyTree,
+      filterFun = function(node) {
+        
+        if ( is.null(node$value)) return(FALSE);
+        if (!is.list(node$value)) return(FALSE);
+        if (!(idField_in_targetEntityNode %in% names(node$value))) {
+          return(FALSE);
+        }
+        if (node$value[[idField_in_targetEntityNode]] == targetEntityNodeId) {
+          return(TRUE);
+        } else {
+          return(FALSE);
+        }
+      }
+    );
   }
+  
+  if (is.null(targetNode)) {
+    if (!silent) {
+      cat("The studyTree you passed does not contain the node you ",
+          "specified as target entity node (", targetEntityNodeId, ").");
+    }
+    return(invisible(studyTree));
+  }
+  
+  ###---------------------------------------------------------------------------
+  ### Start looking for the field specifying the source node
+  ###---------------------------------------------------------------------------
+  
+  targetNodeValue <-
+    targetNode$Get("value");
+
+  if (is.null(targetNodeValue)) {
+    if (!silent) {
+      cat("In the studyTree you passed, I found the target entity node you ",
+          "specified. However, within that node, there is no value list ",
+          "specified (i.e. the target node does not seem to be a clustering ",
+          "node), so I can't look for the field specifying the ",
+          "source entity node (",
+          sourceEntityNodeIdField_in_targetEntity, ").");
+    }
+    return(invisible(studyTree));
+  }
+  
+  if (!is.list(targetNodeValue)) {
+    if (!silent) {
+      cat("In the studyTree you passed, I found the target entity node you ",
+          "specified. However, the value stored within that node, is not a ",
+          "value list (i.e. the target node does not seem to be a clustering ",
+          "node), so I can't look for the field specifying the ",
+          "source entity node (",
+          sourceEntityNodeIdField_in_targetEntity, ").");
+    }
+    return(invisible(studyTree));
+  }
+  
+  if (!(sourceEntityNodeIdField_in_targetEntity %in% names(targetNodeValue))) {
+    if (!silent) {
+      cat("In the studyTree you passed, I found the target entity node you ",
+          "specified, but in the value list it stored, I cannot find the ",
+          "field field specifying the source entity node (",
+          sourceEntityNodeIdField_in_targetEntity, ").");
+    }
+    return(invisible(studyTree));
+  }
+  
+  sourceEntityNodeId <-
+    targetNodeValue[[sourceEntityNodeIdField_in_targetEntity]];
+
+  if (is.null(sourceEntityNodeId) ||
+      is.na(sourceEntityNodeId) ||
+      (nchar(sourceEntityNodeId) == 0)) {
+    if (!silent) {
+      cat("In the studyTree you passed, I found the target entity node you ",
+          "specified, and within it, the entity node that you said would ",
+          "contain the reference to the source entity node ",
+          sourceEntityNodeIdField_in_targetEntity,
+          ". However, its value is NULL, NA, or empty ('').");
+    }
+    return(invisible(studyTree));
+  }
+  
+  ###---------------------------------------------------------------------------
+  ### Start looking for the source node
+  ###---------------------------------------------------------------------------
+  
+  if (is.null(idField_in_sourceEntityNode)) {
+    
+    ### The node identifier is its name
+    sourceNode <- data.tree::FindNode(
+      studyTree,
+      sourceEntityNodeId
+    );
+    
+  } else {
+    
+    ### The node identifier is stored as a value in a value list inside the
+    ### target node
+    sourceNode <- data.tree::Traverse(
+      studyTree,
+      filterFun = function(node) {
+        
+        if ( is.null(node$value)) return(FALSE);
+        if (!is.list(node$value)) return(FALSE);
+        if (!(idField_in_sourceEntityNode %in% names(node$value))) {
+          return(FALSE);
+        }
+        if (node$value[[idField_in_sourceEntityNode]] == sourceEntityNodeId) {
+          return(TRUE);
+        } else {
+          return(FALSE);
+        }
+      }
+    );
+  }
+  
+  if (is.null(sourceNode)) {
+    if (!silent) {
+      cat("In the studyTree you passed, I found the target entity node you ",
+          "specified, and within it, I found the reference ",
+          "to the source entity node in field ",
+          sourceEntityNodeIdField_in_targetEntity,
+          ". However, the source entity node specified there (",
+          sourceEntityNodeId,
+          ") does not exist in the studyTree you passed.");
+    }
+    return(invisible(studyTree));
+  }
+  
+  ###---------------------------------------------------------------------------
+  ### Start copying over values
+  ###---------------------------------------------------------------------------
+  
+  sourceNodeValue <-
+    sourceNode$Get("value");
+  
+  if (!is.list(sourceNodeValue)) {
+    if (!silent) {
+      cat("In the studyTree you passed, I found both the target entity node ",
+          "you specified and the source entity node referred to in the target ",
+          "entity node. However, the value stored in the source node is not ",
+          "a value list (i.e. the source node does not seem to be a clustering ",
+          "node), so I can't copy any values over to the target node.");
+    }
+    return(invisible(studyTree));
+  }  
+  
+  if (any(names(sourceNodeValue) %in% names(targetNodeValue))) {
+    overlappingNames <-
+      intersect(names(sourceNodeValue), names(targetNodeValue));
+    if (!silent) {
+      cat("In the studyTree you passed, I found both the target entity node ",
+          "you specified and the source entity node referred to in the target ",
+          "entity node. However, one or more names occur in both lists (",
+          vecTxtQ(overlappingNames),
+          "). This should not be possible normally, as entity identifiers ",
+          "should be unique, so I am aborting.");
+    }
+    return(invisible(studyTree));
+  }
+  
+  targetNode$value <-
+    c(targetNodeValue,
+      sourceNodeValue);
+  
+  if (!silent) {
+    cat("Succesfully copied over ", length(sourceNodeValue),
+        " fields (", vecTxtQ(names(sourceNodeValue)), ") from the source ",
+        "entity node with identifier '", sourceEntityNodeId, "' to the ",
+        "target entity node with identifier '", targetEntityNodeId, "'.\n");
+  }
+  
+  return(invisible(studyTree));
   
 }
                                       

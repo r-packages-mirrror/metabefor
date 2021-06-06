@@ -2,36 +2,45 @@
 % Please edit documentation in R/supplement_data_from_list.R
 \name{supplement_data_from_list}
 \alias{supplement_data_from_list}
-\title{Title}
+\title{Supplement a target entitity node with clustered entity values from another entity node}
 \usage{
 supplement_data_from_list(
   studyTree,
-  targetNode_id,
-  targetNode_sourceNodeIdField,
-  idField_in_sourceNode = NULL,
-  idField_in_targetNode = NULL
+  targetEntityNodeId,
+  sourceEntityNodeIdField_in_targetEntity,
+  idField_in_targetEntityNode = NULL,
+  idField_in_sourceEntityNode = NULL,
+  fieldsToCopy_regex = NULL,
+  silent = metabefor::opts$get("silent")
 )
 }
 \arguments{
-\item{studyTree}{THe study tree}
+\item{studyTree}{The study tree}
 
-\item{targetNode_id}{The identifier of the target node (the node to
+\item{targetEntityNodeId}{The identifier of the target entity node (the node to
 supplement)}
 
-\item{targetNode_sourceNodeIdField}{Inside the target node, the field name
-holding that identifier of the source node (the node supplying the data)}
+\item{sourceEntityNodeIdField_in_targetEntity}{Inside the target entity node,
+the name holding the identifier of the source entity node (the node supplying
+the data). Note that that field is itself an entity as specified in the entity
+specification spreadsheet.}
 
-\item{idField_in_sourceNode}{\code{NULL} if the source node's name is also its
+\item{idField_in_targetEntityNode}{\code{NULL} if the target node's name is also its
+identifier; otherwise, the name of the field containing the identifier in
+the target node.}
+
+\item{idField_in_sourceEntityNode}{\code{NULL} if the source node's name is also its
 identifier; otherwise, the name of the field containing the identifier in
 the source node.}
 
-\item{idField_in_TargetNode}{\code{NULL} if the target node's name is also its
-identifier; otherwise, the name of the field containing the identifier in
-the target node.}
+\item{fieldsToCopy_regex}{A regular expression that can optionally be
+used to select fields to copy over from the source node to the target node.}
 }
 \value{
 
 }
 \description{
-Title
+This function supplements an entity node with clustered entity values
+from an entity specified in the target entity node. Both the
+target entity and the source entity have to be clustering entities.
 }
