@@ -49,7 +49,12 @@ getSingleValue_fromTree <- function(x,
 #' @rdname getSingleValue
 getSingleValue_fromTreeList <- function(x,
                                         entityId,
-                                        returnDf = TRUE) {
+                                        returnDf = TRUE,
+                                        nullValue = 0,
+                                        naValue = NULL,
+                                        warningValues = list(NULL, NA),
+                                        warningFunctions = NULL,
+                                        silent = metabefor::opts$get("silent")) {
   
   usableElements <-
     unlist(
@@ -64,24 +69,115 @@ getSingleValue_fromTreeList <- function(x,
     );
   
   if (any(!usableElements)) {
-    warning("Some rxsTrees are invalid, specifically: ",
-            metabefor::vecTxtQ(names(usableElements)[which(!usableElements)]),
-            ".");
+    if (!silent) {
+      cat("Some rxsTrees are invalid, specifically: ",
+          metabefor::vecTxtQ(names(usableElements)[which(!usableElements)]),
+          ".");
+    } else {
+      warning("Some rxsTrees are invalid, specifically: ",
+              metabefor::vecTxtQ(names(usableElements)[which(!usableElements)]),
+              ".");
+    }
   }
   
   x <- x[usableElements];
   
   res <-
     lapply(
-      x,
-      getSingleValue_fromTree,
-      entityId = entityId
+      names(x),
+      function(i) {
+        if (!silent) {
+          cat0("\nStarting to extract entity with identifier '", entityId,
+               "' from study ", i, "...");
+        }
+        return(
+          getSingleValue_fromTree(
+            x = x[[i]],
+            entityId = entityId
+          )
+        );
+      }
     );
-  
+
   if (!is.null(names(x))) {
     ids <- names(x);
   } else {
     ids <- seq_along(res);
+  }
+  
+  names(res) <- ids;
+  
+  if (!is.null(warningFunctions)) {
+    for (currentFunction in warningFunctions) {
+      warningFunctionResult <-
+        currentFunction(res);
+      msg <- paste0(
+        warningFunctionResult,
+        collapse = "\n"
+      );
+      if (!silent) {
+        cat(msg);
+      } else {
+        warning(msg);
+      }
+    }
+  }
+  
+  res_is_lists <-
+    any(
+      unlist(
+        lapply(
+          res,
+          is.list
+        )
+      )
+    );
+  
+  if ((!res_is_lists) && !is.null(warningValues)) {
+    for (i in seq_along(warningValues)) {
+      warningValueResult <-
+        unlist(lapply(res, `==`, warningValues[[i]]));
+      if ((!all(is.na(warningValueResult))) && any(warningValueResult)) {
+        msg <- paste0(
+          "\nWhen checking for matches with warning value '",
+          warningValues[[i]], "', I found matches for studies ",
+          vecTxtQ(ids[which(warningValueResult)]), "."
+        );
+        if (!silent) {
+          cat(msg);
+        } else {
+          warning(msg);
+        }
+      }
+    }
+  }
+
+  res_is_null <-
+    which(
+      unlist(
+        lapply(
+          res,
+          is.null
+        )
+      )
+    );
+  
+  res_is_na <-
+    which(
+      unlist(
+        lapply(
+          res,
+          is.na
+        )
+      )
+    );
+  
+  if (!is.null(nullValue)) {
+    res[res_is_null] <- nullValue;
+  }
+  
+  if (!is.null(naValue)) {
+    res[res_is_na] <- naValue;
   }
   
   if (returnDf) {
@@ -123,14 +219,16 @@ getSingleValue_fromTreeList <- function(x,
 #' @rdname getSingleValue
 getSingleValue <- function(x,
                            entityId,
-                           returnDf = TRUE) {
+                           returnDf = TRUE,
+                           silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
     return(
       getSingleValue_fromTreeList(
         x = x$rxsTrees,
         entityId = entityId,
-        returnDf = returnDf
+        returnDf = returnDf,
+        silent = silent
       )
     );
   } else {
