@@ -184,18 +184,32 @@ getSingleValue_fromTreeList <- function(x,
     resDfList <-
       mapply(
         function(resVector, id) {
+
+          ### In case we have a value list
+          resVector <- unlist(resVector,
+                              recursive = FALSE);
           
-          ### Just in case
-          resVector <- unlist(resVector);
+          ### In case a list was stored in the value list
+          if (is.list(resVector)) {
+            stop("Encountered an extracted `value` that is a list with ",
+                 "at least 2 levels - no way to automatically process this.");
+          }
           
+          if (!is.null(names(resVector))) {
+            resVectorNames <- names(resVector);
+          } else {
+            resVectorNames <- rep(NA, length(resVector));
+          }
+
           resDf <-
             data.frame(
               rep(id, length(resVector)),
+              resVectorNames,
               resVector
             );
           
           names(resDf) <-
-            c("Id", entityId);
+            c("Id", "Field", entityId);
           
           return(resDf);
           
