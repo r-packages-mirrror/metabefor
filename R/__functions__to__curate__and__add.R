@@ -1,0 +1,364 @@
+# ###-----------------------------------------------------------------------------
+# ###-----------------------------------------------------------------------------
+# ###-----------------------------------------------------------------------------
+#
+#
+# 
+# Drug/crime scoping review
+#
+#
+# 
+# tidyDf_to_studyFreqTab <- function(tidyDf,
+#                                    rowRegex,
+#                                    colRegex,
+#                                    rowMatch_colname = "study",
+#                                    colMatch_colname = "name",
+#                                    value_colname = "value") {
+#   
+#   if (!(all(unique(c(rowMatch_colname,
+#                      colMatch_colname,
+#                      value_colname)) %in% names(tidyDf)))) {
+#     stop("Not all specified columns exists!");
+#   }
+#   
+#   ### Ditch incomplete rows
+#   tidyDf <-
+#     tidyDf[
+#       complete.cases(
+#         tidyDf[, c(rowMatch_colname, value_colname)]
+#       ) |
+#       complete.cases(
+#         tidyDf[, c(colMatch_colname, value_colname)]
+#       ),
+#     ];
+# 
+#   ### Select rows matching our row regex
+#   tidyDf <-
+#       tidyDf[grep(rowRegex, tidyDf[, rowMatch_colname]), ];
+# 
+#   freqTab_colNames <-
+#     unique(grep(colRegex, tidyDf[, colMatch_colname], value=TRUE));
+#   
+#   freqTab_rowNames <-
+#     unique(grep(rowRegex, tidyDf[, rowMatch_colname], value=TRUE));
+# 
+#   freqTab <-
+#     do.call(
+#       rbind,
+#       by(
+#         data = tidyDf,
+#         INDICES = tidyDf[, rowMatch_colname],
+#         FUN = function(x) {
+#           res <- data.frame(t(rep(NA, length(freqTab_colNames))));
+#           names(res) <- freqTab_colNames;
+#           res[, grep(colRegex, x[, colMatch_colname], value=TRUE)] <-
+#             x[grep(colRegex, x[, colMatch_colname]), value_colname];
+#           return(res);
+#         },
+#         simplify = FALSE
+#       )
+#     );
+# 
+#   return(freqTab);
+#   
+# }
+# 
+# ###-----------------------------------------------------------------------------
+# ###-----------------------------------------------------------------------------
+# ###-----------------------------------------------------------------------------
+# 
+# equals <- function(x, targetValue) {
+#   if (is.null(x) || is.null(targetValue)) {
+#     return(NULL);
+#   } else if (length(x) == 0) {
+#     return(NA);
+#   } else {
+#     return(
+#       ifelse(
+#         is.na(x),
+#         NA,
+#         x == targetValue
+#       )
+#     );
+#   }
+# }
+# 
+# 
+# a <-
+# studies_matchingUniqueEntityIdentifiers(
+#   studies,
+#   regex = "substanceType"
+# );
+# 
+# 
+# 
+# 
+# heatMap_from_freqTab(
+#   studyTreeList_to_freqTab(studies$rxsTrees,
+#                            rowRegex = "substanceType",
+#                            colRegex = "crimeType"),
+#   rowLab = "Substance",
+#   colLab = "Crime");
+# 
+# 
+# 
+# 
+# tidyDf_to_freqTab <- function(tidyDf,
+#                               rowRegex,
+#                               colRegex,
+#                               rowMatch_colname = "name",
+#                               colMatch_colname = "name",
+#                               value_colname = "value",
+#                               aggregateOver_colname = "study",
+#                               targetValue = 1,
+#                               targetCompFun = equals) {
+#   
+#   if (!(all(unique(c(rowMatch_colname,
+#                      colMatch_colname,
+#                      value_colname)) %in% names(tidyDf)))) {
+#     stop("Not all specified columns exists!");
+#   }
+#   
+#   freqTab_rowNames <-
+#     unique(grep(rowRegex, tidyDf[, rowMatch_colname], value=TRUE));
+#   
+#   freqTab_colNames <-
+#     unique(grep(colRegex, tidyDf[, colMatch_colname], value=TRUE));
+# 
+#   ### https://stackoverflow.com/questions/11641701/sum-a-list-of-matrices
+#   freqTab <-
+#     apply(
+#       simplify2array(
+#         by(
+#           data = tidyDf,
+#           INDICES = tidyDf[, aggregateOver_colname],
+#           FUN = function(singleStudyDf) {
+#                 
+#             res <- as.data.frame(
+#               matrix(
+#                 rep(NA, length(freqTab_rowNames) * length(freqTab_colNames)),
+#                 ncol = length(freqTab_colNames)
+#               )
+#             );
+#             rownames(res) <- freqTab_rowNames;
+#             colnames(res) <- freqTab_colNames;
+# 
+#             for (freqTab_rowName in freqTab_rowNames) {
+#               for (freqTab_colName in freqTab_colNames) {
+#                 res[freqTab_rowName,
+#                     freqTab_colName] <-
+#                   targetCompFun(singleStudyDf[
+#                     singleStudyDf[, rowMatch_colname] == freqTab_rowName,
+#                     value_colname
+#                   ], targetValue) &
+#                   targetCompFun(singleStudyDf[
+#                     singleStudyDf[, colMatch_colname] == freqTab_colName,
+#                     value_colname
+#                   ], targetValue);
+#               }
+#             }
+#             
+#             return(res);
+#             
+#           },
+#           simplify = FALSE
+#         )
+#       ),
+#       c(1,2),
+#       sum
+#     );
+# 
+#   return(freqTab);
+#   
+# }
+# 
+# ###-----------------------------------------------------------------------------
+# ###-----------------------------------------------------------------------------
+# ###-----------------------------------------------------------------------------
+# 
+# studyFreqTab_substance <-
+#   tidyDf_to_studyFreqTab(
+#     tidyDf = rxsLongDataframe,
+#     rowRegex = ".*",
+#     colRegex = "substanceType__"
+#   );
+# 
+# ###-----------------------------------------------------------------------------
+# 
+# tidyFreqs_substance <-
+#   data.frame(
+#     rep(rownames(studyFreqTab_substance), ncol(studyFreqTab_substance)),
+#     rep(colnames(studyFreqTab_substance), each=nrow(studyFreqTab_substance)),
+#     unlist(studyFreqTab_substance)
+#   );
+# names(tidyFreqs_substance) <- c("var1", "var2", "value");
+# 
+# ###-----------------------------------------------------------------------------
+# 
+# tidyFreqs_substance$value <- as.numeric(tidyFreqs_substance$value);
+# 
+# heatMap <-
+#   ggplot2::ggplot(data = tidyFreqs_substance,
+#                   mapping = ggplot2::aes_string(
+#                     x = "var2",
+#                     y = "var1",
+#                     fill = "value")
+#   ) +
+#   ggplot2::geom_tile() +
+#   ggplot2::theme_bw() +
+#   ggplot2::scale_fill_viridis_c() +
+#   ggplot2::labs(x = "x",
+#                 y = "y",
+#                 fill = "fill",
+#                 title = "Title");
+# 
+# ###-----------------------------------------------------------------------------
+# ###-----------------------------------------------------------------------------
+# ###-----------------------------------------------------------------------------
+# 
+# freqTab <-
+#   tidyDf_to_freqTab(
+#     tidyDf = rxsLongDataframe,
+#     rowRegex = "crimeType__",
+#     colRegex = "substanceType__"
+#   );
+# 
+# ###-----------------------------------------------------------------------------
+# 
+# tidyFreqs <-
+#   data.frame(
+#     rep(rownames(freqTab), ncol(freqTab)),
+#     rep(colnames(freqTab), each=nrow(freqTab)),
+#     unlist(freqTab)
+#   );
+# names(tidyFreqs) <- c("var1", "var2", "value");
+# 
+# ###-----------------------------------------------------------------------------
+# 
+# tidyFreqs$value <- as.numeric(tidyFreqs$value);
+# 
+# heatMap <-
+#   ggplot2::ggplot(data = tidyFreqs,
+#                   mapping = ggplot2::aes_string(
+#                     x = "var2",
+#                     y = "var1",
+#                     fill = "value")
+#   ) +
+#   ggplot2::geom_tile() +
+#   ggplot2::theme_bw() +
+#   ggplot2::scale_fill_viridis_c() +
+#   ggplot2::labs(x = "x",
+#                 y = "y",
+#                 fill = "fill",
+#                 title = "Title");
+
+
+
+### QE works
+
+
+
+
+# rxsLongDataframe <-
+#   metabefor::tidy_studyTrees(rxs);
+# 
+# ### Starting on the wide dataframe
+# 
+# ### Using iconv because during purling/evaluation, conversion got lost
+# rxsList <- data.tree::Get(
+#   rxs$rxsTrees,
+#   function(rxsObject) {
+#     if (inherits(rxsObject, "Node")) {
+#       return(rxsObject$Get('value'));
+#     } else {
+#       return(NA);
+#     }
+#   });
+# names(rxsList) <- names(rxs$rxsTrees);
+# 
+# flattenedValues <-
+#   lapply(
+#     rxsList,
+#     function(x) {
+#       return(
+#         lapply(
+#           x,
+#           metabefor::flattenNodeValue
+#         )
+#       );
+#     }
+#   );
+# 
+# flattenedValuesAsDfs <-
+#   lapply(
+#     flattenedValues,
+#     as.data.frame
+#   );
+# 
+# rxsDatRaw <-
+#   metabefor::rbind_df_list(
+#     flattenedValuesAsDfs
+#   );
+# 
+# ### Process lists to create vectors
+# rxsDat <- data.frame(rxs__source = row.names(rxsDatRaw));
+# multiResponseRegexes <- c();
+# for (colName in names(rxsDatRaw)) {
+#   if (any(lapply(rxsDatRaw[, colName], length) > 1)) {
+#     options <-
+#       sort(unique(unlist(rxsDatRaw[, colName])));
+#     rxsDat[, paste0(colName, "__raw")] <-
+#       iconv(ufs::vecTxtQ(options), from="UTF-8");
+#     for (optionName in options) {
+#       rxsDat[, paste0(colName, "__", optionName)] <-
+#         rxsDatRaw[, colName] == optionName;
+#     }
+#     multiResponseRegexes <-
+#       c(multiResponseRegexes,
+#         paste0(paste0(colName, "__", options),
+#                collapse="|")
+#       );
+#   } else {
+#     rxsDat[, colName] <-
+#       iconv(unlist(rxsDatRaw[, colName]),
+#             from="UTF-8");
+#   }
+# }
+# 
+# extractedEntities <-
+#   sort(setdiff(names(rxsDat), "rxs__source"));
+# 
+# skippedEntities <- c();
+# for (currentEntityName in extractedEntities) {
+#   if (all(is.na(rxsDat[, currentEntityName, drop=FALSE]))) {
+#     skippedEntities <- c(skippedEntities,
+#                          currentEntityName);
+#   } else {
+#     ufs::cat0("\n\n#### ", currentEntityName, "\n\n");
+#     ufs::cat0("\n\n##### Frequency table\n\n");
+#     cat(
+#       kableExtra::kable_styling(
+#         knitr::kable(
+#           rosetta::freq(
+#             rxsDat[, currentEntityName]
+#           )$dat
+#         )
+#       )
+#     );
+#     ufs::cat0("\n\n##### Per extractionscript (i.e. per extracted source)\n\n");
+#     cat(
+#       kableExtra::kable_styling(
+#         knitr::kable(
+#           rxsDat[, c('rxs__source', currentEntityName)]
+#         )
+#       )
+#     );
+#   }
+# }
+# 
+# if (length(skippedEntities) > 0) {
+#   cat("\n\n#### Skipped entities\n\n");
+#   cat("For the following entities (often variables), all values were missing.",
+#       "These are probably containers, not extracted entities.\n\n");
+#   cat(paste("-", skippedEntities), sep="\n");
+# }
