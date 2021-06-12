@@ -5,7 +5,7 @@
 #' @param exclude A regular expression specifying which files to ignore.
 #' @param ignore.case Whether the regular expression is case sensitive.
 #' @param recursive Whether to also look in subdirectories.
-#' @param quiet Whether to be quiet or chatty.
+#' @param silent Whether to be quiet or chatty.
 #' @param showErrors Whether to show or hide errors that are encountered.
 #' @param encoding The files' encoding.
 #'
@@ -17,7 +17,7 @@ rxs_parseExtractionScripts <- function(path,
                                                  "\\[EXCLUDED]"),
                                        ignore.case=TRUE,
                                        recursive=TRUE,
-                                       quiet=TRUE,
+                                       silent=metabefor::opts$get("silent"),
                                        showErrors=TRUE,
                                        encoding="UTF-8") {
 
@@ -51,7 +51,20 @@ rxs_parseExtractionScripts <- function(path,
     p <- dplyr::progress_estimated(length(allScripts));
   };
 
+  if (!silent) {
+    cat0("\nStarting to process ", length(allScripts),
+         " Rxs (extraction script) files ",
+         "in path ", path, "matching regular expression ", pattern,
+         "but excluding all files matching regular expression",
+         exclude, ".");
+  }
+  
   for (filename in allScripts) {
+    
+    if (!silent) {
+      cat0("\n\nStarting to process extraction script ", filename, "...");
+    }
+    
     ### From https://stackoverflow.com/questions/24753969/knitr-run-all-chunks-in-an-rmarkdown-document
 
     ### Create temporary file
@@ -94,7 +107,11 @@ rxs_parseExtractionScripts <- function(path,
                     e$message,
                     "\n\nEncountered while processing file '", filename, "'.\n");
              });
-
+    
+    if (!silent) {
+      cat0(" Extracted R script fragments.");
+    }
+    
     if (any(grepl("In file '",
                     filename,
                     "', encountered error while purling",
@@ -118,6 +135,11 @@ rxs_parseExtractionScripts <- function(path,
                                   # cat(e$message);
                                   invisible(e);
                                 }));
+      
+      if (!silent) {
+        cat0(" Also executed R script fragments.");
+      }
+      
       tryCatch({res$rxsOutput[[filename]] <-
         rxsOutput;},
         error = function(e) {
@@ -141,6 +163,11 @@ rxs_parseExtractionScripts <- function(path,
       res$rxsTrees[[filename]] <-
         data.tree::Clone(get('study', envir=globalenv()));
       rm(study, envir=globalenv());
+      
+      if (!silent) {
+        cat0(" Finally, successfully stored the `study` object.");
+      }
+      
     } else {
       res$rxsTrees[[filename]] <- NA;
     }
@@ -150,7 +177,11 @@ rxs_parseExtractionScripts <- function(path,
     };
 
   }
-
+  
+  if (!silent) {
+    cat0("\n\nFinished processing all Rxs files.\n");
+  }
+  
   class(res) <- "rxs_parsedExtractionScripts";
 
   return(res);
