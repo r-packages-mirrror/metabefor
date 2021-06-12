@@ -2,7 +2,13 @@
 flattenNodeValue <- function(singleValue) {
   
   if (is.expression(singleValue)) {
-    singleValue <- deparse(singleValue);
+    singleValue <-
+    tryCatch({
+      return(eval(singleValue));
+    }, error = function(e) {
+      return(paste0("Expression ", deparse(substitute(singleValue)),
+                    " returned error '", e$message, "' when executed."));
+    });
   }
   
   if (is.null(singleValue)) {
