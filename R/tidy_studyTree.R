@@ -28,7 +28,7 @@ tidy_studyTree <- function(studyTree,
             data.frame(
               path = path,
               name = name,
-              value = value
+              value = deparse(value)
             )
           return(df);
         },
