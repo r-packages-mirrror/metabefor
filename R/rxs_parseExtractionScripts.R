@@ -54,8 +54,8 @@ rxs_parseExtractionScripts <- function(path,
   if (!silent) {
     cat0("\nStarting to process ", length(allScripts),
          " Rxs (extraction script) files ",
-         "in path ", path, "matching regular expression ", pattern,
-         "but excluding all files matching regular expression",
+         "in path ", path, " matching regular expression ", pattern,
+         " but excluding all files matching regular expression ",
          exclude, ".");
   }
   
@@ -89,7 +89,7 @@ rxs_parseExtractionScripts <- function(path,
       capture.output(tryCatch(knitr::purl(file.path(path,
                                                     filename),
                                           output=tempR,
-                                          quiet=quiet,
+                                          quiet=silent,
                                           encoding=encoding),
                               error = function(e) {
                                 cat(paste0("In file '",
@@ -100,6 +100,7 @@ rxs_parseExtractionScripts <- function(path,
                                            collapse="\n"));
                                 invisible(e);
                               }));
+    
     tryCatch({res$rxsPurlingOutput[[filename]] <-
                 purlingOutput;},
              error = function(e) {
@@ -109,10 +110,12 @@ rxs_parseExtractionScripts <- function(path,
              });
     
     if (!silent) {
-      cat0("  - Extracted R script fragments: ",
+      cat0("\n  - Extracted R script fragments: ",
            length(res$rxsPurlingOutput[[filename]]),
            " lines extracted.");
     }
+    
+    browser();
     
     if (any(grepl("In file '",
                     filename,
@@ -139,7 +142,7 @@ rxs_parseExtractionScripts <- function(path,
                                 }));
       
       if (!silent) {
-        cat0("  - Also executed R script fragments: ", length(rxsOutput),
+        cat0("\n  - Also executed R script fragments: ", length(rxsOutput),
              " lines of output generated and stored.");
       }
       
@@ -169,7 +172,7 @@ rxs_parseExtractionScripts <- function(path,
         data.tree::Clone(get('study', envir=globalenv()));
       
       if (!silent) {
-        cat0("  - Finally, successfully stored the `study` object, which ",
+        cat0("\n  - Finally, successfully stored the `study` object, which ",
              "itself contains ", length(study), " objects.");
       }
       
