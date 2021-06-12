@@ -109,7 +109,9 @@ rxs_parseExtractionScripts <- function(path,
              });
     
     if (!silent) {
-      cat0(" Extracted R script fragments.");
+      cat0("  - Extracted R script fragments: ",
+           length(res$rxsPurlingOutput[[filename]]),
+           " lines extracted.");
     }
     
     if (any(grepl("In file '",
@@ -137,11 +139,13 @@ rxs_parseExtractionScripts <- function(path,
                                 }));
       
       if (!silent) {
-        cat0(" Also executed R script fragments.");
+        cat0("  - Also executed R script fragments: ", length(rxsOutput),
+             " lines of output generated and stored.");
       }
       
-      tryCatch({res$rxsOutput[[filename]] <-
-        rxsOutput;},
+      tryCatch({
+        res$rxsOutput[[filename]] <- rxsOutput;
+        },
         error = function(e) {
           stop("Error saving rxs evaluation output to rxs object! The error is:\n\n",
                e$message,
@@ -160,13 +164,16 @@ rxs_parseExtractionScripts <- function(path,
 
     ### If successful, store the result and delete object; otherwise set to NA
     if (exists('study', envir=globalenv())) {
+      
       res$rxsTrees[[filename]] <-
         data.tree::Clone(get('study', envir=globalenv()));
-      rm(study, envir=globalenv());
       
       if (!silent) {
-        cat0(" Finally, successfully stored the `study` object.");
+        cat0("  - Finally, successfully stored the `study` object, which ",
+             "itself contains ", length(study), " objects.");
       }
+      
+      rm(study, envir=globalenv());
       
     } else {
       res$rxsTrees[[filename]] <- NA;
