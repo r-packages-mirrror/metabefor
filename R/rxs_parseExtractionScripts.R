@@ -47,7 +47,7 @@ rxs_parseExtractionScripts <- function(path,
 
   res$input$allScripts <- allScripts;
 
-  if (interactive()) {
+  if (interactive() && (silent)) {
     p <- dplyr::progress_estimated(length(allScripts));
   };
 
@@ -89,7 +89,7 @@ rxs_parseExtractionScripts <- function(path,
       capture.output(tryCatch(knitr::purl(file.path(path,
                                                     filename),
                                           output=tempR,
-                                          quiet=silent,
+                                          quiet=TRUE,
                                           encoding=encoding),
                               error = function(e) {
                                 cat(paste0("In file '",
@@ -174,13 +174,31 @@ rxs_parseExtractionScripts <- function(path,
              "itself contains ", length(study), " objects.");
       }
       
+      allValues <- study$Get('value');
+
+      if (any(unlist(lapply(allValues, is.expression)))) {
+        msg <- paste0(
+          "One or more extracted values are not just values, but ",
+          "instead R expressions! This is probably a symptom of ",
+          "a syntax error made during extraction. Carefully check the ",
+          "extraction script file!");
+        if (!silent) {
+          cat(msg);
+        }
+      } else {
+        if (!silent) {
+          cat0("\n  - Checked (and discovered) that none of the extracted ",
+               "`values` is in fact an R expression.");
+        }
+      }
+      
       rm(study, envir=globalenv());
       
     } else {
       res$rxsTrees[[filename]] <- NA;
     }
 
-    if (interactive()) {
+    if (interactive() && (silent)) {
       p$tick()$print();
     };
 
