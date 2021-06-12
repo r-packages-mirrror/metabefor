@@ -12,7 +12,8 @@
 #' @export
 tidy_studyTrees <- function(x,
                             eC = metabefor::opts$get('entityColNames'),
-                            flattenToString = TRUE) {
+                            flattenToString = TRUE,
+                            silent = metabefor::opts$get('silent')) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
     x <- x$rxsTrees;
@@ -27,12 +28,16 @@ tidy_studyTrees <- function(x,
       lapply(
         names(x),
         function(treeName) {
+          if (!silent) {
+            cat0("\n\nStarting to process study tree with name ", treeName, "...");
+          }
           return(
             tidy_studyTree(
               studyTree = x[[treeName]],
               studyName = treeName,
               eC = eC,
-              flattenToString = flattenToString
+              flattenToString = flattenToString,
+              silent = silent
             )
           );
         }

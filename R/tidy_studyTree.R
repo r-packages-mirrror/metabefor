@@ -3,7 +3,8 @@
 tidy_studyTree <- function(studyTree,
                            studyName = "",
                            eC = metabefor::opts$get('entityColNames'),
-                           flattenToString = TRUE) {
+                           flattenToString = TRUE,
+                           silent = metabefor::opts$get('silent')) {
   res <-
     metabefor::rbind_df_list(
       studyTree$Get(
@@ -28,8 +29,19 @@ tidy_studyTree <- function(studyTree,
             data.frame(
               path = path,
               name = name,
-              value = deparse(value)
-            )
+              value = value
+            );
+          
+          if (!silent) {
+            if (is.expression(node$value)) {
+              cat0("\n- Encountered a value that was an R expression in ",
+                   "entity node with name '", node$name, "': deparsed it and ",
+                   "retrieved the result.");
+            } else {
+              cat0("\n- Succesfully retrieved non-expression value from ",
+                   "entity node with name '", node$name, "'.");
+            }
+          }
           return(df);
         },
         filterFun = data.tree::isNotRoot,

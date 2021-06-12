@@ -1,5 +1,10 @@
 #' @export
 flattenNodeValue <- function(singleValue) {
+  
+  if (is.expression(singleValue)) {
+    singleValue <- deparse(singleValue);
+  }
+  
   if (is.null(singleValue)) {
     return(NULL);
   } else if (all(is.na(singleValue))) {
