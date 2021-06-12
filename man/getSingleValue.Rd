@@ -13,9 +13,23 @@ getSingleValue_fromTree(
   silent = metabefor::opts$get("silent")
 )
 
-getSingleValue_fromTreeList(x, entityId, returnDf = TRUE)
+getSingleValue_fromTreeList(
+  x,
+  entityId,
+  returnDf = TRUE,
+  nullValue = 0,
+  naValue = NULL,
+  warningValues = list(NULL, NA),
+  warningFunctions = NULL,
+  silent = metabefor::opts$get("silent")
+)
 
-getSingleValue(x, entityId, returnDf = TRUE)
+getSingleValue(
+  x,
+  entityId,
+  returnDf = TRUE,
+  silent = metabefor::opts$get("silent")
+)
 }
 \arguments{
 \item{x}{}
