@@ -115,8 +115,6 @@ rxs_parseExtractionScripts <- function(path,
            " lines extracted.");
     }
     
-    browser();
-    
     if (any(grepl("In file '",
                     filename,
                     "', encountered error while purling",
