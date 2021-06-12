@@ -5,8 +5,8 @@
 #' @return A character vector.
 #' @export
 #'
-#' @examples countrycodelist()
-countrycodelist <- function(type = "alpha1") {
+#' @examples countryCodeList()
+countryCodeList <- function(type = "alpha1") {
   return(
     c(
       "AD",
