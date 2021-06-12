@@ -9,13 +9,15 @@ tidy_studyTree(
   studyTree,
   studyName = "",
   eC = metabefor::opts$get("entityColNames"),
-  flattenToString = TRUE
+  flattenToString = TRUE,
+  silent = metabefor::opts$get("silent")
 )
 
 tidy_studyTrees(
   x,
   eC = metabefor::opts$get("entityColNames"),
-  flattenToString = TRUE
+  flattenToString = TRUE,
+  silent = metabefor::opts$get("silent")
 )
 }
 \arguments{

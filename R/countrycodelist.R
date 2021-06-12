@@ -3,7 +3,7 @@
 #' @param type The type; currently only `"alpha1"` is a valid value.
 #'
 #' @return A character vector.
-## #' @export
+#' @export
 #'
 #' @examples countryCodeList()
 countryCodeList <- function(type = "alpha1") {

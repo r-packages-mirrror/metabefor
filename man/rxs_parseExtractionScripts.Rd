@@ -10,7 +10,7 @@ rxs_parseExtractionScripts(
   exclude = c("extractionScriptTemplate.rxs.Rmd", "\\\\[EXCLUDED]"),
   ignore.case = TRUE,
   recursive = TRUE,
-  quiet = TRUE,
+  silent = metabefor::opts$get("silent"),
   showErrors = TRUE,
   encoding = "UTF-8"
 )
@@ -26,7 +26,7 @@ rxs_parseExtractionScripts(
 
 \item{recursive}{Whether to also look in subdirectories.}
 
-\item{quiet}{Whether to be quiet or chatty.}
+\item{silent}{Whether to be quiet or chatty.}
 
 \item{showErrors}{Whether to show or hide errors that are encountered.}
 
