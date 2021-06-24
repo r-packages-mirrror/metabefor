@@ -100,7 +100,7 @@ rxs_parseExtractionScripts <- function(path,
                                            collapse="\n"));
                                 invisible(e);
                               }));
-    
+
     tryCatch({res$rxsPurlingOutput[[filename]] <-
                 purlingOutput;},
              error = function(e) {

@@ -17,6 +17,10 @@
 #' @param idField_in_sourceEntityNode `NULL` if the source node's name is also its
 #' identifier; otherwise, the name of the field containing the identifier in
 #' the source node.
+#' @param overwriteExistingValues Whether to overwrite existing values if
+#' those are encountered in the target entity.
+#' @param prefix,suffix A text string to prepend and append to the names of the
+#' values that are copied.
 #' @param fieldsToCopy_regex A regular expression that can optionally be
 #' used to select fields to copy over from the source node to the target node.
 #'
@@ -30,18 +34,21 @@ supplement_data_from_list <- function(studyTree,
                                       idField_in_targetEntityNode = NULL,
                                       idField_in_sourceEntityNode = NULL,
                                       fieldsToCopy_regex = NULL,
+                                      forceCopyingOfExistingValues = FALSE,
+                                      prefix = "",
+                                      suffix = "",
                                       silent = metabefor::opts$get("silent")) {
   
   if (is.null(studyTree)) {
     if (!silent) {
-      cat("What you passed as `studyTree` is NULL!");
+      cat0("What you passed as `studyTree` is NULL!");
     }
     return(invisible(NULL));
   }
   
   if (!(inherits(studyTree, "Node"))) {
     if (!silent) {
-      cat("What you passed as `studyTree` is not actually a study tree!");
+      cat0("What you passed as `studyTree` is not actually a study tree!");
     }
     return(invisible(studyTree));
   }
@@ -82,8 +89,8 @@ supplement_data_from_list <- function(studyTree,
   
   if (is.null(targetNode)) {
     if (!silent) {
-      cat("The studyTree you passed does not contain the node you ",
-          "specified as target entity node (", targetEntityNodeId, ").");
+      cat0("The studyTree you passed does not contain the node you ",
+           "specified as target entity node (", targetEntityNodeId, ").");
     }
     return(invisible(studyTree));
   }
@@ -93,38 +100,39 @@ supplement_data_from_list <- function(studyTree,
   ###---------------------------------------------------------------------------
   
   targetNodeValue <-
-    targetNode$Get("value");
+    targetNode$Get("value", simplify=FALSE)[[targetEntityNodeId]];
 
   if (is.null(targetNodeValue)) {
     if (!silent) {
-      cat("In the studyTree you passed, I found the target entity node you ",
-          "specified. However, within that node, there is no value list ",
-          "specified (i.e. the target node does not seem to be a clustering ",
-          "node), so I can't look for the field specifying the ",
-          "source entity node (",
-          sourceEntityNodeIdField_in_targetEntity, ").");
+      cat0("In the studyTree you passed, I found the target entity node you ",
+           "specified. However, within that node, there is no value list ",
+           "specified (i.e. the target node does not seem to be a clustering ",
+           "node), so I can't look for the field specifying the ",
+           "source entity node (",
+           sourceEntityNodeIdField_in_targetEntity, ").");
     }
     return(invisible(studyTree));
   }
   
   if (!is.list(targetNodeValue)) {
     if (!silent) {
-      cat("In the studyTree you passed, I found the target entity node you ",
-          "specified. However, the value stored within that node, is not a ",
-          "value list (i.e. the target node does not seem to be a clustering ",
-          "node), so I can't look for the field specifying the ",
-          "source entity node (",
-          sourceEntityNodeIdField_in_targetEntity, ").");
+      cat0("In the studyTree you passed, I found the target entity node you ",
+           "specified. However, the value stored within that node, is not a ",
+           "value list (i.e. the target node does not seem to be a clustering ",
+           "node), so I can't look for the field specifying the ",
+           "source entity node (",
+           sourceEntityNodeIdField_in_targetEntity, ").");
     }
     return(invisible(studyTree));
   }
-  
+
   if (!(sourceEntityNodeIdField_in_targetEntity %in% names(targetNodeValue))) {
     if (!silent) {
-      cat("In the studyTree you passed, I found the target entity node you ",
-          "specified, but in the value list it stored, I cannot find the ",
-          "field field specifying the source entity node (",
-          sourceEntityNodeIdField_in_targetEntity, ").");
+      cat0("In the studyTree you passed, I found the target entity node you ",
+           "specified, but in the value list it stored, I cannot find the ",
+           "field field specifying the source entity node ('",
+           sourceEntityNodeIdField_in_targetEntity, "').\n\nThe names that ",
+           "did occur were: ", vecTxtQ(names(targetNodeValue)), ".");
     }
     return(invisible(studyTree));
   }
@@ -136,11 +144,11 @@ supplement_data_from_list <- function(studyTree,
       is.na(sourceEntityNodeId) ||
       (nchar(sourceEntityNodeId) == 0)) {
     if (!silent) {
-      cat("In the studyTree you passed, I found the target entity node you ",
-          "specified, and within it, the entity node that you said would ",
-          "contain the reference to the source entity node ",
-          sourceEntityNodeIdField_in_targetEntity,
-          ". However, its value is NULL, NA, or empty ('').");
+      cat0("In the studyTree you passed, I found the target entity node you ",
+           "specified, and within it, the entity node that you said would ",
+           "contain the reference to the source entity node ",
+           sourceEntityNodeIdField_in_targetEntity,
+           ". However, its value is NULL, NA, or empty ('').");
     }
     return(invisible(studyTree));
   }
@@ -197,42 +205,50 @@ supplement_data_from_list <- function(studyTree,
   ###---------------------------------------------------------------------------
   
   sourceNodeValue <-
-    sourceNode$Get("value");
+    sourceNode$Get("value", simplify=FALSE)[[sourceEntityNodeId]];
   
   if (!is.list(sourceNodeValue)) {
     if (!silent) {
-      cat("In the studyTree you passed, I found both the target entity node ",
-          "you specified and the source entity node referred to in the target ",
-          "entity node. However, the value stored in the source node is not ",
-          "a value list (i.e. the source node does not seem to be a clustering ",
-          "node), so I can't copy any values over to the target node.");
+      cat0("In the studyTree you passed, I found both the target entity node ",
+           "you specified and the source entity node referred to in the target ",
+           "entity node. However, the value stored in the source node is not ",
+           "a value list (i.e. the source node does not seem to be a clustering ",
+           "node), so I can't copy any values over to the target node.");
     }
     return(invisible(studyTree));
   }  
   
-  if (any(names(sourceNodeValue) %in% names(targetNodeValue))) {
-    overlappingNames <-
-      intersect(names(sourceNodeValue), names(targetNodeValue));
-    if (!silent) {
-      cat("In the studyTree you passed, I found both the target entity node ",
-          "you specified and the source entity node referred to in the target ",
-          "entity node. However, one or more names occur in both lists (",
-          vecTxtQ(overlappingNames),
-          "). This should not be possible normally, as entity identifiers ",
-          "should be unique, so I am aborting.");
+  ### Rename values with the prefix and suffix
+  names(sourceNodeValue) <-
+    paste0(prefix, names(sourceNodeValue), suffix);
+  
+  if (!forceCopyingOfExistingValues) {
+    if (any(names(sourceNodeValue) %in% names(targetNodeValue))) {
+      overlappingNames <-
+        intersect(names(sourceNodeValue), names(targetNodeValue));
+      if (!silent) {
+        cat0("In the studyTree you passed, I found both the target entity node ",
+             "you specified and the source entity node referred to in the target ",
+             "entity node. However, one or more names occur in both lists (",
+             vecTxtQ(overlappingNames),
+             "). This should not be possible normally, as entity identifiers ",
+             "should be unique. Maybe you already ran this command? ",
+             "I am aborting. If you want to override this error, use ",
+             "argument 'forceCopyingOfExistingValues=TRUE'.");
+      }
+      return(invisible(studyTree));
     }
-    return(invisible(studyTree));
-  }
+  };
   
   targetNode$value <-
     c(targetNodeValue,
       sourceNodeValue);
   
   if (!silent) {
-    cat("Succesfully copied over ", length(sourceNodeValue),
-        " fields (", vecTxtQ(names(sourceNodeValue)), ") from the source ",
-        "entity node with identifier '", sourceEntityNodeId, "' to the ",
-        "target entity node with identifier '", targetEntityNodeId, "'.\n");
+    cat0("Succesfully copied over ", length(sourceNodeValue),
+         " fields (", vecTxtQ(names(sourceNodeValue)), ") from the source ",
+         "entity node with identifier '", sourceEntityNodeId, "' to the ",
+         "target entity node with identifier '", targetEntityNodeId, "'.\n");
   }
   
   return(invisible(studyTree));
