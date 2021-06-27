@@ -10,30 +10,63 @@
 #' @examples
 #' 
 #' @export
-#' @rdname getSingleValue
-getSingleValue_fromTree <- function(x,
-                                    entityId,
-                                    lookInValueLists = TRUE,
-                                    silent = metabefor::opts$get("silent")) {
+#' @rdname get_singleValue
+get_singleValue_fromTree <- function(x,
+                                     entityId,
+                                     lookInValueLists = TRUE,
+                                     returnDf = FALSE,
+                                     silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs") && inherits(x, "Node")) {
+    
     foundNode <- data.tree::FindNode(
         x,
         entityId
       );
+    
     if (!is.null(foundNode)) {
-      return(foundNode$value);
+      
+      if (returnDf) {
+        return(
+          as.data.frame(
+            padVectors(
+              foundNode$value
+            )
+          )
+        );
+      } else {
+        return(foundNode$value);
+      }
+      
     } else if (lookInValueLists) {
+      
       valuesFromValueLists <-
         x$Get(
           function(node) {
             return(node$value[[entityId]]);
           },
           filterFun = function(node) {
-            return(entityId %in% names(node$value));
+            if (is.null(names(node$value))) {
+              return(FALSE);
+            } else {
+              return(entityId %in% names(node$value));
+            }
           }
-        )
-      return(valuesFromValueLists);
+        );
+      
+      if (returnDf) {
+        
+        return(
+          as.data.frame(
+            padVectors(
+              valuesFromValueLists
+            )
+          )
+        );
+
+      } else {
+        return(valuesFromValueLists);
+      }
     } else {
       if (!silent) {
         cat("\nDid not find an entity with identier ('name')", entityId);
@@ -41,20 +74,21 @@ getSingleValue_fromTree <- function(x,
       return(invisible(NULL));
     }
   } else {
-    stop("Wrong class!");
+    stop("The object you passed is not a study tree! It has class(es) ",
+         vecTxtQ(class(x)), ".");
   }
 }
 
 #' @export
-#' @rdname getSingleValue
-getSingleValue_fromTreeList <- function(x,
-                                        entityId,
-                                        returnDf = TRUE,
-                                        nullValue = 0,
-                                        naValue = NULL,
-                                        warningValues = list(NULL, NA),
-                                        warningFunctions = NULL,
-                                        silent = metabefor::opts$get("silent")) {
+#' @rdname get_singleValue
+get_singleValue_fromTreeList <- function(x,
+                                         entityId,
+                                         returnDf = TRUE,
+                                         nullValue = 0,
+                                         naValue = NULL,
+                                         warningValues = list(NULL, NA),
+                                         warningFunctions = NULL,
+                                         silent = metabefor::opts$get("silent")) {
   
   usableElements <-
     unlist(
@@ -91,7 +125,7 @@ getSingleValue_fromTreeList <- function(x,
                "' from study ", i, "...");
         }
         return(
-          getSingleValue_fromTree(
+          get_singleValue_fromTree(
             x = x[[i]],
             entityId = entityId
           )
@@ -230,15 +264,15 @@ getSingleValue_fromTreeList <- function(x,
 }
 
 #' @export
-#' @rdname getSingleValue
-getSingleValue <- function(x,
-                           entityId,
-                           returnDf = TRUE,
-                           silent = metabefor::opts$get("silent")) {
+#' @rdname get_singleValue
+get_singleValue <- function(x,
+                            entityId,
+                            returnDf = TRUE,
+                            silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
     return(
-      getSingleValue_fromTreeList(
+      get_singleValue_fromTreeList(
         x = x$rxsTrees,
         entityId = entityId,
         returnDf = returnDf,
@@ -246,7 +280,8 @@ getSingleValue <- function(x,
       )
     );
   } else {
-    stop("Wrong class!");
+    stop("The object you passed is not an object with parsed Rxs files! It has class(es) ",
+         vecTxtQ(class(x)), ".");
   }
   
 }

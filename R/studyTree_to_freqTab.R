@@ -36,7 +36,7 @@ studyTree_to_freqTab <- function(x,
     unlist(
       lapply(
         rowNames,
-        metabefor::getSingleValue_fromTree,
+        metabefor::get_singleValue_fromTree,
         x = x
       )
     );
@@ -45,7 +45,7 @@ studyTree_to_freqTab <- function(x,
     unlist(
       lapply(
         colNames,
-        metabefor::getSingleValue_fromTree,
+        metabefor::get_singleValue_fromTree,
         x = x
       )
     );

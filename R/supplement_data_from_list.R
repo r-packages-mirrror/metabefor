@@ -1,8 +1,12 @@
 #' Supplement a target entitity node with clustered entity values from another entity node
 #' 
-#' This function supplements an entity node with clustered entity values
-#' from an entity specified in the target entity node. Both the
+#' These function supplement a entity nodes with clustered entity values
+#' from other entities specified in the target entity nodes. Both the
 #' target entity and the source entity have to be clustering entities.
+#' Use `supplement_data_from_list()` for one node, and
+#' `supplement_data_from_list()` for all nodes containing the field that
+#' identifies the node to copy the values from (i.e. as specified in
+#' `sourceEntityNodeIdField_in_targetEntity`).
 #'
 #' @param studyTree The study tree
 #' @param targetEntityNodeId The identifier of the target entity node (the node to
@@ -23,8 +27,10 @@
 #' values that are copied.
 #' @param fieldsToCopy_regex A regular expression that can optionally be
 #' used to select fields to copy over from the source node to the target node.
+#' @param silent Whether to be quiet or chatty.
 #'
 #' @return
+#' @rdname supplement_data_from_list
 #' @export
 #'
 #' @examples
