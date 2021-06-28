@@ -4,6 +4,9 @@
 #' @param entityId The entity identifier of the value to get
 #' @param lookInValueLists Whether to also look inside value lists
 #' @param returnDf Whether to return a data frame or not
+#' @param flattenVectorsInDf When returning a data frame, whether to flatten
+#' vectors into a single character string value, or whether to explode into
+#' multiple rows.
 #'
 #' @return A list or a dataframe (if `returnDf` is `TRUE`)
 #'
@@ -15,6 +18,8 @@ get_singleValue_fromTree <- function(x,
                                      entityId,
                                      lookInValueLists = TRUE,
                                      returnDf = FALSE,
+                                     flattenVectorsInDf = TRUE,
+                                     returnLongDf = TRUE,
                                      silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs") && inherits(x, "Node")) {
@@ -27,13 +32,24 @@ get_singleValue_fromTree <- function(x,
     if (!is.null(foundNode)) {
       
       if (returnDf) {
-        return(
-          as.data.frame(
-            padVectors(
-              foundNode$value
+        
+        if (flattenVectorsInDf) {
+          return(
+            as.data.frame(
+              flattenNodeValues(
+                foundNode$value
+              )
             )
-          )
-        );
+          );
+        } else {
+          return(
+            as.data.frame(
+              padVectors(
+                foundNode$value
+              )
+            )
+          );
+        }
       } else {
         return(foundNode$value);
       }
@@ -55,14 +71,27 @@ get_singleValue_fromTree <- function(x,
         );
       
       if (returnDf) {
-        
-        return(
-          as.data.frame(
-            padVectors(
-              valuesFromValueLists
+
+        if (flattenVectorsInDf) {
+          
+          return(
+            as.data.frame(
+              flattenNodeValues(
+                valuesFromValueLists
+              )
             )
-          )
-        );
+          );
+          
+        } else {
+          
+          return(
+            as.data.frame(
+              padVectors(
+                valuesFromValueLists
+              )
+            )
+          );
+        }
 
       } else {
         return(valuesFromValueLists);
@@ -86,8 +115,10 @@ get_singleValue_fromTreeList <- function(x,
                                          returnDf = TRUE,
                                          nullValue = 0,
                                          naValue = NULL,
+                                         flattenVectorsInDf = TRUE,
                                          warningValues = list(NULL, NA),
                                          warningFunctions = NULL,
+                                         returnLongDf = TRUE,
                                          silent = metabefor::opts$get("silent")) {
   
   usableElements <-
@@ -127,7 +158,10 @@ get_singleValue_fromTreeList <- function(x,
         return(
           get_singleValue_fromTree(
             x = x[[i]],
-            entityId = entityId
+            entityId = entityId,
+            flattenVectorsInDf = flattenVectorsInDf,
+            silent = silent,
+            returnDf = returnDf
           )
         );
       }
@@ -156,111 +190,130 @@ get_singleValue_fromTreeList <- function(x,
       }
     }
   }
-  
-  res_is_lists <-
-    any(
-      unlist(
-        lapply(
-          res,
-          is.list
-        )
+
+  if (returnDf && (!returnLongDf)) {
+
+    res <-
+      lapply(
+        names(res),
+        function(x) {
+          res[[x]]$sourceId <- x;
+          return(res[[x]]);
+        }
+      );
+
+    return(
+      metabefor::rbind_df_list(
+        res
       )
     );
-  
-  if ((!res_is_lists) && !is.null(warningValues)) {
-    for (i in seq_along(warningValues)) {
-      warningValueResult <-
-        unlist(lapply(res, `==`, warningValues[[i]]));
-      if ((!all(is.na(warningValueResult))) && any(warningValueResult)) {
-        msg <- paste0(
-          "\nWhen checking for matches with warning value '",
-          warningValues[[i]], "', I found matches for studies ",
-          vecTxtQ(ids[which(warningValueResult)]), "."
-        );
-        if (!silent) {
-          cat(msg);
-        } else {
-          warning(msg);
+    
+  } else {
+    
+    res_is_lists <-
+      any(
+        unlist(
+          lapply(
+            res,
+            is.list
+          )
+        )
+      );
+    
+    if ((!res_is_lists) && !is.null(warningValues)) {
+      for (i in seq_along(warningValues)) {
+        warningValueResult <-
+          unlist(lapply(res, `==`, warningValues[[i]]));
+        if ((!all(is.na(warningValueResult))) && any(warningValueResult)) {
+          msg <- paste0(
+            "\nWhen checking for matches with warning value '",
+            warningValues[[i]], "', I found matches for studies ",
+            vecTxtQ(ids[which(warningValueResult)]), "."
+          );
+          if (!silent) {
+            cat(msg);
+          } else {
+            warning(msg);
+          }
         }
       }
     }
-  }
-
-  res_is_null <-
-    which(
-      unlist(
-        lapply(
-          res,
-          is.null
+    
+    res_is_null <-
+      which(
+        unlist(
+          lapply(
+            res,
+            is.null
+          )
         )
-      )
-    );
-  
-  res_is_na <-
-    which(
-      unlist(
-        lapply(
-          res,
-          is.na
-        )
-      )
-    );
-  
-  if (!is.null(nullValue)) {
-    res[res_is_null] <- nullValue;
-  }
-  
-  if (!is.null(naValue)) {
-    res[res_is_na] <- naValue;
-  }
-  
-  if (returnDf) {
-    resDfList <-
-      mapply(
-        function(resVector, id) {
-
-          ### In case we have a value list
-          resVector <- unlist(resVector,
-                              recursive = FALSE);
-          
-          ### In case a list was stored in the value list
-          if (is.list(resVector)) {
-            stop("Encountered an extracted `value` that is a list with ",
-                 "at least 2 levels - no way to automatically process this.");
-          }
-          
-          if (!is.null(names(resVector))) {
-            resVectorNames <- names(resVector);
-          } else {
-            resVectorNames <- rep(NA, length(resVector));
-          }
-
-          resDf <-
-            data.frame(
-              rep(id, length(resVector)),
-              resVectorNames,
-              resVector
-            );
-          
-          names(resDf) <-
-            c("Id", "Field", entityId);
-          
-          return(resDf);
-          
-        },
-        res,
-        ids,
-        SIMPLIFY = FALSE
       );
     
-    resDf <-
-      metabefor::rbind_df_list(resDfList);
+    res_is_na <-
+      which(
+        unlist(
+          lapply(
+            res,
+            is.na
+          )
+        )
+      );
     
-    return(resDf);
-  } else {
-    return(res);
-  }
+    if (!is.null(nullValue)) {
+      res[res_is_null] <- nullValue;
+    }
+    
+    if (!is.null(naValue)) {
+      res[res_is_na] <- naValue;
+    }
+    
+    if (returnDf) {
+      resDfList <-
+        mapply(
+          function(resVector, id) {
   
+            ### In case we have a value list
+            resVector <- unlist(resVector,
+                                recursive = FALSE);
+  
+            ### In case a list was stored in the value list
+            if (is.list(resVector)) {
+              stop("Encountered an extracted `value` that is a list with ",
+                   "at least 2 levels - no way to automatically process this.");
+            }
+  
+            if (!is.null(names(resVector))) {
+              resVectorNames <- names(resVector);
+            } else {
+              resVectorNames <- rep(NA, length(resVector));
+            }
+  
+            resDf <-
+              data.frame(
+                rep(id, length(resVector)),
+                resVectorNames,
+                resVector
+              );
+  
+            names(resDf) <-
+              c("Id", "Field", entityId);
+  
+            return(resDf);
+  
+          },
+          res,
+          ids,
+          SIMPLIFY = FALSE
+        );
+  
+      resDf <-
+        metabefor::rbind_df_list(resDfList);
+  
+      return(resDf);
+    } else {
+      return(res);
+    }
+  }
 }
 
 #' @export
@@ -268,6 +321,8 @@ get_singleValue_fromTreeList <- function(x,
 get_singleValue <- function(x,
                             entityId,
                             returnDf = TRUE,
+                            flattenVectorsInDf = TRUE,
+                            returnLongDf = TRUE,
                             silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
@@ -276,6 +331,8 @@ get_singleValue <- function(x,
         x = x$rxsTrees,
         entityId = entityId,
         returnDf = returnDf,
+        flattenVectorsInDf = flattenVectorsInDf,
+        returnLongDf = returnLongDf,
         silent = silent
       )
     );

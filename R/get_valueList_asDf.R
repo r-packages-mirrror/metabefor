@@ -2,6 +2,9 @@
 #'
 #' @param x The study tree, list of trees, or studies object
 #' @param requiredFields Fields that have to exist in 
+#' @param flattenVectorsInDf When returning a data frame, whether to flatten
+#' vectors into a single character string value, or whether to explode into
+#' multiple rows.
 #' @param silent Whether to be quiet or chatty.
 #'
 #' @return A dataframe
@@ -12,6 +15,7 @@
 #' @rdname get_valueList_asDf
 get_valueList_asDf_fromStudyTree <- function(x,
                                              requiredFields = NULL,
+                                             flattenVectorsInDf = TRUE,
                                              silent = metabefor::opts$get("silent")) {
   
   if (is.null(x)) {
@@ -70,9 +74,11 @@ get_valueList_asDf_fromStudyTree <- function(x,
       get_singleValue_fromTree,
       x = x,
       returnDf = TRUE,
+      flattenVectorsInDf = flattenVectorsInDf,
+      returnLongDf = FALSE,
       silent = silent
     );
-    
+
     return(
       rbind_df_list(
         res
@@ -90,6 +96,7 @@ get_valueList_asDf_fromStudyTree <- function(x,
 #' @rdname get_valueList_asDf
 get_valueList_asDf <- function(x,
                                requiredFields = NULL,
+                               flattenVectorsInDf = TRUE,
                                silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
@@ -133,19 +140,52 @@ get_valueList_asDf <- function(x,
             get_valueList_asDf_fromStudyTree(
               x = x[[i]],
               requiredFields = requiredFields,
+              flattenVectorsInDf = flattenVectorsInDf,
               silent = silent
             );
-          ### Set study identifier
-          res$studyId <- i;
-          ### Return result
-          return(res);
+          if (is.data.frame(res)) {
+            if (!silent) {
+              cat0("Data frame returned.\n");
+            }
+            ### Set study identifier
+            res$studyId <- i;
+            ### Return result
+            return(res);
+          } else {
+            if (!silent) {
+              cat0("No data frame returned.\n");
+            }
+            return(NULL);
+          }
         }
       );
     
-    return(
+    resThatAreValid <-
+      unlist(
+        lapply(
+          res,
+          function(x) {
+            return(!(is.null(x) || is.na(x)));
+          }
+        )
+      );
+
+    if (!silent) {
+      cat0("\nStarting to combine ",
+           length(res[resThatAreValid]),
+           " data frames obtained from ",
+           length(res), " sources...\n");
+    }
+    
+    res <-
       rbind_df_list(
-        res)
-    );
+        res[resThatAreValid]
+      );
+    
+    cat0("Returning a data frame with ", nrow(res),
+         " rows and ", ncol(res), " columns.\n");
+    
+    return(res);
     
   } else {
     stop("The object you passed is not an object with parsed Rxs files! It has class(es) ",
