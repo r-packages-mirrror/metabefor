@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list • metabefor</title>
+<title>Return a list of country codes — countryCodeList • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,8 @@
 
 
 
-<meta property="og:title" content="Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list" />
-<meta property="og:description" content="These function supplement a entity nodes with clustered entity values
-from other entities specified in the target entity nodes. Both the
-target entity and the source entity have to be clustering entities.
-Use supplement_data_from_list() for one node, and
-supplement_data_from_list() for all nodes containing the field that
-identifies the node to copy the values from (i.e. as specified in
-sourceEntityNodeIdField_in_targetEntity)." />
+<meta property="og:title" content="Return a list of country codes — countryCodeList" />
+<meta property="og:description" content="Return a list of country codes" />
 
 
 
@@ -127,104 +121,49 @@ sourceEntityNodeIdField_in_targetEntity)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Supplement a target entitity node with clustered entity values from another entity node</h1>
+    <h1>Return a list of country codes</h1>
     
-    <div class="hidden name"><code>supplement_data_from_list.Rd</code></div>
+    <div class="hidden name"><code>countryCodeList.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These function supplement a entity nodes with clustered entity values
-from other entities specified in the target entity nodes. Both the
-target entity and the source entity have to be clustering entities.
-Use <code>supplement_data_from_list()</code> for one node, and
-<code>supplement_data_from_list()</code> for all nodes containing the field that
-identifies the node to copy the values from (i.e. as specified in
-<code>sourceEntityNodeIdField_in_targetEntity</code>).</p>
+    <p>Return a list of country codes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>supplement_data_from_list</span><span class='op'>(</span>
-  <span class='va'>studyTree</span>,
-  <span class='va'>targetEntityNodeId</span>,
-  <span class='va'>sourceEntityNodeIdField_in_targetEntity</span>,
-  idField_in_targetEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  idField_in_sourceEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fieldsToCopy_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
-  forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  prefix <span class='op'>=</span> <span class='st'>""</span>,
-  suffix <span class='op'>=</span> <span class='st'>""</span>,
-  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'>supplement_data_from_lists</span><span class='op'>(</span>
-  <span class='va'>studyTree</span>,
-  <span class='va'>sourceEntityNodeIdField_in_targetEntity</span>,
-  idField_in_targetEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  idField_in_sourceEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fieldsToCopy_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
-  forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  prefix <span class='op'>=</span> <span class='st'>""</span>,
-  suffix <span class='op'>=</span> <span class='st'>""</span>,
-  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>countryCodeList</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"alpha1"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>studyTree</th>
-      <td><p>The study tree</p></td>
-    </tr>
-    <tr>
-      <th>targetEntityNodeId</th>
-      <td><p>The identifier of the target entity node (the node to
-supplement)</p></td>
-    </tr>
-    <tr>
-      <th>sourceEntityNodeIdField_in_targetEntity</th>
-      <td><p>Inside the target entity node,
-the name holding the identifier of the source entity node (the node supplying
-the data). Note that that field is itself an entity as specified in the entity
-specification spreadsheet.</p></td>
-    </tr>
-    <tr>
-      <th>idField_in_targetEntityNode</th>
-      <td><p><code>NULL</code> if the target node's name is also its
-identifier; otherwise, the name of the field containing the identifier in
-the target node.</p></td>
-    </tr>
-    <tr>
-      <th>idField_in_sourceEntityNode</th>
-      <td><p><code>NULL</code> if the source node's name is also its
-identifier; otherwise, the name of the field containing the identifier in
-the source node.</p></td>
-    </tr>
-    <tr>
-      <th>fieldsToCopy_regex</th>
-      <td><p>A regular expression that can optionally be
-used to select fields to copy over from the source node to the target node.</p></td>
-    </tr>
-    <tr>
-      <th>prefix, suffix</th>
-      <td><p>A text string to prepend and append to the names of the
-values that are copied.</p></td>
-    </tr>
-    <tr>
-      <th>silent</th>
-      <td><p>Whether to be quiet or chatty.</p></td>
-    </tr>
-    <tr>
-      <th>overwriteExistingValues</th>
-      <td><p>Whether to overwrite existing values if
-those are encountered in the target entity.</p></td>
+      <th>type</th>
+      <td><p>The type; currently only <code>"alpha1"</code> is a valid value.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>A character vector.</p>
 
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>countryCodeList</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   [1] "AD" "AE" "AF" "AG" "AI" "AL" "AM" "AO" "AQ" "AR" "AS" "AT" "AU" "AW" "AX"
+#&gt;  [16] "AZ" "BA" "BB" "BD" "BE" "BF" "BG" "BH" "BI" "BJ" "BL" "BM" "BN" "BO" "BQ"
+#&gt;  [31] "BQ" "BR" "BS" "BT" "BV" "BW" "BY" "BZ" "CA" "CC" "CD" "CF" "CG" "CH" "CI"
+#&gt;  [46] "CK" "CL" "CM" "CN" "CO" "CR" "CU" "CV" "CW" "CX" "CY" "CZ" "DE" "DJ" "DK"
+#&gt;  [61] "DM" "DO" "DZ" "EC" "EE" "EG" "EH" "ER" "ES" "ET" "FI" "FJ" "FK" "FM" "FO"
+#&gt;  [76] "FR" "GA" "GB" "GD" "GE" "GF" "GG" "GH" "GI" "GL" "GM" "GN" "GP" "GQ" "GR"
+#&gt;  [91] "GS" "GT" "GU" "GW" "GY" "HK" "HM" "HN" "HR" "HT" "HU" "ID" "IE" "IL" "IM"
+#&gt; [106] "IN" "IO" "IQ" "IR" "IS" "IT" "JE" "JM" "JO" "JP" "KE" "KG" "KH" "KI" "KM"
+#&gt; [121] "KN" "KP" "KR" "KW" "KY" "KZ" "LA" "LB" "LC" "LI" "LK" "LR" "LS" "LT" "LU"
+#&gt; [136] "LV" "LY" "MA" "MC" "MD" "ME" "MF" "MG" "MH" "MK" "ML" "MM" "MN" "MO" "MP"
+#&gt; [151] "MQ" "MR" "MS" "MT" "MU" "MV" "MW" "MX" "MY" "MZ" "NA" "NC" "NE" "NF" "NG"
+#&gt; [166] "NI" "NL" "NO" "NP" "NR" "NU" "NZ" "OM" "PA" "PE" "PF" "PG" "PH" "PK" "PL"
+#&gt; [181] "PM" "PN" "PR" "PS" "PT" "PW" "PY" "QA" "RE" "RO" "RS" "RU" "RW" "SA" "SB"
+#&gt; [196] "SC" "SD" "SE" "SG" "SH" "SI" "SJ" "SK" "SL" "SM" "SN" "SO" "SR" "SS" "ST"
+#&gt; [211] "SV" "SX" "SY" "SZ" "TC" "TD" "TF" "TG" "TH" "TJ" "TK" "TL" "TM" "TN" "TO"
+#&gt; [226] "TR" "TT" "TV" "TW" "IS" "TZ" "UA" "UG" "UM" "US" "UY" "UZ" "VA" "VC" "VE"
+#&gt; [241] "VG" "VI" "VN" "VU" "WF" "WS" "YE" "YT" "ZA" "ZM" "ZW"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

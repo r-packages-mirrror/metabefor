@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list • metabefor</title>
+<title>Get a single value from a study tree, list of trees, or studies object — get_singleValue_fromTree • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,8 @@
 
 
 
-<meta property="og:title" content="Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list" />
-<meta property="og:description" content="These function supplement a entity nodes with clustered entity values
-from other entities specified in the target entity nodes. Both the
-target entity and the source entity have to be clustering entities.
-Use supplement_data_from_list() for one node, and
-supplement_data_from_list() for all nodes containing the field that
-identifies the node to copy the values from (i.e. as specified in
-sourceEntityNodeIdField_in_targetEntity)." />
+<meta property="og:title" content="Get a single value from a study tree, list of trees, or studies object — get_singleValue_fromTree" />
+<meta property="og:description" content="Get a single value from a study tree, list of trees, or studies object" />
 
 
 
@@ -127,43 +121,38 @@ sourceEntityNodeIdField_in_targetEntity)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Supplement a target entitity node with clustered entity values from another entity node</h1>
+    <h1>Get a single value from a study tree, list of trees, or studies object</h1>
     
-    <div class="hidden name"><code>supplement_data_from_list.Rd</code></div>
+    <div class="hidden name"><code>get_singleValue.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These function supplement a entity nodes with clustered entity values
-from other entities specified in the target entity nodes. Both the
-target entity and the source entity have to be clustering entities.
-Use <code>supplement_data_from_list()</code> for one node, and
-<code>supplement_data_from_list()</code> for all nodes containing the field that
-identifies the node to copy the values from (i.e. as specified in
-<code>sourceEntityNodeIdField_in_targetEntity</code>).</p>
+    <p>Get a single value from a study tree, list of trees, or studies object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>supplement_data_from_list</span><span class='op'>(</span>
-  <span class='va'>studyTree</span>,
-  <span class='va'>targetEntityNodeId</span>,
-  <span class='va'>sourceEntityNodeIdField_in_targetEntity</span>,
-  idField_in_targetEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  idField_in_sourceEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fieldsToCopy_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
-  forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  prefix <span class='op'>=</span> <span class='st'>""</span>,
-  suffix <span class='op'>=</span> <span class='st'>""</span>,
+    <pre class="usage"><span class='fu'>get_singleValue_fromTree</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>entityId</span>,
+  lookInValueLists <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  returnDf <span class='op'>=</span> <span class='cn'>FALSE</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='fu'>supplement_data_from_lists</span><span class='op'>(</span>
-  <span class='va'>studyTree</span>,
-  <span class='va'>sourceEntityNodeIdField_in_targetEntity</span>,
-  idField_in_targetEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  idField_in_sourceEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fieldsToCopy_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
-  forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  prefix <span class='op'>=</span> <span class='st'>""</span>,
-  suffix <span class='op'>=</span> <span class='st'>""</span>,
+<span class='fu'>get_singleValue_fromTreeList</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>entityId</span>,
+  returnDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  nullValue <span class='op'>=</span> <span class='fl'>0</span>,
+  naValue <span class='op'>=</span> <span class='cn'>NULL</span>,
+  warningValues <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='cn'>NA</span><span class='op'>)</span>,
+  warningFunctions <span class='op'>=</span> <span class='cn'>NULL</span>,
+  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>get_singleValue</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>entityId</span>,
+  returnDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -171,60 +160,30 @@ identifies the node to copy the values from (i.e. as specified in
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>studyTree</th>
-      <td><p>The study tree</p></td>
+      <th>x</th>
+      <td></td>
     </tr>
     <tr>
-      <th>targetEntityNodeId</th>
-      <td><p>The identifier of the target entity node (the node to
-supplement)</p></td>
+      <th>entityId</th>
+      <td><p>The entity identifier of the value to get</p></td>
     </tr>
     <tr>
-      <th>sourceEntityNodeIdField_in_targetEntity</th>
-      <td><p>Inside the target entity node,
-the name holding the identifier of the source entity node (the node supplying
-the data). Note that that field is itself an entity as specified in the entity
-specification spreadsheet.</p></td>
+      <th>lookInValueLists</th>
+      <td><p>Whether to also look inside value lists</p></td>
     </tr>
     <tr>
-      <th>idField_in_targetEntityNode</th>
-      <td><p><code>NULL</code> if the target node's name is also its
-identifier; otherwise, the name of the field containing the identifier in
-the target node.</p></td>
-    </tr>
-    <tr>
-      <th>idField_in_sourceEntityNode</th>
-      <td><p><code>NULL</code> if the source node's name is also its
-identifier; otherwise, the name of the field containing the identifier in
-the source node.</p></td>
-    </tr>
-    <tr>
-      <th>fieldsToCopy_regex</th>
-      <td><p>A regular expression that can optionally be
-used to select fields to copy over from the source node to the target node.</p></td>
-    </tr>
-    <tr>
-      <th>prefix, suffix</th>
-      <td><p>A text string to prepend and append to the names of the
-values that are copied.</p></td>
-    </tr>
-    <tr>
-      <th>silent</th>
-      <td><p>Whether to be quiet or chatty.</p></td>
-    </tr>
-    <tr>
-      <th>overwriteExistingValues</th>
-      <td><p>Whether to overwrite existing values if
-those are encountered in the target entity.</p></td>
+      <th>returnDf</th>
+      <td><p>Whether to return a data frame or not</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>A list or a dataframe (if <code>returnDf</code> is <code>TRUE</code>)</p>
 
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
