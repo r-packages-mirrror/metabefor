@@ -14,13 +14,15 @@ studyTree_to_valueDf <- function(studyTree) {
       
       return(data.frame(path = rep(pathString, length(nodeValue)),
                         entity = names(nodeValue),
-                        nodeValue = flattenNodeValues(nodeValue),
+                        nodeValue = flattenNodeValues(nodeValue,
+                                                      setNames=FALSE),
                         stringsAsFactors = FALSE));
     } else {
       pathString <- node$parent$pathString;
       return(data.frame(path = pathString,
                         entity = nodeName,
-                        nodeValue = flattenNodeValues(nodeValue),
+                        nodeValue = flattenNodeValues(nodeValue,
+                                                      setNames=FALSE),
                         stringsAsFactors = FALSE));
     }
   }, filterFun = data.tree::isLeaf,

@@ -1,9 +1,12 @@
 #' @export
-flattenNodeValues <- function(x) {
+flattenNodeValues <- function(x,
+                              setNames=TRUE) {
   if (!is.list(x)) x <- list(x);
   res <- lapply(x, function(singleValue) {
     res <- flattenNodeValue(singleValue);
-    names(res) <- names(singleValue);
+    if (setNames) {
+      names(res) <- names(singleValue);
+    }
     return(res);
     # if (is.expression(singleValue)) {
     #   singleValue <-
