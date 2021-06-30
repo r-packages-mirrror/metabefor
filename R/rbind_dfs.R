@@ -35,8 +35,10 @@ rbind_dfs <- function(x,
                            }));
     names(xComplement) <- inY_not_inX;
     fullX <- cbind(x, xComplement)[, resNames];
-  } else {
+  } else if (length(inY_not_inX) == 0) {
     fullX <- x[, resNames];
+  } else {
+    stop("An error occurred when looking for the intersection between the two data frames!");
   }
 
   if (length(inX_not_inY) > 0) {

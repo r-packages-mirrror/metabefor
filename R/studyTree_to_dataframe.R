@@ -12,23 +12,27 @@ studyTree_to_valueDf <- function(studyTree) {
       ### Note - this will become problematic if the list contains
       ### more complicated values such as vectors or tables!!!
       
-      return(data.frame(path = rep(pathString, length(nodeValue)),
-                        entity = names(nodeValue),
-                        nodeValue = flattenNodeValues(nodeValue,
-                                                      setNames=FALSE),
-                        stringsAsFactors = FALSE));
+      res <- data.frame(rep(pathString, length(nodeValue)),
+                        names(nodeValue),
+                        flattenNodeValues(nodeValue),
+                        stringsAsFactors = FALSE);
+      names(res) <- c("path", "entity", "nodeValue");
+      return(res);
     } else {
       pathString <- node$parent$pathString;
-      return(data.frame(path = pathString,
-                        entity = nodeName,
-                        nodeValue = flattenNodeValues(nodeValue,
-                                                      setNames=FALSE),
-                        stringsAsFactors = FALSE));
+      res <- data.frame(pathString,
+                        nodeName,
+                        flattenNodeValue(nodeValue),
+                        stringsAsFactors = FALSE);
+      names(res) <- c("path", "entity", "nodeValue");
+      return(res);
     }
   }, filterFun = data.tree::isLeaf,
   simplify=FALSE);
+
+  res <- metabefor::rbind_df_list(res);
   
-  res <- do.call("rbind", res);
+  row.names(res) <- NULL;
 
   return(res);
   
