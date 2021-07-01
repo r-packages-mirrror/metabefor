@@ -21,7 +21,7 @@ get_singleValue_fromTree <- function(x,
                                      flattenVectorsInDf = TRUE,
                                      returnLongDf = TRUE,
                                      silent = metabefor::opts$get("silent")) {
-  
+
   if (inherits(x, "rxs") && inherits(x, "Node")) {
     
     foundNode <- data.tree::FindNode(
@@ -31,30 +31,58 @@ get_singleValue_fromTree <- function(x,
     
     if (!is.null(foundNode)) {
       
-      if (returnDf) {
+      ### We found a node with this name, return its value
+      
+      if (flattenVectorsInDf) {
         
-        if (flattenVectorsInDf) {
-          return(
-            as.data.frame(
-              flattenNodeValues(
-                foundNode$value
-              )
-            )
-          );
-        } else {
-          return(
-            as.data.frame(
-              padVectors(
-                foundNode$value
-              )
-            )
-          );
-        }
+        ### Flatten vectors to strings with VecTxtQ
+        res <- flattenNodeValues(foundNode$value);
+        
       } else {
-        return(foundNode$value);
+        
+        if (returnLongDf) {
+          ### Pad all elements with length > 1 to the same
+          ### length to allow conversion to data frame
+          res <- splitVectors(foundNode$value);
+        } else {
+          res <- padVectors(foundNode$value);
+        }
+
+      }
+      
+      ### Start returning result
+
+      if (returnDf && returnLongDf) {
+        
+        ### Long ('tidy') data frame, with all values in one column
+        if (is.list(res)) {
+          
+        }
+
+        return(data.frame(value = res));
+        
+      } else if (returnDf) {
+
+        ### Wide dataframe, with one column for each entity
+        return(
+          do.call(
+            data.frame,
+            as.list(res)
+          )
+        );
+        
+      } else {
+        
+        ### Don't return a data frame; just return 'raw'
+        
+        return(res);
+        
       }
       
     } else if (lookInValueLists) {
+      
+      ### We didn't find a node with this name, but will look in
+      ### value lists ('clustered entities')
       
       valuesFromValueLists <-
         x$Get(
@@ -70,32 +98,54 @@ get_singleValue_fromTree <- function(x,
           }
         );
       
-      if (returnDf) {
-
+      if (length(valuesFromValueLists) > 0) {
+        
         if (flattenVectorsInDf) {
           
+          ### Flatten vectors to strings with VecTxtQ
+          res <- flattenNodeValues(valuesFromValueLists);
+          
+        } else {
+          
+          if (returnLongDf) {
+            ### Pad all elements with length > 1 to the same
+            ### length to allow conversion to data frame
+            res <- padVectors(foundNode$value);
+          } else {
+            res <- splitVectors(foundNode$value);
+          }
+          
+        }
+        
+        ### Start returning result
+        
+        if (returnDf && returnLongDf) {
+          
+          ### Long ('tidy') data frame, with all values in one column
+          return(data.frame(res));
+          
+        } else if (returnDf) {
+          
+          ### Wide dataframe, with one column for each entity
           return(
-            as.data.frame(
-              flattenNodeValues(
-                valuesFromValueLists
-              )
+            do.call(
+              data.frame,
+              as.list(res)
             )
           );
           
         } else {
           
-          return(
-            as.data.frame(
-              padVectors(
-                valuesFromValueLists
-              )
-            )
-          );
-        }
+          ### Don't return a data frame; just return 'raw'
+          
+          return(res);
+          
+        }        
 
       } else {
         return(valuesFromValueLists);
       }
+      
     } else {
       if (!silent) {
         cat("\nDid not find an entity with identier ('name')", entityId);

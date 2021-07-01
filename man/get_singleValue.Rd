@@ -11,6 +11,8 @@ get_singleValue_fromTree(
   entityId,
   lookInValueLists = TRUE,
   returnDf = FALSE,
+  flattenVectorsInDf = TRUE,
+  returnLongDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
 
@@ -20,8 +22,10 @@ get_singleValue_fromTreeList(
   returnDf = TRUE,
   nullValue = 0,
   naValue = NULL,
+  flattenVectorsInDf = TRUE,
   warningValues = list(NULL, NA),
   warningFunctions = NULL,
+  returnLongDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
 
@@ -29,6 +33,8 @@ get_singleValue(
   x,
   entityId,
   returnDf = TRUE,
+  flattenVectorsInDf = TRUE,
+  returnLongDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
 }
@@ -40,6 +46,10 @@ get_singleValue(
 \item{lookInValueLists}{Whether to also look inside value lists}
 
 \item{returnDf}{Whether to return a data frame or not}
+
+\item{flattenVectorsInDf}{When returning a data frame, whether to flatten
+vectors into a single character string value, or whether to explode into
+multiple rows.}
 }
 \value{
 A list or a dataframe (if \code{returnDf} is \code{TRUE})

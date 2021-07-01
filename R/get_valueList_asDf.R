@@ -1,7 +1,10 @@
 #' Get a value list as data frame from a study tree, list of trees, or studies object
 #'
 #' @param x The study tree, list of trees, or studies object
-#' @param requiredFields Fields that have to exist in 
+#' @param requiredFields Fields that have to exist in the target entities
+#' (otherwise, the entity is excluded)
+#' @param pathString_regex Regex that the target entities' path strings have to
+#' match (otherwise, the entity is excluded)
 #' @param flattenVectorsInDf When returning a data frame, whether to flatten
 #' vectors into a single character string value, or whether to explode into
 #' multiple rows.
@@ -15,6 +18,7 @@
 #' @rdname get_valueList_asDf
 get_valueList_asDf_fromStudyTree <- function(x,
                                              requiredFields = NULL,
+                                             pathString_regex = NULL,
                                              flattenVectorsInDf = TRUE,
                                              silent = metabefor::opts$get("silent")) {
   
@@ -42,11 +46,19 @@ get_valueList_asDf_fromStudyTree <- function(x,
           } else if (!is.list(node$value)) {
             return(FALSE);
           } else if (is.null(requiredFields)) {
-            return(TRUE);
+            if (is.null(pathString_regex)) {
+              return(TRUE);
+            } else {
+              return(grepl(pathString_regex, node$pathString));
+            }
           } else if (is.null(names(node$value))) {
             return(FALSE);
           } else if (all(requiredFields %in% names(node$value))) {
-            return(TRUE);
+            if (is.null(pathString_regex)) {
+              return(TRUE);
+            } else {
+              return(grepl(pathString_regex, node$pathString));
+            }
           } else {
             return(FALSE);
           }
@@ -78,12 +90,24 @@ get_valueList_asDf_fromStudyTree <- function(x,
       returnLongDf = FALSE,
       silent = silent
     );
-
-    return(
-      rbind_df_list(
-        res
-      )
-    );
+    names(res) <- targetNodeNames;
+    
+    uniqueColLengths <-
+      uniqueDf_ncols(res, silent=silent);
+    
+    if (!silent) {
+      cat0("\nStarting to combine ",
+           length(res),
+           " data frames with values into one data frame for this study...\n");
+    }
+    
+    res <- rbind_df_list(res);
+    
+    if (!silent) {
+      cat0("Done!\n");
+    }
+    
+    return(res);
     
   } else {
     stop("The object you passed is not a study tree! It has class(es) ",
@@ -96,12 +120,14 @@ get_valueList_asDf_fromStudyTree <- function(x,
 #' @rdname get_valueList_asDf
 get_valueList_asDf <- function(x,
                                requiredFields = NULL,
+                               pathString_regex = NULL,
                                flattenVectorsInDf = TRUE,
                                silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
     
     x <- x$rxsTrees;
+    treeNames <- names(x);
     
     usableElements <-
       unlist(
@@ -128,6 +154,7 @@ get_valueList_asDf <- function(x,
     }
     
     x <- x[usableElements];
+    xNames <- names(x);
     
     res <-
       lapply(
@@ -140,6 +167,7 @@ get_valueList_asDf <- function(x,
             get_valueList_asDf_fromStudyTree(
               x = x[[i]],
               requiredFields = requiredFields,
+              pathString_regex = pathString_regex,
               flattenVectorsInDf = flattenVectorsInDf,
               silent = silent
             );
@@ -159,6 +187,7 @@ get_valueList_asDf <- function(x,
           }
         }
       );
+    names(res) <- xNames;
     
     resThatAreValid <-
       unlist(
@@ -169,7 +198,10 @@ get_valueList_asDf <- function(x,
           }
         )
       );
-
+    
+    uniqueColLengths <-
+      uniqueDf_ncols(res, silent=silent);
+    
     if (!silent) {
       cat0("\nStarting to combine ",
            length(res[resThatAreValid]),
@@ -182,8 +214,10 @@ get_valueList_asDf <- function(x,
         res[resThatAreValid]
       );
     
-    cat0("Returning a data frame with ", nrow(res),
-         " rows and ", ncol(res), " columns.\n");
+    if (!silent) {
+      cat0("Returning a data frame with ", nrow(res),
+           " rows and ", ncol(res), " columns.\n");
+    }
     
     return(res);
     

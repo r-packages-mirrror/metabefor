@@ -27,6 +27,8 @@
 #' values that are copied.
 #' @param fieldsToCopy_regex A regular expression that can optionally be
 #' used to select fields to copy over from the source node to the target node.
+#' @param sourcePathString_regex,targetPathString_regex Regular expressions
+#' that must match the path string of the source of target node.
 #' @param silent Whether to be quiet or chatty.
 #'
 #' @return
@@ -41,6 +43,8 @@ supplement_data_from_list <- function(studyTree,
                                       idField_in_sourceEntityNode = NULL,
                                       fieldsToCopy_regex = NULL,
                                       forceCopyingOfExistingValues = FALSE,
+                                      sourcePathString_regex = NULL,
+                                      targetPathString_regex = NULL,
                                       prefix = "",
                                       suffix = "",
                                       silent = metabefor::opts$get("silent")) {
@@ -93,12 +97,32 @@ supplement_data_from_list <- function(studyTree,
     );
   }
   
+  ###---------------------------------------------------------------------------
+  ### Check whether a node was found
+  ###---------------------------------------------------------------------------
+  
   if (is.null(targetNode)) {
     if (!silent) {
       cat0("The studyTree you passed does not contain the node you ",
            "specified as target entity node (", targetEntityNodeId, ").");
     }
     return(invisible(studyTree));
+  }
+  
+  ###---------------------------------------------------------------------------
+  ### Check for a match with the pathstring regex, if provided
+  ###---------------------------------------------------------------------------
+
+  if (!is.null(targetPathString_regex)) {
+    if (!grepl(targetPathString_regex, targetNode$pathString)) {
+      if (!silent) {
+        cat0("The studyTree you passed contains the node you ",
+             "specified as target entity node (", targetEntityNodeId, "),",
+             " but its path string does not match the regular expression ",
+             "you passed ('", targetPathString_regex, "').");
+      }
+      return(invisible(studyTree));
+    }
   }
   
   ###---------------------------------------------------------------------------
@@ -193,6 +217,10 @@ supplement_data_from_list <- function(studyTree,
     );
   }
   
+  ###---------------------------------------------------------------------------
+  ### Check whether a source node was found
+  ###---------------------------------------------------------------------------
+  
   if (is.null(sourceNode)) {
     if (!silent) {
       cat("In the studyTree you passed, I found the target entity node you ",
@@ -206,6 +234,23 @@ supplement_data_from_list <- function(studyTree,
     return(invisible(studyTree));
   }
   
+  ###---------------------------------------------------------------------------
+  ### Check for a match with the pathstring regex, if provided
+  ###---------------------------------------------------------------------------
+  
+  if (!is.null(sourcePathString_regex)) {
+    if (!grepl(sourcePathString_regex, sourceNode$pathString)) {
+      if (!silent) {
+        cat0("In the studyTree you passed, I found both the target entity node ",
+             "you specified and the source entity node referred to in the target ",
+             "entity node. However, the source entity path string does not ",
+             "match the regular expression you passed ('",
+             sourcePathString_regex, "').");
+      }
+      return(invisible(studyTree));
+    }
+  }
+    
   ###---------------------------------------------------------------------------
   ### Start copying over values
   ###---------------------------------------------------------------------------

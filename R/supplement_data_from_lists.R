@@ -5,6 +5,8 @@ supplement_data_from_lists <- function(studyTree,
                                        idField_in_targetEntityNode = NULL,
                                        idField_in_sourceEntityNode = NULL,
                                        fieldsToCopy_regex = NULL,
+                                       sourcePathString_regex = NULL,
+                                       targetPathString_regex = NULL,
                                        forceCopyingOfExistingValues = FALSE,
                                        prefix = "",
                                        suffix = "",
@@ -43,6 +45,8 @@ supplement_data_from_lists <- function(studyTree,
         idField_in_targetEntityNode = idField_in_targetEntityNode,
         idField_in_sourceEntityNode = idField_in_sourceEntityNode,
         fieldsToCopy_regex = fieldsToCopy_regex,
+        sourcePathString_regex = sourcePathString_regex,
+        targetPathString_regex = targetPathString_regex,
         forceCopyingOfExistingValues = forceCopyingOfExistingValues,
         prefix = prefix,
         suffix = suffix,
@@ -75,7 +79,16 @@ supplement_data_from_lists <- function(studyTree,
         } else if (!is.list(node$value)) {
           return(FALSE);
         } else if (sourceEntityNodeIdField_in_targetEntity %in% names(node$value)) {
-          return(TRUE);
+          if (is.null(targetPathString_regex)) {
+            return(TRUE);
+          } else {
+            return(
+              grepl(
+                targetPathString_regex,
+                node$pathString
+              )
+            );
+          }
         } else {
           return(FALSE);
         }
@@ -115,6 +128,8 @@ supplement_data_from_lists <- function(studyTree,
         idField_in_targetEntityNode = idField_in_targetEntityNode,
         idField_in_sourceEntityNode = idField_in_sourceEntityNode,
         fieldsToCopy_regex = fieldsToCopy_regex,
+        sourcePathString_regex = sourcePathString_regex,
+        targetPathString_regex = targetPathString_regex,
         forceCopyingOfExistingValues = forceCopyingOfExistingValues,
         prefix = prefix,
         suffix = suffix,

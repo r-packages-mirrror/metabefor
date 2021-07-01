@@ -25,6 +25,7 @@ supplement_data_from_lists(
   idField_in_targetEntityNode = NULL,
   idField_in_sourceEntityNode = NULL,
   fieldsToCopy_regex = NULL,
+  pathString_regex = NULL,
   forceCopyingOfExistingValues = FALSE,
   prefix = "",
   suffix = "",

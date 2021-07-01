@@ -15,20 +15,20 @@ cloneStudiesObject <- function(x,
   res$rxsTrees <-
     lapply(
       names(x$rxsTrees),
-      function(x) {
+      function(y) {
         if (!silent) {
-          cat("\nCloning ", x, "... ", sep="");
+          cat("\nCloning ", y, "... ", sep="");
         }
-        if (inherits(rxs_raw$rxsTrees[[x]], "Node")) {
+        if (inherits(x$rxsTrees[[y]], "Node")) {
           if (!silent) {
             cat("Cloning studyTree.");
           }
-          return(data.tree::Clone(rxs_raw$rxsTrees[[x]]));
+          return(data.tree::Clone(x$rxsTrees[[y]]));
         } else {
           if (!silent) {
             cat("No studyTree - just copying object.");
           }
-          return(rxs_raw$rxsTrees[[x]]);
+          return(x$rxsTrees[[y]]);
         }
       }
     );

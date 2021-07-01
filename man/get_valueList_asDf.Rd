@@ -8,12 +8,14 @@
 get_valueList_asDf_fromStudyTree(
   x,
   requiredFields = NULL,
+  flattenVectorsInDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
 
 get_valueList_asDf(
   x,
   requiredFields = NULL,
+  flattenVectorsInDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
 }
@@ -21,6 +23,10 @@ get_valueList_asDf(
 \item{x}{The study tree, list of trees, or studies object}
 
 \item{requiredFields}{Fields that have to exist in}
+
+\item{flattenVectorsInDf}{When returning a data frame, whether to flatten
+vectors into a single character string value, or whether to explode into
+multiple rows.}
 
 \item{silent}{Whether to be quiet or chatty.}
 }
