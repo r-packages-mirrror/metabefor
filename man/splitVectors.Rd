@@ -4,10 +4,12 @@
 \alias{splitVectors}
 \title{In a list of vectors, split vectors to multiple list elements}
 \usage{
-splitVectors(x)
+splitVectors(x, sep = "_")
 }
 \arguments{
 \item{x}{The list of vectors}
+
+\item{sep}{The separator to use}
 }
 \value{
 The list with the split vectors

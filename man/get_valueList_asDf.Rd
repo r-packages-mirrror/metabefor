@@ -8,6 +8,7 @@
 get_valueList_asDf_fromStudyTree(
   x,
   requiredFields = NULL,
+  pathString_regex = NULL,
   flattenVectorsInDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
@@ -15,6 +16,7 @@ get_valueList_asDf_fromStudyTree(
 get_valueList_asDf(
   x,
   requiredFields = NULL,
+  pathString_regex = NULL,
   flattenVectorsInDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
@@ -22,7 +24,11 @@ get_valueList_asDf(
 \arguments{
 \item{x}{The study tree, list of trees, or studies object}
 
-\item{requiredFields}{Fields that have to exist in}
+\item{requiredFields}{Fields that have to exist in the target entities
+(otherwise, the entity is excluded)}
+
+\item{pathString_regex}{Regex that the target entities' path strings have to
+match (otherwise, the entity is excluded)}
 
 \item{flattenVectorsInDf}{When returning a data frame, whether to flatten
 vectors into a single character string value, or whether to explode into

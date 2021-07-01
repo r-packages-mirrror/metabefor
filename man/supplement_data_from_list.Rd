@@ -14,6 +14,8 @@ supplement_data_from_list(
   idField_in_sourceEntityNode = NULL,
   fieldsToCopy_regex = NULL,
   forceCopyingOfExistingValues = FALSE,
+  sourcePathString_regex = NULL,
+  targetPathString_regex = NULL,
   prefix = "",
   suffix = "",
   silent = metabefor::opts$get("silent")
@@ -25,7 +27,8 @@ supplement_data_from_lists(
   idField_in_targetEntityNode = NULL,
   idField_in_sourceEntityNode = NULL,
   fieldsToCopy_regex = NULL,
-  pathString_regex = NULL,
+  sourcePathString_regex = NULL,
+  targetPathString_regex = NULL,
   forceCopyingOfExistingValues = FALSE,
   prefix = "",
   suffix = "",
@@ -53,6 +56,9 @@ the source node.}
 
 \item{fieldsToCopy_regex}{A regular expression that can optionally be
 used to select fields to copy over from the source node to the target node.}
+
+\item{sourcePathString_regex, targetPathString_regex}{Regular expressions
+that must match the path string of the source of target node.}
 
 \item{prefix, suffix}{A text string to prepend and append to the names of the
 values that are copied.}
