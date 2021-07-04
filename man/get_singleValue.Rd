@@ -13,6 +13,7 @@ get_singleValue_fromTree(
   returnDf = FALSE,
   flattenVectorsInDf = TRUE,
   returnLongDf = TRUE,
+  pathString_regex = ".*",
   silent = metabefor::opts$get("silent")
 )
 
@@ -25,6 +26,7 @@ get_singleValue_fromTreeList(
   flattenVectorsInDf = TRUE,
   warningValues = list(NULL, NA),
   warningFunctions = NULL,
+  pathString_regex = ".*",
   returnLongDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
@@ -35,6 +37,7 @@ get_singleValue(
   returnDf = TRUE,
   flattenVectorsInDf = TRUE,
   returnLongDf = TRUE,
+  pathString_regex = ".*",
   silent = metabefor::opts$get("silent")
 )
 }
@@ -50,6 +53,9 @@ get_singleValue(
 \item{flattenVectorsInDf}{When returning a data frame, whether to flatten
 vectors into a single character string value, or whether to explode into
 multiple rows.}
+
+\item{pathString_regex}{Regex that the target entities' path strings have to
+match (otherwise, the entity is excluded)}
 }
 \value{
 A list or a dataframe (if \code{returnDf} is \code{TRUE})

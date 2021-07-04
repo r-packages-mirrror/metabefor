@@ -2,7 +2,7 @@
 % Please edit documentation in R/rxs_parseSpecifications.R
 \name{rxs_parseSpecifications}
 \alias{rxs_parseSpecifications}
-\title{Title}
+\title{Parse Rxs (R extraction script) specifications}
 \usage{
 rxs_parseSpecifications(
   entities,
@@ -14,21 +14,22 @@ rxs_parseSpecifications(
 )
 }
 \arguments{
-\item{entities}{}
+\item{entities}{The entity specification, as a data frame}
 
-\item{valueTemplates}{}
+\item{valueTemplates}{The value templates, as a data frame}
 
-\item{definitions}{}
+\item{definitions}{The definitions, as a data frame}
 
-\item{eC}{}
+\item{eC}{The entity column names, as a names vector}
 
-\item{valueTemplateCols}{}
+\item{valueTemplateCols}{The value template column names, as a named vector}
 
-\item{rootName}{}
+\item{rootName}{The name of the root node of the study tree}
 }
 \value{
-
+An \code{rxsStructure} object
 }
 \description{
-Title
+This function parses the specifications from
+an Rxs specification spreadsheet.
 }

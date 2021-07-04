@@ -4,6 +4,8 @@
 #' @param entityId The entity identifier of the value to get
 #' @param lookInValueLists Whether to also look inside value lists
 #' @param returnDf Whether to return a data frame or not
+#' @param pathString_regex Regex that the target entities' path strings have to
+#' match (otherwise, the entity is excluded)
 #' @param flattenVectorsInDf When returning a data frame, whether to flatten
 #' vectors into a single character string value, or whether to explode into
 #' multiple rows.
@@ -20,6 +22,7 @@ get_singleValue_fromTree <- function(x,
                                      returnDf = FALSE,
                                      flattenVectorsInDf = TRUE,
                                      returnLongDf = TRUE,
+                                     pathString_regex = ".*",
                                      silent = metabefor::opts$get("silent")) {
 
   if (inherits(x, "rxs") && inherits(x, "Node")) {
@@ -30,6 +33,17 @@ get_singleValue_fromTree <- function(x,
       );
     
     if (!is.null(foundNode)) {
+
+      if (!grepl(pathString_regex, foundNode$pathString)) {
+        if (!silent) {
+          cat("\nFound a node with identier ('name') '", entityId,
+              "', but its path string ('",
+              foundNode$pathString, "') did not match the ",
+              "specified pathString_regex ('", pathString_regex,
+              "').");
+        }
+        return(invisible(NULL));
+      }
       
       ### We found a node with this name, return its value
       
@@ -148,7 +162,8 @@ get_singleValue_fromTree <- function(x,
       
     } else {
       if (!silent) {
-        cat("\nDid not find an entity with identier ('name')", entityId);
+        cat("\nDid not find an entity with identier ('name') '", entityId,
+            "'.");
       }
       return(invisible(NULL));
     }
@@ -168,6 +183,7 @@ get_singleValue_fromTreeList <- function(x,
                                          flattenVectorsInDf = TRUE,
                                          warningValues = list(NULL, NA),
                                          warningFunctions = NULL,
+                                         pathString_regex = ".*",
                                          returnLongDf = TRUE,
                                          silent = metabefor::opts$get("silent")) {
   
@@ -210,6 +226,7 @@ get_singleValue_fromTreeList <- function(x,
             x = x[[i]],
             entityId = entityId,
             flattenVectorsInDf = flattenVectorsInDf,
+            pathString_regex = pathString_regex,
             silent = silent,
             returnDf = returnDf
           )
@@ -373,6 +390,7 @@ get_singleValue <- function(x,
                             returnDf = TRUE,
                             flattenVectorsInDf = TRUE,
                             returnLongDf = TRUE,
+                            pathString_regex = ".*",
                             silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
@@ -382,6 +400,7 @@ get_singleValue <- function(x,
         entityId = entityId,
         returnDf = returnDf,
         flattenVectorsInDf = flattenVectorsInDf,
+        pathString_regex = pathString_regex,
         returnLongDf = returnLongDf,
         silent = silent
       )

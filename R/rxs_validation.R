@@ -1,16 +1,26 @@
-#' Title
+#' Validate a study tree
 #'
-#' @param studyTree 
-#' @param rxsStructure 
+#' @param studyTree The study tree
+#' @param rxsStructure Optionally, the `rxsStructure` as resulting from
+#' a call to [rxs_parseSpecifications()].
 #'
-#' @return
+#' @return Invisibly, the study tree (which was altered in place, consistent
+#' with the reference semantics employed by [data.tree::Node()].
 #' @export
-#'
-#' @examples
 rxs_validation <- function(studyTree,
                            rxsStructure=NULL) {
+  
   studyTree$Set(validationResults = paste0("Validation run starting at ",
                                            format(Sys.time(), "%Y-%m-%d %H:%S")));
+  
+  if (!data.tree::AreNamesUnique(studyTree)) {
+    studyTree$Set(validationResults =
+                  list(c(studyTree$root$validationResults,
+                         "Failed validation: not all node (entity) names are unique!")),
+             filterFun = isRoot,
+             traversal = 'ancestor');
+  }
+
   studyTree$Do(function(node) {
     if (is.list(node$value)) {
       ### Loop through the elements
@@ -128,10 +138,15 @@ rxs_validation <- function(studyTree,
       invisible(NULL);
     }
   });
+  
   studyTree$Set(validationResults =
                   list(c(studyTree$validationResults,
                          paste0("Validation run ending at ",
                                 format(Sys.time(), "%Y-%m-%d %H:%S")))),
                 filterFun = isRoot);
+  
   studyTree$validationResults <- unlist(studyTree$validationResults);
+  
+  return(invisible(studyTree));
+  
 }

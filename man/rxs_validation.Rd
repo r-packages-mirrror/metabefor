@@ -2,18 +2,20 @@
 % Please edit documentation in R/rxs_validation.R
 \name{rxs_validation}
 \alias{rxs_validation}
-\title{Title}
+\title{Validate a study tree}
 \usage{
 rxs_validation(studyTree, rxsStructure = NULL)
 }
 \arguments{
-\item{studyTree}{}
+\item{studyTree}{The study tree}
 
-\item{rxsStructure}{}
+\item{rxsStructure}{Optionally, the \code{rxsStructure} as resulting from
+a call to \code{\link[=rxs_parseSpecifications]{rxs_parseSpecifications()}}.}
 }
 \value{
-
+Invisibly, the study tree (which was altered in place, consistent
+with the reference semantics employed by \code{\link[data.tree:Node]{data.tree::Node()}}.
 }
 \description{
-Title
+Validate a study tree
 }

@@ -87,6 +87,7 @@ get_valueList_asDf_fromStudyTree <- function(x,
       x = x,
       returnDf = TRUE,
       flattenVectorsInDf = flattenVectorsInDf,
+      pathString_regex = pathString_regex,
       returnLongDf = FALSE,
       silent = silent
     );

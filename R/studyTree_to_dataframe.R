@@ -1,3 +1,11 @@
+#' Create a long ('tidy') data frame with the full study tree
+#'
+#' The data frame has columns "`path`", "`entity`", and "`nodeValue`".
+#'
+#' @param studyTree The study tree
+#'
+#' @return A data frame
+#' @export
 studyTree_to_valueDf <- function(studyTree) {
   
   res <- studyTree$Get(function(node) {

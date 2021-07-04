@@ -205,7 +205,24 @@ rxs_parseExtractionScripts <- function(path,
   }
   
   if (!silent) {
-    cat0("\n\nFinished processing all Rxs files.\n");
+    cat0("\n\nFinished processing all Rxs files. ",
+         "Starting verification of Rxs study trees.\n");
+  }
+  
+  for (currentTree in names(res$rxsTrees)) {
+    if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
+      msg <- paste0("In the Rxs study tree from file '", currentTree,
+                    "', not all node names (i.e. entity names) are unique!");
+      if (!silent) {
+        cat0("\n- ", msg, "\n");
+      } else {
+        warning(msg);
+      }
+    }
+  }
+
+  if (!silent) {
+    cat0("\nFinished verifying all Rxs study trees.\n");
   }
   
   class(res) <- "rxs_parsedExtractionScripts";

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a value list as data frame from a study tree, list of trees, or studies object — get_valueList_asDf_fromStudyTree • metabefor</title>
+<title>In a list of vectors, pad short vectors — padVectors • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get a value list as data frame from a study tree, list of trees, or studies object — get_valueList_asDf_fromStudyTree" />
-<meta property="og:description" content="Get a value list as data frame from a study tree, list of trees, or studies object" />
+<meta property="og:title" content="In a list of vectors, pad short vectors — padVectors" />
+<meta property="og:description" content="In a list of vectors, pad short vectors" />
 
 
 
@@ -121,67 +121,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a value list as data frame from a study tree, list of trees, or studies object</h1>
+    <h1>In a list of vectors, pad short vectors</h1>
     
-    <div class="hidden name"><code>get_valueList_asDf.Rd</code></div>
+    <div class="hidden name"><code>padVectors.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get a value list as data frame from a study tree, list of trees, or studies object</p>
+    <p>In a list of vectors, pad short vectors</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_valueList_asDf_fromStudyTree</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  requiredFields <span class='op'>=</span> <span class='cn'>NULL</span>,
-  pathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
-  flattenVectorsInDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'>get_valueList_asDf</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  requiredFields <span class='op'>=</span> <span class='cn'>NULL</span>,
-  pathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
-  flattenVectorsInDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>padVectors</span><span class='op'>(</span><span class='va'>x</span>, padWith <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>The study tree, list of trees, or studies object</p></td>
+      <td><p>The list of vectors</p></td>
     </tr>
     <tr>
-      <th>requiredFields</th>
-      <td><p>Fields that have to exist in the target entities
-(otherwise, the entity is excluded)</p></td>
-    </tr>
-    <tr>
-      <th>pathString_regex</th>
-      <td><p>Regex that the target entities' path strings have to
-match (otherwise, the entity is excluded)</p></td>
-    </tr>
-    <tr>
-      <th>flattenVectorsInDf</th>
-      <td><p>When returning a data frame, whether to flatten
-vectors into a single character string value, or whether to explode into
-multiple rows.</p></td>
-    </tr>
-    <tr>
-      <th>silent</th>
-      <td><p>Whether to be quiet or chatty.</p></td>
+      <th>padWith</th>
+      <td><p>The element to pad with</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe</p>
+    <p>The list with the padded vectors</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>metabefor</span><span class='fu'>::</span><span class='fu'>padVectors</span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>,
+    <span class='fl'>4</span>,
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>;
+</div><div class='output co'>#&gt; <span class='error'>Error: 'padVectors' is not an exported object from 'namespace:metabefor'</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
