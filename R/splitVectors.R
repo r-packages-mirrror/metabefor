@@ -15,11 +15,11 @@
 #' );
 splitVectors <- function(x,
                          sep = "_",
-                         fieldname_regex_neverExplode = NULL) {
+                         fieldname_regex_alwaysFlatten = NULL) {
   
-  if (!is.null(fieldname_regex_neverExplode)) {
+  if (!is.null(fieldname_regex_alwaysFlatten)) {
     vectorsToFlatten <-
-      grep(fieldname_regex_neverExplode, names(x), value=TRUE);
+      grep(fieldname_regex_alwaysFlatten, names(x), value=TRUE);
     x[vectorsToFlatten] <-
       flattenNodeValues(x[vectorsToFlatten]);
   }

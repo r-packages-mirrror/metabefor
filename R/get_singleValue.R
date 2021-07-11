@@ -15,6 +15,8 @@
 #' `pathString_regex_flatten` will be flattened into a single character
 #' string value; vectors in entity nodes matching `pathString_regex_explode`
 #' will be exploded into multiple rows.
+#' @param fieldname_regex_alwaysFlatten A regular expression to force
+#' flattening of fields regardless of matching to other regular expressions.
 #'
 #' @return A list or a dataframe (if `returnDf` is `TRUE`)
 #'
@@ -29,7 +31,7 @@ get_singleValue_fromTree <- function(x,
                                      flattenVectorsInDf = TRUE,
                                      pathString_regex_flatten = NULL,
                                      pathString_regex_explode = NULL,
-                                     fieldname_regex_neverExplode = NULL,
+                                     fieldname_regex_alwaysFlatten = NULL,
                                      returnLongDf = TRUE,
                                      pathString_regex_select = ".*",
                                      silent = metabefor::opts$get("silent")) {
@@ -46,7 +48,8 @@ get_singleValue_fromTree <- function(x,
       ### Get path string so we don't have to get it from the node repeatedly
       nodePathString <- foundNode$pathString;
 
-      if (!grepl(pathString_regex_select, nodePathString)) {
+      if ((!is.null(pathString_regex_select)) &&
+            (!grepl(pathString_regex_select, nodePathString))) {
         if (!silent) {
           cat("\nFound a node with identier ('name') '", entityId,
               "', but its path string ('",
@@ -113,12 +116,12 @@ get_singleValue_fromTree <- function(x,
         if (returnLongDf) {
           ### Split vectors to different rows
           res <- splitVectors(foundNode$value,
-                              fieldname_regex_neverExplode = fieldname_regex_neverExplode);
+                              fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
         } else {
           ### Pad all elements with length > 1 to the same
           ### length to allow conversion to data frame
           res <- padVectors(foundNode$value,
-                            fieldname_regex_neverExplode = fieldname_regex_neverExplode);
+                            fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
         }
 
       }
@@ -211,10 +214,10 @@ get_singleValue_fromTree <- function(x,
             ### Pad all elements with length > 1 to the same
             ### length to allow conversion to data frame
             res <- padVectors(foundNode$value,
-                              fieldname_regex_neverExplode = fieldname_regex_neverExplode);
+                              fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
           } else {
             res <- splitVectors(foundNode$value,
-                                fieldname_regex_neverExplode = fieldname_regex_neverExplode);
+                                fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
           }
           
         # }
@@ -274,7 +277,7 @@ get_singleValue_fromTreeList <- function(x,
                                          pathString_regex_select = ".*",
                                          pathString_regex_flatten = NULL,
                                          pathString_regex_explode = NULL,
-                                         fieldname_regex_neverExplode = NULL,
+                                         fieldname_regex_alwaysFlatten = NULL,
                                          returnLongDf = TRUE,
                                          silent = metabefor::opts$get("silent")) {
   
@@ -320,7 +323,7 @@ get_singleValue_fromTreeList <- function(x,
             pathString_regex_select = pathString_regex_select,
             pathString_regex_flatten = pathString_regex_flatten,
             pathString_regex_explode = pathString_regex_explode,
-            fieldname_regex_neverExplode = fieldname_regex_neverExplode,
+            fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten,
             silent = silent,
             returnDf = returnDf
           )
@@ -487,7 +490,7 @@ get_singleValue <- function(x,
                             pathString_regex_select = ".*",
                             pathString_regex_flatten = NULL,
                             pathString_regex_explode = NULL,
-                            fieldname_regex_neverExplode = NULL,
+                            fieldname_regex_alwaysFlatten = NULL,
                             silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
@@ -500,7 +503,7 @@ get_singleValue <- function(x,
         pathString_regex_select = pathString_regex_select,
         pathString_regex_flatten = pathString_regex_flatten,
         pathString_regex_explode = pathString_regex_explode,
-        fieldname_regex_neverExplode = fieldname_regex_neverExplode,
+        fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten,
         returnLongDf = returnLongDf,
         silent = silent
       )

@@ -14,6 +14,8 @@
 #' `pathString_regex_flatten` will be flattened into a single character
 #' string value; vectors in entity nodes matching `pathString_regex_explode`
 #' will be exploded into multiple rows.
+#' @param fieldname_regex_alwaysFlatten A regular expression to force
+#' flattening of fields regardless of matching to other regular expressions.
 #' @param silent Whether to be quiet or chatty.
 #'
 #' @return A dataframe
@@ -28,7 +30,7 @@ get_valueList_asDf_fromStudyTree <- function(x,
                                              pathString_regex_select = NULL,
                                              pathString_regex_flatten = NULL,
                                              pathString_regex_explode = NULL,
-                                             fieldname_regex_neverExplode = NULL,
+                                             fieldname_regex_alwaysFlatten = NULL,
                                              silent = metabefor::opts$get("silent")) {
   
   if (is.null(x)) {
@@ -73,7 +75,14 @@ get_valueList_asDf_fromStudyTree <- function(x,
           }
         }
       );
-
+    
+    if (length(targetNodes) == 0) {
+      return(NULL);
+      msg("\nFound no entity nodes that contained the required ",
+          "fields (if any were specified), so returning NULL.\n",
+          silent=silent);
+    }
+  
     targetNodeNames <-
       unlist(
         lapply(
@@ -84,11 +93,9 @@ get_valueList_asDf_fromStudyTree <- function(x,
         )
       );
     
-    if (!silent) {
-      cat0("\nFound the following entity nodes that contained the required ",
-           "fields (if any were specified): ", vecTxtQ(targetNodeNames),
-           ".\n");
-    }
+    msg("\nFound the following entity nodes that contained the required ",
+        "fields (if any were specified): ", vecTxtQ(targetNodeNames),
+        ".\n", silent=silent);
 
     res <- lapply(
       targetNodeNames,
@@ -99,7 +106,7 @@ get_valueList_asDf_fromStudyTree <- function(x,
       pathString_regex_select = pathString_regex_select,
       pathString_regex_flatten = pathString_regex_flatten,
       pathString_regex_explode = pathString_regex_explode,
-      fieldname_regex_neverExplode = fieldname_regex_neverExplode,
+      fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten,
       returnLongDf = FALSE,
       silent = silent
     );
@@ -137,7 +144,7 @@ get_valueList_asDf <- function(x,
                                flattenVectorsInDf = TRUE,
                                pathString_regex_flatten = NULL,
                                pathString_regex_explode = NULL,
-                               fieldname_regex_neverExplode = NULL,
+                               fieldname_regex_alwaysFlatten = NULL,
                                silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
@@ -187,7 +194,7 @@ get_valueList_asDf <- function(x,
               flattenVectorsInDf = flattenVectorsInDf,
               pathString_regex_flatten = pathString_regex_flatten,
               pathString_regex_explode = pathString_regex_explode,
-              fieldname_regex_neverExplode = fieldname_regex_neverExplode,
+              fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten,
               silent = silent
             );
           if (is.data.frame(res)) {

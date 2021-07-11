@@ -1,6 +1,10 @@
 #' @export
 flattenNodeValues <- function(x) {
   
+  if (is.null(x) || all(is.na(x))) {
+    return(x);
+  }
+  
   if (!is.list(x)) {
     x <- list(x);
   }
@@ -14,7 +18,9 @@ flattenNodeValues <- function(x) {
   });
   
   res <- unlist(res);
-  names(res) <- names(x);
+  if (!is.null(res)) {
+    names(res) <- names(x);
+  }
 
   return(res);
 }

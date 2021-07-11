@@ -39,8 +39,10 @@ wrapVector <- function(x,
   res <-
     unlist(res);
 
-  names(res) <- names(x);
-
+  if (!is.null(res)) {
+    names(res) <- names(x);
+  }
+  
   return(
     res
   );

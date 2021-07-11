@@ -81,7 +81,9 @@ studyTreeList_to_freqTab <- function(x,
       }
     );
   
-  names(res) <- names(x);
+  if (!is.null(res)) {
+    names(res) <- names(x);
+  }
   
   res <-
     maximizeMatrices(
