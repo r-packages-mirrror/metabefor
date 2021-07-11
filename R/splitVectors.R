@@ -14,12 +14,20 @@
 #'   )
 #' );
 splitVectors <- function(x,
-                         sep = "_") {
+                         sep = "_",
+                         fieldname_regex_neverExplode = NULL) {
+  
+  if (!is.null(fieldname_regex_neverExplode)) {
+    vectorsToFlatten <-
+      grep(fieldname_regex_neverExplode, names(x), value=TRUE);
+    x[vectorsToFlatten] <-
+      flattenNodeValues(x[vectorsToFlatten]);
+  }
   
   res <- unlist(x);
   
   newNames <- names(res);
-  
+
   newerNames <-
     gsub(
       paste0("(",

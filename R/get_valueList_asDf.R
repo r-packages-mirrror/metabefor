@@ -3,11 +3,17 @@
 #' @param x The study tree, list of trees, or studies object
 #' @param requiredFields Fields that have to exist in the target entities
 #' (otherwise, the entity is excluded)
-#' @param pathString_regex Regex that the target entities' path strings have to
+#' @param pathString_regex_select Regex that the target entities' path strings have to
 #' match (otherwise, the entity is excluded)
-#' @param flattenVectorsInDf When returning a data frame, whether to flatten
-#' vectors into a single character string value, or whether to explode into
-#' multiple rows.
+#' @param flattenVectorsInDf The default action to apply for values not matching
+#' one of `pathString_regex_flatten` and `pathString_regex_explode`: to flatten
+#' by default, pass `TRUE`; to explode by default, pass `FALSE`.
+#' @param pathString_regex_flatten,pathString_regex_explode Regular expressions
+#' matched against each entity node's path string (i.e. its path from the root,
+#' delimited by slashes). Vectors in entity nodes matching
+#' `pathString_regex_flatten` will be flattened into a single character
+#' string value; vectors in entity nodes matching `pathString_regex_explode`
+#' will be exploded into multiple rows.
 #' @param silent Whether to be quiet or chatty.
 #'
 #' @return A dataframe
@@ -18,8 +24,11 @@
 #' @rdname get_valueList_asDf
 get_valueList_asDf_fromStudyTree <- function(x,
                                              requiredFields = NULL,
-                                             pathString_regex = NULL,
                                              flattenVectorsInDf = TRUE,
+                                             pathString_regex_select = NULL,
+                                             pathString_regex_flatten = NULL,
+                                             pathString_regex_explode = NULL,
+                                             fieldname_regex_neverExplode = NULL,
                                              silent = metabefor::opts$get("silent")) {
   
   if (is.null(x)) {
@@ -46,18 +55,18 @@ get_valueList_asDf_fromStudyTree <- function(x,
           } else if (!is.list(node$value)) {
             return(FALSE);
           } else if (is.null(requiredFields)) {
-            if (is.null(pathString_regex)) {
+            if (is.null(pathString_regex_select)) {
               return(TRUE);
             } else {
-              return(grepl(pathString_regex, node$pathString));
+              return(grepl(pathString_regex_select, node$pathString));
             }
           } else if (is.null(names(node$value))) {
             return(FALSE);
           } else if (all(requiredFields %in% names(node$value))) {
-            if (is.null(pathString_regex)) {
+            if (is.null(pathString_regex_select)) {
               return(TRUE);
             } else {
-              return(grepl(pathString_regex, node$pathString));
+              return(grepl(pathString_regex_select, node$pathString));
             }
           } else {
             return(FALSE);
@@ -80,14 +89,17 @@ get_valueList_asDf_fromStudyTree <- function(x,
            "fields (if any were specified): ", vecTxtQ(targetNodeNames),
            ".\n");
     }
-    
+
     res <- lapply(
       targetNodeNames,
       get_singleValue_fromTree,
       x = x,
       returnDf = TRUE,
       flattenVectorsInDf = flattenVectorsInDf,
-      pathString_regex = pathString_regex,
+      pathString_regex_select = pathString_regex_select,
+      pathString_regex_flatten = pathString_regex_flatten,
+      pathString_regex_explode = pathString_regex_explode,
+      fieldname_regex_neverExplode = fieldname_regex_neverExplode,
       returnLongDf = FALSE,
       silent = silent
     );
@@ -121,8 +133,11 @@ get_valueList_asDf_fromStudyTree <- function(x,
 #' @rdname get_valueList_asDf
 get_valueList_asDf <- function(x,
                                requiredFields = NULL,
-                               pathString_regex = NULL,
+                               pathString_regex_select = NULL,
                                flattenVectorsInDf = TRUE,
+                               pathString_regex_flatten = NULL,
+                               pathString_regex_explode = NULL,
+                               fieldname_regex_neverExplode = NULL,
                                silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
@@ -168,8 +183,11 @@ get_valueList_asDf <- function(x,
             get_valueList_asDf_fromStudyTree(
               x = x[[i]],
               requiredFields = requiredFields,
-              pathString_regex = pathString_regex,
+              pathString_regex_select = pathString_regex_select,
               flattenVectorsInDf = flattenVectorsInDf,
+              pathString_regex_flatten = pathString_regex_flatten,
+              pathString_regex_explode = pathString_regex_explode,
+              fieldname_regex_neverExplode = fieldname_regex_neverExplode,
               silent = silent
             );
           if (is.data.frame(res)) {

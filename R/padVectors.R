@@ -14,7 +14,15 @@
 #'   )
 #' );
 padVectors <- function(x,
-                       padWith = NA) {
+                       padWith = NA,
+                       fieldname_regex_neverExplode = NULL) {
+  
+  if (!is.null(fieldname_regex_neverExplode)) {
+    vectorsToFlatten <-
+      grep(fieldname_regex_neverExplode, names(x), value=TRUE);
+    x[vectorsToFlatten] <-
+      flattenNodeValues(x[vectorsToFlatten]);
+  }
   
   vectorLengths <-
     unlist(lapply(x, length));

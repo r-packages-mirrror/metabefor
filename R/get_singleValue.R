@@ -4,11 +4,17 @@
 #' @param entityId The entity identifier of the value to get
 #' @param lookInValueLists Whether to also look inside value lists
 #' @param returnDf Whether to return a data frame or not
-#' @param pathString_regex Regex that the target entities' path strings have to
-#' match (otherwise, the entity is excluded)
-#' @param flattenVectorsInDf When returning a data frame, whether to flatten
-#' vectors into a single character string value, or whether to explode into
-#' multiple rows.
+#' @param pathString_regex_select Regex that the target entities' path strings
+#' have to match (otherwise, the entity is excluded)
+#' @param flattenVectorsInDf The default action to apply for values not matching
+#' one of `pathString_regex_flatten` and `pathString_regex_explode`: to flatten
+#' by default, pass `TRUE`; to explode by default, pass `FALSE`.
+#' @param pathString_regex_flatten,pathString_regex_explode Regular expressions
+#' matched against each entity node's path string (i.e. its path from the root,
+#' delimited by slashes). Vectors in entity nodes matching
+#' `pathString_regex_flatten` will be flattened into a single character
+#' string value; vectors in entity nodes matching `pathString_regex_explode`
+#' will be exploded into multiple rows.
 #'
 #' @return A list or a dataframe (if `returnDf` is `TRUE`)
 #'
@@ -21,8 +27,11 @@ get_singleValue_fromTree <- function(x,
                                      lookInValueLists = TRUE,
                                      returnDf = FALSE,
                                      flattenVectorsInDf = TRUE,
+                                     pathString_regex_flatten = NULL,
+                                     pathString_regex_explode = NULL,
+                                     fieldname_regex_neverExplode = NULL,
                                      returnLongDf = TRUE,
-                                     pathString_regex = ".*",
+                                     pathString_regex_select = ".*",
                                      silent = metabefor::opts$get("silent")) {
 
   if (inherits(x, "rxs") && inherits(x, "Node")) {
@@ -33,21 +42,68 @@ get_singleValue_fromTree <- function(x,
       );
     
     if (!is.null(foundNode)) {
+      
+      ### Get path string so we don't have to get it from the node repeatedly
+      nodePathString <- foundNode$pathString;
 
-      if (!grepl(pathString_regex, foundNode$pathString)) {
+      if (!grepl(pathString_regex_select, nodePathString)) {
         if (!silent) {
           cat("\nFound a node with identier ('name') '", entityId,
               "', but its path string ('",
               foundNode$pathString, "') did not match the ",
-              "specified pathString_regex ('", pathString_regex,
+              "specified pathString_regex_select ('", pathString_regex_select,
               "').");
         }
         return(invisible(NULL));
+      } else {
+        if (!silent) {
+          cat0("\nFound a node with identier ('name') '", entityId,
+              "': ");
+        }
+      }
+      
+      ### Decide whether in the end we should flatten vectors
+      ### Decide whether in the end we should flatten vectors
+      flattenTheVector <- flattenVectorsInDf;
+      if (!silent) {
+        cat0("flattenVectorsInDf is ", as.character(flattenVectorsInDf),
+             ", and the node's path string (`", nodePathString, "`) ");
+      }
+      if ((!is.null(pathString_regex_flatten)) &&
+          (grepl(pathString_regex_flatten, nodePathString))) {
+        flattenTheVector <- TRUE;
+        if (!silent) {
+          cat0("matched the 'flatten' path string regex (`",
+               pathString_regex_flatten, "`), ");
+        }
+      } else {
+        if (!silent) {
+          cat0("did not match the 'flatten' path string regex (`",
+               pathString_regex_flatten, "`), ");
+        }
+      }
+      if ((!is.null(pathString_regex_explode)) &&
+          (grepl(pathString_regex_explode, nodePathString))) {
+        flattenTheVector <- FALSE;
+        if (!silent) {
+          cat0("matched the 'explode' path string regex (`",
+               pathString_regex_explode, "`), ");
+        }
+      } else {
+        if (!silent) {
+          cat0("did not match the 'explode' path string regex (`",
+               pathString_regex_explode, "`), ");
+        }
+      }
+      if (!silent) {
+        cat0("so vectors will be ",
+             ifelse(flattenTheVector, "flattened", "exploded"),
+             ".\n");
       }
       
       ### We found a node with this name, return its value
       
-      if (flattenVectorsInDf) {
+      if (flattenTheVector) {
         
         ### Flatten vectors to strings with VecTxtQ
         res <- flattenNodeValues(foundNode$value);
@@ -55,11 +111,14 @@ get_singleValue_fromTree <- function(x,
       } else {
         
         if (returnLongDf) {
+          ### Split vectors to different rows
+          res <- splitVectors(foundNode$value,
+                              fieldname_regex_neverExplode = fieldname_regex_neverExplode);
+        } else {
           ### Pad all elements with length > 1 to the same
           ### length to allow conversion to data frame
-          res <- splitVectors(foundNode$value);
-        } else {
-          res <- padVectors(foundNode$value);
+          res <- padVectors(foundNode$value,
+                            fieldname_regex_neverExplode = fieldname_regex_neverExplode);
         }
 
       }
@@ -101,7 +160,31 @@ get_singleValue_fromTree <- function(x,
       valuesFromValueLists <-
         x$Get(
           function(node) {
-            return(node$value[[entityId]]);
+            
+            ### Get path string so we don't have to get it from the node repeatedly
+            nodePathString <- node$pathString;
+            
+            ### Decide whether in the end we should flatten vectors
+            flattenTheVector <- flattenVectorsInDf;
+            if (!is.null(pathString_regex_flatten)) {
+              if (grepl(pathString_regex_flatten, nodePathString)) {
+                flattenTheVector <- TRUE;
+              }
+            }
+            if (!is.null(pathString_regex_explode)) {
+              if (grepl(pathString_regex_explode, nodePathString)) {
+                flattenTheVector <- FALSE;
+              }
+            }
+
+            ### Flatten vectors to strings with VecTxtQ
+            if (flattenTheVector) {
+              res <- flattenNodeValues(node$value[[entityId]]);
+            } else {
+              res <- node$value[[entityId]];
+            }
+
+            return(res);
           },
           filterFun = function(node) {
             if (is.null(names(node$value))) {
@@ -111,25 +194,30 @@ get_singleValue_fromTree <- function(x,
             }
           }
         );
-      
+
       if (length(valuesFromValueLists) > 0) {
         
-        if (flattenVectorsInDf) {
-          
-          ### Flatten vectors to strings with VecTxtQ
-          res <- flattenNodeValues(valuesFromValueLists);
-          
-        } else {
-          
+        ### This should be redundant now that we flatten in the lambda
+        ### function we use when creating valuesFromValueLists a few lines
+        ### higher
+        
+        # if (flattenVectorsInDf) {
+        #   
+        #   res <- flattenNodeValues(valuesFromValueLists);
+        #   
+        # } else {
+
           if (returnLongDf) {
             ### Pad all elements with length > 1 to the same
             ### length to allow conversion to data frame
-            res <- padVectors(foundNode$value);
+            res <- padVectors(foundNode$value,
+                              fieldname_regex_neverExplode = fieldname_regex_neverExplode);
           } else {
-            res <- splitVectors(foundNode$value);
+            res <- splitVectors(foundNode$value,
+                                fieldname_regex_neverExplode = fieldname_regex_neverExplode);
           }
           
-        }
+        # }
         
         ### Start returning result
         
@@ -183,7 +271,10 @@ get_singleValue_fromTreeList <- function(x,
                                          flattenVectorsInDf = TRUE,
                                          warningValues = list(NULL, NA),
                                          warningFunctions = NULL,
-                                         pathString_regex = ".*",
+                                         pathString_regex_select = ".*",
+                                         pathString_regex_flatten = NULL,
+                                         pathString_regex_explode = NULL,
+                                         fieldname_regex_neverExplode = NULL,
                                          returnLongDf = TRUE,
                                          silent = metabefor::opts$get("silent")) {
   
@@ -226,7 +317,10 @@ get_singleValue_fromTreeList <- function(x,
             x = x[[i]],
             entityId = entityId,
             flattenVectorsInDf = flattenVectorsInDf,
-            pathString_regex = pathString_regex,
+            pathString_regex_select = pathString_regex_select,
+            pathString_regex_flatten = pathString_regex_flatten,
+            pathString_regex_explode = pathString_regex_explode,
+            fieldname_regex_neverExplode = fieldname_regex_neverExplode,
             silent = silent,
             returnDf = returnDf
           )
@@ -390,7 +484,10 @@ get_singleValue <- function(x,
                             returnDf = TRUE,
                             flattenVectorsInDf = TRUE,
                             returnLongDf = TRUE,
-                            pathString_regex = ".*",
+                            pathString_regex_select = ".*",
+                            pathString_regex_flatten = NULL,
+                            pathString_regex_explode = NULL,
+                            fieldname_regex_neverExplode = NULL,
                             silent = metabefor::opts$get("silent")) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
@@ -400,7 +497,10 @@ get_singleValue <- function(x,
         entityId = entityId,
         returnDf = returnDf,
         flattenVectorsInDf = flattenVectorsInDf,
-        pathString_regex = pathString_regex,
+        pathString_regex_select = pathString_regex_select,
+        pathString_regex_flatten = pathString_regex_flatten,
+        pathString_regex_explode = pathString_regex_explode,
+        fieldname_regex_neverExplode = fieldname_regex_neverExplode,
         returnLongDf = returnLongDf,
         silent = silent
       )
