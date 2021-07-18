@@ -208,8 +208,17 @@ rxs_parseExtractionScripts <- function(path,
     cat0("\n\nFinished processing all Rxs files. ",
          "Starting verification of Rxs study trees.\n");
   }
+
+  validTrees <- unlist(lapply(res$rxsTrees, inherits, "Node"));
+  validTreeNames <- names(res$rxsTrees[validTrees]);
+  invalidTreeNames <- names(res$rxsTrees[!validTrees]);
   
-  for (currentTree in names(res$rxsTrees)) {
+  warning("I read ", sum(!validTrees), " invalid study trees, specifically ",
+          "from files ", vecTxtQ(invalidTreeNames), ". You will probably ",
+          "want to check and correct those, and the re-run this command, ",
+          "before continuing.");
+  
+  for (currentTree in validTreeNames) {
     if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
       msg <- paste0("In the Rxs study tree from file '", currentTree,
                     "', not all node names (i.e. entity names) are unique!");

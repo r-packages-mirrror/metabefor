@@ -4,7 +4,7 @@
 \alias{padVectors}
 \title{In a list of vectors, pad short vectors}
 \usage{
-padVectors(x, padWith = NA)
+padVectors(x, padWith = NA, fieldname_regex_alwaysFlatten = NULL)
 }
 \arguments{
 \item{x}{The list of vectors}

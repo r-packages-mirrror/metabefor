@@ -4,7 +4,7 @@
 \alias{splitVectors}
 \title{In a list of vectors, split vectors to multiple list elements}
 \usage{
-splitVectors(x, sep = "_")
+splitVectors(x, sep = "_", fieldname_regex_alwaysFlatten = NULL)
 }
 \arguments{
 \item{x}{The list of vectors}

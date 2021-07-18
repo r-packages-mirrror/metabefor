@@ -12,8 +12,11 @@ get_singleValue_fromTree(
   lookInValueLists = TRUE,
   returnDf = FALSE,
   flattenVectorsInDf = TRUE,
+  pathString_regex_flatten = NULL,
+  pathString_regex_explode = NULL,
+  fieldname_regex_alwaysFlatten = NULL,
   returnLongDf = TRUE,
-  pathString_regex = ".*",
+  pathString_regex_select = ".*",
   silent = metabefor::opts$get("silent")
 )
 
@@ -26,7 +29,10 @@ get_singleValue_fromTreeList(
   flattenVectorsInDf = TRUE,
   warningValues = list(NULL, NA),
   warningFunctions = NULL,
-  pathString_regex = ".*",
+  pathString_regex_select = ".*",
+  pathString_regex_flatten = NULL,
+  pathString_regex_explode = NULL,
+  fieldname_regex_alwaysFlatten = NULL,
   returnLongDf = TRUE,
   silent = metabefor::opts$get("silent")
 )
@@ -37,7 +43,10 @@ get_singleValue(
   returnDf = TRUE,
   flattenVectorsInDf = TRUE,
   returnLongDf = TRUE,
-  pathString_regex = ".*",
+  pathString_regex_select = ".*",
+  pathString_regex_flatten = NULL,
+  pathString_regex_explode = NULL,
+  fieldname_regex_alwaysFlatten = NULL,
   silent = metabefor::opts$get("silent")
 )
 }
@@ -50,12 +59,22 @@ get_singleValue(
 
 \item{returnDf}{Whether to return a data frame or not}
 
-\item{flattenVectorsInDf}{When returning a data frame, whether to flatten
-vectors into a single character string value, or whether to explode into
-multiple rows.}
+\item{flattenVectorsInDf}{The default action to apply for values not matching
+one of \code{pathString_regex_flatten} and \code{pathString_regex_explode}: to flatten
+by default, pass \code{TRUE}; to explode by default, pass \code{FALSE}.}
 
-\item{pathString_regex}{Regex that the target entities' path strings have to
-match (otherwise, the entity is excluded)}
+\item{pathString_regex_flatten, pathString_regex_explode}{Regular expressions
+matched against each entity node's path string (i.e. its path from the root,
+delimited by slashes). Vectors in entity nodes matching
+\code{pathString_regex_flatten} will be flattened into a single character
+string value; vectors in entity nodes matching \code{pathString_regex_explode}
+will be exploded into multiple rows.}
+
+\item{fieldname_regex_alwaysFlatten}{A regular expression to force
+flattening of fields regardless of matching to other regular expressions.}
+
+\item{pathString_regex_select}{Regex that the target entities' path strings
+have to match (otherwise, the entity is excluded)}
 }
 \value{
 A list or a dataframe (if \code{returnDf} is \code{TRUE})

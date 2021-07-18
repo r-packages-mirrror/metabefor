@@ -8,16 +8,22 @@
 get_valueList_asDf_fromStudyTree(
   x,
   requiredFields = NULL,
-  pathString_regex = NULL,
   flattenVectorsInDf = TRUE,
+  pathString_regex_select = NULL,
+  pathString_regex_flatten = NULL,
+  pathString_regex_explode = NULL,
+  fieldname_regex_alwaysFlatten = NULL,
   silent = metabefor::opts$get("silent")
 )
 
 get_valueList_asDf(
   x,
   requiredFields = NULL,
-  pathString_regex = NULL,
+  pathString_regex_select = NULL,
   flattenVectorsInDf = TRUE,
+  pathString_regex_flatten = NULL,
+  pathString_regex_explode = NULL,
+  fieldname_regex_alwaysFlatten = NULL,
   silent = metabefor::opts$get("silent")
 )
 }
@@ -27,12 +33,22 @@ get_valueList_asDf(
 \item{requiredFields}{Fields that have to exist in the target entities
 (otherwise, the entity is excluded)}
 
-\item{pathString_regex}{Regex that the target entities' path strings have to
+\item{flattenVectorsInDf}{The default action to apply for values not matching
+one of \code{pathString_regex_flatten} and \code{pathString_regex_explode}: to flatten
+by default, pass \code{TRUE}; to explode by default, pass \code{FALSE}.}
+
+\item{pathString_regex_select}{Regex that the target entities' path strings have to
 match (otherwise, the entity is excluded)}
 
-\item{flattenVectorsInDf}{When returning a data frame, whether to flatten
-vectors into a single character string value, or whether to explode into
-multiple rows.}
+\item{pathString_regex_flatten, pathString_regex_explode}{Regular expressions
+matched against each entity node's path string (i.e. its path from the root,
+delimited by slashes). Vectors in entity nodes matching
+\code{pathString_regex_flatten} will be flattened into a single character
+string value; vectors in entity nodes matching \code{pathString_regex_explode}
+will be exploded into multiple rows.}
+
+\item{fieldname_regex_alwaysFlatten}{A regular expression to force
+flattening of fields regardless of matching to other regular expressions.}
 
 \item{silent}{Whether to be quiet or chatty.}
 }
