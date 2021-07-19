@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list • metabefor</title>
+<title>Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list_inSingleNode • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,14 @@
 
 
 
-<meta property="og:title" content="Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list" />
+<meta property="og:title" content="Supplement a target entitity node with clustered entity values from another entity node — supplement_data_from_list_inSingleNode" />
 <meta property="og:description" content="These function supplement a entity nodes with clustered entity values
 from other entities specified in the target entity nodes. Both the
 target entity and the source entity have to be clustering entities.
-Use supplement_data_from_list() for one node, and
-supplement_data_from_list() for all nodes containing the field that
-identifies the node to copy the values from (i.e. as specified in
-sourceEntityNodeIdField_in_targetEntity)." />
+Use supplement_data_from_list_inSingleNode() for one entity node, and
+supplement_data_from_list_inStudyTrees() for all nodes containing the
+field that identifies the node to copy the values from (i.e. as specified
+in sourceEntityNodeIdField_in_targetEntity)." />
 
 
 
@@ -136,13 +136,13 @@ sourceEntityNodeIdField_in_targetEntity)." />
     <p>These function supplement a entity nodes with clustered entity values
 from other entities specified in the target entity nodes. Both the
 target entity and the source entity have to be clustering entities.
-Use <code>supplement_data_from_list()</code> for one node, and
-<code>supplement_data_from_list()</code> for all nodes containing the field that
-identifies the node to copy the values from (i.e. as specified in
-<code>sourceEntityNodeIdField_in_targetEntity</code>).</p>
+Use <code>supplement_data_from_list_inSingleNode()</code> for one entity node, and
+<code>supplement_data_from_list_inStudyTrees()</code> for all nodes containing the
+field that identifies the node to copy the values from (i.e. as specified
+in <code>sourceEntityNodeIdField_in_targetEntity</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>supplement_data_from_list</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>supplement_data_from_list_inSingleNode</span><span class='op'>(</span>
   <span class='va'>studyTree</span>,
   <span class='va'>targetEntityNodeId</span>,
   <span class='va'>sourceEntityNodeIdField_in_targetEntity</span>,
@@ -152,7 +152,21 @@ identifies the node to copy the values from (i.e. as specified in
   forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sourcePathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
   targetPathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
-  prefix <span class='op'>=</span> <span class='st'>""</span>,
+  prefix <span class='op'>=</span> <span class='st'>"supplemented_"</span>,
+  suffix <span class='op'>=</span> <span class='st'>""</span>,
+  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>supplement_data_from_list_inStudyTrees</span><span class='op'>(</span>
+  <span class='va'>studies</span>,
+  <span class='va'>sourceEntityNodeIdField_in_targetEntity</span>,
+  idField_in_targetEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
+  idField_in_sourceEntityNode <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fieldsToCopy_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sourcePathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  targetPathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  prefix <span class='op'>=</span> <span class='st'>"supplemented_"</span>,
   suffix <span class='op'>=</span> <span class='st'>""</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span>
@@ -166,7 +180,7 @@ identifies the node to copy the values from (i.e. as specified in
   sourcePathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
   targetPathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
   forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  prefix <span class='op'>=</span> <span class='st'>""</span>,
+  prefix <span class='op'>=</span> <span class='st'>"supplemented_"</span>,
   suffix <span class='op'>=</span> <span class='st'>""</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
@@ -220,6 +234,11 @@ values that are copied.</p></td>
     <tr>
       <th>silent</th>
       <td><p>Whether to be quiet or chatty.</p></td>
+    </tr>
+    <tr>
+      <th>studies</th>
+      <td><p>Either a single study tree or an object with parsed rxs
+files.</p></td>
     </tr>
     <tr>
       <th>overwriteExistingValues</th>

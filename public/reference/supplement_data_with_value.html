@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>In a list of vectors, split vectors to multiple list elements — splitVectors • metabefor</title>
+<title>Supplement a target entitity node with a value from another entity node — supplement_data_with_value_inSingleNode • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,19 @@
 
 
 
-<meta property="og:title" content="In a list of vectors, split vectors to multiple list elements — splitVectors" />
-<meta property="og:description" content="In a list of vectors, split vectors to multiple list elements" />
+<meta property="og:title" content="Supplement a target entitity node with a value from another entity node — supplement_data_with_value_inSingleNode" />
+<meta property="og:description" content="This function supplements an entity node with a value from another entity
+node. Note that the source entity cannot be a clustering entity (i.e.
+the value stored for that entity must be a single value); and the target
+entity must be a clustering entity (i.e. the value stored for that entity
+must be a list of values for clustered entities).
+Whereas for supplement_data_with_value_inSingleNode(), you have to specify
+the entity identifier for the entity you want to supplement, for
+supplement_data_with_value_inStudyTrees(), use targetPathString_regex to
+specify which entities you would like to supplement (i.e. copy the relevant
+value to). Of course, this can also be an entity identifier if you only want
+to copy to a single entity but in all study trees in an object with parsed
+Rxs files." />
 
 
 
@@ -121,44 +132,98 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>In a list of vectors, split vectors to multiple list elements</h1>
+    <h1>Supplement a target entitity node with a value from another entity node</h1>
     
-    <div class="hidden name"><code>splitVectors.Rd</code></div>
+    <div class="hidden name"><code>supplement_data_with_value.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>In a list of vectors, split vectors to multiple list elements</p>
+    <p>This function supplements an entity node with a value from another entity
+node. Note that the source entity <em>cannot be</em> a clustering entity (i.e.
+the value stored for that entity must be a single value); and the target
+entity <em>must</em> be a clustering entity (i.e. the value stored for that entity
+must be a list of values for clustered entities).
+Whereas for <code>supplement_data_with_value_inSingleNode()</code>, you have to specify
+the entity identifier for the entity you want to supplement, for
+<code>supplement_data_with_value_inStudyTrees()</code>, use <code>targetPathString_regex</code> to
+specify which entities you would like to supplement (i.e. copy the relevant
+value to). Of course, this can also be an entity identifier if you only want
+to copy to a single entity but in all study trees in an object with parsed
+Rxs files.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>splitVectors</span><span class='op'>(</span><span class='va'>x</span>, sep <span class='op'>=</span> <span class='st'>"_"</span>, fieldname_regex_alwaysFlatten <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>supplement_data_with_value_inSingleNode</span><span class='op'>(</span>
+  <span class='va'>studyTree</span>,
+  <span class='va'>targetEntityNodeId</span>,
+  <span class='va'>sourceEntityNodeId</span>,
+  forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sourcePathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  targetPathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  targetNodeListCreation_prefix <span class='op'>=</span> <span class='st'>""</span>,
+  targetNodeListCreation_suffix <span class='op'>=</span> <span class='st'>"_value"</span>,
+  prefix <span class='op'>=</span> <span class='st'>"supplemented_"</span>,
+  suffix <span class='op'>=</span> <span class='st'>""</span>,
+  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>supplement_data_with_value_inStudyTrees</span><span class='op'>(</span>
+  <span class='va'>studies</span>,
+  <span class='va'>sourceEntityNodeId</span>,
+  targetEntityNodeId <span class='op'>=</span> <span class='cn'>NULL</span>,
+  targetEntityNode_requiredField <span class='op'>=</span> <span class='cn'>NULL</span>,
+  forceCopyingOfExistingValues <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sourcePathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  targetPathString_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  targetNodeListCreation_prefix <span class='op'>=</span> <span class='st'>""</span>,
+  targetNodeListCreation_suffix <span class='op'>=</span> <span class='st'>"_value"</span>,
+  prefix <span class='op'>=</span> <span class='st'>"supplemented_"</span>,
+  suffix <span class='op'>=</span> <span class='st'>""</span>,
+  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>The list of vectors</p></td>
+      <th>studyTree</th>
+      <td><p>The study tree</p></td>
     </tr>
     <tr>
-      <th>sep</th>
-      <td><p>The separator to use</p></td>
+      <th>targetEntityNodeId</th>
+      <td><p>The identifier of the target entity node (the
+entity node to supplement)</p></td>
+    </tr>
+    <tr>
+      <th>sourceEntityNodeId</th>
+      <td><p>The identifier of the source entity node.</p></td>
+    </tr>
+    <tr>
+      <th>forceCopyingOfExistingValues</th>
+      <td><p>Whether to overwrite an existing value
+if it is are encountered in the target entity.</p></td>
+    </tr>
+    <tr>
+      <th>sourcePathString_regex, targetPathString_regex</th>
+      <td><p>Regular expressions
+that must match the path string of the source of target node.</p></td>
+    </tr>
+    <tr>
+      <th>prefix, suffix</th>
+      <td><p>A text string to prepend and append to the entity
+identifier when copying it to the target entity.</p></td>
+    </tr>
+    <tr>
+      <th>silent</th>
+      <td><p>Whether to be quiet or chatty.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The list with the split vectors</p>
+    
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>metabefor</span><span class='fu'>::</span><span class='fu'>splitVectors</span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>,
-    <span class='fl'>4</span>,
-    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>)</span>
-  <span class='op'>)</span>
-<span class='op'>)</span>;
-</div><div class='output co'>#&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; 
-#&gt;    1    2    3    4    5    6 </div></pre>
+
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -136,8 +136,11 @@
   lookInValueLists <span class='op'>=</span> <span class='cn'>TRUE</span>,
   returnDf <span class='op'>=</span> <span class='cn'>FALSE</span>,
   flattenVectorsInDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  pathString_regex_flatten <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pathString_regex_explode <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fieldname_regex_alwaysFlatten <span class='op'>=</span> <span class='cn'>NULL</span>,
   returnLongDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  pathString_regex <span class='op'>=</span> <span class='st'>".*"</span>,
+  pathString_regex_select <span class='op'>=</span> <span class='st'>".*"</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
@@ -150,7 +153,10 @@
   flattenVectorsInDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
   warningValues <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='cn'>NA</span><span class='op'>)</span>,
   warningFunctions <span class='op'>=</span> <span class='cn'>NULL</span>,
-  pathString_regex <span class='op'>=</span> <span class='st'>".*"</span>,
+  pathString_regex_select <span class='op'>=</span> <span class='st'>".*"</span>,
+  pathString_regex_flatten <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pathString_regex_explode <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fieldname_regex_alwaysFlatten <span class='op'>=</span> <span class='cn'>NULL</span>,
   returnLongDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span>
@@ -161,7 +167,10 @@
   returnDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
   flattenVectorsInDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
   returnLongDf <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  pathString_regex <span class='op'>=</span> <span class='st'>".*"</span>,
+  pathString_regex_select <span class='op'>=</span> <span class='st'>".*"</span>,
+  pathString_regex_flatten <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pathString_regex_explode <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fieldname_regex_alwaysFlatten <span class='op'>=</span> <span class='cn'>NULL</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -186,14 +195,28 @@
     </tr>
     <tr>
       <th>flattenVectorsInDf</th>
-      <td><p>When returning a data frame, whether to flatten
-vectors into a single character string value, or whether to explode into
-multiple rows.</p></td>
+      <td><p>The default action to apply for values not matching
+one of <code>pathString_regex_flatten</code> and <code>pathString_regex_explode</code>: to flatten
+by default, pass <code>TRUE</code>; to explode by default, pass <code>FALSE</code>.</p></td>
     </tr>
     <tr>
-      <th>pathString_regex</th>
-      <td><p>Regex that the target entities' path strings have to
-match (otherwise, the entity is excluded)</p></td>
+      <th>pathString_regex_flatten, pathString_regex_explode</th>
+      <td><p>Regular expressions
+matched against each entity node's path string (i.e. its path from the root,
+delimited by slashes). Vectors in entity nodes matching
+<code>pathString_regex_flatten</code> will be flattened into a single character
+string value; vectors in entity nodes matching <code>pathString_regex_explode</code>
+will be exploded into multiple rows.</p></td>
+    </tr>
+    <tr>
+      <th>fieldname_regex_alwaysFlatten</th>
+      <td><p>A regular expression to force
+flattening of fields regardless of matching to other regular expressions.</p></td>
+    </tr>
+    <tr>
+      <th>pathString_regex_select</th>
+      <td><p>Regex that the target entities' path strings
+have to match (otherwise, the entity is excluded)</p></td>
     </tr>
     </table>
 

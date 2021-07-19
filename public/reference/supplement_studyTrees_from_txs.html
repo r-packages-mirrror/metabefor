@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>In a list of vectors, split vectors to multiple list elements — splitVectors • metabefor</title>
+<title>Supplement a parsed studies object with entities from a tabulated extraction spreadsheet (txs) specification — supplement_studyTrees_from_txs • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,13 @@
 
 
 
-<meta property="og:title" content="In a list of vectors, split vectors to multiple list elements — splitVectors" />
-<meta property="og:description" content="In a list of vectors, split vectors to multiple list elements" />
+<meta property="og:title" content="Supplement a parsed studies object with entities from a tabulated extraction spreadsheet (txs) specification — supplement_studyTrees_from_txs" />
+<meta property="og:description" content="Sometimes, you forget to extract one or more entities. In such cases, it can
+be more efficient to create a spreadsheet with the omitted entities and then
+add those into the existing studies object. For that purpose, the tabulated
+extraction spreadsheet (txs) format exists. This is a rectangular table
+with the following columns: study_identification_entity_id,
+study_identification_value, parent_entity_id, entity_id, and value." />
 
 
 
@@ -121,44 +126,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>In a list of vectors, split vectors to multiple list elements</h1>
+    <h1>Supplement a parsed studies object with entities from a tabulated extraction spreadsheet (txs) specification</h1>
     
-    <div class="hidden name"><code>splitVectors.Rd</code></div>
+    <div class="hidden name"><code>supplement_studyTrees_from_txs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>In a list of vectors, split vectors to multiple list elements</p>
+    <p>Sometimes, you forget to extract one or more entities. In such cases, it can
+be more efficient to create a spreadsheet with the omitted entities and then
+add those into the existing studies object. For that purpose, the tabulated
+extraction spreadsheet (txs) format exists. This is a rectangular table
+with the following columns: <code>study_identification_entity_id</code>,
+<code>study_identification_value</code>, <code>parent_entity_id</code>, <code>entity_id</code>, and <code>value</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>splitVectors</span><span class='op'>(</span><span class='va'>x</span>, sep <span class='op'>=</span> <span class='st'>"_"</span>, fieldname_regex_alwaysFlatten <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>supplement_studyTrees_from_txs</span><span class='op'>(</span><span class='va'>studies</span>, <span class='va'>txs_specs</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>The list of vectors</p></td>
+      <th>studies</th>
+      <td><p>The parsed studies object, containing a list of study trees.</p></td>
     </tr>
     <tr>
-      <th>sep</th>
-      <td><p>The separator to use</p></td>
+      <th>txs_specs</th>
+      <td><p>The txs specifications, as a link to a publicly readable
+Google spreadsheet, an Excel file (if you have <code>openxlsx</code> installed),
+an SPSS dataset (if you have <code>haven</code> installed), or a comma separated
+values file (which will be read with <code><a href='https://rdrr.io/r/utils/read.table.html'>read.csv()</a></code>).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The list with the split vectors</p>
+    <p>Invisibly, the studies object. Note that the study trees will be
+changed in place given <code>data.tree</code>'s pass-by-reference logic; so you can
+discard the result.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>metabefor</span><span class='fu'>::</span><span class='fu'>splitVectors</span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>,
-    <span class='fl'>4</span>,
-    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>)</span>
-  <span class='op'>)</span>
-<span class='op'>)</span>;
-</div><div class='output co'>#&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; 
-#&gt;    1    2    3    4    5    6 </div></pre>
+    <p>If <code>study_identification_entity_id</code> is empty (i.e. does not contain any
+non-whitespace characters), <code>study_identification_value</code> will be assumed to
+be the name of the relevant study tree in the studies object.</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

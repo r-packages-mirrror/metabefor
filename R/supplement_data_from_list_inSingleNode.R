@@ -3,12 +3,14 @@
 #' These function supplement a entity nodes with clustered entity values
 #' from other entities specified in the target entity nodes. Both the
 #' target entity and the source entity have to be clustering entities.
-#' Use `supplement_data_from_list()` for one node, and
-#' `supplement_data_from_list()` for all nodes containing the field that
-#' identifies the node to copy the values from (i.e. as specified in
-#' `sourceEntityNodeIdField_in_targetEntity`).
+#' Use `supplement_data_from_list_inSingleNode()` for one entity node, and
+#' `supplement_data_from_list_inStudyTrees()` for all nodes containing the
+#' field that identifies the node to copy the values from (i.e. as specified
+#' in `sourceEntityNodeIdField_in_targetEntity`).
 #'
 #' @param studyTree The study tree
+#' @param studies Either a single study tree or an object with parsed rxs
+#' files.
 #' @param targetEntityNodeId The identifier of the target entity node (the node to
 #' supplement)
 #' @param sourceEntityNodeIdField_in_targetEntity Inside the target entity node,
@@ -36,19 +38,19 @@
 #' @export
 #'
 #' @examples
-supplement_data_from_list <- function(studyTree,
-                                      targetEntityNodeId,
-                                      sourceEntityNodeIdField_in_targetEntity,
-                                      idField_in_targetEntityNode = NULL,
-                                      idField_in_sourceEntityNode = NULL,
-                                      fieldsToCopy_regex = NULL,
-                                      forceCopyingOfExistingValues = FALSE,
-                                      sourcePathString_regex = NULL,
-                                      targetPathString_regex = NULL,
-                                      prefix = "",
-                                      suffix = "",
-                                      silent = metabefor::opts$get("silent")) {
-  
+supplement_data_from_list_inSingleNode <- function(studyTree,
+                                                   targetEntityNodeId,
+                                                   sourceEntityNodeIdField_in_targetEntity,
+                                                   idField_in_targetEntityNode = NULL,
+                                                   idField_in_sourceEntityNode = NULL,
+                                                   fieldsToCopy_regex = NULL,
+                                                   forceCopyingOfExistingValues = FALSE,
+                                                   sourcePathString_regex = NULL,
+                                                   targetPathString_regex = NULL,
+                                                   prefix = "supplemented_",
+                                                   suffix = "",
+                                                   silent = metabefor::opts$get("silent")) {
+
   if (is.null(studyTree)) {
     if (!silent) {
       cat0("What you passed as `studyTree` is NULL!");
