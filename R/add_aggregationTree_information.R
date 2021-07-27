@@ -7,13 +7,15 @@ add_aggregationTree_information <- function(studies,
                                             suffixes = NULL) {
   
   for (i in seq_along(studies$rxsTrees)) {
-    add_aggregationTree_information_toStudyTree(
-      studyTree = studies$rxsTrees[[i]],
-      aggregationTree = aggregationTree,
-      fieldName = fieldName,
-      prefixes = prefixes,
-      suffixes = suffixes
-    );
+    if (inherits(studies$rxsTrees[[i]], "Node")) {
+      add_aggregationTree_information_toStudyTree(
+        studyTree = studies$rxsTrees[[i]],
+        aggregationTree = aggregationTree,
+        fieldName = fieldName,
+        prefixes = prefixes,
+        suffixes = suffixes
+      );
+    }
   }
   
   return(invisible(studies));

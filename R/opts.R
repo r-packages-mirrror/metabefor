@@ -117,6 +117,7 @@ opts$defaults <-
                           recurringCol = "recurring",
                           recursingCol = "recursing",
                           identifyingCol = "identifying"),
+    
     valueTemplateColNames = list(identifierCol = "identifier",
                                  descriptionCol = "description",
                                  validValuesCol = "validValues",
@@ -124,6 +125,12 @@ opts$defaults <-
                                  examplesCol = "examples",
                                  validationCol = "validation",
                                  errorCol = "error"),
+    
+    txsColNames = list(study_identification_entity_id = 'study_identification_entity_id',
+                       study_identification_value = 'study_identification_value',
+                       parent_entity_id = 'parent_entity_id',
+                       entity_id = 'entity_id',
+                       value = 'value'),
     
     extractionOverview_list_intro =
       paste0(

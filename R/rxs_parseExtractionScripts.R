@@ -125,9 +125,24 @@ rxs_parseExtractionScripts <- function(path,
         cat(paste0(res$rxsPurlingOutput[[filename]], collapse="\n"));
       }
     } else {
+      # oldEncoding <- getOption("encoding");
+      # on.exit(options(encoding = oldEncoding));
+      # options(encoding = "UTF-8");
+      # ###
+      # ### If the above doesn't work, use source instead of sys.source
+      # ### so that it's possible to pass an encoding.
+      # ###
+      
+      ###-----------------------------------------------------------------------
+      ### Can't see how to resolve this; any attempt to force UTF-8 encoding
+      ### results in 
+      ###-----------------------------------------------------------------------
+      
       ### Run the other file with error handling
       rxsOutput <-
-        capture.output(tryCatch(sys.source(tempR, envir=globalenv()),
+        # capture.output(tryCatch(sys.source(tempR, envir=globalenv()),
+        capture.output(tryCatch(source(tempR, local=globalenv(),
+                                       encoding = "UTF-8"),
                                 error = function(e) {
                                   cat(paste0("In file '",
                                              filename,
@@ -213,10 +228,12 @@ rxs_parseExtractionScripts <- function(path,
   validTreeNames <- names(res$rxsTrees[validTrees]);
   invalidTreeNames <- names(res$rxsTrees[!validTrees]);
   
-  warning("I read ", sum(!validTrees), " invalid study trees, specifically ",
-          "from files ", vecTxtQ(invalidTreeNames), ". You will probably ",
-          "want to check and correct those, and the re-run this command, ",
-          "before continuing.");
+  if (sum(!validTrees) > 0) {
+    warning("I read ", sum(!validTrees), " invalid study trees, specifically ",
+            "from files ", vecTxtQ(invalidTreeNames), ". You will probably ",
+            "want to check and correct those, and the re-run this command, ",
+            "before continuing.");
+  }
   
   for (currentTree in validTreeNames) {
     if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
