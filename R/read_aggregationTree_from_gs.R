@@ -13,7 +13,7 @@ read_aggregationTree_from_gs <- function(x) {
     googlesheets4::read_sheet(
       x
     );
-  
+
   res <-
     messy_df_to_tree(
       aggregationTree_asDf

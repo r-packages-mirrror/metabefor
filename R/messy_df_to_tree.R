@@ -28,6 +28,8 @@ messy_df_to_tree <- function(x,
   
   x <- as.data.frame(x);
   
+  x <- x[(!is.na(x[, childCol])) & (nchar(x[, childCol]) > 0), ];
+  
   ### Move parents without specified child to children column
   x[
     is.na(x[, childCol]) | (nchar(trimws(x[, childCol])) == 0),
@@ -50,19 +52,23 @@ messy_df_to_tree <- function(x,
   orphans <-
     x[, parentCol][!(x[, parentCol] %in% x[, childCol])];
 
-  orphanDf <-
-    as.data.frame(t(rep("", ncol(x))));
-  names(orphanDf) <- names(x);
+  if (length(orphans) > 0) {
+    orphanDf <-
+      as.data.frame(t(rep("", ncol(x))));
+    names(orphanDf) <- names(x);
+    
+    orphanDf[, childCol] <- orphans;
+    orphanDf[, parentCol] <- rootName;
   
-  orphanDf[, childCol] <- orphans;
-  orphanDf[, parentCol] <- rootName;
-
-  resDf <-
-    rbind(
-      as.data.frame(x),
-      orphanDf
-    );
-
+    resDf <-
+      rbind(
+        as.data.frame(x),
+        orphanDf
+      );
+  } else {
+    resDf <- as.data.frame(x);
+  }
+  
   ### For nodes that are their own parent,
   ### replace that parent with an articial root
   resDf[

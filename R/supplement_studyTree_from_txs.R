@@ -16,6 +16,9 @@
 #' Google spreadsheet, an Excel file (if you have {`openxlsx`} installed),
 #' an SPSS dataset (if you have {`haven`} installed), or a comma separated
 #' values file (which will be read with [read.csv()]).
+#' @param stopOnErrors Whether to throw an error or show a warning (or just
+#' use `cat` to show a message is `silent=FALSE`) when encountering errors.
+#' @param silent Whether to the chatty or silent.
 #'
 #' @return Invisibly, the studies object. Note that the study trees will be
 #' changed in place given `data.tree`'s pass-by-reference logic; so you can
@@ -23,11 +26,19 @@
 #' 
 #' @export
 supplement_studyTrees_from_txs <- function(studies,
-                                           txs_specs) {
+                                           txs_specs,
+                                           stopOnErrors = FALSE,
+                                           silent=metabefor::opts$get("silent")) {
   
-  if (!inherits(studies, ""))
+  if (!inherits(studies, "rxs_parsedExtractionScripts")) {
+    stop("The object you pass as 'studies' must be an object ",
+         "with parsed Rxs files!");
+  }
   
   dat <- read_sheet(txs_specs);
+  
+  msg("Read ", nrow(dat), " txs specifications.\n",
+      silent = silent);
 
   for (i in 1:nrow(dat)) {
     
@@ -50,39 +61,87 @@ supplement_studyTrees_from_txs <- function(studies,
     }
     
     if (!inherits(currentTree, "Node")) {
-      warning("I could not find a valid study tree with identifier `",
-              study_identification_value, "`, so I'm skipping this row.")
+      errMsg <- paste0(
+        "I could not find a valid study tree with identifier `",
+        study_identification_value, "`.\n"
+      );
+      if (stopOnErrors) {
+        stop(errMsg);
+      } else {
+        if (silent) {
+          warning(errMsg)
+        } else {
+          msg(errMsg, silent=silent);
+        }
+      }
     } else {
 
       currentParentNode <- data.tree::FindNode(currentTree, parent_entity_id);
       
       if (is.null(currentParentNode)) {
-        stop("In the study tree identified by `",
-             study_identification_entity_id,
-             "`, I could not file the designated parent entity node (`",
-             parent_entity_id, "`).");
+        errMsg <- paste0(
+          "In the study tree identified by `",
+          study_identification_value,
+          "`, I could not find the designated parent entity node (`",
+          parent_entity_id, "`).\n");
+        if (stopOnErrors) {
+          stop(errMsg);
+        } else {
+          if (silent) {
+            warning(errMsg)
+          } else {
+            msg(errMsg, silent=silent);
+          }
+        }
       }
       
-      tryCatch(
-        currentParentNode$AddChild(
-          name = entity_id,
-          value = eval(parse(text = value))
-        ),
+      tryCatch({
+          if (is.list(currentParentNode$value)) {
+            currentParentNode$value <-
+              c(
+                currentParentNode$value,
+                stats::setNames(
+                  list(eval(parse(text = value))),
+                  nm = entity_id
+                )
+              );
+          } else {
+            currentParentNode$AddChild(
+              name = entity_id,
+              value = eval(parse(text = value))
+            )
+          }
+        },
         error = function(e) {
-          stop("In the study tree identified by `",
-               study_identification_entity_id,
-               "`, I could not add an entity node to the designated parent ",
-               "entity node (`", parent_entity_id, "`). This is either because ",
-               "the entity id you passed (`", entity_id,
-               "`) is not a valid name for a node, or because the value you ",
-               "passed to store (`", value, "`) is not a valid R expression. ",
-               "Note that if you want to store a text string, you must quote it ",
-               "(using either the double quote, \", or the single quote, ').");
+          errMsg <-
+            paste0(
+              "In the study tree identified by `",
+              study_identification_value,
+              "`, I could not add an entity node to the designated parent ",
+              "entity node (`", parent_entity_id, "`). This is either because ",
+              "the entity id you passed (`", entity_id,
+              "`) is not a valid name for a node, or because the value you ",
+              "passed to store (`", value, "`) is not a valid R expression. ",
+              "Note that if you want to store a text string, you must quote it ",
+              "(using either the double quote, \", or the single quote, ').\n"
+            );
+          if (stopOnErrors) {
+            stop(errMsg);
+          } else {
+            if (silent) {
+              warning(errMsg)
+            } else {
+              msg(errMsg, silent=silent);
+            }
+          }
         }
       );
     }
 
   }
+  
+  msg("Finished processing ", nrow(dat), " txs specifications.\n",
+      silent = silent);
   
   return(invisible(studies));
   

@@ -3,7 +3,7 @@
 #' @param studyTree The study tree
 #' @param aggregationTree The aggregation tree
 #' @param fieldName The field storing the values along which to aggregate
-#' @param prefixes,suffixes Vectord of pre- and suffixes to add to the
+#' @param prefixes,suffixes Vector of pre- and suffixes to add to the
 #' `fieldname` when storing the values for progressive aggregation
 #'
 #' @return Invisibly (and, irrelevantly), the study tree
