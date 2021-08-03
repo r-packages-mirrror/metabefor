@@ -16,14 +16,16 @@ add_aggregationTree_information_toStudyTree <- function(studyTree,
                                                         prefixes = NULL,
                                                         suffixes = NULL) {
   
+  maxDepth <- max(aggregationTree$Get("level")) - 1;
+  
   if (is.null(prefixes)) {
     prefixes <-
-      rep("", max(aggregationTree$Get("level")));
+      rep("", maxDepth);
   }
   
   if (is.null(suffixes)) {
     suffixes <-
-      paste0("_aggr", 1:max(aggregationTree$Get("level")));
+      paste0("_aggr", 1:maxDepth);
   }
   
   studyTree$Do(
