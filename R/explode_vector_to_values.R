@@ -32,8 +32,9 @@
 #' values to entity identifiers (i.e. the bit appended to the `prefix`). If
 #' nothing is specified, the original values will be sanitized and used.
 #'
-#' @return Invisibly (and irrelevantly, given R6's pass by reference behavior),
-#' the `studies` object.
+#' @return Invisibly, the studies object. Note that the study trees will be
+#' changed in place given `data.tree`'s pass-by-reference logic; so you can
+#' discard the result.
 #' @export
 #'
 #' @examples ### Create fake 'studies' object

@@ -28,8 +28,9 @@ values to entity identifiers (i.e. the bit appended to the \code{prefix}). If
 nothing is specified, the original values will be sanitized and used.}
 }
 \value{
-Invisibly (and irrelevantly, given R6's pass by reference behavior),
-the \code{studies} object.
+Invisibly, the studies object. Note that the study trees will be
+changed in place given \code{data.tree}'s pass-by-reference logic; so you can
+discard the result.
 }
 \description{
 This function takes a \code{studies} object (as produced

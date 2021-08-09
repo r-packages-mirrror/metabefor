@@ -35,7 +35,8 @@ supplement_studyTrees_from_txs <- function(studies,
   
   if (!inherits(studies, "rxs_parsedExtractionScripts")) {
     stop("The object you pass as 'studies' must be an object ",
-         "with parsed Rxs files!");
+         "with parsed Rxs files, as produced by a call to ",
+         "metabefor::rxs_parseExtractionScripts().");
   }
   
   dat <- read_sheet(txs_specs);
