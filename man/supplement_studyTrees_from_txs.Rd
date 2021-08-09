@@ -8,6 +8,7 @@ supplement_studyTrees_from_txs(
   studies,
   txs_specs,
   stopOnErrors = FALSE,
+  explode_vector_to_values = FALSE,
   silent = metabefor::opts$get("silent")
 )
 }
@@ -21,6 +22,9 @@ values file (which will be read with \code{\link[=read.csv]{read.csv()}}).}
 
 \item{stopOnErrors}{Whether to throw an error or show a warning (or just
 use \code{cat} to show a message is \code{silent=FALSE}) when encountering errors.}
+
+\item{explode_vector_to_values}{Whether to call \code{explode_vector_to_values}
+if there are vectors among the added values.}
 
 \item{silent}{Whether to the chatty or silent.}
 }
