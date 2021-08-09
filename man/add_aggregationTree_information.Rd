@@ -27,7 +27,7 @@ add_aggregationTree_information_toStudyTree(
 
 \item{fieldName}{The field storing the values along which to aggregate}
 
-\item{prefixes, suffixes}{Vectord of pre- and suffixes to add to the
+\item{prefixes, suffixes}{Vector of pre- and suffixes to add to the
 \code{fieldname} when storing the values for progressive aggregation}
 
 \item{studyTree}{The study tree}

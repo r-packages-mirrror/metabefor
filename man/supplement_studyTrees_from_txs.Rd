@@ -4,7 +4,12 @@
 \alias{supplement_studyTrees_from_txs}
 \title{Supplement a parsed studies object with entities from a tabulated extraction spreadsheet (txs) specification}
 \usage{
-supplement_studyTrees_from_txs(studies, txs_specs)
+supplement_studyTrees_from_txs(
+  studies,
+  txs_specs,
+  stopOnErrors = FALSE,
+  silent = metabefor::opts$get("silent")
+)
 }
 \arguments{
 \item{studies}{The parsed studies object, containing a list of study trees.}
@@ -13,6 +18,11 @@ supplement_studyTrees_from_txs(studies, txs_specs)
 Google spreadsheet, an Excel file (if you have {\code{openxlsx}} installed),
 an SPSS dataset (if you have {\code{haven}} installed), or a comma separated
 values file (which will be read with \code{\link[=read.csv]{read.csv()}}).}
+
+\item{stopOnErrors}{Whether to throw an error or show a warning (or just
+use \code{cat} to show a message is \code{silent=FALSE}) when encountering errors.}
+
+\item{silent}{Whether to the chatty or silent.}
 }
 \value{
 Invisibly, the studies object. Note that the study trees will be
