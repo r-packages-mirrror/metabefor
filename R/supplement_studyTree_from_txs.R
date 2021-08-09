@@ -18,6 +18,8 @@
 #' values file (which will be read with [read.csv()]).
 #' @param stopOnErrors Whether to throw an error or show a warning (or just
 #' use `cat` to show a message is `silent=FALSE`) when encountering errors.
+#' @param explode_vector_to_values Whether to call `explode_vector_to_values`
+#' if there are vectors among the added values.
 #' @param silent Whether to the chatty or silent.
 #'
 #' @return Invisibly, the studies object. Note that the study trees will be
@@ -28,6 +30,7 @@
 supplement_studyTrees_from_txs <- function(studies,
                                            txs_specs,
                                            stopOnErrors = FALSE,
+                                           explode_vector_to_values = FALSE,
                                            silent=metabefor::opts$get("silent")) {
   
   if (!inherits(studies, "rxs_parsedExtractionScripts")) {
@@ -37,7 +40,10 @@ supplement_studyTrees_from_txs <- function(studies,
   
   dat <- read_sheet(txs_specs);
   
-  msg("Read ", nrow(dat), " txs specifications.\n",
+  entityIds <- unique(trimws(dat[i, "entity_id"]));
+  
+  msg("Read ", nrow(dat), " txs specifications for entity identifiers ",
+      vecTxtQ(entityIds), "\n",
       silent = silent);
 
   for (i in 1:nrow(dat)) {
@@ -142,6 +148,21 @@ supplement_studyTrees_from_txs <- function(studies,
   
   msg("Finished processing ", nrow(dat), " txs specifications.\n",
       silent = silent);
+  
+  if (explode_vector_to_values) {
+    msg("Exploding vectors to values.\n",
+        silent = silent);
+    
+    for (currentEntityId in entityIds) {
+      explode_vector_to_values(
+        studies,
+        currentEntityId
+      );
+    }
+    
+    msg("Finished exploding vectors to values.\n",
+        silent = silent);
+  }
   
   return(invisible(studies));
   
