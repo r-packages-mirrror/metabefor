@@ -41,7 +41,7 @@ supplement_studyTrees_from_txs <- function(studies,
   
   dat <- read_sheet(txs_specs);
   
-  entityIds <- unique(trimws(dat[i, "entity_id"]));
+  entityIds <- unique(trimws(dat[, "entity_id"]));
   
   msg("Read ", nrow(dat), " txs specifications for entity identifiers ",
       vecTxtQ(entityIds), "\n",
@@ -151,14 +151,21 @@ supplement_studyTrees_from_txs <- function(studies,
       silent = silent);
   
   if (explode_vector_to_values) {
+    
     msg("Exploding vectors to values.\n",
         silent = silent);
     
     for (currentEntityId in entityIds) {
+      
+      msg("Exploding entity identifier ",
+          currentEntityId, ".\n",
+          silent = silent);
+      
       explode_vector_to_values(
         studies,
         currentEntityId
       );
+      
     }
     
     msg("Finished exploding vectors to values.\n",

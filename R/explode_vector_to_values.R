@@ -142,6 +142,6 @@ explode_vector_to_values <- function(studies,
     
   }
   
-  return(invisible(NULL));
+  return(invisible(studies));
   
 }
