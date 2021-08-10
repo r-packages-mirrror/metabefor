@@ -37,6 +37,7 @@ rxs_parseExtractionScripts <- function(path,
 
   res$rxsOutput <- list();
   res$rxsTrees <- list();
+  res$log <- c();
 
   if (anyDuplicated(allScripts)) {
     warning("Warning: two rxs files with the same name found: ",
@@ -51,20 +52,23 @@ rxs_parseExtractionScripts <- function(path,
     p <- dplyr::progress_estimated(length(allScripts));
   };
 
-  if (!silent) {
-    cat0("\nStarting to process ", length(allScripts),
-         " Rxs (extraction script) files ",
-         "in path ", path, " matching regular expression ", pattern,
-         " but excluding all files matching regular expression ",
-         exclude, ".");
-  }
-  
+  res$log <- c(
+    res$log,
+    msg("\nStarting to process ", length(allScripts),
+        " Rxs (extraction script) files ",
+        "in path ", path, " matching regular expression ", pattern,
+        " but excluding all files matching regular expression ",
+        exclude, ".", silent = silent)
+  );
+
   for (filename in allScripts) {
     
-    if (!silent) {
-      cat0("\n\nStarting to process extraction script ", filename, "...");
-    }
-    
+    res$log <- c(
+      res$log,
+      msg("\n\nStarting to process extraction script ", filename, "...",
+          silent = silent)
+    );
+
     ### From https://stackoverflow.com/questions/24753969/knitr-run-all-chunks-in-an-rmarkdown-document
 
     ### Create temporary file
@@ -109,12 +113,14 @@ rxs_parseExtractionScripts <- function(path,
                     "\n\nEncountered while processing file '", filename, "'.\n");
              });
     
-    if (!silent) {
-      cat0("\n  - Extracted R script fragments: ",
-           length(res$rxsPurlingOutput[[filename]]),
-           " lines extracted.");
-    }
-    
+    res$log <- c(
+      res$log,
+      msg("\n  - Extracted R script fragments: ",
+          length(res$rxsPurlingOutput[[filename]]),
+          " lines extracted.",
+          silent = silent)
+    );
+
     if (any(grepl("In file '",
                     filename,
                     "', encountered error while purling",
@@ -154,11 +160,13 @@ rxs_parseExtractionScripts <- function(path,
                                   invisible(e);
                                 }));
       
-      if (!silent) {
-        cat0("\n  - Also executed R script fragments: ", length(rxsOutput),
-             " lines of output generated and stored.");
-      }
-      
+      res$log <- c(
+        res$log,
+        msg("\n  - Also executed R script fragments: ", length(rxsOutput),
+            " lines of output generated and stored.",
+            silent = silent)
+      );
+
       tryCatch({
         res$rxsOutput[[filename]] <- rxsOutput;
         },
@@ -184,27 +192,31 @@ rxs_parseExtractionScripts <- function(path,
       res$rxsTrees[[filename]] <-
         data.tree::Clone(get('study', envir=globalenv()));
       
-      if (!silent) {
-        cat0("\n  - Finally, successfully stored the `study` object, which ",
-             "itself contains ", length(study), " objects.");
-      }
-      
+      res$log <- c(
+        res$log,
+        msg("\n  - Finally, successfully stored the `study` object, which ",
+            "itself contains ", length(study), " objects.",
+            silent = silent)
+      );
+
       allValues <- study$Get('value');
 
       if (any(unlist(lapply(allValues, is.expression)))) {
-        msg <- paste0(
-          "One or more extracted values are not just values, but ",
-          "instead R expressions! This is probably a symptom of ",
-          "a syntax error made during extraction. Carefully check the ",
-          "extraction script file!");
-        if (!silent) {
-          cat(msg);
-        }
+        res$log <- c(
+          res$log,
+          msg("One or more extracted values are not just values, but ",
+              "instead R expressions! This is probably a symptom of ",
+              "a syntax error made during extraction. Carefully check the ",
+              "extraction script file!",
+              silent = silent)
+        );
       } else {
-        if (!silent) {
-          cat0("\n  - Checked (and discovered) that none of the extracted ",
-               "`values` is in fact an R expression.");
-        }
+        res$log <- c(
+          res$log,
+          msg("\n  - Checked (and discovered) that none of the extracted ",
+              "`values` is in fact an R expression.",
+              silent = silent)
+        );
       }
       
       rm(study, envir=globalenv());
@@ -219,11 +231,14 @@ rxs_parseExtractionScripts <- function(path,
 
   }
   
-  if (!silent) {
-    cat0("\n\nFinished processing all Rxs files. ",
-         "Starting verification of Rxs study trees.\n");
-  }
-
+  res$log <- c(
+    res$log,
+    msg("\n\nFinished processing all Rxs files. ",
+        "Starting verification of Rxs study trees.\n",
+        silent = silent
+    )
+  );
+  
   validTrees <- unlist(lapply(res$rxsTrees, inherits, "Node"));
   validTreeNames <- names(res$rxsTrees[validTrees]);
   invalidTreeNames <- names(res$rxsTrees[!validTrees]);
@@ -235,22 +250,34 @@ rxs_parseExtractionScripts <- function(path,
             "before continuing.");
   }
   
+  res$convenience <- list();
+  res$convenience$validTrees <- validTrees;
+  res$convenience$validTreeNames <- validTreeNames;
+  res$convenience$invalidTreeNames <- invalidTreeNames;
+  
+  ### Remove invalid trees
+  res$rxsTrees <- res$rxsTrees[validTreeNames];
+  
   for (currentTree in validTreeNames) {
     if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
-      msg <- paste0("In the Rxs study tree from file '", currentTree,
-                    "', not all node names (i.e. entity names) are unique!");
-      if (!silent) {
-        cat0("\n- ", msg, "\n");
-      } else {
+      res$log <- c(
+        res$log,
+        msg("\nIn the Rxs study tree from file '", currentTree,
+            "', not all node names (i.e. entity names) are unique!",
+            silent = silent)
+      );
+      if (silent) {
         warning(msg);
       }
     }
   }
 
-  if (!silent) {
-    cat0("\nFinished verifying all Rxs study trees.\n");
-  }
-  
+  res$log <- c(
+    res$log,
+    msg("\nFinished verifying all Rxs study trees.\n",
+        silent = silent)
+  );
+
   class(res) <- "rxs_parsedExtractionScripts";
 
   return(res);
