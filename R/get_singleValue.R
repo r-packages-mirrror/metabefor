@@ -157,6 +157,13 @@ get_singleValue_fromTree <- function(x,
       
     } else if (lookInValueLists) {
       
+      msg("Did not find a node with entity identifier '",
+          entityId, "', but `lookInValueLists` is TRUE, so ",
+          "will now proceed to look in value lists (i.e. clustering ",
+          "entities), so that I can also find entities with the identifier ",
+          "you supplied if they are clustered entities.\n",
+          silent=silent);
+      
       ### We didn't find a node with this name, but will look in
       ### value lists ('clustered entities')
       
@@ -197,6 +204,7 @@ get_singleValue_fromTree <- function(x,
             }
           }
         );
+      
 
       if (length(valuesFromValueLists) > 0) {
         
@@ -209,15 +217,20 @@ get_singleValue_fromTree <- function(x,
         #   res <- flattenNodeValues(valuesFromValueLists);
         #   
         # } else {
-
+        
+          msg("Found at least one entity with identier ('name') '", entityId,
+              "' in clustering entities (value lists).\n");
+        
           if (returnLongDf) {
             ### Pad all elements with length > 1 to the same
             ### length to allow conversion to data frame
-            res <- padVectors(foundNode$value,
-                              fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
+            res <- padVectors(
+              valuesFromValueLists,
+              fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
           } else {
-            res <- splitVectors(foundNode$value,
-                                fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
+            res <- splitVectors(
+              valuesFromValueLists,
+              fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
           }
           
         # }
@@ -226,10 +239,18 @@ get_singleValue_fromTree <- function(x,
         
         if (returnDf && returnLongDf) {
           
+          msg("Returning result in a long ('tidy') dataframe (with ",
+              "all values in one column).\n\n",
+              silent=silent);
+          
           ### Long ('tidy') data frame, with all values in one column
           return(data.frame(res));
           
         } else if (returnDf) {
+          
+          msg("Returning result in a wide dataframe (with the values ",
+              "in separate columns).\n\n",
+              silent=silent);
           
           ### Wide dataframe, with one column for each entity
           return(
@@ -240,6 +261,9 @@ get_singleValue_fromTree <- function(x,
           );
           
         } else {
+
+          msg("Returning result without placing it in a data frame.\n\n",
+              silent=silent);
           
           ### Don't return a data frame; just return 'raw'
           
@@ -248,13 +272,18 @@ get_singleValue_fromTree <- function(x,
         }        
 
       } else {
+        
+        msg("Did not find entity with identier ('name') '", entityId,
+            "' in clustering entities (value lists).\n",
+            silent=silent);
+        
         return(valuesFromValueLists);
       }
       
     } else {
       if (!silent) {
         cat("\nDid not find an entity with identier ('name') '", entityId,
-            "'.");
+            "', and did not look in value lists (clustering entities).\n");
       }
       return(invisible(NULL));
     }

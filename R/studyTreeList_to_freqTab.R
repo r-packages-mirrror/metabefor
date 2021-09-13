@@ -13,6 +13,9 @@
 #' the entity values found for the rows and columns to the target
 #' values (e.g. `==`, `>`, `<`, etc).
 #' @param aggregationFunction The function to use to aggregate matrices
+#' @param rowLabels,colLabels A names vector used to replace row and column
+#' labels; the indices (element names) should be the entity identifiers and
+#' the values the labels to use.
 #' @param includeValueListsOfMatch Whether to also include the value lists
 #' inside matching entities (useful for quickly selecting e.g. all
 #' results)
@@ -36,6 +39,8 @@ studyTreeList_to_freqTab <- function(x,
                                      rowTargetFunction = `==`,
                                      colTargetFunction = `==`,
                                      aggregationFunction = `+`,
+                                     rowLabels = NULL,
+                                     colLabels = NULL,
                                      includeValueListsOfMatch = TRUE,
                                      excludeParentWhenValueListReturned = TRUE,
                                      silent = metabefor::opts$get("silent")) {
@@ -72,6 +77,8 @@ studyTreeList_to_freqTab <- function(x,
             x[[i]],
             rowRegex = rowRegex,
             colRegex = colRegex,
+            rowLabels = rowLabels,
+            colLabels = colLabels,
             rowColMultiplicationFunction = rowColMultiplicationFunction,
             includeValueListsOfMatch = includeValueListsOfMatch,
             excludeParentWhenValueListReturned = excludeParentWhenValueListReturned,
@@ -84,7 +91,7 @@ studyTreeList_to_freqTab <- function(x,
   if (!is.null(res)) {
     names(res) <- names(x);
   }
-  
+
   res <-
     maximizeMatrices(
       res,
@@ -92,7 +99,7 @@ studyTreeList_to_freqTab <- function(x,
     );
   
   res <-
-    Reduce(`+`, res);
+    Reduce(aggregationFunction, res);
   
   return(res);
   
