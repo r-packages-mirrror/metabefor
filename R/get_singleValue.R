@@ -452,14 +452,26 @@ get_singleValue_fromTreeList <- function(x,
         )
       );
     
+    res_no_rows <-
+      which(
+        unlist(
+          lapply(
+            res,
+            nrow
+          )
+        ) == 0
+      );
+    
     if (!is.null(nullValue)) {
       res[res_is_null] <- nullValue;
     }
     
     if (!is.null(naValue)) {
       res[res_is_na] <- naValue;
+      res[res_no_rows] <-
+        data.frame(value = naValue);
     }
-    
+
     if (returnDf) {
       resDfList <-
         mapply(
@@ -487,10 +499,23 @@ get_singleValue_fromTreeList <- function(x,
                 resVectorNames,
                 resVector
               );
-  
-            names(resDf) <-
-              c("Id", "Field", entityId);
-  
+            
+            # if (!is.data.frame(resDf)) {
+            #   browser();
+            # }
+            # 
+            # 
+            # if (length(names(resDf)) != 3) {
+            #   browser();
+            # }
+            
+            if (nrow(resDf) == 0) {
+              resDf <- NULL;
+            } else {
+              names(resDf) <-
+                c("Id", "Field", entityId);
+            }
+
             return(resDf);
   
           },

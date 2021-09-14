@@ -19,7 +19,12 @@ flattenNodeValues <- function(x) {
   
   res <- unlist(res);
   if (!is.null(res)) {
-    names(res) <- names(x);
+    newNames <- names(x);
+    if ((length(res) != length(names(x))) &&
+        (all(names(res) %in% names(x)))) {
+      newNames <- names(res);
+    }
+    names(res) <- newNames;
   }
 
   return(res);
