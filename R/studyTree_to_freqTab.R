@@ -166,14 +166,15 @@ studyTree_to_freqTab <- function(x,
     combinations <-
       combinations[sort(rownames(combinations))
                    ,
-                   ];
+                   ,
+                   drop=FALSE];
   }  
-  
+
   if (sortColsAlphabetically) {
     combinations <-
       combinations[,
-                   sort(colnames(combinations))
-                   ];
+                   sort(colnames(combinations)),
+                   drop=FALSE];
   }  
   
   return(combinations);
