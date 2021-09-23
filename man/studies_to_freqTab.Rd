@@ -18,6 +18,8 @@ studies_to_freqTab(
   rowTargetFunction = `==`,
   colTargetFunction = `==`,
   aggregationFunction = `+`,
+  rowLabels = NULL,
+  colLabels = NULL,
   includeValueListsOfMatch = TRUE,
   excludeParentWhenValueListReturned = TRUE,
   silent = metabefor::opts$get("silent")
@@ -34,6 +36,8 @@ studyTreeList_to_freqTab(
   rowTargetFunction = `==`,
   colTargetFunction = `==`,
   aggregationFunction = `+`,
+  rowLabels = NULL,
+  colLabels = NULL,
   includeValueListsOfMatch = TRUE,
   excludeParentWhenValueListReturned = TRUE,
   silent = metabefor::opts$get("silent")
@@ -49,6 +53,12 @@ studyTree_to_freqTab(
   rowColMultiplicationFunction = `*`,
   rowTargetFunction = `==`,
   colTargetFunction = `==`,
+  rowLabels = NULL,
+  colLabels = NULL,
+  rowOrder = NULL,
+  colOrder = NULL,
+  sortRowsAlphabetically = TRUE,
+  sortColsAlphabetically = TRUE,
   includeValueListsOfMatch = TRUE,
   excludeParentWhenValueListReturned = TRUE,
   silent = metabefor::opts$get("silent")
@@ -74,6 +84,10 @@ the entity values found for the rows and columns to the target
 values (e.g. \code{==}, \code{>}, \code{<}, etc).}
 
 \item{aggregationFunction}{The function to use to aggregate matrices}
+
+\item{rowLabels, colLabels}{A names vector used to replace row and column
+labels; the indices (element names) should be the entity identifiers and
+the values the labels to use.}
 
 \item{includeValueListsOfMatch}{Whether to also include the value lists
 inside matching entities (useful for quickly selecting e.g. all
