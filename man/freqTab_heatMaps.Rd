@@ -33,6 +33,7 @@ heatMap_from_studies(
   plotTitle = paste0("Frequency Table for ", rowLab, " and ", colLab),
   xLabelRotationAngle = 45,
   legend.position = "right",
+  flattenValues = TRUE,
   fillScale = ggplot2::scale_fill_viridis_c(),
   theme = ggplot2::theme_minimal()
 )

@@ -19,6 +19,10 @@
 #' @param includeValueListsOfMatch Whether to also include the value lists
 #' inside matching entities (useful for quickly selecting e.g. all
 #' results)
+#' @param flattenValues Whether to flatten values that are vectors into
+#' single string values that represents those values, or not (in which
+#' case they remain vectors, and so single studies occur multiple times
+#' in the frequency table).
 #' @param excludeParentWhenValueListReturned Whether, if an entity matches,
 #' has a value list as value, and those value lists are returns (i.e.
 #' `includeValueListsOfMatch` is `TRUE`), the parent entity (that matched
@@ -41,6 +45,7 @@ studyTreeList_to_freqTab <- function(x,
                                      aggregationFunction = `+`,
                                      rowLabels = NULL,
                                      colLabels = NULL,
+                                     flattenValues = TRUE,
                                      includeValueListsOfMatch = TRUE,
                                      excludeParentWhenValueListReturned = TRUE,
                                      silent = metabefor::opts$get("silent")) {
@@ -81,6 +86,7 @@ studyTreeList_to_freqTab <- function(x,
             colLabels = colLabels,
             rowColMultiplicationFunction = rowColMultiplicationFunction,
             includeValueListsOfMatch = includeValueListsOfMatch,
+            flattenValues = flattenValues,
             excludeParentWhenValueListReturned = excludeParentWhenValueListReturned,
             silent = silent
           )

@@ -13,6 +13,7 @@ heatMap_from_studies <- function(x,
                                                     rowLab, " and ", colLab),
                                  xLabelRotationAngle = 45,
                                  legend.position = "right",
+                                 flattenValues = TRUE,
                                  fillScale = ggplot2::scale_fill_viridis_c(),
                                  theme = ggplot2::theme_minimal()) {
   
@@ -20,7 +21,8 @@ heatMap_from_studies <- function(x,
     c(
       list(x = x,
            rowRegex = rowRegex,
-           colRegex = colRegex),
+           colRegex = colRegex,
+           flattenValues = flattenValues),
       freqTabArgs);
   
   freqTab <-

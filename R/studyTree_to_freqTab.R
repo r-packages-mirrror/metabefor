@@ -16,9 +16,20 @@ studyTree_to_freqTab <- function(x,
                                  sortRowsAlphabetically = TRUE,
                                  sortColsAlphabetically = TRUE,
                                  includeValueListsOfMatch = TRUE,
+                                 flattenValues = TRUE,
                                  excludeParentWhenValueListReturned = TRUE,
                                  silent = metabefor::opts$get("silent")) {
 
+  if (!metabefor::studyTree_has_entity(x, rowRegex)) {
+    stop("The study tree you passed has no entities with an identifier ",
+         "that matches the `rowRegex` you passed ('", rowRegex, "').");
+  }
+
+  if (!metabefor::studyTree_has_entity(x, colRegex)) {
+    stop("The study tree you passed has no entities with an identifier ",
+         "that matches the `colRegex` you passed ('", colRegex, "').");
+  }
+  
   rowEntityIDs <- 
     studyTree_matchingUniqueEntityIdentifiers(
       x,
@@ -74,7 +85,8 @@ studyTree_to_freqTab <- function(x,
         rowNames,
         metabefor::get_singleValue_fromTree,
         x = x,
-        silent = silent
+        silent = silent,
+        flattenVectorsInDf = flattenValues
       )
     );
   
@@ -84,7 +96,8 @@ studyTree_to_freqTab <- function(x,
         colNames,
         metabefor::get_singleValue_fromTree,
         x = x,
-        silent = silent
+        silent = silent,
+        flattenVectorsInDf = flattenValues
       )
     );
 

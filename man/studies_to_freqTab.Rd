@@ -20,6 +20,7 @@ studies_to_freqTab(
   aggregationFunction = `+`,
   rowLabels = NULL,
   colLabels = NULL,
+  flattenValues = flattenValues,
   includeValueListsOfMatch = TRUE,
   excludeParentWhenValueListReturned = TRUE,
   silent = metabefor::opts$get("silent")
@@ -38,6 +39,7 @@ studyTreeList_to_freqTab(
   aggregationFunction = `+`,
   rowLabels = NULL,
   colLabels = NULL,
+  flattenValues = TRUE,
   includeValueListsOfMatch = TRUE,
   excludeParentWhenValueListReturned = TRUE,
   silent = metabefor::opts$get("silent")
@@ -60,6 +62,7 @@ studyTree_to_freqTab(
   sortRowsAlphabetically = TRUE,
   sortColsAlphabetically = TRUE,
   includeValueListsOfMatch = TRUE,
+  flattenValues = TRUE,
   excludeParentWhenValueListReturned = TRUE,
   silent = metabefor::opts$get("silent")
 )
@@ -88,6 +91,11 @@ values (e.g. \code{==}, \code{>}, \code{<}, etc).}
 \item{rowLabels, colLabels}{A names vector used to replace row and column
 labels; the indices (element names) should be the entity identifiers and
 the values the labels to use.}
+
+\item{flattenValues}{Whether to flatten values that are vectors into
+single string values that represents those values, or not (in which
+case they remain vectors, and so single studies occur multiple times
+in the frequency table).}
 
 \item{includeValueListsOfMatch}{Whether to also include the value lists
 inside matching entities (useful for quickly selecting e.g. all
