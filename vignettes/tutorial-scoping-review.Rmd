@@ -1,0 +1,55 @@
+---
+title: "Tutorial: Doing a Scoping Review with metabefor"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial: Doing a Scoping Review with metabefor}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This tutorial assumes that you are familiar with the Inclusive Systematic Review Registration Form. This form is available in [this Google Doc](https://docs.google.com/document/d/1BFrmEWGz9Zb_vssC5simJ6ohuid3z-LitL99WRxFnE4/edit?usp=sharing), in [this MetArXiv preprint](https://doi.org/10.31222/osf.io/3nbea), and in [the `preregr` package](https://r-packages.gitlab.io/preregr/articles/form_inclSysRev_v0_92.html). I also strongly recommend using that form to document your plans before starting any "actual work" on the review. The tutorial describes parts of the process of planning the review, as well as conducting the review.
+
+This tutorial will use terms defined in the [Definitions vignette](https://r-packages.gitlab.io/metabefor/articles/definitions.html). That list of definitions is probably very hard to follow if you read it without context, but hopefully this tutorial will provide the necessary context.
+
+## Scoping Review
+
+Scoping reviews or evidence maps (depending on who you ask, these can be the same or slightly different) differ from most types of systematic reviews in that they don't answer substantive research questions (note that when I use "systematic reviews", that also includes meta-analyses). Instead, they provide an overview of the scope of the literature: in a sense, they can tell you which research questions _can_ be answered with systematic reviews.
+
+Where most systematic reviews synthesize the evidence itself, often aiming to provide a more conclusive answer to the same or similar research questions as the included primary studies asked, scoping reviews synthesize the metadata about that evidence. They can tell you when most studies were conducted; which (sub)topics received most attention when; which study designed were used and whether that was associated to (sub)topic; how studies were distributed geographically; which sample sizes were common; whether any of those variables shows trends over time; et cetera.
+
+Scoping reviews also produce an extensive database of literature, and are an excellent starting point for focused systematic reviews. Those also become much easier to plan, since you'll know how many studies are available. Depending on the comprehensiveness of your scoping review's extraction, you may even be able to skip the search and screening phases of those systematic reviews, since you already know which articles to include. Especially in combination with a decentralized approach to extraction, this means that scoping reviews can enable very efficient mapping of the literature.
+
+## Research questions
+
+Research questions in scoping reviews ask what researchers did. They can concern anything from whether different geographical regions prioritize different topics, whether sample sizes increased or decreased over time, which definitions researchers use, and which measurement instruments researchers use, through which study designs are used to answer which types of questions and how paradigms change over time to whether shifts occurred in researchers' underlying philosophy of science or epistemological perspectives.
+
+These research questions will always contain one or more concepts. Each of this concepts will relate to one or more [entities to extract](https://r-packages.gitlab.io/metabefor/articles/definitions.html). Once you have decided on your research question, therefore, you can decide on the entities to extract.
+
+However, in practice this process is nonlinear and iterative. Any given research question (or more accurately, any given set of entities to extract) implicitly determines the scope of the review, because the exclusion criteria are based on the research questions and the entities to extract, and the search strategy (e.g. the query) is based on the research questions, the entities to extract, and the exclusion criteria. As such, there is always some correspondence between the research question and the number of entries that your search strategy will yield (and that will have to be screened).
+
+Therefore, you will usually develop all of these in parallel. For example, it is common to test different queries until the number of hits is feasible given the available resources. For example, depending on your screening capacity, you may have to limit the scope of the research question(s). Similarly, if your query yields very few hits, you may want or need to broaden it (and therefore, broaden your research question(s)) to eventually obtain worthwhile results.
+
+## Extraction
+
+The extraction is the stage where the "data" are extracted from the identified [sources](https://r-packages.gitlab.io/metabefor/articles/definitions.html). 
+
+open vs closed
+
+
+
+https://r-packages.gitlab.io/metabefor/articles/definitions.html
+
+### Entities
+
+
+### Instructions
+
+
+
