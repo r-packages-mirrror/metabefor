@@ -11,8 +11,6 @@ pages:
   artifacts:
     paths:
     - public
-  only:
-  - master
 
 devtools_check:
   stage: test

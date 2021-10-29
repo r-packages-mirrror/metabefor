@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • metabefor</title>
+<title>Perform a transformation selectively — transform_entityValue • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,15 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Perform a transformation selectively — transform_entityValue" />
+<meta property="og:description" content="This function takes a studies object (as produced
+by rxs_parseExtractionScripts()) and processes all study
+trees, looking for entities that match the entityId_regex
+regular expression (for information about what clustering entities are,
+see https://r-packages.gitlab.io/metabefor/articles/definitions.html)
+and passes those to function fun, passing the entity's value as the
+argument named in entityValue_argName and with funArgs as additional
+arguments." />
 
 
 
@@ -58,7 +66,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -123,24 +131,84 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Perform a transformation selectively</h1>
+    
+    <div class="hidden name"><code>transform_entityValue.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="definitions.html">Definitions</a></dt>
-        <dd></dt>
-        <dt><a href="example-metabefor-rmd-file.html">Example metabefor Rmd file</a></dt>
-        <dd></dt>
-        <dt><a href="r-extraction-scripts.html">R Extraction Scripts (Rxs)</a></dt>
-        <dd></dt>
-        <dt><a href="tutorial-scoping-review.html">Tutorial: Doing a Scoping Review with metabefor</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>This function takes a <code>studies</code> object (as produced
+by <code><a href='rxs_parseExtractionScripts.html'>rxs_parseExtractionScripts()</a></code>) and processes all study
+trees, looking for entities that match the <code>entityId_regex</code>
+regular expression (for information about what clustering entities are,
+see <a href='https://r-packages.gitlab.io/metabefor/articles/definitions.html'>https://r-packages.gitlab.io/metabefor/articles/definitions.html</a>)
+and passes those to function <code>fun</code>, passing the entity's value as the
+argument named in <code>entityValue_argName</code> and with <code>funArgs</code> as additional
+arguments.</p>
     </div>
+
+    <pre class="usage"><span class='fu'>transform_entityValue</span><span class='op'>(</span>
+  <span class='va'>studies</span>,
+  <span class='va'>fun</span>,
+  entityValue_argName <span class='op'>=</span> <span class='st'>"x"</span>,
+  entityId_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  newEntityName_prefix <span class='op'>=</span> <span class='st'>""</span>,
+  newEntityName_suffix <span class='op'>=</span> <span class='st'>"_trfmd"</span>,
+  funArgs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  requiredField_regex <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>studies</th>
+      <td><p>The <code>studies</code> object (as produced
+by <code><a href='rxs_parseExtractionScripts.html'>rxs_parseExtractionScripts()</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p>The function to apply.</p></td>
+    </tr>
+    <tr>
+      <th>entityValue_argName</th>
+      <td><p>The argument name to pass the entity value as.</p></td>
+    </tr>
+    <tr>
+      <th>entityId_regex</th>
+      <td><p>An optional regular expression: if specified, only
+entity nodes with entity identifiers that match this regular expression will
+be processed.</p></td>
+    </tr>
+    <tr>
+      <th>newEntityName_prefix, newEntityName_suffix</th>
+      <td><p>The prefix and suffix to
+add to the entity identifier to create the name of the new entity that is
+created. That entity is added as a sibling of the target entity.</p></td>
+    </tr>
+    <tr>
+      <th>funArgs</th>
+      <td><p>Additional arguments, as a names list with each element's
+name is the argument name and the element itself the content.</p></td>
+    </tr>
+    <tr>
+      <th>The</th>
+      <td><p>name of the new entity to add to the target
+entity's parent entity (a container entity).</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Invisibly, the studies object. Note that the study trees will be
+changed in place given <code>data.tree</code>'s pass-by-reference logic; so you can
+discard the result.</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

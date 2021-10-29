@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • metabefor</title>
+<title>Perform a transformation for every clustering entity — transform_in_every_clusteringEntity • metabefor</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,18 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Perform a transformation for every clustering entity — transform_in_every_clusteringEntity" />
+<meta property="og:description" content="This function takes a studies object (as produced
+by rxs_parseExtractionScripts()) and processes all study
+trees, looking for clustering entities that match the entityId_regex
+regular expression (for information about what clustering entities are,
+see https://r-packages.gitlab.io/metabefor/articles/definitions.html)
+and/or that contain a field matching the requiredField_regex regular
+expression, and passes those to function fun with funArgs as
+arguments. For funArgs, you can pass entity identifiers of clustered
+entities contained in the clustering entity. These are then assigned the
+corresponding name before fun is called using do.call. This allows
+you to select values and rename them to match the function arguments." />
 
 
 
@@ -58,7 +69,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -123,24 +134,84 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Perform a transformation for every clustering entity</h1>
+    
+    <div class="hidden name"><code>transform_in_every_clusteringEntity.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="definitions.html">Definitions</a></dt>
-        <dd></dt>
-        <dt><a href="example-metabefor-rmd-file.html">Example metabefor Rmd file</a></dt>
-        <dd></dt>
-        <dt><a href="r-extraction-scripts.html">R Extraction Scripts (Rxs)</a></dt>
-        <dd></dt>
-        <dt><a href="tutorial-scoping-review.html">Tutorial: Doing a Scoping Review with metabefor</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>This function takes a <code>studies</code> object (as produced
+by <code><a href='rxs_parseExtractionScripts.html'>rxs_parseExtractionScripts()</a></code>) and processes all study
+trees, looking for clustering entities that match the <code>entityId_regex</code>
+regular expression (for information about what clustering entities are,
+see <a href='https://r-packages.gitlab.io/metabefor/articles/definitions.html'>https://r-packages.gitlab.io/metabefor/articles/definitions.html</a>)
+and/or that contain a field matching the <code>requiredField_regex</code> regular
+expression, and passes those to function <code>fun</code> with <code>funArgs</code> as
+arguments. For <code>funArgs</code>, you can pass entity identifiers of clustered
+entities contained in the clustering entity. These are then assigned the
+corresponding name before <code>fun</code> is called using <code>do.call</code>. This allows
+you to select values and rename them to match the function arguments.</p>
     </div>
+
+    <pre class="usage"><span class='fu'>transform_in_every_clusteringEntity</span><span class='op'>(</span>
+  <span class='va'>studies</span>,
+  <span class='va'>newEntityName</span>,
+  <span class='va'>fun</span>,
+  <span class='va'>funArgs</span>,
+  entityId_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  requiredField_regex <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>studies</th>
+      <td><p>The <code>studies</code> object (as produced
+by <code><a href='rxs_parseExtractionScripts.html'>rxs_parseExtractionScripts()</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>newEntityName</th>
+      <td><p>The name of the new entity to add to the clustering
+entity.</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p>The function to apply.</p></td>
+    </tr>
+    <tr>
+      <th>funArgs</th>
+      <td><p>The arguments, as a character vector where each element is
+a clustered entity stored in the clustering entity, and each element's name
+is how that entity's value should be passed to <code>fun</code> (allowing you to
+specify that you want to pass, for example, <code>uni.mean</code> and <code>uni.sd</code> as
+arguments <code>mean</code> and <code>sd</code>, respectively, to <code>fun</code>). Anything in this vector
+that is not the identifier of a clustered entity is passed as is.</p></td>
+    </tr>
+    <tr>
+      <th>entityId_regex</th>
+      <td><p>An optional regular expression: if specified, only
+entity nodes with entity identifiers that match this regular expression will
+be processed.</p></td>
+    </tr>
+    <tr>
+      <th>requiredField_regex</th>
+      <td><p>An optional regular expression specifying a field
+that the clustering entity must contain for it to be processed.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Invisibly, the studies object. Note that the study trees will be
+changed in place given <code>data.tree</code>'s pass-by-reference logic; so you can
+discard the result.</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

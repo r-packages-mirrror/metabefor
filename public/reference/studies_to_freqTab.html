@@ -103,6 +103,9 @@
     <li>
       <a href="../articles/r-extraction-scripts.html">R Extraction Scripts (Rxs)</a>
     </li>
+    <li>
+      <a href="../articles/tutorial-scoping-review.html">Tutorial: Doing a Scoping Review with metabefor</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -141,6 +144,9 @@
   rowTargetFunction <span class='op'>=</span> <span class='va'>`==`</span>,
   colTargetFunction <span class='op'>=</span> <span class='va'>`==`</span>,
   aggregationFunction <span class='op'>=</span> <span class='va'>`+`</span>,
+  rowLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  flattenValues <span class='op'>=</span> <span class='va'>flattenValues</span>,
   includeValueListsOfMatch <span class='op'>=</span> <span class='cn'>TRUE</span>,
   excludeParentWhenValueListReturned <span class='op'>=</span> <span class='cn'>TRUE</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
@@ -157,6 +163,9 @@
   rowTargetFunction <span class='op'>=</span> <span class='va'>`==`</span>,
   colTargetFunction <span class='op'>=</span> <span class='va'>`==`</span>,
   aggregationFunction <span class='op'>=</span> <span class='va'>`+`</span>,
+  rowLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  flattenValues <span class='op'>=</span> <span class='cn'>TRUE</span>,
   includeValueListsOfMatch <span class='op'>=</span> <span class='cn'>TRUE</span>,
   excludeParentWhenValueListReturned <span class='op'>=</span> <span class='cn'>TRUE</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
@@ -172,7 +181,14 @@
   rowColMultiplicationFunction <span class='op'>=</span> <span class='va'>`*`</span>,
   rowTargetFunction <span class='op'>=</span> <span class='va'>`==`</span>,
   colTargetFunction <span class='op'>=</span> <span class='va'>`==`</span>,
+  rowLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colLabels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  rowOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sortRowsAlphabetically <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  sortColsAlphabetically <span class='op'>=</span> <span class='cn'>TRUE</span>,
   includeValueListsOfMatch <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  flattenValues <span class='op'>=</span> <span class='cn'>TRUE</span>,
   excludeParentWhenValueListReturned <span class='op'>=</span> <span class='cn'>TRUE</span>,
   silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
@@ -213,6 +229,19 @@ values (e.g. <code><a href='https://rdrr.io/r/base/Comparison.html'>==</a></code
     <tr>
       <th>aggregationFunction</th>
       <td><p>The function to use to aggregate matrices</p></td>
+    </tr>
+    <tr>
+      <th>rowLabels, colLabels</th>
+      <td><p>A names vector used to replace row and column
+labels; the indices (element names) should be the entity identifiers and
+the values the labels to use.</p></td>
+    </tr>
+    <tr>
+      <th>flattenValues</th>
+      <td><p>Whether to flatten values that are vectors into
+single string values that represents those values, or not (in which
+case they remain vectors, and so single studies occur multiple times
+in the frequency table).</p></td>
     </tr>
     <tr>
       <th>includeValueListsOfMatch</th>

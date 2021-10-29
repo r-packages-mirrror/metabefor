@@ -108,6 +108,9 @@ study_identification_value, parent_entity_id, entity_id, and value." />
     <li>
       <a href="../articles/r-extraction-scripts.html">R Extraction Scripts (Rxs)</a>
     </li>
+    <li>
+      <a href="../articles/tutorial-scoping-review.html">Tutorial: Doing a Scoping Review with metabefor</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -140,7 +143,13 @@ with the following columns: <code>study_identification_entity_id</code>,
 <code>study_identification_value</code>, <code>parent_entity_id</code>, <code>entity_id</code>, and <code>value</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>supplement_studyTrees_from_txs</span><span class='op'>(</span><span class='va'>studies</span>, <span class='va'>txs_specs</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>supplement_studyTrees_from_txs</span><span class='op'>(</span>
+  <span class='va'>studies</span>,
+  <span class='va'>txs_specs</span>,
+  stopOnErrors <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  explode_vector_to_values <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  silent <span class='op'>=</span> <span class='fu'>metabefor</span><span class='fu'>::</span><span class='va'><a href='opts.html'>opts</a></span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"silent"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,6 +164,20 @@ with the following columns: <code>study_identification_entity_id</code>,
 Google spreadsheet, an Excel file (if you have <code>openxlsx</code> installed),
 an SPSS dataset (if you have <code>haven</code> installed), or a comma separated
 values file (which will be read with <code><a href='https://rdrr.io/r/utils/read.table.html'>read.csv()</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>stopOnErrors</th>
+      <td><p>Whether to throw an error or show a warning (or just
+use <code>cat</code> to show a message is <code>silent=FALSE</code>) when encountering errors.</p></td>
+    </tr>
+    <tr>
+      <th>explode_vector_to_values</th>
+      <td><p>Whether to call <code>explode_vector_to_values</code>
+if there are vectors among the added values.</p></td>
+    </tr>
+    <tr>
+      <th>silent</th>
+      <td><p>Whether to the chatty or silent.</p></td>
     </tr>
     </table>
 
