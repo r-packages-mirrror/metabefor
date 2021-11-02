@@ -103,9 +103,9 @@ remotes::install_gitlab('r-packages/", packagename, "');
 
 (assuming you have `remotes` installed; otherwise, install that first using the `install.packages` function)
 
-You can install the cutting edge development version (own risk, don't try this at home, etc)  of ``r packagename`` from [GitLab](https://about.gitlab.com) with:
+<!-- You can install the cutting edge development version (own risk, don't try this at home, etc)  of ``r packagename`` from [GitLab](https://about.gitlab.com) with: -->
 
-```{r echo=FALSE, comment="", results="asis"}
+```{r echo=FALSE, comment="", results="asis", include=FALSE}
 cat(paste0("``` r
 remotes::install_gitlab('r-packages/", packagename, "@dev');
 ```"));

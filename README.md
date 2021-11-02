@@ -70,13 +70,7 @@ remotes::install_gitlab('r-packages/metabefor');
 (assuming you have `remotes` installed; otherwise, install that first
 using the `install.packages` function)
 
-You can install the cutting edge development version (own risk, don’t
-try this at home, etc) of `metabefor` from
-[GitLab](https://about.gitlab.com) with:
-
-``` r
-remotes::install_gitlab('r-packages/metabefor@dev');
-```
+<!-- You can install the cutting edge development version (own risk, don't try this at home, etc)  of `metabefor` from [GitLab](https://about.gitlab.com) with: -->
 
 <!--------------------------------------------->
 
