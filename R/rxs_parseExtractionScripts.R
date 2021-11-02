@@ -6,6 +6,7 @@
 #' @param ignore.case Whether the regular expression is case sensitive.
 #' @param recursive Whether to also look in subdirectories.
 #' @param silent Whether to be quiet or chatty.
+#' @param progressBar Whether to show the progress bar.
 #' @param showErrors Whether to show or hide errors that are encountered.
 #' @param encoding The files' encoding.
 #'
@@ -18,6 +19,7 @@ rxs_parseExtractionScripts <- function(path,
                                        ignore.case=TRUE,
                                        recursive=TRUE,
                                        silent=metabefor::opts$get("silent"),
+                                       progressBar = TRUE,
                                        showErrors=TRUE,
                                        encoding="UTF-8") {
 
@@ -48,8 +50,9 @@ rxs_parseExtractionScripts <- function(path,
 
   res$input$allScripts <- allScripts;
 
-  if (interactive() && (silent)) {
-    p <- dplyr::progress_estimated(length(allScripts));
+  if (interactive() && (progressBar)) {
+    p <- progress::progress_bar(total = length(allScripts));
+    #p <- dplyr::progress_estimated(length(allScripts));
   };
 
   res$log <- c(
@@ -90,20 +93,24 @@ rxs_parseExtractionScripts <- function(path,
 
     ### Extract R chunks and write them to another file
     purlingOutput <-
-      capture.output(tryCatch(knitr::purl(file.path(path,
-                                                    filename),
-                                          output=tempR,
-                                          quiet=TRUE,
-                                          encoding=encoding),
-                              error = function(e) {
-                                cat(paste0("In file '",
-                                           filename,
-                                           "', encountered error while purling: \n",
-                                           e$message,
-                                           "\n\n",
-                                           collapse="\n"));
-                                invisible(e);
-                              }));
+      utils::capture.output(
+        tryCatch(
+          knitr::purl(
+            file.path(path,
+                      filename),
+                      output=tempR,
+                      quiet=TRUE,
+                      encoding=encoding),
+          error = function(e) {
+            cat(paste0("In file '",
+                       filename,
+                       "', encountered error while purling: \n",
+                       e$message,
+                       "\n\n",
+                       collapse="\n"));
+            invisible(e);
+          })
+      );
 
     tryCatch({res$rxsPurlingOutput[[filename]] <-
                 purlingOutput;},
@@ -147,18 +154,29 @@ rxs_parseExtractionScripts <- function(path,
       ### Run the other file with error handling
       rxsOutput <-
         # capture.output(tryCatch(sys.source(tempR, envir=globalenv()),
-        capture.output(tryCatch(source(tempR, local=globalenv(),
-                                       encoding = "UTF-8"),
-                                error = function(e) {
-                                  cat(paste0("In file '",
-                                             filename,
-                                             "', encountered error while running rxs: \n",
-                                             e$message,
-                                             "\n\n",
-                                             collapse="\n"));
-                                  # cat(e$message);
-                                  invisible(e);
-                                }));
+        utils::capture.output(
+          tryCatch(
+            source(
+              tempR,
+              local=globalenv(),
+              encoding = "UTF-8"
+            ),
+            error = function(e) {
+              cat(
+                paste0(
+                  "In file '",
+                  filename,
+                  "', encountered error while running rxs: \n",
+                  e$message,
+                  "\n\n",
+                  collapse="\n"
+                )
+              );
+        # cat(e$message);
+            invisible(e);
+          }
+        )
+      );
       
       res$log <- c(
         res$log,
@@ -189,8 +207,10 @@ rxs_parseExtractionScripts <- function(path,
     ### If successful, store the result and delete object; otherwise set to NA
     if (exists('study', envir=globalenv())) {
       
+      study <- get('study', envir=globalenv());
+      
       res$rxsTrees[[filename]] <-
-        data.tree::Clone(get('study', envir=globalenv()));
+        data.tree::Clone();
       
       res$log <- c(
         res$log,
@@ -226,7 +246,8 @@ rxs_parseExtractionScripts <- function(path,
     }
 
     if (interactive() && (silent)) {
-      p$tick()$print();
+      #p$tick()$print();
+      p$tick();
     };
 
   }

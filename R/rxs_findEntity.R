@@ -19,7 +19,7 @@ rxs_findEntity <- function(node, id, value, returnEntity=FALSE) {
 		   				 }
 		   			   } else {
 		   				 if (nd$name == id) {
-		   				   if (nf$value == value) return(TRUE);
+		   				   if (nd$value == value) return(TRUE);
 		   				 } else {
 		   				   return(FALSE);
 		   				 }

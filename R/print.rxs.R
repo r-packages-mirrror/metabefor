@@ -43,12 +43,12 @@ knit_print.rxs <- function(x,
                            partialFile = NULL,
                            ...) {
   
-  rxs_partialfunction(x = x,
-                      rxsStructure=rxsStructure,
-                      headingLevel=headingLevel,
-                      echoPartial=echoPartial,
-                      partialFile=partialFile,
-                      ...);
+  rxs_partial(x = x,
+              rxsStructure=rxsStructure,
+              headingLevel=headingLevel,
+              echoPartial=echoPartial,
+              partialFile=partialFile,
+              ...);
 }
 
 ###-----------------------------------------------------------------------------

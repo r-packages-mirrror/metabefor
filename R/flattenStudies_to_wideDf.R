@@ -66,7 +66,7 @@ flattenStudies_to_wideDf <- function(studies,
       options <-
         sort(unique(unlist(rxsDatRaw[, colName])));
       rxsDat[, paste0(colName, "__raw")] <-
-        iconv(ufs::vecTxtQ(options), from="UTF-8");
+        iconv(vecTxtQ(options), from="UTF-8");
       for (optionName in options) {
         rxsDat[, paste0(colName, "__", optionName)] <-
           rxsDatRaw[, colName] == optionName;

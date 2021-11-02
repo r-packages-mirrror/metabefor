@@ -8,8 +8,8 @@ rxs_parseSpecifications(
   entities,
   valueTemplates,
   definitions = NULL,
-  eC = metabefor::opts$get(entityColNames),
-  valueTemplateCols = metabefor::opts$get(valueTemplateColNames),
+  eC = metabefor::opts$get("entityColNames"),
+  valueTemplateCols = metabefor::opts$get("valueTemplateColNames"),
   rootName = "study"
 )
 }

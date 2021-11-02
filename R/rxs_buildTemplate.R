@@ -1,21 +1,5 @@
-#' Title
-#'
-#' @param rxsStructure 
-#' @param yamlMetadata 
-#' @param gs_url 
-#' @param indent 
-#' @param indentSpaces 
-#' @param fullWidth 
-#' @param commentCharacter 
-#' @param fillerCharacter 
-#' @param eC 
-#' @param repeatingSuffix 
-#' @param silent 
-#'
-#' @return
+#' @rdname rxs_templateBuilding
 #' @export
-#'
-#' @examples
 rxs_buildTemplate <- function(rxsStructure,
                               yamlMetadata = list(title = "Systematic Review Extraction Script Template",
                                                   author = NULL,
@@ -26,7 +10,7 @@ rxs_buildTemplate <- function(rxsStructure,
                               fullWidth = 80,
                               commentCharacter = "#",
                               fillerCharacter = "#",
-                              eC = metabefor::opts$get(entityColNames),
+                              eC = metabefor::opts$get("entityColNames"),
                               repeatingSuffix = "__1__",
                               silent=FALSE) {
 
@@ -95,29 +79,26 @@ rxs_buildTemplate <- function(rxsStructure,
                   "    self-contained: yes",
                   "    toc: false",
                   "params:",
-                  "  rxsVersion = \"0.2.0\"",
+                  "  rxsVersion = \"0.2.1\"",
                   "editor_options:",
                   "  chunk_output_type: console",
                   "---",
                   "");
 
   setupChunk <- c("```{r rxsChunk-setup, include=FALSE, messages=FALSE}",
-                  "### First load (and perhaps install) ufs",
-                  "if (!('ufs' %in% row.names(installed.packages()))) {",
-                  "  install.packages('ufs');",
+                  "### First check for (and perhaps install) metabefor",
+                  "if (!('metabefor' %in% row.names(installed.packages()))) {",
+                  "  install.packages('metabefor');",
                   "}",
                   "",
                   "### Other packages",
-                  "ufs::checkPkgs('googlesheets4');    ### To import data from google sheets in metabefor",
-                  "ufs::checkPkgs('jsonlite');         ### To import a list of country codes in metabefor",
-                  "ufs::checkPkgs('data.tree');        ### To work with data structured in a tree in metabefor",
-                  "ufs::checkPkgs('remotes');          ### To install metabefor from GitLab repo",
-                  "                                    ### ... Which we then do here:",
-                  "ufs::quietGitLabUpdate('r-packages/metabefor');",
+                  "metabefor::checkPkgs('googlesheets4');   ### To import data from google sheets in metabefor",
+                  "metabefor::checkPkgs('jsonlite');        ### To import a list of country codes in metabefor",
+                  "metabefor::checkPkgs('data.tree');       ### To work with data structured in a tree in metabefor",
                   "",
                   "### Settings",
-                  "knitr::opts_chunk$set(echo = FALSE);             ### Suppress R command printing",
-                  "knitr::opts_chunk$set(comment=NA);               ### Suppress output prefix",
+                  "knitr::opts_chunk$set(echo = FALSE);     ### Suppress R command printing",
+                  "knitr::opts_chunk$set(comment = NA);     ### Suppress output prefix",
                   "```");
 
 
@@ -154,7 +135,7 @@ rxs_buildTemplate <- function(rxsStructure,
 
   validationChunk <- c("```{r rxsChunk-validation, results='asis'}",
                        "#metabefor::rxs_validation(study);",
-                       "ufs::heading('Validation results', headingLevel = 1);",
+                       "metabefor::heading('Validation results', headingLevel = 1);",
                        "#rxs_validation(study,",
                        "#               rxsStructure = fullResults$rxsStructure);",
                        "if (length(study$validationResults) > 2) {",

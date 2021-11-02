@@ -121,7 +121,7 @@ supplement_data_from_lists <- function(studyTree,
     }
     
     studyTree <-
-      supplement_data_from_list(
+      supplement_data_from_list_inStudyTrees(
         studyTree = studyTree,
         targetEntityNodeId = targetEntityNodeId,
         sourceEntityNodeIdField_in_targetEntity = sourceEntityNodeIdField_in_targetEntity,

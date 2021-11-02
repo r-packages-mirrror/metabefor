@@ -11,6 +11,7 @@ rxs_parseExtractionScripts(
   ignore.case = TRUE,
   recursive = TRUE,
   silent = metabefor::opts$get("silent"),
+  progressBar = TRUE,
   showErrors = TRUE,
   encoding = "UTF-8"
 )
@@ -27,6 +28,8 @@ rxs_parseExtractionScripts(
 \item{recursive}{Whether to also look in subdirectories.}
 
 \item{silent}{Whether to be quiet or chatty.}
+
+\item{progressBar}{Whether to show the progress bar.}
 
 \item{showErrors}{Whether to show or hide errors that are encountered.}
 

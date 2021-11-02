@@ -5,7 +5,7 @@ rxs_fg_recursingEntities <- function(listOfNodes,
                                      fullWidth = 80,
                                      commentCharacter = "#",
                                      fillerCharacter = "#",
-                                     eC = metabefor::opts$get(entityColNames),
+                                     eC = metabefor::opts$get("entityColNames"),
                                      repeatingSuffix = "__1__",
                                      silent=FALSE,
                                      overrideLevel = NULL) {
@@ -14,7 +14,7 @@ rxs_fg_recursingEntities <- function(listOfNodes,
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
     stop("Argument 'valueTemplates' does not have class 'parsedValueTemplates' ",
-         "(but instead ", vecTxtQ(class(parsedValueTemplates)), ").");
+         "(but instead ", vecTxtQ(class(valueTemplates)), ").");
   }
 
   if (is.numeric(overrideLevel)) {

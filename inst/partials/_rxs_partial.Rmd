@@ -1,5 +1,6 @@
 
 <div style="display:block;clear:both;" class="rxs-start"></div>
+
   <div class="rxs-container">
 
 ```{r, eval=TRUE, echo=FALSE}
@@ -14,7 +15,7 @@
 ```
   
 ```{r, results='asis', eval=TRUE}
-  ufs::heading("Extracted Study", headingLevel=headingLevel);
+  metabefor::heading("Extracted Study", headingLevel=headingLevel);
 ```
 
 ```{r, echo=echoPartial, results='asis', eval=TRUE}
@@ -22,7 +23,7 @@
   res <-
     studyTree_to_valueDf(x);
 
-  ufs::heading("Tree of extracted entities", headingLevel=headingLevel+1);
+  metabefor::heading("Tree of extracted entities", headingLevel=headingLevel+1);
 
   if (getOption('metabefor.debug', FALSE)) {
     cat("\n\n\n\n");
@@ -47,8 +48,10 @@
 
 ```{r, echo=echoPartial, results='asis', eval=TRUE}
 
-  ufs::heading("Table with extracted entities and extracted values",
-               headingLevel=headingLevel+1);
+  metabefor::heading(
+    "Table with extracted entities and extracted values",
+    headingLevel=headingLevel + 1
+  );
 
       # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
       #                 quiet = TRUE));
@@ -60,8 +63,10 @@
 
 ```{r, echo=echoPartial, results='asis', eval=(!is.null(x$output$plot)), fig.width=5, fig.height=5, fig.cap="Scatterplot with regression line" }
   
-  ufs::heading("Plot",
-               headingLevel = headingLevel+1);
+  metabefor::heading(
+    "Plot",
+    headingLevel = headingLevel + 1
+  );
   
   x$output$plot;
   
@@ -75,4 +80,5 @@
 ```
   
   </div>
+
 <div style="display:block;clear:both;" class="rxs-end"></div>

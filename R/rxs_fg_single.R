@@ -6,7 +6,7 @@ rxs_fg_single <- function(node,
                           commentCharacter = "#",
                           fillerCharacter = "#",
                           repeatingSuffix = "__1__",
-                          eC = metabefor::opts$get(entityColNames),
+                          eC = metabefor::opts$get("entityColNames"),
                           silent=FALSE,
                           overrideLevel = NULL) {
 
@@ -15,7 +15,7 @@ rxs_fg_single <- function(node,
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
     stop("Argument 'valueTemplates' does not have class 'parsedValueTemplates' ",
-         "(but instead ", vecTxtQ(class(parsedValueTemplates)), ").");
+         "(but instead ", vecTxtQ(class(valueTemplates)), ").");
   }
 
   if (is.numeric(overrideLevel)) {

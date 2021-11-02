@@ -185,7 +185,7 @@ duplicate_sources <- function(primarySources,
     );
 
   stringDistanceDuplicates_asString <-
-    unlist(lapply(stringDistanceDuplicates, ufs::vecTxtQ));
+    unlist(lapply(stringDistanceDuplicates, vecTxtQ));
   stringDistance_nrOfDuplicates <-
     unlist(lapply(stringDistanceDuplicates, length));
   stringDistance_hasDuplicates <-

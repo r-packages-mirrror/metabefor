@@ -4,10 +4,19 @@
 \alias{rxs_validation}
 \title{Validate a study tree}
 \usage{
-rxs_validation(studyTree, rxsStructure = NULL)
+rxs_validation(
+  studyTree,
+  eC = metabefor::opts$get("entityColNames"),
+  rxsStructure = NULL
+)
 }
 \arguments{
 \item{studyTree}{The study tree}
+
+\item{eC}{The entity columns; a named list with character values holding the
+names of the columns in the \code{entities} worksheet of the spreadsheet. The
+default values are stored in \code{metabefor::opts$get("entityColNames")} - if you
+need to override these values, just reproduce that object.}
 
 \item{rxsStructure}{Optionally, the \code{rxsStructure} as resulting from
 a call to \code{\link[=rxs_parseSpecifications]{rxs_parseSpecifications()}}.}

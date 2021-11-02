@@ -41,7 +41,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
           return(NULL);
         } else {
           
-          res <- ufs::heading(
+          res <- heading(
             node[[eC$titleCol]],
             headingLevel = headingLevel + 1,
             cat = FALSE
@@ -139,7 +139,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
   
   entityOverview_list <-
     paste0(
-      ufs::heading(
+      heading(
         "Entity overview (list)",
         headingLevel = headingLevel,
         cat = FALSE

@@ -82,7 +82,7 @@ query_full <- function(inclusion,
       resNode[[childName]]$AddChild(exclusion[j]);
     }
   } else if (class(exclusion) == "mbf_query_requiredConcepts") {
-    data.tree::AddChildNode(exclusion);
+    resNode$AddChildNode(exclusion);
   } else {
     stop("Argument `exclusion` has an invalid class!");
   }
@@ -99,14 +99,26 @@ query_full <- function(inclusion,
                           fillcolor = "#DDDDDD",
                           fontname = "helvetica");
 
+  operator_linetype_map <-
+    c("OR" = "dotted",
+      "AND" = "solid",
+      "NOT" = "dashed");
+  
   resNode$Do(function(node)
-    data.tree::SetEdgeStyle(node,
-                            style = dplyr::case_when(node$parent$operator=="OR" ~ "dotted",
-                                                     node$parent$operator=="AND" ~ "solid",
-                                                     node$parent$operator=="NOT" ~ "dashed",
-                                                     TRUE ~ "solid")),
+    data.tree::SetEdgeStyle(
+      node,
+      style =
+        ifelse(
+          node$parent$operator %in% names(operator_linetype_map),
+          operator_linetype_map[node$parent$operator],
+          "solid"
+        )
+    ),
+      # style = dplyr::case_when(node$parent$operator=="OR" ~ "dotted",
+      #                          node$parent$operator=="AND" ~ "solid",
+      #                          node$parent$operator=="NOT" ~ "dashed",
+      #                          TRUE ~ "solid")),
     traversal="level");
-
 
   attr(resNode, "queryName") <- queryName;
   class(resNode) <- c('mbf_query_full', class(resNode));

@@ -1,28 +1,59 @@
-#' Title
+#' Generate an Rxs template
+#' 
+#' These functions process an R extraction script template specification in
+#' a spreadsheet format and produce the corresponding R extraction script
+#' template file (an R Markdown file with the extension `.rxs.Rmd`).
+#' `rxs_fromSpecifications()` can be passed a Google Sheet URL, and uses
+#' `rxs_buildTemplate()` in the background to produce the template.
 #'
-#' @param gs_url 
-#' @param ws 
-#' @param entitiesFilename 
-#' @param valueTemplatesFilename 
-#' @param definitionsFilename 
-#' @param localBackup 
-#' @param outputFile 
-#' @param yamlMetadata 
-#' @param author 
-#' @param indent 
-#' @param indentSpaces 
-#' @param fullWidth 
-#' @param commentCharacter 
-#' @param fillerCharacter 
-#' @param eC 
-#' @param valueTemplateCols 
-#' @param repeatingSuffix 
-#' @param rootName 
-#' @param silent 
-#' @param instructionHeadingLevel
-#' @param returnFullObject 
+#' @param gs_url A Google Sheets URL (make sure it's viewable by anybody
+#' with the link!).
+#' @param ws The worksheet names: a named list with four character values
+#' named `entities`, `valueTemplates`, `definitions`, and `instructions`.
+#' @param entitiesFilename,valueTemplatesFilename,definitionsFilename, When
+#' reading from three CSV files, the names of the files containing the
+#' specifications that would otherwise be stored in those three filenames.
+#' @param localBackup A named list with three character values
+#' named `entities`, `valueTemplates`, and `definitions`, where the information
+#' from the corresponding worksheets will be stored.
+#' @param outputFile If specified, the path to a file where the Rxs template
+#' will be stored.
+#' @param yamlMetadata A names list containing character values named
+#' `title`, `author`, and `date` which will be set in the Rmd file that is
+#' the Rxs template as metadata.
+#' @param indent Whether to use indentation to visually organise the Rxs
+#' template. If TRUE, deeper nesting in the Rxs specification's hierarchy
+#' will be visible as deeper indentation.
+#' @param indentSpaces The number of spaces to use when identing.
+#' @param fullWidth The maximum width of the Rxs template in characters.
+#' @param commentCharacter The character used to signify comments - if this is
+#' changed, R will throw errors (unless perhaps it once introduces another
+#' comment symbol).
+#' @param fillerCharacter The character used after the first character for
+#' filling up space.
+#' @param eC The entity columns; a named list with character values holding the
+#' names of the columns in the `entities` worksheet of the spreadsheet. The
+#' default values are stored in `metabefor::opts$get("entityColNames")` - if you
+#' need to override these values, just reproduce that object.
+#' @param valueTemplateCols The value template columns; a named list with
+#' character values holding the names of the columns in the `entities`
+#' worksheet of the spreadsheet. The default values are stored
+#' in `metabefor::opts$get("valueTemplateColNames")` - if you need to
+#' override these values, just reproduce that object.
+#' @param repeatingSuffix The suffix to use for the entity identifiers/names
+#' of repeating entities.
+#' @param rootName The name of the root element
+#' @param silent Whether to be silent or chatty.
+#' @param instructionHeadingLevel The top-most heading level for the
+#' instructions.
+#' @param returnFullObject Whether to return the full object or just the
+#' template.
 #'
-#' @return
+#' @return Either a full object, containing the template and other products,
+#' or just the template.
+#' 
+#' @rdname rxs_templateBuilding
+#' 
 #' @export
 #'
 #' @examples
@@ -41,17 +72,16 @@ rxs_fromSpecifications <- function(gs_url = NULL,
                                    yamlMetadata = list(title = "Systematic Review Extraction Script Template",
                                                        author = NULL,
                                                        date = format(Sys.time(), '%d %b %Y at %H:%M:%S')),
-                                   author = NULL,
                                    indent = TRUE,
                                    indentSpaces = 2,
                                    fullWidth = 80,
                                    commentCharacter = "#",
                                    fillerCharacter = "#",
-                                   eC = metabefor::opts$get(entityColNames),
-                                   valueTemplateCols = metabefor::opts$get(valueTemplateColNames),
+                                   eC = metabefor::opts$get("entityColNames"),
+                                   valueTemplateCols = metabefor::opts$get("valueTemplateColNames"),
                                    repeatingSuffix = "__1__",
                                    rootName = "study",
-                                   silent=FALSE,
+                                   silent=metabefor::opts$get("silent"),
                                    instructionHeadingLevel = 3,
                                    graphTheme = list(c("fontname", "Arial", "node")),
                                    returnFullObject = TRUE) {
@@ -344,7 +374,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
     instructions <-
       paste0(
         "\n\n",
-        ufs::repStr("#", instructionHeadingLevel), " ",
+        repStr("#", instructionHeadingLevel), " ",
         " Extraction instructions\n\n",
         paste0(
           lapply(
@@ -353,7 +383,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
               return(
                 paste0(
                   "\n\n",
-                  ufs::repStr("#", instructionHeadingLevel+1), " ",
+                  repStr("#", instructionHeadingLevel+1), " ",
                   instructionSheet$title[i], "\n\n",
                   instructionSheet$description[i]
                 )
@@ -388,7 +418,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
         if (node$isRoot) {
           return(NULL);
         } else {
-          res <- ufs::heading(
+          res <- heading(
             node$title,
             headingLevel = instructionHeadingLevel + 1,
             cat = FALSE
@@ -442,7 +472,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
 
   entityOverview_compact <-
     paste0(
-      ufs::heading(
+      heading(
         "Entity overview (compact)",
         headingLevel = instructionHeadingLevel,
         cat = FALSE

@@ -6,35 +6,14 @@
 #' `node`, or `edge`).
 #'
 #' @return The [DiagrammeR::DiagrammeR] graph.
-#' @examples exampleSource <- '
-#' ---
-#' codes:
-#'   -
-#'     id: parentCode
-#'     label: Parent code
-#'     children:
-#'       -
-#'         id: childCode1
-#'       -
-#'         id: childCode2
-#'   -
-#'     id: childCode3
-#'     label: Child Code
-#'     parentId: parentCode
-#'     children: [grandChild1, grandChild2]
-#' ---
-#' ';
-#' parsedSource <-
-#'   parse_source(text=exampleSource);
-#' miniGraph <-
-#'   apply_graph_theme(data.tree::ToDiagrammeRGraph(parsedSource$deductiveCodeTrees),
-#'                     c("color", "#0000AA", "node"),
-#'                     c("shape", "triangle", "node"),
-#'                     c("fontcolor", "#FF0000", "node"));
-#' ### This line should be run when executing this example as test, because
-#' ### rendering a DiagrammeR graph takes quite long
-#' \dontrun{
-#' DiagrammeR::render_graph(miniGraph);
+#' @examples ### Dus
+#' #miniGraph <-
+#'  # apply_graph_theme(data.tree::ToDiagrammeRGraph(parsedSource$deductiveCodeTrees),
+#'   #                  c("color", "#0000AA", "node"),
+#'    #                 c("shape", "triangle", "node"),
+#'     #                c("fontcolor", "#FF0000", "node"));
+#' \donttest{
+#' # DiagrammeR::render_graph(miniGraph);
 #' }
 #' @export
 apply_graph_theme <- function(graph,

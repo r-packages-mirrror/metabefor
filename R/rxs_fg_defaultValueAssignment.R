@@ -6,14 +6,14 @@ rxs_fg_defaultValueAssignment <- function(node,
                                           fullWidth = 80,
                                           commentCharacter = "#",
                                           fillerCharacter = "#",
-                                          eC = metabefor::opts$get(entityColNames)) {
+                                          eC = metabefor::opts$get("entityColNames")) {
 
   ### This function looks up (or generates) the default value for
   ### an extractable entity.
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
     stop("Argument 'valueTemplates' does not have class 'parsedValueTemplates' ",
-         "(but instead ", vecTxtQ(class(parsedValueTemplates)), ").");
+         "(but instead ", vecTxtQ(class(valueTemplates)), ").");
   }
 
   lV <- rxs_fg_layoutVars(level = level,

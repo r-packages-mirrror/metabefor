@@ -1,14 +1,22 @@
 #' Validate a study tree
 #'
 #' @param studyTree The study tree
+#' @param eC The entity columns; a named list with character values holding the
+#' names of the columns in the `entities` worksheet of the spreadsheet. The
+#' default values are stored in `metabefor::opts$get("entityColNames")` - if you
+#' need to override these values, just reproduce that object.
 #' @param rxsStructure Optionally, the `rxsStructure` as resulting from
 #' a call to [rxs_parseSpecifications()].
 #'
 #' @return Invisibly, the study tree (which was altered in place, consistent
 #' with the reference semantics employed by [data.tree::Node()].
+#' 
 #' @export
 rxs_validation <- function(studyTree,
+                           eC = metabefor::opts$get("entityColNames"),
                            rxsStructure=NULL) {
+  
+  
   
   studyTree$Set(validationResults = paste0("Validation run starting at ",
                                            format(Sys.time(), "%Y-%m-%d %H:%S")));
@@ -17,7 +25,7 @@ rxs_validation <- function(studyTree,
     studyTree$Set(validationResults =
                   list(c(studyTree$root$validationResults,
                          "Failed validation: not all node (entity) names are unique!")),
-             filterFun = isRoot,
+             filterFun = data.tree::isRoot,
              traversal = 'ancestor');
   }
 
@@ -42,14 +50,18 @@ rxs_validation <- function(studyTree,
                   ### Find relevant node (entity) and get the valueTemplate
                   ### Then get the error message to use.
                   relevantNode <-
-                    FindNode(rxsStructure$parsedEntities$extractionScriptTree,
-                             valueName);
+                    data.tree::FindNode(
+                      rxsStructure$parsedEntities$extractionScriptTree,
+                      valueName
+                    );
                   if (is.null(relevantNode)) {
                     ### Either a node with this name does not exist,
                     ### or it's a recursive node
                     relevantNode <-
-                      FindNode(rxsStructure$parsedEntities$recursingNodes,
-                               valueName);
+                      data.tree::FindNode(
+                        rxsStructure$parsedEntities$recursingNodes,
+                        valueName
+                      );
                   }
 
                   if (!is.null(relevantNode)) {
@@ -85,7 +97,7 @@ rxs_validation <- function(studyTree,
       node$Set(validationResults =
                  list(c(node$root$validationResults,
                         listValidationMessages)),
-               filterFun = isRoot,
+               filterFun = data.tree::isRoot,
                traversal = 'ancestor');
     } else if (is.expression(node$validation)) {
       VALUE <- node$value;
@@ -130,7 +142,7 @@ rxs_validation <- function(studyTree,
         node$Set(validationResults =
                    list(c(node$root$validationResults,
                           validationMsg)),
-                 filterFun = isRoot,
+                 filterFun = data.tree::isRoot,
                  traversal = 'ancestor');
         invisible(NULL);
       }
@@ -143,7 +155,7 @@ rxs_validation <- function(studyTree,
                   list(c(studyTree$validationResults,
                          paste0("Validation run ending at ",
                                 format(Sys.time(), "%Y-%m-%d %H:%S")))),
-                filterFun = isRoot);
+                filterFun = data.tree::isRoot);
   
   studyTree$validationResults <- unlist(studyTree$validationResults);
   

@@ -21,3 +21,5 @@ public
 ### License
 ^LICENSE\.md$
 
+### Image
+^img/

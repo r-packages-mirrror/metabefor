@@ -14,7 +14,8 @@ query_requiredConcepts <- function(...,
   for (i in seq_along(res)) {
     childName <-
       attr(res[[i]], ifelse(is.null("conceptName"),
-                            paste0(ordinalNr(i), " concept"),
+                            #paste0(ordinalNr(i), " concept"),
+                            paste0(i, ". concept"),
                             "conceptName"));
     resNode$AddChild(childName);
     resNode[[childName]]$object <-
@@ -36,12 +37,29 @@ query_requiredConcepts <- function(...,
                           shape = "box",
                           fillcolor = "#DDDDDD",
                           fontname = "helvetica");
+  
+  operator_linetype_map <-
+    c("OR" = "dotted",
+      "AND" = "solid",
+      "NOT" = "dashed");
+  
   resNode$Do(function(node)
-    data.tree::SetEdgeStyle(node,
-                            style = dplyr::case_when(node$parent$operator=="OR" ~ "dotted",
-                                                     node$parent$operator=="AND" ~ "solid",
-                                                     TRUE ~ "solid")),
+    data.tree::SetEdgeStyle(
+      node,
+      style =
+        ifelse(
+          node$parent$operator %in% names(operator_linetype_map),
+          operator_linetype_map[node$parent$operator],
+          "solid"
+        )
+    ),
+    # style = dplyr::case_when(node$parent$operator=="OR" ~ "dotted",
+    #                          node$parent$operator=="AND" ~ "solid",
+    #                          node$parent$operator=="NOT" ~ "dashed",
+    #                          TRUE ~ "solid")),
     traversal="level");
+  
+  
   attr(resNode, "conceptName") <- conceptName;
   class(resNode) <- c('mbf_query_requiredConcepts', class(resNode));
   return(resNode);

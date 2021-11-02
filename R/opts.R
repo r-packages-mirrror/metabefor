@@ -94,7 +94,8 @@ opts$reset <- function(...) {
 }
 
 opts$defaults <-
-  list(### Used throughout
+  list(
+    ### Used throughout
     debug = FALSE,
     
     quridPrefix = "qurid_",
@@ -176,4 +177,6 @@ opts$defaults <-
     preventOverwriting = TRUE,
     
     ### Used throughout for suppressing messages
-    silent = TRUE);
+    silent = TRUE
+    
+  );

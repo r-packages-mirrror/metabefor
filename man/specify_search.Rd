@@ -10,7 +10,7 @@ specify_search(date, query, databases, fields)
 \item{date}{The date that the search is conducted.}
 
 \item{query}{The query used in the search (as specified using the
-functions for \link{queries}).}
+functions for queries, e.g. \code{\link[=query_full]{query_full()}}).}
 
 \item{databases}{The databases that were searched, as a named list of
 vectors, where each vector's name is the name of the interface used to

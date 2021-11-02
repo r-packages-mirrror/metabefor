@@ -48,7 +48,7 @@ read_sheet <- function(x,
     
     fileToRead <- tempfile(fileext = extension);
     
-    downloadResult <- download.file(x, fileToRead);
+    downloadResult <- utils::download.file(x, fileToRead);
     
     downloaded <- TRUE;
 
@@ -93,7 +93,7 @@ read_sheet <- function(x,
              "  install.packages('haven');\n");
       }
     } else if (extension == "csv") {
-      res <- read.csv(x);
+      res <- utils::read.csv(x);
     } else {
       stop("Sorry, but I can't (yet) read files with the extension of the ",
            "file you provided me with (", extension, ").");

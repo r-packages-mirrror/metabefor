@@ -6,7 +6,7 @@ rxs_fg_valueTemplateExamples <- function(node,
                                          fullWidth = 80,
                                          commentCharacter = "#",
                                          fillerCharacter = "#",
-                                         eC = metabefor::opts$get(entityColNames),
+                                         eC = metabefor::opts$get("entityColNames"),
                                          listVersion = FALSE) {
 
   ### This function looks up (or generates) the examples for
@@ -14,7 +14,7 @@ rxs_fg_valueTemplateExamples <- function(node,
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
     stop("Argument 'valueTemplates' does not have class 'parsedValueTemplates' ",
-         "(but instead ", vecTxtQ(class(parsedValueTemplates)), ").");
+         "(but instead ", vecTxtQ(class(valueTemplates)), ").");
   }
 
   if (isTRUE(nchar(node[[eC$recursingCol]]) > 0) || isTRUE(nchar(node[[eC$recurringCol]]) > 0)) {
@@ -55,7 +55,7 @@ rxs_fg_valueTemplateExamples <- function(node,
 
   # ### Do fieldname replacement using regular expressions, if need be
   # allEntityFieldNames <- paste0("<<", eC, ">>");
-  # allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get(valueTemplateColNames), ">>");
+  # allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get("valueTemplateColNames"), ">>");
   #
   # fieldNameReplacementHits <- sapply(allEntityFieldNames, grepl, x=res);
   # if (any(fieldNameReplacementHits)) {
@@ -86,14 +86,14 @@ rxs_fg_valueTemplateExamples <- function(node,
   }
 
   ### Then look in the value template specification
-  allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get(valueTemplateColNames), ">>");
+  allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get("valueTemplateColNames"), ">>");
   matchesInValueTemplateFieldNames <-
     sapply(allValueTemplateFieldNames, grepl, x=res);
   if (any(matchesInValueTemplateFieldNames)) {
     valueTemplateFieldValues <-
-      valueTemplate[[unlist(metabefor::opts$get(valueTemplateColNames)[matchesInValueTemplateFieldNames])]];
+      valueTemplate[[unlist(metabefor::opts$get("valueTemplateColNames")[matchesInValueTemplateFieldNames])]];
     names(valueTemplateFieldValues) <-
-      metabefor::opts$get(valueTemplateColNames)[matchesInValueTemplateFieldNames]
+      metabefor::opts$get("valueTemplateColNames")[matchesInValueTemplateFieldNames]
   } else {
     valueTemplateFieldValues <- c();
   }

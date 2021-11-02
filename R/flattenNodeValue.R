@@ -18,10 +18,10 @@ flattenNodeValue <- function(singleValue) {
   } else if (length(singleValue) == 1) {
     return(singleValue);
   } else if (is.vector(singleValue)) {
-    return(ufs::vecTxtQ(singleValue));
+    return(vecTxtQ(singleValue));
   } else if (is.matrix(singleValue)) {
     return(paste(apply(singleValue, 1, vecTxtQ), collapse="\n"));
   } else {
-    return(utils::capture.output(str(singleValue)));
+    return(utils::capture.output(utils::str(singleValue)));
   }
 }

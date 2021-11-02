@@ -15,8 +15,8 @@
 rxs_parseSpecifications <- function(entities,
                                     valueTemplates,
                                     definitions = NULL,
-                                    eC = metabefor::opts$get(entityColNames),
-                                    valueTemplateCols = metabefor::opts$get(valueTemplateColNames),
+                                    eC = metabefor::opts$get("entityColNames"),
+                                    valueTemplateCols = metabefor::opts$get("valueTemplateColNames"),
                                     rootName = 'study') {
 
   res <- list(parsedEntities = rxs_parseEntities(entities = entities,

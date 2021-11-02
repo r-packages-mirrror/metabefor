@@ -1,5 +1,5 @@
 rxs_parseEntities <- function(entities,
-                              eC = metabefor::opts$get(entityColNames),
+                              eC = metabefor::opts$get("entityColNames"),
                               rootName = 'study') {
 
   ### Prepare dataframe with entities for conversion to a tree
@@ -9,8 +9,8 @@ rxs_parseEntities <- function(entities,
                                     eC$parentCol, names(entities)))]);
 
   if (getOption("metabefor.debug", FALSE)) {
-    ufs::cat0("\nrxs_parseEntities read an entity spreadsheet with the following columns: ",
-              ufs::vecTxtQ(names(dataFrameNetwork)), ".\n");
+    cat0("\nrxs_parseEntities read an entity spreadsheet with the following columns: ",
+              vecTxtQ(names(dataFrameNetwork)), ".\n");
   }
 
   ### Add a root entity for the entities without one
@@ -101,7 +101,7 @@ rxs_parseEntities <- function(entities,
                             nodeToInclude <- node[[recurringColName]];
                             ### Add each child
                             for (currentChild in recurrNodes[[nodeToInclude]]$children) {
-                              node$AddChildNode(Clone(currentChild));
+                              node$AddChildNode(data.tree::Clone(currentChild));
                             }
 
                           },
@@ -119,7 +119,7 @@ rxs_parseEntities <- function(entities,
     nodeToInclude <- node[[recursingColName]];
     ### Add each child
     for (currentChild in recursNodes[[nodeToInclude]]$children) {
-      node$AddChildNode(Clone(currentChild));
+      node$AddChildNode(data.tree::Clone(currentChild));
     }
 
   },

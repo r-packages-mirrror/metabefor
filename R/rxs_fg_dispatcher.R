@@ -5,7 +5,7 @@ rxs_fg_dispatcher <- function(node,
                               fullWidth = 80,
                               commentCharacter = "#",
                               fillerCharacter = "#",
-                              eC = metabefor::opts$get(entityColNames),
+                              eC = metabefor::opts$get("entityColNames"),
                               repeatingSuffix = "__1__",
                               silent=FALSE) {
 
@@ -17,7 +17,7 @@ rxs_fg_dispatcher <- function(node,
           "do so myself now. Note that this means I will use (i.e. expect) ",
           "the default column names as specified in the `valueTemplateColNames` option.\n");
     }
-    valueTemplates <- parseValueTemplates(valuetemplates);
+    valueTemplates <- rxs_parseValueTemplates(valueTemplates);
     if (!silent) {
       cat("\nSuccessfully parsed the value templates.\n");
     }

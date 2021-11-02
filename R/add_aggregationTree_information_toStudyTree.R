@@ -51,10 +51,10 @@ add_aggregationTree_information_toStudyTree <- function(studyTree,
           reqAggregationValueLength <- max(length(prefixes),
                                            length(suffixes));
           
-          aggregationValues <- rev(tail(aggTreeNode$path, -1));
+          aggregationValues <- rev(utils::tail(aggTreeNode$path, -1));
           
           aggregationValueVector <-
-            rep(tail(aggregationValues, 1), reqAggregationValueLength);
+            rep(utils::tail(aggregationValues, 1), reqAggregationValueLength);
           
           aggregationValueVector[seq_along(aggregationValues)] <-
             aggregationValues;

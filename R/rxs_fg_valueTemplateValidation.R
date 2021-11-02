@@ -6,14 +6,14 @@ rxs_fg_valueTemplateValidation <- function(node,
                                            fullWidth = 80,
                                            commentCharacter = "#",
                                            fillerCharacter = "#",
-                                           eC = metabefor::opts$get(entityColNames)) {
+                                           eC = metabefor::opts$get("entityColNames")) {
 
   ### This function looks up (or generates) the validation sets for
   ### an extractable entity.
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
     stop("Argument 'valueTemplates' does not have class 'parsedValueTemplates' ",
-         "(but instead ", vecTxtQ(class(parsedValueTemplates)), ").");
+         "(but instead ", vecTxtQ(class(valueTemplates)), ").");
   }
 
   if (isTRUE(nchar(node[[eC$recursingCol]]) > 0) || isTRUE(nchar(node[[eC$recurringCol]]) > 0)) {
@@ -68,14 +68,14 @@ rxs_fg_valueTemplateValidation <- function(node,
   }
 
   ### Then look in the value template specification
-  allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get(valueTemplateColNames), ">>");
+  allValueTemplateFieldNames <- paste0("<<", metabefor::opts$get("valueTemplateColNames"), ">>");
   matchesInValueTemplateFieldNames <-
     sapply(allValueTemplateFieldNames, grepl, x=res);
   if (any(matchesInValueTemplateFieldNames)) {
     valueTemplateFieldValues <-
-      valueTemplate[[unlist(metabefor::opts$get(valueTemplateColNames)[matchesInValueTemplateFieldNames])]];
+      valueTemplate[[unlist(metabefor::opts$get("valueTemplateColNames")[matchesInValueTemplateFieldNames])]];
     names(valueTemplateFieldValues) <-
-      metabefor::opts$get(valueTemplateColNames)[matchesInValueTemplateFieldNames]
+      metabefor::opts$get("valueTemplateColNames")[matchesInValueTemplateFieldNames]
   } else {
     valueTemplateFieldValues <- c();
   }

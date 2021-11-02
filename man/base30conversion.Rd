@@ -19,7 +19,7 @@ The converted vector (numeric for \code{base30toNumeric}, character for \code{nu
 }
 \description{
 The conversion functions from base10 to base30 and vice versa are
-used by the \code{\link[=generate_uids]{generate_uids()}} functions.
+used by the \code{\link[=generate_qurid]{generate_qurid()}} functions.
 }
 \details{
 The symbols to represent the 'base 30' system are the 0-9

@@ -20,7 +20,7 @@ studies_to_freqTab(
   aggregationFunction = `+`,
   rowLabels = NULL,
   colLabels = NULL,
-  flattenValues = flattenValues,
+  flattenValues = TRUE,
   includeValueListsOfMatch = TRUE,
   excludeParentWhenValueListReturned = TRUE,
   silent = metabefor::opts$get("silent")

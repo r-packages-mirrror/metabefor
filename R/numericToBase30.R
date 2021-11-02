@@ -1,7 +1,7 @@
 #' Conversion between base10 and base30
 #'
 #' The conversion functions from base10 to base30 and vice versa are
-#' used by the [generate_uids()] functions.
+#' used by the [generate_qurid()] functions.
 #'
 #' The symbols to represent the 'base 30' system are the 0-9
 #' followed by the alphabet without vowels but including the y. This
