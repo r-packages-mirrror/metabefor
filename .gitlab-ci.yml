@@ -1,28 +1,54 @@
 variables:
-  _R_CHECK_CRAN_INCOMING_: "false"
+  _R_CHECK_CRAN_INCOMING_: "true"
   _R_CHECK_FORCE_SUGGESTS_: "true"
-  APT_PKGS: "libcurl4-openssl-dev libssh2-1-dev libssl-dev libxml2-dev zlib1g-dev git libgsl0-dev"
+  APT_PKGS: "libcurl4-openssl-dev libssh2-1-dev libssl-dev libxml2-dev zlib1g-dev git" # libgsl0-dev"
+
+image: rocker/tidyverse
+
+before_script:
+  - apt-get update
+  - apt-get install -y --no-install-recommends ${APT_PKGS}
+  - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
+  - R -e 'install.packages(c("DiagrammeR", "DiagrammeRsvg"))'
+  - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr"))'
+  - R -e 'install.packages(c("synthesisr", "googlesheets4", "stringdist"))'
+  - R -e 'install.packages(c("remotes"))'
+  - R -e 'remotes::install_gitlab("r-packages/preregr")'
+  - R -e 'remotes::install_gitlab("r-packages/justifier")'
+  - R -e 'remotes::install_gitlab("r-packages/ufs")'
+  - R -e "install.packages(c('tinytex'), repos='http://cran.rstudio.com')"
+  - R -e "tinytex::install_tinytex()"
+
+devtools-check-dev:
+  stage: test
+  script:
+    - R -e 'devtools::check()'
+  only:
+    - dev
+
+devtools-check-topic-branches:
+  stage: test
+  script:
+    - R -e 'devtools::check()'
+  except:
+    - dev
+    - main
+
+devtools-check-main:
+  stage: test
+  script:
+    - R -e 'devtools::check()'
+  only:
+    - main
 
 pages:
   stage: build
-  image: alpine:latest
   script:
-    - ls public
+    - R -e 'devtools::document(); pkgdown::build_site();'
+    - mkdir public/img
+    - cp img/hex-logo.png public/img/hex-logo.png
   artifacts:
     paths:
-    - public
-
-devtools_check:
-  stage: test
-  image: rocker/tidyverse
-  before_script:
-    - apt-get update
-#    - apt-get install -y --no-install-recommends ${APT_PKGS}
-    - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
-    - R -e 'install.packages(c("DiagrammeR", "DiagrammeRsvg"))'
-    - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr"))'
-    - R -e 'install.packages(c("synthesisr", "googlesheets4", "stringdist"))'
-    - R -e 'devtools::install_gitlab("r-packages/ufs")'
-  script:
-    - R -e 'devtools::check()'
-
+      - public
+  only:
+    - main
