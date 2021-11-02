@@ -35,13 +35,15 @@ The pkgdown website for this project is located at
 
 <!--------------------------------------------->
 
-The goal of metabefor is to help with the process of a systematic review
-and potentially meta-analysis, specifically with all tasks before the
-actual meta-analysis. In a sense, this package helps with everything
-that needs to be done before metafor can be used, hence the name.
-
-Its name is derived from the brilliant R package for quantitative
-synthesis [metafor](https://metafor-project.org).
+The goal of metabefor is to help design and execute transparant,
+reproducible, extensible, scalable, and machine-readable systematic
+reviews, mostly supporting the screening and extraction stages.
+Originally, the package was intended to help with everything that needs
+to be done before the [metafor](https://metafor-project.org) package can
+be used, hence the name. Since then, the
+[metaverse](https://rmetaverse.github.io/) was born, with dedicated
+packages for specific stages, such as developing search strategies,
+working with bibliographic data, and visualisation.
 
 <!--------------------------------------------->
 
