@@ -14,8 +14,6 @@
 #' @param newEntityName_prefix,newEntityName_suffix The prefix and suffix to
 #' add to the entity identifier to create the name of the new entity that is
 #' created. That entity is added as a sibling of the target entity.
-#' @param  The name of the new entity to add to the target
-#' entity's parent entity (a container entity).
 #' @param fun The function to apply.
 #' @param entityValue_argName The argument name to pass the entity value as.
 #' @param funArgs Additional arguments, as a names list with each element's
@@ -23,6 +21,7 @@
 #' @param entityId_regex An optional regular expression: if specified, only
 #' entity nodes with entity identifiers that match this regular expression will
 #' be processed.
+#' @param requiredField_regex This functionality has not yet been implemented.
 #'
 #' @return Invisibly, the studies object. Note that the study trees will be
 #' changed in place given `data.tree`'s pass-by-reference logic; so you can

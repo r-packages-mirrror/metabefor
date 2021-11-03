@@ -1,6 +1,6 @@
 #' Get a single value from a study tree, list of trees, or studies object
 #'
-#' @param x 
+#' @param x The tree, tree list, or `studies` object.
 #' @param entityId The entity identifier of the value to get
 #' @param lookInValueLists Whether to also look inside value lists
 #' @param returnDf Whether to return a data frame or not
@@ -33,8 +33,6 @@
 #' 
 #' @rdname get_singleValue
 #'
-#' @examples
-#' 
 get_singleValue_fromTree <- function(x,
                                      entityId,
                                      lookInValueLists = TRUE,

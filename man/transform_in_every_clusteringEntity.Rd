@@ -18,7 +18,7 @@ transform_in_every_clusteringEntity(
 by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}).}
 
 \item{newEntityName}{The name of the new entity to add to the clustering
-entity.}
+entity (i.e., the target entity's parent entity, a container entity).}
 
 \item{fun}{The function to apply.}
 

@@ -20,8 +20,6 @@
 #'
 #' @return A dataframe
 #'
-#' @examples
-#' 
 #' @export
 #' @rdname get_valueList_asDf
 get_valueList_asDf_fromStudyTree <- function(x,

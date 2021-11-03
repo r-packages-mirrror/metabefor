@@ -36,26 +36,36 @@ supplement_data_with_value_inStudyTrees(
 )
 }
 \arguments{
-\item{studyTree}{The study tree}
+\item{studyTree, studies}{The study tree or the \code{studies} object.}
 
 \item{targetEntityNodeId}{The identifier of the target entity node (the
 entity node to supplement)}
 
 \item{sourceEntityNodeId}{The identifier of the source entity node.}
 
-\item{forceCopyingOfExistingValues}{Whether to overwrite an existing value
-if it is are encountered in the target entity.}
+\item{forceCopyingOfExistingValues}{Whether to force copying (and so
+overwriting) existing values if encountered in the target entity. If
+\code{FALSE}, existing values will not be overwritten.}
 
 \item{sourcePathString_regex, targetPathString_regex}{Regular expressions
 that must match the path string of the source of target node.}
+
+\item{targetNodeListCreation_prefix, targetNodeListCreation_suffix}{A prefix
+and suffix to add when a list is created.}
 
 \item{prefix, suffix}{A text string to prepend and append to the entity
 identifier when copying it to the target entity.}
 
 \item{silent}{Whether to be quiet or chatty.}
+
+\item{targetEntityNode_requiredField}{A required field that, if it does not
+occur in the target entity, causes that target entity to be skipped. This
+provides additional control over which target entities to process.}
 }
 \value{
-
+Invisibly, the (altered) study tree - but note that since
+the \code{data.tree} package uses \code{R6}'s pass-by-reference semantics, that object
+is altered in place, and sothe returned object can be discarded.
 }
 \description{
 This function supplements an entity node with a value from another entity

@@ -23,8 +23,9 @@
 #' @param idField_in_sourceEntityNode `NULL` if the source node's name is also its
 #' identifier; otherwise, the name of the field containing the identifier in
 #' the source node.
-#' @param overwriteExistingValues Whether to overwrite existing values if
-#' those are encountered in the target entity.
+#' @param forceCopyingOfExistingValues Whether to force copying (and so
+#' overwriting) existing values if encountered in the target entity. If
+#' `FALSE`, existing values will not be overwritten.
 #' @param prefix,suffix A text string to prepend and append to the names of the
 #' values that are copied.
 #' @param fieldsToCopy_regex A regular expression that can optionally be
@@ -40,7 +41,6 @@
 #' @rdname supplement_data_from_list
 #' @export
 #'
-#' @examples
 supplement_data_from_list_inSingleNode <- function(studyTree,
                                                    targetEntityNodeId,
                                                    sourceEntityNodeIdField_in_targetEntity,

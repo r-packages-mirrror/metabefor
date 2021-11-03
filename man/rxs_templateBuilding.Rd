@@ -47,6 +47,8 @@ rxs_fromSpecifications(
 )
 }
 \arguments{
+\item{rxsStructure}{The Rxs specification as loaded from a spreadsheet.}
+
 \item{yamlMetadata}{A names list containing character values named
 \code{title}, \code{author}, and \code{date} which will be set in the Rmd file that is
 the Rxs template as metadata.}
@@ -103,6 +105,8 @@ override these values, just reproduce that object.}
 
 \item{instructionHeadingLevel}{The top-most heading level for the
 instructions.}
+
+\item{graphTheme}{The graph theme to use.}
 
 \item{returnFullObject}{Whether to return the full object or just the
 template.}

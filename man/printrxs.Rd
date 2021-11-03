@@ -50,6 +50,9 @@ rxs_partial(
 R Markdown partial.}
 
 \item{...}{Passed on to \code{\link[rmdpartials:partial]{rmdpartials::partial()}}.}
+
+\item{forceKnitrOutput}{Force output as if knitr would be knitting (to
+test stuff in the console).}
 }
 \value{
 The partial, or for the print function, the printed

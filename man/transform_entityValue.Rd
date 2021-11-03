@@ -34,8 +34,7 @@ created. That entity is added as a sibling of the target entity.}
 \item{funArgs}{Additional arguments, as a names list with each element's
 name is the argument name and the element itself the content.}
 
-\item{The}{name of the new entity to add to the target
-entity's parent entity (a container entity).}
+\item{requiredField_regex}{This functionality has not yet been implemented.}
 }
 \value{
 Invisibly, the studies object. Note that the study trees will be

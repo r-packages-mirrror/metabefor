@@ -23,6 +23,7 @@
 #' with the screener identifiers)
 # #' @param suffixedConfigFiles 
 #' @param ... Any additional arguments are passed to [write_JabRef_Config()].
+#' @param silent Whether to be silent or chatty.
 #'
 #' @return Invisibly, a results object with intermediate results and the
 #' written configuration file

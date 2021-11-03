@@ -6,6 +6,7 @@
 #' @param eC The names of the entity columns
 #' @param flattenToString Whether to flatten lists to a string
 #' or explode to separate variables.
+#' @param silent Whether to be silent or chatty.
 #'
 #' @return A data frame
 #' @rdname tidy_studyTrees
