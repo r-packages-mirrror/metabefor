@@ -1,6 +1,22 @@
-#' Create a frequency table from a list of study trees
+#' Create a heatmap or frequency table from a list of study trees
 #'
-#' @param x 
+#' These functions create a heatmap showing the frequencies with which
+#' specific possible entity values occur for the intersection of two entities -
+#' or they create the underlying frequency table for the set of studies or just
+#' one study. You usually only use `heatMap_from_studies`, which takes the
+#' object with study trees and creates a heatmap.
+#' 
+#' The underlying frequency table is produced in a number of steps. First,
+#' the values of the entities matching the regular expressions are obtained.
+#' Second, the row and column target functions are applied to these values (as 
+#' first argument) and to the specified row and column target values (as second
+#' argument). Then, the `rowColMultiplicationFunction` is applied to the
+#' result to obtain the value for the cell. Finally, if `studies_to_freqTab`
+#' is called, `aggregationFunction` is called on the frequency tables of the
+#' separate studies.
+#'
+#' @param x The `studies` object or the study tree for which to produce the
+#' frequency table.
 #' @param rowRegex,colRegex Regular expressions used to find the entities
 #' that will form the rows or columns
 #' @param rowTargetValue,colTargetValue Value to consider a 'hit' for the
@@ -16,6 +32,9 @@
 #' @param rowLabels,colLabels A names vector used to replace row and column
 #' labels; the indices (element names) should be the entity identifiers and
 #' the values the labels to use.
+#' @param rowOrder,colOrder The order of the row and column entities/values.
+#' @param sortRowsAlphabetically,sortColsAlphabetically Whether to sort
+#' columns or rows alphabetically.
 #' @param includeValueListsOfMatch Whether to also include the value lists
 #' inside matching entities (useful for quickly selecting e.g. all
 #' results)
@@ -27,9 +46,15 @@
 #' has a value list as value, and those value lists are returns (i.e.
 #' `includeValueListsOfMatch` is `TRUE`), the parent entity (that matched
 #' the regular expression) should be excluded.
+#' @param valuePreprocessingFunction The function to use to preprocess
+#' values - only for advanced use.
+#' @param freqTabArgs Arguments to pass to the frequency table functions.
+#' @param xLabelRotationAngle The angel to rotate the labels on the X axis.
+#' @param legend.position The position of the legend.
+#' @param silent Whether to be silent or chatty.
 #'
-#' @return
-#' @rdname studies_to_freqTab 
+#' @return A ggplot or a frequency table
+#' @rdname freqTab_heatMaps 
 #' @export
 #'
 #' @examples
@@ -45,8 +70,12 @@ studyTreeList_to_freqTab <- function(x,
                                      aggregationFunction = `+`,
                                      rowLabels = NULL,
                                      colLabels = NULL,
-                                     flattenValues = TRUE,
+                                     rowOrder = NULL,
+                                     colOrder = NULL,
+                                     sortRowsAlphabetically = TRUE,
+                                     sortColsAlphabetically = TRUE,
                                      includeValueListsOfMatch = TRUE,
+                                     flattenValues = TRUE,
                                      excludeParentWhenValueListReturned = TRUE,
                                      silent = metabefor::opts$get("silent")) {
   
@@ -84,6 +113,10 @@ studyTreeList_to_freqTab <- function(x,
             colRegex = colRegex,
             rowLabels = rowLabels,
             colLabels = colLabels,
+            rowOrder = rowOrder,
+            colOrder = colOrder,
+            sortRowsAlphabetically = sortRowsAlphabetically,
+            sortColsAlphabetically = sortColsAlphabetically,
             rowColMultiplicationFunction = rowColMultiplicationFunction,
             includeValueListsOfMatch = includeValueListsOfMatch,
             flattenValues = flattenValues,

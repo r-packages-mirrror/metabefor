@@ -1,4 +1,4 @@
-#' @rdname studies_to_freqTab 
+#' @rdname freqTab_heatMaps
 #' @export
 studyTree_to_freqTab <- function(x,
                                  rowRegex,

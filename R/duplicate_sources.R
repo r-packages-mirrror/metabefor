@@ -9,7 +9,9 @@
 #' @param doiCol The name of the column with the DOIs
 #' @param titleCol The name of the column with the titles
 #' @param forDeduplicationSuffix Suffix to add to optional deduplication columns
-#' @param silent 
+#' @param returnRawStringDistances WHether to return the raw string distances
+#' or not.
+#' @param silent Whether to be silent or chatty
 #'
 #' @return A vector indicating for each record whether it's a duplicate, with
 #' an attribute called `duplicateInfo` that holds more detailed information

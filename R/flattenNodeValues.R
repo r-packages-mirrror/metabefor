@@ -1,3 +1,4 @@
+#' @rdname flatteningNodeValues
 #' @export
 flattenNodeValues <- function(x) {
   

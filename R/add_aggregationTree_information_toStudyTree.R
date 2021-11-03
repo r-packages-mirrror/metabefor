@@ -1,6 +1,7 @@
 #' Add information from an aggregation tree to a study tree
 #'
-#' @param studyTree The study tree
+#' @param studyTree,studies The study tree (as `studyTree`) or the object with
+#' multiple study trees (as `studies`)
 #' @param aggregationTree The aggregation tree
 #' @param fieldName The field storing the values along which to aggregate
 #' @param prefixes,suffixes Vector of pre- and suffixes to add to the

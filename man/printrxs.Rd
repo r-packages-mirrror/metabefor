@@ -36,16 +36,24 @@ rxs_partial(
 )
 }
 \arguments{
+\item{x}{The study tree}
+
 \item{rxsStructure}{Optionally, the rxs structure}
 
-\item{...}{}
+\item{headingLevel}{The level of the top-most R Markdown heading}
 
-\item{studyTree}{The study tree}
+\item{printPlots}{Whether to print plots}
 
-\item{headerPrefix}{}
+\item{echoPartial}{Whether to echo (show) the R code chunks in the partial}
+
+\item{partialFile}{Optionally (and advanced) the path to a file with an
+R Markdown partial.}
+
+\item{...}{Passed on to \code{\link[rmdpartials:partial]{rmdpartials::partial()}}.}
 }
 \value{
-invisibly, the dataframe with paths and values.
+The partial, or for the print function, the printed
+information (invisibly).
 }
 \description{
 Printing a tree of R extraction scripts

@@ -11,21 +11,21 @@
 #' package versions (see the second example).
 #' @param install Whether to install missing packages from `repos`.
 #' @param load Whether to load packages (which is exactly *not* the point
-#' of this package, but hey, YMMV).
+#' of this function, but hey, YMMV).
 #' @param repos  The repository to use if installing packages; default
 #' is the RStudio repository.
 #'
 #' @return Invisibly, a vector of the available packages.
 #' @export
 #'
-#' @examples ufs::checkPkgs('base');
+#' @examples metabefor::checkPkgs('base');
 #'
 #' ### Require a version
-#' ufs::checkPkgs(ufs = "0.3.1");
+#' metabefor::checkPkgs(metabefor = "0.1.0");
 #'
 #' ### This will show the error message
 #' tryCatch(
-#'   ufs::checkPkgs(
+#'   metabefor::checkPkgs(
 #'     base = "99",
 #'     stats = "42.5",
 #'     ufs = 20

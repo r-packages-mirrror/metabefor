@@ -1,6 +1,7 @@
 #' Look for all entity identifiers that a given pattern
 #'
-#' @param studies The `studies` object (i.e. parsed extraction scripts)
+#' @param studies,studyTree The `studies` object (i.e. parsed extraction
+#' scripts) or one single `studyTree`.
 #' @param regex The regular expression to use to find entity identifiers
 #' @param includeValueListsOfMatch Whether to also include the value lists
 #' inside matching entities (useful for quickly selecting e.g. all
@@ -10,7 +11,7 @@
 #' `includeValueListsOfMatch` is `TRUE`), the parent entity (that matched
 #' the regular expression) should be excluded.
 #'
-#' @return
+#' @return A character vector of identifiers
 #' @rdname matchingUniqueEntityIdentifiers
 #' @export
 #'

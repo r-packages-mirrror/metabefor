@@ -1,4 +1,4 @@
-#' @rdname studies_to_freqTab 
+#' @rdname freqTab_heatMaps
 #' @export
 studies_to_freqTab <- function(x,
                                rowRegex,
@@ -12,8 +12,12 @@ studies_to_freqTab <- function(x,
                                aggregationFunction = `+`,
                                rowLabels = NULL,
                                colLabels = NULL,
-                               flattenValues = TRUE,
+                               rowOrder = NULL,
+                               colOrder = NULL,
+                               sortRowsAlphabetically = TRUE,
+                               sortColsAlphabetically = TRUE,
                                includeValueListsOfMatch = TRUE,
+                               flattenValues = TRUE,
                                excludeParentWhenValueListReturned = TRUE,
                                silent = metabefor::opts$get("silent")) {
 
@@ -31,6 +35,10 @@ studies_to_freqTab <- function(x,
       aggregationFunction = aggregationFunction,
       rowLabels = rowLabels,
       colLabels = colLabels,
+      rowOrder = rowOrder,
+      colOrder = colOrder,
+      sortRowsAlphabetically = sortRowsAlphabetically,
+      sortColsAlphabetically = sortColsAlphabetically,
       flattenValues = flattenValues,
       includeValueListsOfMatch = includeValueListsOfMatch,
       excludeParentWhenValueListReturned = excludeParentWhenValueListReturned,

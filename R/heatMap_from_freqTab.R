@@ -1,13 +1,12 @@
-#' Produce a heatmap from a frequency table
-#'
-#' @param freqTab The frequency table (see [studyTreeList_to_freqTab()])
+#' @param freqTab The frequency table (as produced
+#' by `studyTreeList_to_freqTab`).
 #' @param rowLab,colLab,freqLab,plotTitle The labels to use for the rows (y
 #' axis), columns (x axis), frequencies (fill), and the plot title to use.
 #' @param fillScale The fill scale to use.
 #' @param theme The ggplot2 theme to use.
 #'
-#' @return
 #' @rdname freqTab_heatMaps
+#' 
 #' @export
 #'
 #' @examples

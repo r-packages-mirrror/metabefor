@@ -30,7 +30,8 @@ add_aggregationTree_information_toStudyTree(
 \item{prefixes, suffixes}{Vector of pre- and suffixes to add to the
 \code{fieldname} when storing the values for progressive aggregation}
 
-\item{studyTree}{The study tree}
+\item{studyTree, studies}{The study tree (as \code{studyTree}) or the object with
+multiple study trees (as \code{studies})}
 }
 \value{
 Invisibly (and, irrelevantly), the study tree

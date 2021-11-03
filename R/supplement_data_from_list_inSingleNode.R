@@ -33,7 +33,10 @@
 #' that must match the path string of the source of target node.
 #' @param silent Whether to be quiet or chatty.
 #'
-#' @return
+#' @return Invisibly, the (altered) input - but note that since the `data.tree`
+#' package uses `R6`'s pass-by-reference semantics, that object is altered in
+#' place, and sothe returned object can be discarded.
+#' 
 #' @rdname supplement_data_from_list
 #' @export
 #'

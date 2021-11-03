@@ -18,6 +18,9 @@
 #'
 #' @param ... For the query building functions, the concepts or terms
 #' to combine; for the `print` methods, the object to print.
+#' @param queryObject The query object.
+#' @param x The query object to print.
+#' @param headingLevel The level of the headings to use when printing.
 #' @param queryName,conceptName The name of the query or concept.
 #' @param operator The operator to use to combining concept terms.
 #' @param inclusion The result of a call to `query_requiredConcepts`.
@@ -25,9 +28,9 @@
 #' @param exclude Any terms to exclude as a character vector.
 #' @param fields The fields in which to search; can currently 
 #' only include 'title', 'abstract', or both.
-#' @param queryName The name of the query.
 #'
 #' @rdname queries
+#' 
 #' @return `query_full` returns an `mbf_query_full` object;
 #' `query_requiredConcepts` returns an `mbf_query_requiredConcepts`
 #' object;

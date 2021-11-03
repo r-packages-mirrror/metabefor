@@ -10,6 +10,10 @@ padVectors(x, padWith = NA, fieldname_regex_alwaysFlatten = NULL)
 \item{x}{The list of vectors}
 
 \item{padWith}{The element to pad with}
+
+\item{fieldname_regex_alwaysFlatten}{A regular expression that,
+if it matches one of the names of \code{x}, always causes the corresponding
+values to be flattened first.}
 }
 \value{
 The list with the padded vectors

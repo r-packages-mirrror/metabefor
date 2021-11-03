@@ -8,6 +8,8 @@ flattenStudies_to_wideDf(studies, silent = metabefor::opts$get("silent"))
 }
 \arguments{
 \item{studies}{The studies object (i.e. parsed rxs files)}
+
+\item{silent}{Whether to be silent or chatty.}
 }
 \value{
 A data frame

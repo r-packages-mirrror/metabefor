@@ -87,7 +87,9 @@ files.}
 those are encountered in the target entity.}
 }
 \value{
-
+Invisibly, the (altered) input - but note that since the \code{data.tree}
+package uses \code{R6}'s pass-by-reference semantics, that object is altered in
+place, and sothe returned object can be discarded.
 }
 \description{
 These function supplement a entity nodes with clustered entity values

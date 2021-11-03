@@ -1,23 +1,37 @@
 #' Write a JabRef configuration file
+#' 
+#' This function writes one or more JabRef configuration files that set
+#' a number of fields to be visible to screeners, so that you can mask the
+#' screeners from fields like journal, authors, and publication year.
 #'
-#' @param outputPath 
-#' @param screeners 
-#' @param screenerFieldsPrefix 
-#' @param screenerFieldsSuffix 
-#' @param screenerConfidencePrefix 
-#' @param screenerConfidenceSuffix 
-#' @param fields 
-#' @param duplicateField 
-#' @param sortField 
-#' @param sortDesc 
-#' @param screeningType 
-#' @param jabrefVersion 
-#' @param jabrefXML 
-#' @param batFile 
-#' @param generateSettingRemovalBatchFile 
-#' @param screenerSuffixInFilename 
+#' @param outputPath The path to write the file(s) to.
+#' @param screeners The strings to use to identify the screeners.
+#' @param screenerFieldsPrefix,screenerFieldsSuffix The prefix and suffix to
+#' attach to the screener identification strings to create the fields where
+#' the screeners store their decision.
+#' @param screenerConfidencePrefix,screenerConfidenceSuffix The prefix and
+#' suffix to attach to the screener identification strings to create the
+#' fields where the screeners store their confidence in their decision.
+#' @param fields The fields that have to be screened.
+#' @param duplicateField The field 
+#' @param sortField The field to sort entries by.
+#' @param sortDesc Whether to sort in descending or ascending order.
+#' @param screeningType The type of screening (added to the filenames).
+#' @param jabrefVersion The version of JabRef to format the configuration file
+#' for.
+#' @param jabrefXML Optionally, the path to a file with a jabrefXML 'skeleton',
+#' in which certain, as yet undocumented, replacements will be made (but you
+#' can check the source code of the function in the meantime).
+#' @param batFile Optionally, contents of the batch file to write.
+#' @param generateSettingRemovalBatchFile Whether to write a batch file that
+#' edits the Windows registry to remove JabRef configuration, which may
+#' sometimes be necessary to get JabRef to use the XML configuration file.
+#' @param screenerSuffixInFilename Whether to add the screener identifier as
+#' a suffix to the file that is written.
 #'
-#' @return
+#' @return Invisibly, an object with the configuration file and intermediate
+#' steps.
+#' 
 #' @export
 #'
 #' @examples
@@ -60,9 +74,7 @@ write_JabRef_Config <- function(outputPath,
   
   if (!is.null(jabrefXML)) {
     jabrefXML <- readLines(jabrefXML);
-  }
-  
-  else {
+  } else {
     ### Generate basic Jabref configuration file
     if ((jabrefVersion == "2.10") || (jabrefVersion == "2.11.1")) {
       jabrefXML <- '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -197,7 +209,7 @@ write_JabRef_Config <- function(outputPath,
     }
   }
   
-  return(res);
+  return(invisible(res));
 
 }
 

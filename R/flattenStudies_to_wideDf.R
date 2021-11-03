@@ -1,6 +1,7 @@
 #' Flatten all studies to a wide data frame (somewhat brutally)
 #'
 #' @param studies The studies object (i.e. parsed rxs files)
+#' @param silent Whether to be silent or chatty.
 #'
 #' @return A data frame
 #' @export

@@ -1,13 +1,19 @@
 #' Printing a tree of R extraction scripts
 #'
-#' @param studyTree The study tree
+#' @param x The study tree
 #' @param rxsStructure Optionally, the rxs structure
-#' @param headerPrefix 
-#' @param ... 
+#' @param headingLevel The level of the top-most R Markdown heading
+#' @param printPlots Whether to print plots
+#' @param echoPartial Whether to echo (show) the R code chunks in the partial
+#' @param partialFile Optionally (and advanced) the path to a file with an
+#' R Markdown partial.
+#' @param ... Passed on to [rmdpartials::partial()].
 #'
-#' @return invisibly, the dataframe with paths and values.
+#' @return The partial, or for the print function, the printed
+#' information (invisibly).
 #' 
 #' @rdname printrxs
+#' 
 #' @export
 rxs_partial <- function(x,
                         rxsStructure=NULL,
@@ -26,7 +32,8 @@ rxs_partial <- function(x,
       system.file("partials", "_rxs_partial.Rmd", package="metabefor");
   }
   
-  rmdpartials::partial(rmdPartialFilename);
+  rmdpartials::partial(rmdPartialFilename,
+                       ...);
   
 }
 
@@ -95,7 +102,7 @@ print.rxs <- function(x,
     
     print(res);
     
-    return(res);
+    return(invisible(res));
 
   }
   

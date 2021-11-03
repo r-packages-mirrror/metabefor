@@ -164,9 +164,12 @@ query_toInterfaceLang <- function(queryObject,
 
 #' @rdname queries
 #' @export
-print.mbf_query_toInterfaceLang <- function(x, header = "3", ...) {
-  cat(paste0(repStr("#", header), " PUBMED QUERY:\n", x$output$pubmed, "\n\n"));
-  cat(paste0(repStr("#", header), " EBSCOHOST QUERY:\n", x$output$ebscohost, "\n\n"));
-  cat(paste0(repStr("#", header), " OVID QUERY:\n", x$output$ovid, "\n\n"));
-  cat(paste0("NOTE: export the results as .RIS files, called 'MEDLINE' in PubMed."));
+print.mbf_query_toInterfaceLang <- function(x, headingLevel = 3, ...) {
+  heading(" PUBMED QUERY:", headingLevel = headingLevel);
+  cat(x$output$pubmed);
+  heading(" EBSCOHOST QUERY:", headingLevel = headingLevel);
+  cat(x$output$ebscohost);
+  heading(" OVID QUERY:", headingLevel = headingLevel);
+  cat(x$output$ovid);
+  cat("\n\nNOTE: export the results as .RIS files, called 'MEDLINE' in PubMed.\n");
 }

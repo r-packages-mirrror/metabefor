@@ -1,4 +1,25 @@
+#' Flatten one or more node values
+#' 
+#' "Flattening" a ndoe value means pasting together all values in the vector
+#' to one character value.
+#'
+#' @param singleValue The single node value
+#' @param x A list of node values
+#'
+#' @return A character value, or a vector of values.
 #' @export
+#'
+#' @rdname flatteningNodeValues
+#' 
+#' @examples metabefor::flattenNodeValue(1:8);
+#' 
+#' metabefor::flattenNodeValues(
+#'   list(
+#'     1:8,
+#'     letters[1:4],
+#'     LETTERS[10:17]
+#'   )
+#' );
 flattenNodeValue <- function(singleValue) {
   
   if (is.expression(singleValue)) {

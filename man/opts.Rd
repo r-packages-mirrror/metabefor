@@ -42,20 +42,20 @@ The following options can be set:
 }
 }
 \examples{
-### Get the default utteranceMarker
-metabefor::opts$get(utteranceMarker);
+### Get the default Quasi-Unique Record Identifier prefix
+metabefor::opts$get(quridPrefix);
 
 ### Set it to a custom version, so that every line starts with a pipe
-metabefor::opts$set(utteranceMarker = "\n|");
+metabefor::opts$set(quridPrefix = "QURID_");
 
 ### Check that it worked
-metabefor::opts$get(utteranceMarker);
+metabefor::opts$get(quridPrefix);
 
 ### Reset this option to its default value
-metabefor::opts$reset(utteranceMarker);
+metabefor::opts$reset(quridPrefix);
 
 ### Check that the reset worked, too
-metabefor::opts$get(utteranceMarker);
+metabefor::opts$get(quridPrefix);
 
 }
 \keyword{datasets}

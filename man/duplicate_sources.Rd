@@ -37,7 +37,10 @@ duplicate_sources(
 
 \item{forDeduplicationSuffix}{Suffix to add to optional deduplication columns}
 
-\item{silent}{}
+\item{returnRawStringDistances}{WHether to return the raw string distances
+or not.}
+
+\item{silent}{Whether to be silent or chatty}
 }
 \value{
 A vector indicating for each record whether it's a duplicate, with

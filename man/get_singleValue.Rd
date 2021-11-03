@@ -73,8 +73,22 @@ will be exploded into multiple rows.}
 \item{fieldname_regex_alwaysFlatten}{A regular expression to force
 flattening of fields regardless of matching to other regular expressions.}
 
+\item{returnLongDf}{Whether to return a long ('tidy') data frame, with all
+values on a separate row, or a wide ('multivariate') data frame, where
+columns represent different variables.}
+
 \item{pathString_regex_select}{Regex that the target entities' path strings
 have to match (otherwise, the entity is excluded)}
+
+\item{silent}{Whether to be silent or chatty.}
+
+\item{nullValue, naValue}{Values to return when encountering \code{NULL} or \code{NA}.}
+
+\item{warningValues}{Values to return warnings for.}
+
+\item{warningFunctions}{A list of functions to run on the values that can
+return a character value - if they do, that is shown as a warning or printed
+(depending on the value of \code{silent}).}
 }
 \value{
 A list or a dataframe (if \code{returnDf} is \code{TRUE})

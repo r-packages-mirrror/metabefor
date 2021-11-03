@@ -2,6 +2,9 @@
 #'
 #' @param x The list of vectors
 #' @param padWith The element to pad with
+#' @param fieldname_regex_alwaysFlatten A regular expression that,
+#' if it matches one of the names of `x`, always causes the corresponding
+#' values to be flattened first.
 #'
 #' @return The list with the padded vectors
 #' @export

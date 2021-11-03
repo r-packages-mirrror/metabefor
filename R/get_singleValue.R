@@ -17,13 +17,24 @@
 #' will be exploded into multiple rows.
 #' @param fieldname_regex_alwaysFlatten A regular expression to force
 #' flattening of fields regardless of matching to other regular expressions.
+#' @param returnLongDf Whether to return a long ('tidy') data frame, with all
+#' values on a separate row, or a wide ('multivariate') data frame, where
+#' columns represent different variables.
+#' @param nullValue,naValue Values to return when encountering `NULL` or `NA`.
+#' @param warningValues Values to return warnings for.
+#' @param warningFunctions A list of functions to run on the values that can
+#' return a character value - if they do, that is shown as a warning or printed
+#' (depending on the value of `silent`).
+#' @param silent Whether to be silent or chatty.
 #'
 #' @return A list or a dataframe (if `returnDf` is `TRUE`)
 #'
+#' @export
+#' 
+#' @rdname get_singleValue
+#'
 #' @examples
 #' 
-#' @export
-#' @rdname get_singleValue
 get_singleValue_fromTree <- function(x,
                                      entityId,
                                      lookInValueLists = TRUE,

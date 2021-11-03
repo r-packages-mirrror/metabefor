@@ -21,7 +21,8 @@ studyTree_matchingUniqueEntityIdentifiers(
 )
 }
 \arguments{
-\item{studies}{The \code{studies} object (i.e. parsed extraction scripts)}
+\item{studies, studyTree}{The \code{studies} object (i.e. parsed extraction
+scripts) or one single \code{studyTree}.}
 
 \item{regex}{The regular expression to use to find entity identifiers}
 
@@ -35,7 +36,7 @@ has a value list as value, and those value lists are returns (i.e.
 the regular expression) should be excluded.}
 }
 \value{
-
+A character vector of identifiers
 }
 \description{
 Look for all entity identifiers that a given pattern

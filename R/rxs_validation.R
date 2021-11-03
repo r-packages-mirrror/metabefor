@@ -108,14 +108,18 @@ rxs_validation <- function(studyTree,
           ### Find relevant node (entity) and get the valueTemplate
           ### Then get the error message to use.
           relevantNode <-
-            FindNode(rxsStructure$parsedEntities$extractionScriptTree,
-                     node$name);
+            data.tree::FindNode(
+              rxsStructure$parsedEntities$extractionScriptTree,
+              node$name
+            );
           if (is.null(relevantNode)) {
             ### Either a node with this name does not exist,
             ### or it's a recursive node
             relevantNode <-
-              FindNode(rxsStructure$parsedEntities$recursingNodes,
-                       node$name);
+              data.tree::FindNode(
+                rxsStructure$parsedEntities$recursingNodes,
+                node$name
+              );
           }
           if (is.null(relevantNode)) {
             valueTemplateName <- relevantNode[[eC$valueTemplateCol]];
@@ -127,7 +131,7 @@ rxs_validation <- function(studyTree,
               errorMsg <- "";
             } else {
               errorMsg <- gsub('NAME',
-                               valueName,
+                               node$name,
                                errorMsg);
             }
           }

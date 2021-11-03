@@ -26,7 +26,7 @@ query_requiredConcepts(..., conceptName = NULL)
 
 query_toInterfaceLang(queryObject, fields = "title", exclude = NULL)
 
-\method{print}{mbf_query_toInterfaceLang}(x, header = "3", ...)
+\method{print}{mbf_query_toInterfaceLang}(x, headingLevel = 3, ...)
 }
 \arguments{
 \item{...}{For the query building functions, the concepts or terms
@@ -34,18 +34,22 @@ to combine; for the \code{print} methods, the object to print.}
 
 \item{operator}{The operator to use to combining concept terms.}
 
+\item{x}{The query object to print.}
+
 \item{inclusion}{The result of a call to \code{query_requiredConcepts}.}
 
 \item{exclusion}{The result of a call to \code{query_conceptTerms}.}
 
 \item{queryName, conceptName}{The name of the query or concept.}
 
+\item{queryObject}{The query object.}
+
 \item{fields}{The fields in which to search; can currently
 only include 'title', 'abstract', or both.}
 
 \item{exclude}{Any terms to exclude as a character vector.}
 
-\item{queryName}{The name of the query.}
+\item{headingLevel}{The level of the headings to use when printing.}
 }
 \value{
 \code{query_full} returns an \code{mbf_query_full} object;
