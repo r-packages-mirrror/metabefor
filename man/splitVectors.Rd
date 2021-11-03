@@ -10,6 +10,9 @@ splitVectors(x, sep = "_", fieldname_regex_alwaysFlatten = NULL)
 \item{x}{The list of vectors}
 
 \item{sep}{The separator to use}
+
+\item{fieldname_regex_alwaysFlatten}{A regular expression that, when it
+matches a field name, always causes that field's contents to be flattened.}
 }
 \value{
 The list with the split vectors
@@ -23,6 +26,15 @@ metabefor::splitVectors(
     c(1, 2, 3),
     4,
     c(5, 6)
+  )
+);
+
+### With list names
+metabefor::splitVectors(
+  list(
+    a = c(1, 2, 3),
+    b = 4,
+    c = c(5, 6)
   )
 );
 }

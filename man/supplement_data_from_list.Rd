@@ -72,6 +72,10 @@ the source node.}
 \item{fieldsToCopy_regex}{A regular expression that can optionally be
 used to select fields to copy over from the source node to the target node.}
 
+\item{forceCopyingOfExistingValues}{Whether to force copying (and so
+overwriting) existing values if encountered in the target entity. If
+\code{FALSE}, existing values will not be overwritten.}
+
 \item{sourcePathString_regex, targetPathString_regex}{Regular expressions
 that must match the path string of the source of target node.}
 
@@ -82,9 +86,6 @@ values that are copied.}
 
 \item{studies}{Either a single study tree or an object with parsed rxs
 files.}
-
-\item{overwriteExistingValues}{Whether to overwrite existing values if
-those are encountered in the target entity.}
 }
 \value{
 Invisibly, the (altered) input - but note that since the \code{data.tree}

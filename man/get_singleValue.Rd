@@ -51,7 +51,7 @@ get_singleValue(
 )
 }
 \arguments{
-\item{x}{}
+\item{x}{The tree, tree list, or \code{studies} object.}
 
 \item{entityId}{The entity identifier of the value to get}
 
@@ -95,7 +95,4 @@ A list or a dataframe (if \code{returnDf} is \code{TRUE})
 }
 \description{
 Get a single value from a study tree, list of trees, or studies object
-}
-\examples{
-
 }

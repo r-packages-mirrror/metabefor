@@ -7,6 +7,8 @@
 #' @param echoPartial Whether to echo (show) the R code chunks in the partial
 #' @param partialFile Optionally (and advanced) the path to a file with an
 #' R Markdown partial.
+#' @param forceKnitrOutput Force output as if knitr would be knitting (to
+#' test stuff in the console).
 #' @param ... Passed on to [rmdpartials::partial()].
 #'
 #' @return The partial, or for the print function, the printed

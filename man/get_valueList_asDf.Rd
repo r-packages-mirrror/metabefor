@@ -58,6 +58,3 @@ A dataframe
 \description{
 Get a value list as data frame from a study tree, list of trees, or studies object
 }
-\examples{
-
-}

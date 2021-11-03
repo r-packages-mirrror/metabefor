@@ -8,6 +8,8 @@
 #'
 #' @param gs_url A Google Sheets URL (make sure it's viewable by anybody
 #' with the link!).
+#' @param graphTheme The graph theme to use.
+#' @param rxsStructure The Rxs specification as loaded from a spreadsheet.
 #' @param ws The worksheet names: a named list with four character values
 #' named `entities`, `valueTemplates`, `definitions`, and `instructions`.
 #' @param entitiesFilename,valueTemplatesFilename,definitionsFilename, When

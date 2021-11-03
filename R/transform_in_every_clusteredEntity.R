@@ -15,7 +15,7 @@
 #' @param studies The `studies` object (as produced
 #' by [metabefor::rxs_parseExtractionScripts()]).
 #' @param newEntityName The name of the new entity to add to the clustering
-#' entity.
+#' entity (i.e., the target entity's parent entity, a container entity).
 #' @param fun The function to apply.
 #' @param funArgs The arguments, as a character vector where each element is
 #' a clustered entity stored in the clustering entity, and each element's name
@@ -32,6 +32,7 @@
 #' @return Invisibly, the studies object. Note that the study trees will be
 #' changed in place given `data.tree`'s pass-by-reference logic; so you can
 #' discard the result.
+#' 
 #' @export
 #'
 #' @examples

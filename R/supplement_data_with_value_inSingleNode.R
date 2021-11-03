@@ -13,19 +13,27 @@
 #' to copy to a single entity but in all study trees in an object with parsed
 #' Rxs files.
 #'  
-#' @param studyTree The study tree
+#' @param studyTree,studies The study tree or the `studies` object.
 #' @param targetEntityNodeId The identifier of the target entity node (the
 #' entity node to supplement)
 #' @param sourceEntityNodeId The identifier of the source entity node.
-#' @param forceCopyingOfExistingValues Whether to overwrite an existing value
-#' if it is are encountered in the target entity.
 #' @param prefix,suffix A text string to prepend and append to the entity
 #' identifier when copying it to the target entity.
 #' @param sourcePathString_regex,targetPathString_regex Regular expressions
 #' that must match the path string of the source of target node.
+#' @param forceCopyingOfExistingValues Whether to force copying (and so
+#' overwriting) existing values if encountered in the target entity. If
+#' `FALSE`, existing values will not be overwritten.
+#' @param targetNodeListCreation_prefix,targetNodeListCreation_suffix A prefix
+#' and suffix to add when a list is created.
+#' @param targetEntityNode_requiredField A required field that, if it does not
+#' occur in the target entity, causes that target entity to be skipped. This
+#' provides additional control over which target entities to process.
 #' @param silent Whether to be quiet or chatty.
 #'
-#' @return
+#' @return Invisibly, the (altered) study tree - but note that since
+#' the `data.tree` package uses `R6`'s pass-by-reference semantics, that object
+#' is altered in place, and sothe returned object can be discarded.
 #' @rdname supplement_data_with_value
 #' @export
 #'

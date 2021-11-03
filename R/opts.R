@@ -73,7 +73,7 @@ opts$get <- function(option, default=FALSE) {
 
 opts$reset <- function(...) {
   optionNames <-
-    unlist(lapply(as.list(substitute(...())),
+    unlist(lapply(as.list(substitute(...)),
                   as.character));
   if (length(optionNames) == 0) {
     do.call(opts$set,

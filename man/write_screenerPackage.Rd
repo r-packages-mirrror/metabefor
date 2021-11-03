@@ -44,6 +44,8 @@ initialization field to the screener fields.}
 \item{basename}{The base name for the directories and files (appended
 with the screener identifiers)}
 
+\item{silent}{Whether to be silent or chatty.}
+
 \item{...}{Any additional arguments are passed to \code{\link[=write_JabRef_Config]{write_JabRef_Config()}}.}
 }
 \value{

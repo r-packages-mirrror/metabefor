@@ -30,6 +30,8 @@ tidy_studyTrees(
 \item{flattenToString}{Whether to flatten lists to a string
 or explode to separate variables.}
 
+\item{silent}{Whether to be silent or chatty.}
+
 \item{x}{A list of study trees}
 }
 \value{
