@@ -297,7 +297,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   ###---------------------------------------------------------------------------
   ### Process entities and value templates into rxsStructure
   ###---------------------------------------------------------------------------
-  
+
   rxsStructure <- rxs_parseSpecifications(
     entities = entities,
     valueTemplates = valueTemplates,
@@ -306,7 +306,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
     valueTemplateCols = valueTemplateCols,
     rootName = rootName
   );
-
+  
   rxsTemplate <- rxs_buildTemplate(
     rxsStructure = rxsStructure,
     yamlMetadata = yamlMetadata,
