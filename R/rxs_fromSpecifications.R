@@ -105,6 +105,7 @@ rxs_fromSpecifications <- function(gs_url = NULL,
   entities <- FALSE;
   definitions <- NULL; ### In case the full object is requested but
                        ### no definitions are loaded
+  
   if (!is.null(gs_url)) {
     tryCatch({
       googlesheets4::gs4_deauth();
@@ -124,49 +125,53 @@ rxs_fromSpecifications <- function(gs_url = NULL,
       }
     });
     
-    if (!(ws$entities %in% sheetNames)) {
-      stop("In the google sheet you specified, the worksheet names are ",
-           vecTxtQ(sheetNames), ", while in argument `ws$entities`, you ",
-           "passed '", ws$entities, "' as the name of the worksheet ",
-           "that specifies the entities to extract.");
-    }
-    
-    if (!(ws$valueTemplates %in% sheetNames)) {
-      stop("In the google sheet you specified, the worksheet names are ",
-           vecTxtQ(sheetNames), ", while in argument `ws$valueTemplates`, ",
-           "you passed '", ws$valueTemplates, "' as the name of the worksheet ",
-           "that specifies the value templates to use.");
-    }
-    
-    entities <- as.data.frame(
-      googlesheets4::read_sheet(gs_url, sheet = ws$entities)
-    );
-
-    valueTemplates <- as.data.frame(
-      googlesheets4::read_sheet(gs_url, sheet = ws$valueTemplates)
-    );
-    
-    if (!is.null(ws$definitions) && (ws$definitions %in% sheetNames)) {
-      definitions <- as.data.frame(
-        googlesheets4::read_sheet(gs_url, sheet = ws$definitions)
+    if (exists("sheetNames")) {
+  
+      if (!(ws$entities %in% sheetNames)) {
+        stop("In the google sheet you specified, the worksheet names are ",
+             vecTxtQ(sheetNames), ", while in argument `ws$entities`, you ",
+             "passed '", ws$entities, "' as the name of the worksheet ",
+             "that specifies the entities to extract.");
+      }
+      
+      if (!(ws$valueTemplates %in% sheetNames)) {
+        stop("In the google sheet you specified, the worksheet names are ",
+             vecTxtQ(sheetNames), ", while in argument `ws$valueTemplates`, ",
+             "you passed '", ws$valueTemplates, "' as the name of the worksheet ",
+             "that specifies the value templates to use.");
+      }
+      
+      entities <- as.data.frame(
+        googlesheets4::read_sheet(gs_url, sheet = ws$entities)
       );
-    } else {
-      definitions <- NULL;
-    }
-    
-    if (!is.null(ws$instructions) && (ws$instructions %in% sheetNames)) {
-      instructionSheet <- as.data.frame(
-        googlesheets4::read_sheet(gs_url, sheet = ws$instructions)
+  
+      valueTemplates <- as.data.frame(
+        googlesheets4::read_sheet(gs_url, sheet = ws$valueTemplates)
       );
-    } else {
-      instructionSheet <- NULL;
-    }
+      
+      if (!is.null(ws$definitions) && (ws$definitions %in% sheetNames)) {
+        definitions <- as.data.frame(
+          googlesheets4::read_sheet(gs_url, sheet = ws$definitions)
+        );
+      } else {
+        definitions <- NULL;
+      }
+      
+      if (!is.null(ws$instructions) && (ws$instructions %in% sheetNames)) {
+        instructionSheet <- as.data.frame(
+          googlesheets4::read_sheet(gs_url, sheet = ws$instructions)
+        );
+      } else {
+        instructionSheet <- NULL;
+      }
+      
+      if (!silent) {
+        cat("Successfully read the extraction script specifications from Google sheets.\n");
+      }
+      
+    }      
     
-    if (!silent) {
-      cat("Successfully read the extraction script specifications from Google sheets.\n");
-    }
-    
-  }      
+  }
   
   ###---------------------------------------------------------------------------
   ### Read sheets from local file

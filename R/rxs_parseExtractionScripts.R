@@ -49,9 +49,20 @@ rxs_parseExtractionScripts <- function(path,
   }
 
   res$input$allScripts <- allScripts;
+  
+  if (progressBar) {
+    if (!interactive()) {
+      progressBar <- FALSE;
+    }
+    if (!requireNamespace("progress", quietly = TRUE)) {
+      progressBar <- FALSE;
+    }
+  }
 
-  if (interactive() && (progressBar)) {
-    p <- progress::progress_bar(total = length(allScripts));
+  if (progressBar) {
+    p <- progress::progress_bar$new(
+      total = length(allScripts),
+      format = ":spin [:bar] :percent in :elapsedfull, :eta to go");
     #p <- dplyr::progress_estimated(length(allScripts));
   };
 
@@ -210,7 +221,7 @@ rxs_parseExtractionScripts <- function(path,
       study <- get('study', envir=globalenv());
       
       res$rxsTrees[[filename]] <-
-        data.tree::Clone();
+        data.tree::Clone(study);
       
       res$log <- c(
         res$log,
@@ -245,7 +256,7 @@ rxs_parseExtractionScripts <- function(path,
       res$rxsTrees[[filename]] <- NA;
     }
 
-    if (interactive() && (silent)) {
+    if (progressBar) {
       #p$tick()$print();
       p$tick();
     };
@@ -259,7 +270,7 @@ rxs_parseExtractionScripts <- function(path,
         silent = silent
     )
   );
-  
+
   validTrees <- unlist(lapply(res$rxsTrees, inherits, "Node"));
   validTreeNames <- names(res$rxsTrees[validTrees]);
   invalidTreeNames <- names(res$rxsTrees[!validTrees]);
