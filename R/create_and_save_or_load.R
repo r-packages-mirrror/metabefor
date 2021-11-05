@@ -22,8 +22,8 @@ create_and_save_or_load_rds <- function(condition,
     pattern=paste0("^", filenameStart, "--.*\\.rds$"),
     full.names=TRUE
   );
-    
-  if (condition) {
+
+  if (tryToSave) {
 
     object <- eval(expression);
     
@@ -66,9 +66,6 @@ create_and_save_or_load_rds <- function(condition,
       );
       
       return(res);
-    } else {
-      stop("Object `", objectName, "` does not exist, nor is there an ",
-           "automatically stored version available to load!");
     }
 
   }
