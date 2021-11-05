@@ -1,6 +1,6 @@
 #' @rdname something_akin_to_caching
 #' @export
-create_and_save_or_load_rds <- function(condition,
+create_and_save_or_load_rds <- function(tryToSave,
                                         expression,
                                         objectName,
                                         path,
@@ -30,7 +30,7 @@ create_and_save_or_load_rds <- function(condition,
     ### Delete all but most recent one(s)
     filesToKeepMinusOne <- filesToKeep - 1;
     if (length(fileList) > filesToKeepMinusOne) {
-      unlink(head(sort(fileList), -filesToKeepMinusOne));
+      unlink(utils::head(sort(fileList), -filesToKeepMinusOne));
     }
     
     currentDate <- Sys.time();
@@ -56,7 +56,7 @@ create_and_save_or_load_rds <- function(condition,
   } else {
 
     if (length(fileList) > 0) {
-      filenameToLoad <- tail(sort(fileList), 1);
+      filenameToLoad <- utils::tail(sort(fileList), 1);
       res <-
         readRDS(extractedStudiesFilename);
       

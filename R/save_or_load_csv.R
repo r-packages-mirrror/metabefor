@@ -35,7 +35,7 @@ save_or_load_csv <- function(object,
     ### Delete all but most recent one(s)
     filesToKeepMinusOne <- filesToKeep - 1;
     if (length(fileList) > filesToKeepMinusOne) {
-      unlink(head(sort(fileList), -filesToKeepMinusOne));
+      unlink(utils::head(sort(fileList), -filesToKeepMinusOne));
     }
     
     currentDate <- Sys.time();
@@ -48,7 +48,7 @@ save_or_load_csv <- function(object,
 
     fileName <- file.path(path, paste0(filenameStart, fileNameEnd));
 
-    write.csv(
+    utils::write.csv(
       object,
       fileName
     );
@@ -63,8 +63,8 @@ save_or_load_csv <- function(object,
   } else {
 
     if (length(fileList) > 0) {
-      filenameToLoad <- tail(sort(fileList), 1);
-      res <- read.csv(filenameToLoad);
+      filenameToLoad <- utils::tail(sort(fileList), 1);
+      res <- utils::read.csv(filenameToLoad);
       return(res);
     } else {
       stop("Object `", objectName, "` does not exist, nor is there an ",

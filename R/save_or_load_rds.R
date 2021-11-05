@@ -54,7 +54,7 @@ save_or_load_rds <- function(object,
     ### Delete all but most recent one(s)
     filesToKeepMinusOne <- filesToKeep - 1;
     if (length(fileList) > filesToKeepMinusOne) {
-      unlink(head(sort(fileList), -filesToKeepMinusOne));
+      unlink(utils::head(sort(fileList), -filesToKeepMinusOne));
     }
     
     currentDate <- Sys.time();
@@ -82,7 +82,7 @@ save_or_load_rds <- function(object,
   } else {
 
     if (length(fileList) > 0) {
-      filenameToLoad <- tail(sort(fileList), 1);
+      filenameToLoad <- utils::tail(sort(fileList), 1);
       res <- readRDS(filenameToLoad);
       return(res);
     } else {
