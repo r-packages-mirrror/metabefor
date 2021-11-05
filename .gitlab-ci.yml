@@ -5,6 +5,10 @@ variables:
 
 image: rocker/tidyverse
 
+stages:
+  - test
+  - build
+
 before_script:
   - apt-get update
   - apt-get install -y --no-install-recommends ${APT_PKGS}
