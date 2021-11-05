@@ -35,64 +35,59 @@ save_or_load_rds <- function(object,
     stop("The directory passed as `path`, '", path,
          "', does not exist.");
   }
-
-  # objectNames <-
-  #   unlist(lapply(as.list(substitute(...)),
-  #                 as.character));
   objectName <- as.character(substitute(object));
   
-  # for (currentObject in objectNames) {
-
-    filenameStart <-
-      paste0(prefix, "--", objectName, "--", suffix);
+  filenameStart <-
+    paste0(prefix, "--", objectName, "--", suffix);
+  
+  ### Get a list of the existing files
+  fileList <- list.files(
+    path,
+    pattern=paste0("^", filenameStart, "--.*\\.rds$"),
+    full.names=TRUE
+  );
+  
+  if (exists(object)) {
     
-    ### Get a list of the existing files
-    fileList <- list.files(
-      path,
-      pattern=paste0("^", filenameStart, "--.*\\.rds$"),
-      full.names=TRUE
+    ### Delete all but most recent one(s)
+    filesToKeepMinusOne <- filesToKeep - 1;
+    if (length(fileList) > filesToKeepMinusOne) {
+      unlink(head(sort(fileList), -filesToKeepMinusOne));
+    }
+    
+    currentDate <- Sys.time();
+    
+    fileNameEnd <-
+      format(
+        currentDate,
+        "--%Y-%m-%d--%H-%M.rds"
+      );
+
+    fileName <- file.path(path, paste0(filenameStart, fileNameEnd));
+    
+    doCallObject <-
+      list(object,
+           fileName);
+    names(doCallObject) <- c(objectName, "file");
+    
+    do.call(
+      saveRDS,
+      doCallObject
     );
     
-    if (exists(object)) {
-      
-      ### Delete all but most recent one(s)
-      filesToKeepMinusOne <- filesToKeep - 1;
-      if (length(fileList) > filesToKeepMinusOne) {
-        unlink(head(sort(fileList), -filesToKeepMinusOne));
-      }
-      
-      currentDate <- Sys.time();
-      
-      fileNameEnd <-
-        format(
-          currentDate,
-          "--%Y-%m-%d--%H-%M.rds"
-        );
+    return(object);
+    
+  } else {
 
-      fileName <- paste0(filenameStart, fileNameEnd);
-      
-      doCallObject <-
-        list(object,
-             fileName);
-      names(doCallObject) <- c(objectName, "file");
-      
-      do.call(
-        saveRDS,
-        doCallObject
-      );
-      
-      return(object);
-      
+    if (length(fileList) > 0) {
+      filenameToLoad <- tail(sort(fileList), 1);
+      res <- readRDS(filenameToLoad);
+      return(res);
     } else {
-
-      if (length(fileList) > 0) {
-        filenameToLoad <- tail(sort(fileList), 1);
-        return(readRDS(extractedStudiesFilename));
-      } else {
-        stop("Object `", objectName, "` does not exist, nor is there an ",
-             "automatically stored version available to load!");
-      }
-
+      stop("Object `", objectName, "` does not exist, nor is there an ",
+           "automatically stored version available to load!");
     }
-  #}
+
+  }
+  
 }
