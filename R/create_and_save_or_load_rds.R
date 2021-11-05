@@ -58,7 +58,7 @@ create_and_save_or_load_rds <- function(tryToSave,
     if (length(fileList) > 0) {
       filenameToLoad <- utils::tail(sort(fileList), 1);
       res <-
-        readRDS(extractedStudiesFilename);
+        readRDS(filenameToLoad);
       
       msg(
         "Loaded the requested object from '", filenameToLoad, "'.",
