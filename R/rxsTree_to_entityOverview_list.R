@@ -120,7 +120,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
             paste0(
               res,
               "  \n**Repeating**: `",
-              ifelse(is.null(node$repeating) || !node$repeating,
+              ifelse(is.null(node$repeating) || !(isTRUE(node$repeating)),
                      "FALSE",
                      "TRUE"),
               "`"

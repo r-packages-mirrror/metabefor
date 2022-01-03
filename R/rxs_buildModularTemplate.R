@@ -1,18 +1,20 @@
 #' @rdname rxs_templateBuilding
 #' @export
-rxs_buildTemplate <- function(rxsStructure,
-                              yamlMetadata = list(title = "Systematic Review Extraction Script Template",
-                                                  author = NULL,
-                                                  date = format(Sys.time(), '%d %b %Y at %H:%M:%S')),
-                              gs_url = NULL,
-                              indent = TRUE,
-                              indentSpaces = 2,
-                              fullWidth = 80,
-                              commentCharacter = "#",
-                              fillerCharacter = "#",
-                              eC = metabefor::opts$get("entityColNames"),
-                              repeatingSuffix = "__1__",
-                              silent=FALSE) {
+rxs_buildModularTemplate <- function(rxsStructure,
+                                     module,
+                                     yamlMetadata = list(title = "Systematic Review Extraction Script Template",
+                                                         author = NULL,
+                                                         date = format(Sys.time(),
+                                                                       format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)'))),
+                                     gs_url = NULL,
+                                     indent = TRUE,
+                                     indentSpaces = 2,
+                                     fullWidth = 80,
+                                     commentCharacter = "#",
+                                     fillerCharacter = "#",
+                                     eC = metabefor::opts$get("entityColNames"),
+                                     repeatingSuffix = "__1__",
+                                     silent=FALSE) {
 
   if (!("rxsStructure" %IN% class(rxsStructure))) {
     stop("The class of the object provided as argument 'rxsStructure' is not ",

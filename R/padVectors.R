@@ -38,14 +38,15 @@ padVectors <- function(x,
     
     maxVectorLength <- max(vectorLengths);
     
-    vectorsToGrow <- which(vectorLengths > 1 &
+    #vectorsToGrow <- which(vectorLengths > 1 &
+	 vectorsToGrow <- which(vectorLengths > 0 &
                              vectorLengths < maxVectorLength);
     
     elementsToAdd <-
       lapply(
         maxVectorLength - vectorLengths,
         rep,
-        x = NA
+        x = padWith
       );
 
     for (i in seq_along(vectorsToGrow)) {

@@ -101,7 +101,16 @@ opts$defaults <-
     quridPrefix = "qurid_",
     quridSuffix = "",
     
+    idEntityName = "id",
+    
+    moduleWithoutName = "moduleWithoutName",
+    
     ### Used to parse rxs specifications
+    rxsSheetnames = list(entities = 'entities',
+                         valueTemplates = 'valueTemplates',
+                         definitions = 'definitions',
+                         instructions = 'instructions'),
+    
     entityColNames = list(titleCol = "title",
                           descriptionCol = "description",
                           identifierCol = "identifier",
@@ -109,6 +118,7 @@ opts$defaults <-
                           validValuesCol = "validValues",
                           defaultCol = "default",
                           parentCol = "parent",
+                          moduleCol = "module",
                           entityRefCol = "entityRef",
                           fieldRefCol = "fieldRef",
                           ownerCol = "owner",
@@ -126,6 +136,12 @@ opts$defaults <-
                                  examplesCol = "examples",
                                  validationCol = "validation",
                                  errorCol = "error"),
+    
+    instructionsColNames = list(headingCol = "heading",
+                                descriptionCol = "description"),
+    
+    defininitionsColNames = list(termCol = "term",
+                                 definitionCol = "definition"),
     
     txsColNames = list(study_identification_entity_id = 'study_identification_entity_id',
                        study_identification_value = 'study_identification_value',
@@ -167,11 +183,20 @@ opts$defaults <-
       c("fillcolor", "#FFFFFF", "node")
     ),
     
+    rxsReservedNames = c("title", "value"),
+    
     diagrammerSanitization = list(c("\\\"", "`"),
                                   c("\\'", "`"),
                                   c("\\\\", "/"),
                                   c("[^a-zA-Z0-9;)(,._/`-]", " ")),
-
+    
+    ### Regular expressions for Google Sheets
+    gSheetId_extractionRegex =
+      "^https://docs\\.google\\.com/spreadsheets/d/([a-zA-Z0-9_-]*)(/.*)?$",
+    
+    gSheetId_to_exportLink =
+      "https://docs.google.com/spreadsheets/d/%s/export?format=xlsx",
+    
     ### Used throughout for working with files
     encoding = "UTF-8",
     preventOverwriting = TRUE,

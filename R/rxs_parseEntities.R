@@ -2,6 +2,20 @@ rxs_parseEntities <- function(entities,
                               eC = metabefor::opts$get("entityColNames"),
                               rootName = 'study') {
 
+  reservedNames <-
+    c(metabefor::opts$get("rxsReservedNames"),
+      data.tree::NODE_RESERVED_NAMES_CONST);
+  
+  usedReservedNames <-
+    reservedNames %IN% entities[[eC$identifierCol]];
+  
+  if (any(usedReservedNames)) {
+    stop("In the column with entity identifiers ('", eC$identifierCol,
+         "'), you specified one of the reserved names as an identifier, ",
+         "specifically ", vecTxtQ(reservedNames[usedReservedNames]), ". ",
+         "Please change it to something else!");
+  }
+  
   ### Prepare dataframe with entities for conversion to a tree
   dataFrameNetwork <-
     as.data.frame(entities[!is.na(entities[[eC$identifierCol]]),
