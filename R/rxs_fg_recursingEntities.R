@@ -7,9 +7,12 @@ rxs_fg_recursingEntities <- function(listOfNodes,
                                      fillerCharacter = "#",
                                      eC = metabefor::opts$get("entityColNames"),
                                      repeatingSuffix = "__1__",
-                                     silent=FALSE,
+                                     silent=metabefor::opts$get("silent"),
                                      overrideLevel = NULL) {
-
+  
+  rxsVersion <- metabefor::opts$get("rxsVersion");
+  rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  
   ### A container for all recursing entities
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
@@ -79,7 +82,7 @@ rxs_fg_recursingEntities <- function(listOfNodes,
                                                   pattern=paste0("study$AddChild('", node$name, "');"),
                                                   replacement="",
                                                   fixed=TRUE);
-                                    ### In each recursive entitie (and its entire tree), replace
+                                    ### In each recursive entity (and its entire tree), replace
                                     ### the assignment path with the placeholder name
                                     res <- sapply(res,
                                                   gsub,

@@ -25,7 +25,15 @@ studyTree_to_valueDf <- function(studyTree) {
                         flattenNodeValues(nodeValue),
                         stringsAsFactors = FALSE);
       names(res) <- c("path", "entity", "nodeValue");
+      
+      if (ncol(res) > 3) {
+        warning("When converting a study tree to a data frame, in ",
+                "'", nodeName,
+                "', a data frame with too many columns was produced.");
+      }
+      
       return(res);
+      
     } else {
       pathString <- node$parent$pathString;
       res <- data.frame(pathString,
@@ -33,10 +41,17 @@ studyTree_to_valueDf <- function(studyTree) {
                         flattenNodeValue(nodeValue),
                         stringsAsFactors = FALSE);
       names(res) <- c("path", "entity", "nodeValue");
+      
+      if (ncol(res) > 3) {
+        warning("When converting a study tree to a data frame, in ",
+                "'", nodeName,
+                "', a data frame with too many columns was produced.");
+      }
+      
       return(res);
+      
     }
-  }, filterFun = data.tree::isLeaf,
-  simplify=FALSE);
+  }, filterFun = data.tree::isLeaf, simplify=FALSE);
 
   res <- metabefor::rbind_df_list(res);
   

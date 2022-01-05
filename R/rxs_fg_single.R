@@ -7,9 +7,12 @@ rxs_fg_single <- function(node,
                           fillerCharacter = "#",
                           repeatingSuffix = "__1__",
                           eC = metabefor::opts$get("entityColNames"),
-                          silent=FALSE,
+                          silent=metabefor::opts$get("silent"),
                           overrideLevel = NULL) {
-
+  
+  rxsVersion <- metabefor::opts$get("rxsVersion");
+  rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  
   ### Simplest situation; we'll just return a full, simple
   ### fragment for this entity alone.
 
@@ -43,16 +46,35 @@ rxs_fg_single <- function(node,
     currentStartEndName <- node$name;
   }
 
-  childAddition <- paste0(lV$indentSpaces,
-                          returnPathToRoot(node$parent),
-                          "$AddChild('",
-                          currentEntityName,
-                          "');");
-
-  assignmentToChild <- paste0(lV$indentSpaces,
-                              returnPathToRoot(node),
-                              "[['value']] <-");
-
+  if (rxsVersion < "0.3.0") {
+    ### Old version, before making new node available as 'current node name'
+    childAddition <- paste0(lV$indentSpaces,
+                            returnPathToRoot(node$parent),
+                            "$AddChild('",
+                            currentEntityName,
+                            "');");
+  } else {
+    ### Now we always make new node accessible as 'current node name'
+    childAddition <- paste0(lV$indentSpaces,
+                            rxsCurrentNodeName, " <- ",
+                            rxsCurrentNodeName,
+                            "$AddChild('",
+                            currentEntityName,
+                            "');");
+  }
+  
+  if (rxsVersion < "0.3.0") {
+    ### Old version, before making new node available as 'current node name'
+    assignmentToChild <- paste0(lV$indentSpaces,
+                                returnPathToRoot(node),
+                                "[['value']] <-");
+  } else {
+    ### Now we always make new node accessible as 'current node name'
+    assignmentToChild <- paste0(lV$indentSpaces,
+                                rxsCurrentNodeName,
+                                "[['value']] <-");
+  }
+  
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
                             description=node[[eC$descriptionCol]],
@@ -118,13 +140,26 @@ rxs_fg_single <- function(node,
   ### way to leverage data.tree's "Do"
 
 
-
-  validationSpecification <-
-    paste0(lV$indentSpaces,
-           returnPathToRoot(node),
-           "[['validation']] <- expression(",
-           valueTemplateValidation,
-           ");");
+  if (rxsVersion < "0.3.0") {
+    validationSpecification <-
+      paste0(lV$indentSpaces,
+             returnPathToRoot(node),
+             "[['validation']] <- expression(",
+             valueTemplateValidation,
+             ");");
+    backToParent <- NULL;
+  } else {
+    validationSpecification <-
+      paste0(lV$indentSpaces,
+             rxsCurrentNodeName,
+             "[['validation']] <- expression(",
+             valueTemplateValidation,
+             ");");
+    backToParent <- paste0(lV$indentSpaces,
+                           rxsCurrentNodeName,
+                           " <- ", rxsCurrentNodeName,
+                           "$parent;");
+  }
 
   openingTxt <- paste0(" START: ", currentStartEndName, " ");
   closingTxt <- paste0(" END: ", currentStartEndName, " ");
@@ -161,6 +196,7 @@ rxs_fg_single <- function(node,
                 lV$commentPrefix,
                 lV$lineFiller,
                 validationSpecification,
+                backToParent,
                 lV$lineFiller,
                 closingTxt,
                 lV$lineFiller)));

@@ -1,0 +1,361 @@
+---
+title: "Systematic Review Extraction Script Template"
+date: "2022-01-05 at 17:09:04 CET (UTC+0100)"
+output:
+  html_document:
+    self-contained: yes
+    toc: false
+params:
+  rxsVersion = "0.3.0"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r rxs-setup-chunk-t4sNeq, echo=FALSE, results='hide'}
+```
+
+```{r rxsChunk, echo=FALSE}
+################################################################################
+############################################## START: uniqueSourceIdentifier ###
+################################################################################
+uniqueSourceIdentifier <- 
+################################################################################
+### 
+### SET UNIQUE SOURCE IDENTIFIER
+### 
+### A unique identifier used in this systematic review to refer to this
+### source
+### 
+################################################################################
+    
+    ""
+    
+################################################################################
+############################################# VALUE DESCRIPTION AND EXAMPLES ###
+################################################################################
+### 
+### A unique identifier to use in this systematic review. For sources with
+### a DOI, this is the last part of the shortDOI as looked up through
+### https://shortdoi.org (the part after the "10/"). For studies without a
+### DOI (and so, without a shortDOI), this can be, for example, the QURID
+### (Quasi-Unique Record Identifier) that was designated during the
+### screening phase.
+### 
+### EXAMPLES:
+### 
+### "g5fj"
+### "qurid_7h4pksl6"
+### 
+################################################################################
+################################################ END: uniqueSourceIdentifier ###
+################################################################################
+
+
+################################################################################
+####################################################### START: source (ROOT) ###
+################################################################################
+rxsObject <- data.tree::Node$new('source');
+currentEntity <- rxsObject;
+################################################################################
+
+  ##############################################################################
+  ################################################################ START: id ###
+  ##############################################################################
+  currentEntity <- currentEntity$AddChild('id');
+  currentEntity[['value']] <-
+  ##############################################################################
+  ### 
+  ### STUDY IDENTIFIER
+  ### 
+  ### A unique identifier used in this systematic review to refer to this
+  ### study
+  ### 
+  ##############################################################################
+      
+      NA
+      
+  ##############################################################################
+  ########################################### VALUE DESCRIPTION AND EXAMPLES ###
+  ##############################################################################
+  ### 
+  ### A unique identifier to use in this systematic review. For sources
+  ### with a DOI, this is the last part of the shortDOI as looked up
+  ### through https://shortdoi.org (the part after the "10/"). For
+  ### studies without a DOI (and so, without a shortDOI), this is the
+  ### QURID (Quasi-Unique Record Identifier) that was designated during
+  ### the screening phase.
+  ### 
+  ### EXAMPLE:
+  ### 
+  ### "g5fj"
+  ### 
+  ##############################################################################
+  currentEntity[['validation']] <- expression(grepl("^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$", VALUE));
+  currentEntity <- currentEntity$parent;
+  ##############################################################################
+  ################################################################## END: id ###
+  ##############################################################################
+
+
+  ##############################################################################
+  ###################################################### START: associations ###
+  ##############################################################################
+  currentEntity <- currentEntity$AddChild('associations');
+  ##############################################################################
+  ### 
+  ### ASSOCIATIONS
+  ### 
+  ### Associations that are extracted from this study
+  ### 
+  ##############################################################################
+      
+  
+    ############################################################################
+    ##################################################### START: association ###
+    ############################################################################
+    currentEntity <- currentEntity$AddChild('association');
+    currentEntity[['value']] <-
+    ############################################################################
+    ### 
+    ### ASSOCIATION
+    ### 
+    ### One single association
+    ### 
+    ############################################################################
+        
+        list(associationIdentifier = NA,           ### Association Identifier: A unique identifier for this association [Examples: "example1"; "another_identifier_example"; "finalExample"] [Value description: A single character value that is used as an identifier and so is always mandatory and can only contain a-z, A-Z, 0-9, and underscores, and must start with a letter.]
+             varId1 = "enter <<entityRef>> here",  ### Variable Identifier vor variable 1: The identifier of the one variable (specified in the methods section) that this association relates to [Examples: <no example>] [Value description: A string that specifies another entity and which MUST be provided]
+             varId2 = "enter <<entityRef>> here",  ### Variable Identifier vor variable 2: The identifier of the other variable (specified in the methods section) that this association relates to [Examples: <no example>] [Value description: A string that specifies another entity and which MUST be provided]
+             r = NA,                               ### Pearson's r: The Pearson correlation coefficient for this association (if both variables are continuous) [Examples: 2.3; 643.2] [Value description: Any valid number]
+             t = NA);                              ### Student's t: The Student's t value for this association (if one of the two variables is dichotomous) [Examples: 2.3; 643.2] [Value description: Any valid number]
+        
+    ############################################################################
+    currentEntity[['validation']] <- list(`associationIdentifier` = expression(grepl("[a-zA-Z][a-zA-Z0-9_]*", VALUE)),
+                                          `varId1` = expression(rxs_findEntity(node, "variableIdentifier", VALUE)),
+                                          `varId2` = expression(rxs_findEntity(node, "variableIdentifier", VALUE)),
+                                          `r` = expression(is.na(VALUE) || (is.numeric(VALUE) && (length(VALUE) == 1))),
+                                          `t` = expression(is.na(VALUE) || (is.numeric(VALUE) && (length(VALUE) == 1))));
+    currentEntity[['entityRefs']] <- c(varId1="variableIdentifier", varId2="variableIdentifier");
+    currentEntity <- currentEntity$parent;
+    ############################################################################
+    ####################################################### END: association ###
+    ############################################################################
+  
+      
+  ##############################################################################
+  ##############################################################################
+  currentEntity <- currentEntity$parent;
+  ##############################################################################
+  ######################################################## END: associations ###
+  ##############################################################################
+
+    
+################################################################################
+######################################################### END: source (ROOT) ###
+################################################################################
+class(rxsObject) <- c('rxs', 'rxsObject', class(rxsObject));
+rxsObject$rxsMetadata <- list(rxsVersion='0.3.0', moduleId="module3", id=uniqueSourceIdentifier);
+if (!(grepl("^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$", rxsObject$rxsMetadata$id, ignore.case=TRUE))) {
+  stop("The source identifier you specified, '", rxsObject$rxsMetadata$id, 
+       "', does not validate (i.e., it does not match the predefined format)!");
+}
+```
+
+
+```{r rxs-show-extracted-data-chunk-aQEXYU}
+metabefor::rxs_partial(rxsObject);
+```
+
+```{r rxs-validation-chunk-bupvTH, results='asis'}
+#metabefor::rxs_validation(rxsObject);
+metabefor::heading('Validation results', headingLevel = 1);
+#rxs_validation(rxsObject,
+#               rxsStructure = fullResults$rxsStructure);
+if (length(rxsObject$validationResults) > 2) {
+  cat(paste0('- ', rxsObject$validationResults), sep='
+');
+} else {
+  cat('Validation successful!');
+}
+```
+
+```{r rxs-setup-chunk-t4sNeq, include=FALSE, messages=FALSE}
+### First check for (and perhaps install) metabefor
+if (!('metabefor' %in% row.names(installed.packages()))) {
+  install.packages('metabefor', repos='http://cran.rstudio.com');
+}
+
+### Settings
+knitr::opts_chunk$set(echo = FALSE);     ### Suppress R command printing
+knitr::opts_chunk$set(comment = NA);     ### Suppress output prefix
+```
+
+<!-- Here, the original Rxs template specification is included. ~~~~~~~~~~~-->
+
+```{r rxs-template-specification-chunk-BHZO0q, echo=FALSE}
+
+rxsTemplateSpec <- 
+  list(entities = structure(list(title = c("Study identifier", 
+  "General", "Year", "Authors", "Title", "Study identifier", "Methods", 
+  "Sample", "Sample size", "Sampling Strategy", "Method", "Variables", 
+  "Variable", "Variable Identifier", "Results", "Study identifier", 
+  "Associations", "Association", "Association Identifier", "Variable Identifier vor variable 1", 
+  "Variable Identifier vor variable 2", "Pearson's r", "Student's t"
+  ), description = c("A unique identifier used in this systematic review to refer to this study", 
+  "General information", "Year (or years) the source was published", 
+  "The authors of this source", "The title of this source", "A unique identifier used in this systematic review to refer to this study", 
+  "Description of the methods used by the study", "Information about the sample", 
+  "Total number of human participants in the study (note: the actual sample size may be larger if multiple observations are collected per participant)", 
+  "The procedure used to obtain the sample", "The method a study used", 
+  "The variables in this study", "The description of one variable in this study", 
+  "The unique identifier for this variable", "The results from this study.", 
+  "A unique identifier used in this systematic review to refer to this study", 
+  "Associations that are extracted from this study", "One single association", 
+  "A unique identifier for this association", "The identifier of the one variable (specified in the methods section) that this association relates to", 
+  "The identifier of the other variable (specified in the methods section) that this association relates to", 
+  "The Pearson correlation coefficient for this association (if both variables are continuous)", 
+  "The Student's t value for this association (if one of the two variables is dichotomous)"
+  ), identifier = c("id", "general", "publicationYear", "sourceAuthors", 
+  "sourceTitle", "id", "methods", "sample", "sampleSize", "samplingStrategy", 
+  "method", "variables", "variable", "variableIdentifier", "measurementLevel", 
+  "id", "associations", "association", "associationIdentifier", 
+  "varId1", "varId2", "r", "t"), valueTemplate = c("id", NA, "integer.length4.multi", 
+  "countrycode", "string.mandatory", "id", NA, NA, "integer", "string", 
+  "categorical", NA, NA, "string.identifier", "categorical", "id", 
+  NA, NA, "string.identifier", "string.entityRef.mandatory", "string.entityRef.mandatory", 
+  "numeric", "numeric"), validValues = c(NA, NA, NA, NA, NA, NA, 
+  NA, NA, NA, NA, "\"Qualitative\" || \"Quantitative\" || \"Mixed\" || \"Review\"", 
+  NA, NA, NA, "\"Nominal\" || \"Ordinal\" || \"Continuous\"", NA, 
+  NA, NA, NA, NA, NA, NA, NA), default = c(NA_character_, NA_character_, 
+  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+  NA_character_), examples = c(NA_character_, NA_character_, NA_character_, 
+  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_
+  ), parent = c(NA, NA, "general", "general", "general", NA, NA, 
+  "methods", "sample", "sample", "methods", "methods", "variables", 
+  "variable", "variable", NA, NA, "associations", "association", 
+  "association", "association", "association", "association"), 
+      module = c("module1", "module1", "module1", "module1", "module1", 
+      "module2", "module2", "module2", "module2", "module2", "module2", 
+      "module2", "module2", "module2", "module2", "module3", "module3", 
+      "module3", "module3", "module3", "module3", "module3", "module3"
+      ), entityRef = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 
+      NA, NA, NA, NA, NA, NA, NA, NA, NA, "variableIdentifier", 
+      "variableIdentifier", NA, NA), fieldRef = c(NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_), owner = c(NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_), list = c(NA, NA, NA, NA, NA, NA, NA, NA, 
+      NA, NA, NA, NA, "TRUE", NA, NA, NA, NA, "TRUE", NA, NA, NA, 
+      NA, NA), collapsing = c(NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_
+      ), repeating = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 
+      NA, NA, "TRUE", NA, NA, NA, NA, "TRUE", NA, NA, NA, NA, NA
+      ), recurring = c(NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_
+      ), recursing = c(NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_
+      ), identifying = c("TRUE", NA, NA, NA, NA, "TRUE", NA, NA, 
+      NA, NA, NA, NA, NA, "TRUE", NA, "TRUE", NA, NA, "TRUE", NA, 
+      NA, NA, NA)), row.names = c(NA, -23L), class = "data.frame"), 
+      valueTemplates = structure(list(identifier = c("id", "xdoi", 
+      "numeric", "numeric.multi", "integer", "integer.multi", "integer.length4.multi", 
+      "string", "string.multi", "countrycode", "categorical", "generalPresence", 
+      "string.mandatory", "string.entityRef.mandatory", "string.entityRef.optional", 
+      "string.fieldRef.optional", "matrix.crosstab", "string.identifier"
+      ), description = c("A unique identifier to use in this systematic review. For sources with a DOI, this is the last part of the shortDOI as looked up through https://shortdoi.org (the part after the \"10/\"). For studies without a DOI (and so, without a shortDOI), this is the QURID (Quasi-Unique Record Identifier) that was designated during the screening phase.", 
+      "For studies with a DOI, \"doi:\" directly followed by the DOI; for studies without a DOI, the DOI prefix of the publisher (see https://gist.github.com/TomDemeranville/8699224), followed by a slash, followed by the ISSN, followed by a dash, followed by the year of publication, followed by a dash, followed by the starting page. If no DOI prefix can be located, instead use 'NA'.", 
+      "Any valid number", "A vector of valid numbers", "Any valid whole number", 
+      "A vector of integers (i.e. one or more whole numbers)", 
+      "A numeric vector of years", "A single character value", 
+      "A character vector (i.e. one or more strings)", "A character vector of the ISO 3166-1 alpha-2 country code(s)", 
+      "A string that has to exactly match one of the values specified in the \"values\" column of the Coding sheet", 
+      "Whether the thing being coded was present or not.", "A single character value that cannot be omitted", 
+      "A string that specifies another entity and which MUST be provided", 
+      "A string that specifies another entity (can be missing, i.e. NA)", 
+      "A string that specifies another field in another entity (can be missing, i.e. NA).", 
+      "A table with frequencies; variable 1 in columns, variable 2 in rows; always work from absence/negative/less (left, top) to presence/positive/more (right, bottom)", 
+      "A single character value that is used as an identifier and so is always mandatory and can only contain a-z, A-Z, 0-9, and underscores, and must start with a letter."
+      ), validValues = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 
+      NA, "\"Unknown\" || \"Present\" || \"Absent\"", NA, NA, NA, 
+      NA, NA, NA), default = c(NA, "\"enter xdoi here\"", "NA", 
+      "NA", "NA", "NA", "NA", "\"\"", "\"\"", "NA", "NA", "NA", 
+      "\"Enter name here (mandatory)\"", "\"enter <<entityRef>> here\"", 
+      "NA", "NA", "NA", "NA"), examples = c("\"g5fj\"", "\"doi:10.18637/jss.v036.i03\" || \"nodoi:10.1111/0965-2140/2003-951\" || \"doi:10.1136/bmj.2.2288.1243\"", 
+      "2.3 || 643.2", "c(23.43, 62) || 52.2 || c(76, 12.56, 42)", 
+      "30 || 8762", "c(23, 62) || 52 || c(76, 12, 42)", "2001 || c(2001, 2002)", 
+      "\"example\" || \"another example\"", "c(\"first value\", \"second value\")", 
+      "\"NL\" || c(\"NL\", \"BE\")", "<<validValues>>", "<<validValues>>", 
+      "\"example\" || \"another example\"", "<no example>", "<no example>", 
+      "<no example>", "rawTable(10, 5, 15, 10) || rawTable(31, 87, 21, 54, 25, 32, ncol=3)", 
+      "\"example1\" || \"another_identifier_example\" || \"finalExample\""
+      ), validation = c("grepl(\"^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$\", VALUE)", 
+      "nchar(VALUE)>10", "is.na(VALUE) || (is.numeric(VALUE) && (length(VALUE) == 1))", 
+      "is.na(VALUE) || (is.numeric(VALUE))", "is.na(VALUE) || (is.numeric(VALUE) && (VALUE%%1==0) && (length(VALUE) == 1))", 
+      "is.na(VALUE) || (is.numeric(VALUE) && all(VALUE%%1==0))", 
+      "is.na(VALUE) || (is.numeric(VALUE) && all(nchar(VALUE)==4))", 
+      "is.na(VALUE) || (is.character(VALUE) && length(VALUE) == 1)", 
+      "is.na(VALUE) || (is.character(VALUE))", "is.na(VALUE) || (VALUE %in% countryCodeList())", 
+      "is.na(VALUE) || (VALUE %in% <<validValues>>)", "is.na(VALUE) || (VALUE %in% <<validValues>>)", 
+      "!is.na(VALUE) && !is.null(VALUE) && (nchar(VALUE) > 0)", 
+      "rxs_findEntity(node, \"<<entityRef>>\", VALUE)", "is.na(VALUE) || (!is.na(VALUE) && rxs_findEntity(node, \"<<entityRef>>\", VALUE))", 
+      "is.na(VALUE) || (!is.na(VALUE) && rxs_findFieldInEntity(node, \"<<fieldRef>>\", VALUE))", 
+      "is.na(VALUE) || (class(VALUE) == \"matrix\")", "grepl(\"[a-zA-Z][a-zA-Z0-9_]*\", VALUE)"
+      ), error = c("The identifier provided as NAME contains invalid characters (i.e. something that is not a-z, A-Z, 0-9, or _) or does not start with a letter.", 
+      "NAME does not have at least 10 characters.", "NAME is not numeric, or contains more than one value.", 
+      "NAME is not a numeric vector.", "Error about NAME here.", 
+      "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
+      "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
+      "Error about NAME here.", "This string (character value) must be entered.", 
+      "Enter a valid reference to another entity - or remove unused entities.", 
+      "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
+      "The identifier provided as NAME contains invalid characters (i.e. something that is not a-z, A-Z, 0-9, or _) or does not start with a letter."
+      )), row.names = c(NA, -18L), class = "data.frame"), definitions = structure(list(
+          term = "Example Term", definition = "Example definition of the term."), row.names = c(NA, 
+      -1L), class = "data.frame"), instructionSheet = structure(list(
+          heading = c("Introduction", "More instructions"), description = c("These instructions are for extractors using the minimal rxs example.", 
+          "Normally, these should be comprehensive enough to allow people to extract data reasonably accurately."
+          )), row.names = c(NA, -2L), class = "data.frame"), eC = list(
+          titleCol = "title", descriptionCol = "description", identifierCol = "identifier", 
+          valueTemplateCol = "valueTemplate", validValuesCol = "validValues", 
+          defaultCol = "default", parentCol = "parent", moduleCol = "module", 
+          entityRefCol = "entityRef", fieldRefCol = "fieldRef", 
+          ownerCol = "owner", listCol = "list", collapsingCol = "collapsing", 
+          repeatingCol = "repeating", recurringCol = "recurring", 
+          recursingCol = "recursing", identifyingCol = "identifying"), 
+      valueTemplateCols = list(identifierCol = "identifier", descriptionCol = "description", 
+          validValuesCol = "validValues", defaultCol = "default", 
+          examplesCol = "examples", validationCol = "validation", 
+          errorCol = "error"), rootName = "source", yamlMetadata = list(
+          title = "Systematic Review Extraction Script Template", 
+          author = NULL, date = "2022-01-05 at 17:09:04 CET (UTC+0100)"), 
+      indent = TRUE, indentSpaces = 2, commentCharacter = "#", 
+      fillerCharacter = "#")
+
+```
+

@@ -7,9 +7,12 @@ rxs_fg_container <- function(node,
                              fillerCharacter = "#",
                              eC = metabefor::opts$get("entityColNames"),
                              repeatingSuffix = "__1__",
-                             silent=FALSE,
+                             silent=metabefor::opts$get("silent"),
                              overrideLevel = NULL) {
-
+  
+  rxsVersion <- metabefor::opts$get("rxsVersion");
+  rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  
   ### A container that does itself not contain extractable entities,
   ### but which does contains other nodes that contain extractable entities.
 
@@ -34,7 +37,7 @@ rxs_fg_container <- function(node,
                           fullWidth = fullWidth,
                           commentCharacter = commentCharacter,
                           fillerCharacter = fillerCharacter);
-
+  
   if (isTRUE(node[[eC$repeatingCol]])) {
     currentEntityName <- paste0(node$name, repeatingSuffix);
     currentStartEndName <- paste0(node$name, " (REPEATING)");
@@ -42,13 +45,28 @@ rxs_fg_container <- function(node,
     currentEntityName <- node$name;
     currentStartEndName <- node$name;
   }
-
-  childAddition <- paste0(lV$indentSpaces,
-                          returnPathToRoot(node$parent),
-                          "$AddChild('",
-                          currentEntityName,
-                          "');");
-
+  
+  if (rxsVersion < "0.3.0") {
+    ### Old version, before making new node available as 'current node name'
+    childAddition <- paste0(lV$indentSpaces,
+                            returnPathToRoot(node$parent),
+                            "$AddChild('",
+                            currentEntityName,
+                            "');");
+  } else {
+    ### Now we always make new node accessible as 'current node name'
+    childAddition <- paste0(lV$indentSpaces,
+                            rxsCurrentNodeName, " <- ",
+                            rxsCurrentNodeName,
+                            "$AddChild('",
+                            currentEntityName,
+                            "');");
+    backToParent <- paste0(lV$indentSpaces,
+                           rxsCurrentNodeName,
+                           " <- ", rxsCurrentNodeName,
+                           "$parent;");
+  }
+  
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
                             description=node[[eC$descriptionCol]],
@@ -85,21 +103,43 @@ rxs_fg_container <- function(node,
 
   ### Return the result in a list in case we're called for multiple nodes
 
-  return(list(c(lV$lineFiller,
-                openingTxt,
-                lV$lineFiller,
-                childAddition,
-                #assignmentToChild,
-                titleDescription,
-                #lV$valuePrefix,
-                #valueAssignment,
-                #lV$valuePrefix,
-                #lV$lineFiller,
-                lV$valuePrefix,
-                childFragments,
-                lV$valuePrefix,
-                lV$lineFiller,
-                closingTxt,
-                lV$lineFiller)));
+  if (rxsVersion < "0.3.0") {
+    return(list(c(lV$lineFiller,
+                  openingTxt,
+                  lV$lineFiller,
+                  childAddition,
+                  #assignmentToChild,
+                  titleDescription,
+                  #lV$valuePrefix,
+                  #valueAssignment,
+                  #lV$valuePrefix,
+                  #lV$lineFiller,
+                  lV$valuePrefix,
+                  childFragments,
+                  lV$valuePrefix,
+                  lV$lineFiller,
+                  closingTxt,
+                  lV$lineFiller)));
+  } else {
+    return(list(c(lV$lineFiller,
+                  openingTxt,
+                  lV$lineFiller,
+                  childAddition,
+                  #assignmentToChild,
+                  titleDescription,
+                  #lV$valuePrefix,
+                  #valueAssignment,
+                  #lV$valuePrefix,
+                  #lV$lineFiller,
+                  lV$valuePrefix,
+                  childFragments,
+                  lV$valuePrefix,
+                  lV$lineFiller,
+                  lV$lineFiller,
+                  backToParent,
+                  lV$lineFiller,
+                  closingTxt,
+                  lV$lineFiller)));
+  }
 
 }

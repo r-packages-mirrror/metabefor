@@ -1,10 +1,8 @@
 #' Generate an Rxs template
 #' 
-#' These functions process an R extraction script template specification in
+#' This function processes an R extraction script template specification in
 #' a spreadsheet format and produce the corresponding R extraction script
-#' template file (an R Markdown file with the extension `.rxs.Rmd`).
-#' `rxs_fromSpecifications()` can be passed a Google Sheet URL, and uses
-#' `rxs_buildTemplate()` in the background to produce the template.
+#' template file (an R Markdown file with the extension `.rxs.Rmd`)
 #'
 #' @param x A Google Sheets URL (make sure it's viewable by anybody
 #' with the link!) or either a character
@@ -93,7 +91,7 @@ rxs_fromSpecifications <- function(x = NULL,
                                                        date = format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')),
                                    indent = TRUE,
                                    indentSpaces = 2,
-                                   fullWidth = 80,
+                                   fullWidth = 78,
                                    commentCharacter = "#",
                                    fillerCharacter = "#",
                                    ws = metabefor::opts$get("rxsSheetnames"),
@@ -102,7 +100,8 @@ rxs_fromSpecifications <- function(x = NULL,
                                    instructionsCols = metabefor::opts$get("instructionsColNames"),
                                    definitionsCols = metabefor::opts$get("definitionsColNames"),
                                    repeatingSuffix = "__1__",
-                                   rootName = "study",
+                                   rootName = "source",
+                                   preventOverwriting = FALSE,
                                    silent=metabefor::opts$get("silent"),
                                    instructionHeadingLevel = 3,
                                    graphTheme = list(c("fontname", "Arial", "node")),
@@ -120,6 +119,12 @@ rxs_fromSpecifications <- function(x = NULL,
   
   extractionOverview_compact_intro <-
     metabefor::opts$get('extractionOverview_compact_intro');
+  
+  
+  rxsVersion <- metabefor::opts$get("rxsVersion");
+  rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  rxsObjectName <- metabefor::opts$get("rxsObjectName");
+  rxsTemplateSpecName <- metabefor::opts$get("rxsTemplateSpecName");
   
   ###---------------------------------------------------------------------------
   ### Import sheets, if sheets identifier (gs_url) was provided
@@ -361,6 +366,58 @@ rxs_fromSpecifications <- function(x = NULL,
   #   }
   # }
   
+  
+  ###---------------------------------------------------------------------------
+  ### Extraction instructions
+  ###---------------------------------------------------------------------------
+  
+  if (!is.null(instructionSheet)) {
+    instructions <-
+      paste0(
+        "\n\n",
+        repStr("#", instructionHeadingLevel), " ",
+        " Extraction instructions\n\n",
+        paste0(
+          lapply(
+            1:nrow(instructionSheet),
+            function(i) {
+              return(
+                paste0(
+                  "\n\n",
+                  repStr("#", instructionHeadingLevel+1), " ",
+                  instructionSheet[[instructionsCols$headingCol]][i], "\n\n",
+                  instructionSheet[[instructionsCols$descriptionCol]][i]
+                )
+              );
+            }
+          ),
+          collapse = "\n\n"
+        )
+      );
+  } else {
+    instructions <- "No extraction instructions specified.";
+  }
+  
+  ###---------------------------------------------------------------------------
+  ### Set up results object
+  ###---------------------------------------------------------------------------
+  
+  res <- list(rxsSpecification = list(entities = entities,
+                                      valueTemplates = valueTemplates,
+                                      definitions = definitions,
+                                      instructionSheet = instructionSheet,
+                                      eC = eC,
+                                      valueTemplateCols = valueTemplateCols,
+                                      rootName = rootName,
+                                      yamlMetadata = yamlMetadata,
+                                      indent=indent,
+                                      indentSpaces=indentSpaces,
+                                      commentCharacter = commentCharacter,
+                                      fillerCharacter = fillerCharacter),
+              rxsInstructions = instructions);
+  
+  class(res) <- "rxsStructure";
+
   ###---------------------------------------------------------------------------
   ### Process entities and value templates into rxsStructure
   ###---------------------------------------------------------------------------
@@ -428,10 +485,12 @@ rxs_fromSpecifications <- function(x = NULL,
 
       rxsTemplate_modules[[currentModule]] <- rxs_buildTemplate(
         rxsStructure = rxsStructure_modules[[currentModule]],
+        rxsSpecification = res$rxsSpecification,
         yamlMetadata = yamlMetadata,
         indent = indent,
         indentSpaces = indentSpaces,
         fullWidth = fullWidth,
+        module = currentModule,
         commentCharacter = commentCharacter,
         fillerCharacter = fillerCharacter,
         eC = eC,
@@ -474,10 +533,12 @@ rxs_fromSpecifications <- function(x = NULL,
   
     rxsTemplate <- rxs_buildTemplate(
       rxsStructure = rxsStructure,
+      rxsSpecification = res$rxsSpecification,
       yamlMetadata = yamlMetadata,
       indent = indent,
       indentSpaces = indentSpaces,
       fullWidth = fullWidth,
+      module = NULL,
       commentCharacter = commentCharacter,
       fillerCharacter = fillerCharacter,
       eC = eC,
@@ -524,38 +585,7 @@ rxs_fromSpecifications <- function(x = NULL,
   if (!silent) {
     cat("Created diagram representing the extraction tree.\n");
   }
-  
-  ###---------------------------------------------------------------------------
-  ### Extraction instructions
-  ###---------------------------------------------------------------------------
 
-  if (!is.null(instructionSheet)) {
-    instructions <-
-      paste0(
-        "\n\n",
-        repStr("#", instructionHeadingLevel), " ",
-        " Extraction instructions\n\n",
-        paste0(
-          lapply(
-            1:nrow(instructionSheet),
-            function(i) {
-              return(
-                paste0(
-                  "\n\n",
-                  repStr("#", instructionHeadingLevel+1), " ",
-                  instructionSheet[[instructionsCols$headingCol]][i], "\n\n",
-                  instructionSheet[[instructionsCols$descriptionCol]][i]
-                )
-              );
-            }
-          ),
-          collapse = "\n\n"
-        )
-      );
-  } else {
-    instructions <- "No extraction instructions specified.";
-  }
-  
   ###---------------------------------------------------------------------------
   ### Entity overview: list
   ###---------------------------------------------------------------------------
@@ -618,25 +648,9 @@ rxs_fromSpecifications <- function(x = NULL,
   }
 
   ###---------------------------------------------------------------------------
-  ### Prepare result
+  ### Finish result object
   ###---------------------------------------------------------------------------
 
-  res <- list(rxsSpecification = list(entities = entities,
-                                      valueTemplates = valueTemplates,
-                                      definitions = definitions,
-                                      instructionSheet = instructionSheet,
-                                      eC = eC,
-                                      valueTemplateCols = valueTemplateCols,
-                                      rootName = rootName,
-                                      yamlMetadata = yamlMetadata,
-                                      indent=indent,
-                                      indentSpaces=indentSpaces,
-                                      commentCharacter = commentCharacter,
-                                      fillerCharacter = fillerCharacter),
-              rxsInstructions = instructions);
-  
-  class(res) <- "rxsStructure";
-  
   if (workingModularly) {
     
     if (returnFullObject) {
@@ -683,14 +697,25 @@ rxs_fromSpecifications <- function(x = NULL,
         
         fileToWriteTo <- sprintf(outputFilenamePattern, currentModule);
         
-        writeLines(paste0(unlist(rxsTemplate_modules[[currentModule]]), collapse="\n"),
-                   fileToWriteTo);
-        
-        if (!silent) {
-          cat0("Successfully wrote extraction script template to '",
-               fileToWriteTo, "'.\n");
+        if (!grepl("\\.rxs.Rmd$", fileToWriteTo, ignore.case = TRUE)) {
+          fileToWriteTo <- paste0(fileToWriteTo, ".rxs.Rmd");
         }
         
+        fileToWriteTo <- file.path(outputPath, fileToWriteTo);
+        
+        if (file.exists(fileToWriteTo) && preventOverwriting) {
+          warning("The file to write to, '", fileToWriteTo, "', exists, and ",
+                  "you set `preventOverwriting` to `TRUE`, so I am not ",
+                  "writing the extraction script template to disk.");
+        } else {
+          writeLines(paste0(unlist(rxsTemplate_modules[[currentModule]]), collapse="\n"),
+                     fileToWriteTo);
+          if (!silent) {
+            cat0("Successfully wrote extraction script template to '",
+                 fileToWriteTo, "'.\n");
+          }
+        }
+
       }
       
       return(invisible(res));
@@ -709,11 +734,23 @@ rxs_fromSpecifications <- function(x = NULL,
         ### Path is specified in 'outputFile'
         fileToWriteTo <- outputFile;
       }
-      writeLines(paste0(unlist(rxsTemplate), collapse="\n"),
-                 fileToWriteTo);
-      if (!silent) {
-        cat0("Successfully wrote extraction script template to '",
-             fileToWriteTo, "'.\n");
+      
+      if (!grepl("\\.rxs.Rmd$", fileToWriteTo, ignore.case = TRUE)) {
+        fileToWriteTo <- paste0(fileToWriteTo, ".rxs.Rmd");
+      }
+      
+      if (file.exists(fileToWriteTo) && preventOverwriting) {
+        warning("The file to write to, '", fileToWriteTo, "', exists, and ",
+                "you set `preventOverwriting` to `TRUE`, so I am not ",
+                "writing the extraction script template to disk, instead ",
+                "just returning it invisibly.");
+      } else {
+        writeLines(paste0(unlist(rxsTemplate), collapse="\n"),
+                   fileToWriteTo);
+        if (!silent) {
+          cat0("Successfully wrote extraction script template to '",
+               fileToWriteTo, "'.\n");
+        }
       }
       return(invisible(res));
     } else {

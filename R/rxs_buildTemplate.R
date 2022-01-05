@@ -1,24 +1,45 @@
-#' @rdname rxs_templateBuilding
-#' @export
 rxs_buildTemplate <- function(rxsStructure,
+                              rxsSpecification,
                               yamlMetadata = list(title = "Systematic Review Extraction Script Template",
                                                   author = NULL,
-                                                  date = format(Sys.time(), '%d %b %Y at %H:%M:%S')),
-                              gs_url = NULL,
+                                                  date = format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')),
                               indent = TRUE,
                               indentSpaces = 2,
-                              fullWidth = 80,
+                              fullWidth = 78,
+                              module = NULL,
                               commentCharacter = "#",
                               fillerCharacter = "#",
                               eC = metabefor::opts$get("entityColNames"),
                               repeatingSuffix = "__1__",
                               silent=FALSE) {
-
+  
+  rxsVersion <- metabefor::opts$get("rxsVersion");
+  rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  rxsObjectName <- metabefor::opts$get("rxsObjectName");
+  rxsTemplateSpecName <- metabefor::opts$get("rxsTemplateSpecName");
+  uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+  sourceIdValidation <- metabefor::opts$get("sourceIdValidation");
+  
   if (!("rxsStructure" %IN% class(rxsStructure))) {
     stop("The class of the object provided as argument 'rxsStructure' is not ",
-         "'rxsStructure' (but instead ", vecTxtQ(rxsStructure), ").");
+         "'rxsStructure' (but instead ", vecTxtQ(class(rxsStructure)), ").");
+  }
+  
+  if (rxsVersion < "0.3.0") {
+    rxsObjectName <- rxsStructure$parsedEntities$extractionScriptTree$root$name;
   }
 
+  ###---------------------------------------------------------------------------
+  ### Study identifier chunk
+  ###---------------------------------------------------------------------------
+
+  sourceIdFragment <-
+    rxs_fg_sourceId();
+    
+  ###---------------------------------------------------------------------------
+  ### Script chunk
+  ###---------------------------------------------------------------------------
+  
   scriptChunk <-
     rxs_fg_dispatcher(node = rxsStructure$parsedEntities$extractionScriptTree,
                       valueTemplates = rxsStructure$parsedValueTemplates,
@@ -70,31 +91,51 @@ rxs_buildTemplate <- function(rxsStructure,
     yamlDate <- paste0("date: \"", yamlMetadata$date, "\"");
   }
 
-  yamlHeader <- c("---",
-                  yamlTitle,
-                  yamlAuthor,
-                  yamlDate,
-                  "output:",
-                  "  html_document:",
-                  "    self-contained: yes",
-                  "    toc: false",
-                  "params:",
-                  "  rxsVersion = \"0.2.1\"",
-                  "editor_options:",
-                  "  chunk_output_type: console",
-                  "---",
-                  "");
+  yamlHeader <-
+    c("---",
+      yamlTitle,
+      yamlAuthor,
+      yamlDate,
+      "output:",
+      "  html_document:",
+      "    self-contained: yes",
+      "    toc: false",
+      "params:",
+      paste0("  rxsVersion = \"", metabefor::opts$get("rxsVersion"), "\""),
+      "editor_options:",
+      "  chunk_output_type: console",
+      "---",
+      "");
+  
+  if (rxsVersion < "0.3.0") {
+    setupChunkLabel <- "rxsChunk-setup";
+    showExtractedDataChunkLabel <- "rxsChunk-show-extracted-data";
+    validationChunkLabel <- "rxsChunk-validation";
+  } else {
+    setupChunkLabel <-
+      paste0("rxs-setup-chunk-", metabefor::randomSlug(6));
+    showExtractedDataChunkLabel <-
+      paste0("rxs-show-extracted-data-chunk-", metabefor::randomSlug(6));
+    validationChunkLabel <-
+      paste0("rxs-validation-chunk-", metabefor::randomSlug(6));
+  }
 
-  setupChunk <- c("```{r rxsChunk-setup, include=FALSE, messages=FALSE}",
+  ### Setup chunk inclusion (for Rxs version >= 0.3.0)
+  setupChunkInclusion <-
+    c(paste0("```{r ", setupChunkLabel, ", echo=FALSE, results='hide'}"),
+      "```");
+  
+  ### Actual setup chunk
+  setupChunk <- c(paste0("```{r ", setupChunkLabel, ", include=FALSE, messages=FALSE}"),
                   "### First check for (and perhaps install) metabefor",
                   "if (!('metabefor' %in% row.names(installed.packages()))) {",
-                  "  install.packages('metabefor');",
+                  "  install.packages('metabefor', repos='http://cran.rstudio.com');",
                   "}",
-                  "",
-                  "### Other packages",
-                  "#metabefor::checkPkgs('googlesheets4');   ### To import data from google sheets in metabefor",
-                  "metabefor::checkPkgs('jsonlite');        ### To import a list of country codes in metabefor",
-                  "metabefor::checkPkgs('data.tree');       ### To work with data structured in a tree in metabefor",
+                  #"",
+                  #"### Other packages",
+                  #"metabefor::checkPkgs('googlesheets4');   ### To import data from google sheets in metabefor",
+                  #"metabefor::checkPkgs('jsonlite');        ### To import a list of country codes in metabefor",
+                  #"metabefor::checkPkgs('data.tree');       ### To work with data structured in a tree in metabefor",
                   "",
                   "### Settings",
                   "knitr::opts_chunk$set(echo = FALSE);     ### Suppress R command printing",
@@ -121,47 +162,114 @@ rxs_buildTemplate <- function(rxsStructure,
                       "",
                       printableValueTemplateCols,
                       "```");
+  
+  showExtractedDataChunk <-
+    c(paste0("```{r ", showExtractedDataChunkLabel, "}"),
+      paste0("metabefor::rxs_partial(", rxsObjectName, ");"),
+      "```");
 
-  if (!is.null(gs_url)) {
-    import_rxsSpecsChunk <- c("```{r rxsSpec-import-chunk}",
-                              "",
-                              "",
-                              "```");
+  validationChunk <-
+    c(paste0("```{r ", validationChunkLabel, ", results='asis'}"),
+      paste0("#metabefor::rxs_validation(", rxsObjectName, ");"),
+      "metabefor::heading('Validation results', headingLevel = 1);",
+      paste0("#rxs_validation(", rxsObjectName, ","),
+      "#               rxsStructure = fullResults$rxsStructure);",
+      paste0("if (length(", rxsObjectName, "$validationResults) > 2) {"),
+      paste0("  cat(paste0('- ', ", rxsObjectName, "$validationResults), sep='\n');"),
+      "} else {",
+      "  cat('Validation successful!');",
+      "}",
+      "```");
+
+  ### Rxs template specification
+  rxsTemplateSpecificationChunkLabel <-
+    paste0("rxs-template-specification-chunk-", metabefor::randomSlug(6));
+  
+  chunkOpts <- "echo=FALSE, results='hide'";
+  
+  ### Include form specification chunk
+  rxsTemplateSpecificationChunkInclusion <-
+    c(paste0("```{r ", rxsTemplateSpecificationChunkLabel, chunkOpts, "}"),
+      "```");
+
+  rxsTemplateSpecificationChunkSourceCode <- c(
+    htmlComment("Here, the original Rxs template specification is included."),
+    "",
+    paste0("```{r ",
+           rxsTemplateSpecificationChunkLabel,
+           ", echo=FALSE}"),
+    "",
+    paste0(rxsTemplateSpecName, " <- "),
+    paste0("  ", utils::capture.output(dput(rxsSpecification, control="all"))),
+    "",
+    "```"
+  );
+  
+  setRxsObjectClass <-
+    paste0("class(", rxsObjectName, ") <- c('rxs', 'rxsObject', class(", rxsObjectName, "));");
+  rxsMetadata <-
+    paste0(rxsObjectName, "$rxsMetadata <- list(rxsVersion='",
+           rxsVersion, "', moduleId=",
+           ifelse(is.null(module), "NULL", paste0('"', module, '"')),
+           ", id=", uniqueSourceIdName, ");");
+  
+  sourceIdLocation <- paste0(rxsObjectName, "$rxsMetadata$id");
+  
+  validateSourceId <-
+    paste0("if (!(",
+           gsub("VALUE", sourceIdLocation, sourceIdValidation),
+           ")) {\n  stop(\"The source identifier you specified, '\", ",
+           sourceIdLocation, ", \n       \"', does not validate (i.e., it does ",
+           "not match the predefined format)!\");\n}");
+
+  if (rxsVersion < "0.3.0") {
+    res <- c(yamlHeader,
+             setupChunk,
+             "",
+             fieldnameChunk,
+             "",
+             "```{r rxsChunk, echo=FALSE}",
+             studyIdChunk,
+             scriptChunk,
+             setRxsObjectClass,
+             rxsMetadata,
+             "```",
+             "",
+             ifelse(!is.na(recursingEntitiesChunk),
+                    c(recursingEntitiesChunk, ""),
+                    ""),
+             showExtractedDataChunk,
+             "",
+             validationChunk,
+             "",
+             rxsTemplateSpecificationChunkSourceCode,
+             "");
+  } else {
+    res <- c(yamlHeader,
+             setupChunkInclusion,
+             "",
+             "```{r rxsChunk, echo=FALSE}",
+             sourceIdFragment,
+             "",
+             "",
+             scriptChunk,
+             setRxsObjectClass,
+             rxsMetadata,
+             validateSourceId,
+             "```",
+             "",
+             ifelse(!is.na(recursingEntitiesChunk),
+                    c(recursingEntitiesChunk, ""),
+                    ""),
+             showExtractedDataChunk,
+             "",
+             validationChunk,
+             "",
+             setupChunk,
+             "",
+             rxsTemplateSpecificationChunkSourceCode,
+             "");
   }
-
-  showExtractedDataChunk <- c("```{r rxsChunk-show-extracted-data}",
-                              "metabefor::rxs_partial(study);",
-                              "```");
-
-  validationChunk <- c("```{r rxsChunk-validation, results='asis'}",
-                       "#metabefor::rxs_validation(study);",
-                       "metabefor::heading('Validation results', headingLevel = 1);",
-                       "#rxs_validation(study,",
-                       "#               rxsStructure = fullResults$rxsStructure);",
-                       "if (length(study$validationResults) > 2) {",
-                       "  cat(paste0('- ', study$validationResults), sep='\n');",
-                       "} else {",
-                       "  cat('Validation successful!');",
-                       "}",
-                       "```");
-
-  res <- c(yamlHeader,
-           setupChunk,
-           "",
-           fieldnameChunk,
-           "",
-           "```{r rxsChunk, echo=FALSE}",
-           scriptChunk,
-           "class(study) <- c('rxs', class(study));",
-           "```",
-           "",
-           ifelse(!is.na(recursingEntitiesChunk),
-                  c(recursingEntitiesChunk, ""),
-                  ""),
-           showExtractedDataChunk,
-           "",
-           validationChunk,
-           "");
 
   return(res);
 

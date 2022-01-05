@@ -7,7 +7,7 @@ rxs_fg_dispatcher <- function(node,
                               fillerCharacter = "#",
                               eC = metabefor::opts$get("entityColNames"),
                               repeatingSuffix = "__1__",
-                              silent=FALSE) {
+                              silent=metabefor::opts$get("silent")) {
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
     if (!silent) {
@@ -39,7 +39,9 @@ rxs_fg_dispatcher <- function(node,
   } else if (is.null(node[[eC$valueTemplateCol]]) ||
              is.na(node[[eC$valueTemplateCol]])) {
     ### This is an organising element, without content
-    if (isTRUE(node[[eC$listCol]])) {
+    if (!is.null(node[[eC$listCol]]) &&
+        (isTRUE(node[[eC$listCol]]) ||
+        (trimws(toupper(node[[eC$listCol]])) == "TRUE"))) {
       ### Node with children, but children are simple values that can be returned
       ### in a list
       rxs_fg_function <- rxs_fg_list;

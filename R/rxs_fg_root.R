@@ -1,5 +1,6 @@
 rxs_fg_root <- function(node,
                         valueTemplates,
+                        rxsMetadata,
                         entityName = node$name,
                         indent = TRUE,
                         indentSpaces = 2,
@@ -8,8 +9,12 @@ rxs_fg_root <- function(node,
                         fillerCharacter = "#",
                         eC = metabefor::opts$get("entityColNames"),
                         repeatingSuffix = "__1__",
-                        silent=FALSE,
+                        silent=metabefor::opts$get("silent"),
                         overrideLevel = NULL) {
+  
+  rxsVersion <- metabefor::opts$get("rxsVersion");
+  rxsObjectName <- metabefor::opts$get("rxsObjectName");
+  rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
 
   ### The root element, which is basically a container.
 
@@ -40,9 +45,16 @@ rxs_fg_root <- function(node,
                           fillerCharacter = fillerCharacter);
 
   ### This should actually be called 'nodeCreation'
-  childAddition <- paste0(lV$indentSpaces,
-                          currentEntityName,
-                          " <- data.tree::Node$new('", currentEntityName, "');");
+  if (rxsVersion < "0.3.0") {
+    childAddition <- paste0(lV$indentSpaces,
+                            currentEntityName,
+                            " <- data.tree::Node$new('", currentEntityName, "');");
+  } else {
+    childAddition <- paste0(lV$indentSpaces,
+                            rxsObjectName,
+                            " <- data.tree::Node$new('", currentEntityName, "');",
+                            "\n", rxsCurrentNodeName, " <- ", rxsObjectName, ";");
+  }
 
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],

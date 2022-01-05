@@ -94,7 +94,7 @@ print.rxs <- function(x,
     cat(paste0(headerPrefix, " Tree of extracted entities\n\n"));
 
     printableStudyTree <- data.tree::Clone(studyTree);
-    class(printableStudyTree) <- setdiff(class(studyTree), "rxs");
+    class(printableStudyTree) <- setdiff(class(studyTree), c("rxs","rxsObject"));
     
     ### Suppress warnings until bug in data.tree is fixed, see:
     ### https://github.com/gluc/data.tree/issues/106

@@ -95,6 +95,14 @@ opts$reset <- function(...) {
 
 opts$defaults <-
   list(
+    
+    rxsVersion = "0.3.0",
+    
+    rxsObjectName = "rxsObject",
+    rxsTemplateSpecName = "rxsTemplateSpec",
+    rxsCurrentNodeName = "currentEntity",
+    uniqueSourceIdName = "uniqueSourceIdentifier",
+
     ### Used throughout
     debug = FALSE,
     
@@ -148,6 +156,22 @@ opts$defaults <-
                        parent_entity_id = 'parent_entity_id',
                        entity_id = 'entity_id',
                        value = 'value'),
+    
+    sourceIdDefaultValue = "\"\"",
+    sourceIdTitle = " SET UNIQUE SOURCE IDENTIFIER ",
+    sourceIdDescription =
+      paste0("A unique identifier used in this systematic ",
+             "review to refer to this source"),
+    sourceIdValueTemplateDescription =
+      paste0("A unique identifier to use in this systematic review. ",
+             "For sources with a DOI, this is the last part of the shortDOI ",
+             "as looked up through https://shortdoi.org (the part after ",
+             "the \"10/\"). For studies without a DOI (and so, without a ",
+             "shortDOI), this can be, for example, the QURID (Quasi-Unique ",
+             "Record Identifier) that was designated during the screening ",
+             "phase."),
+    sourceIdValueTemplateExamples = c("\"g5fj\"", "\"qurid_7h4pksl6\""),
+    sourceIdValidation = "grepl(\"^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$\", VALUE, ignore.case=TRUE)",
     
     extractionOverview_list_intro =
       paste0(

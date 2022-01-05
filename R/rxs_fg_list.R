@@ -7,11 +7,14 @@ rxs_fg_list <- function(node,
                         fillerCharacter = "#",
                         eC = metabefor::opts$get("entityColNames"),
                         repeatingSuffix = "__1__",
-                        silent=FALSE,
+                        silent=metabefor::opts$get("silent"),
                         overrideLevel = NULL,
                         codingHelp = "<entityTitle>: <entityDescription> [Examples: <examples>] [Value description: <valueDescription>]",
                         codingHelpSep = "; ") {
-
+  
+  rxsVersion <- metabefor::opts$get("rxsVersion");
+  rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  
   ### A list of relatively simple values.
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
@@ -45,17 +48,36 @@ rxs_fg_list <- function(node,
     currentEntityName <- node$name;
     currentStartEndName <- node$name;
   }
-
-  childAddition <- paste0(lV$indentSpaces,
-                          returnPathToRoot(node$parent),
-                          "$AddChild('",
-                          currentEntityName,
-                          "');");
-
-  assignmentToChild <- paste0(lV$indentSpaces,
-                              returnPathToRoot(node$parent),
-                              "$", currentEntityName,
-                              "[['value']] <-");
+  
+  if (rxsVersion < "0.3.0") {
+    ### Old version, before making new node available as 'current node name'
+    childAddition <- paste0(lV$indentSpaces,
+                            returnPathToRoot(node$parent),
+                            "$AddChild('",
+                            currentEntityName,
+                            "');");
+  } else {
+    ### Now we always make new node accessible as 'current node name'
+    childAddition <- paste0(lV$indentSpaces,
+                            rxsCurrentNodeName, " <- ",
+                            rxsCurrentNodeName,
+                            "$AddChild('",
+                            currentEntityName,
+                            "');");
+  }
+  
+  if (rxsVersion < "0.3.0") {
+    ### Old version, before making new node available as 'current node name'
+    assignmentToChild <- paste0(lV$indentSpaces,
+                                returnPathToRoot(node$parent),
+                                "$", currentEntityName,
+                                "[['value']] <-");
+  } else {
+    ### Now we always make new node accessible as 'current node name'
+    assignmentToChild <- paste0(lV$indentSpaces,
+                                rxsCurrentNodeName,
+                                "[['value']] <-");
+  }
 
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
@@ -102,12 +124,21 @@ rxs_fg_list <- function(node,
              });
 
   if (!is.null(identifyingEntityName)) {
-    nodeRenaming <- c(paste0(lV$indentSpaces,
-                             returnPathToRoot(node$parent),
-                             "$", currentEntityName, "$name <- ",
-                             returnPathToRoot(node$parent),
-                             "$", currentEntityName, "$value[['",
-                             identifyingEntityName[1], "']];"));
+    if (rxsVersion < "0.3.0") {
+      nodeRenaming <- c(paste0(lV$indentSpaces,
+                               returnPathToRoot(node$parent),
+                               "$", currentEntityName, "$name <- ",
+                               returnPathToRoot(node$parent),
+                               "$", currentEntityName, "$value[['",
+                               identifyingEntityName[1], "']];"));
+    } else {
+      nodeRenaming <- c(paste0(lV$indentSpaces,
+                               rxsCurrentNodeName,
+                               "$name <- ",
+                               rxsCurrentNodeName,
+                               "$value[['",
+                               identifyingEntityName[1], "']];"));
+    }
     if (length(identifyingEntityName) > 1) {
       warning("More than one entity in the list '", node$name,
               "' is marked as identifying entity. The full ",
@@ -121,11 +152,19 @@ rxs_fg_list <- function(node,
     ###   Check rxs version and behave depending on version!!!
     ###
 
-    nodeRenaming <- c(paste0(lV$indentSpaces,
-                             returnPathToRoot(node$parent),
-                             "$", currentEntityName, "$name <- ",
-                             returnPathToRoot(node$parent),
-                             "$", currentEntityName, "$value[[1]];"));
+    if (rxsVersion < "0.3.0") {
+      nodeRenaming <- c(paste0(lV$indentSpaces,
+                               returnPathToRoot(node$parent),
+                               "$", currentEntityName, "$name <- ",
+                               returnPathToRoot(node$parent),
+                               "$", currentEntityName, "$value[[1]];"));
+    } else {
+      nodeRenaming <- c(paste0(lV$indentSpaces,
+                               rxsCurrentNodeName,
+                               "$name <- ",
+                               rxsCurrentNodeName,
+                               "$value[[1]];"));
+    }
   } else {
     nodeRenaming <- NULL;
   }
@@ -139,11 +178,18 @@ rxs_fg_list <- function(node,
                                paste0(names(entityReferences), '="', entityReferences, '"',
                                       collapse=", "),
                                ");");
-    entityReferences <- paste0(lV$indentSpaces,
-                               returnPathToRoot(node$parent),
-                               "$", currentEntityName,
-                               "[['entityRefs']] <- ",
-                               entityReferences);
+    if (rxsVersion < "0.3.0") {
+      entityReferences <- paste0(lV$indentSpaces,
+                                 returnPathToRoot(node$parent),
+                                 "$", currentEntityName,
+                                 "[['entityRefs']] <- ",
+                                 entityReferences);
+    } else {
+      entityReferences <- paste0(lV$indentSpaces,
+                                 rxsCurrentNodeName,
+                                 "[['entityRefs']] <- ",
+                                 entityReferences);
+    }
   } else {
     entityReferences <- NULL;
   }
@@ -155,19 +201,37 @@ rxs_fg_list <- function(node,
                               paste0(names(fieldReferences), '="', fieldReferences, '"',
                                      collapse=", "),
                               ");");
-    fieldReferences <- paste0(lV$indentSpaces,
-                              returnPathToRoot(node$parent),
-                              "$", currentEntityName,
-                              "[['fieldRefs']] <- ",
-                              fieldReferences);
+    if (rxsVersion < "0.3.0") {
+      fieldReferences <- paste0(lV$indentSpaces,
+                                returnPathToRoot(node$parent),
+                                "$", currentEntityName,
+                                "[['fieldRefs']] <- ",
+                                fieldReferences);
+    } else {
+      fieldReferences <- paste0(lV$indentSpaces,
+                                rxsCurrentNodeName,
+                                "[['fieldRefs']] <- ",
+                                fieldReferences);
+    }
   } else {
     fieldReferences <- NULL;
   }
 
-  validationAssignmentStart <- paste0(lV$indentSpaces,
-                                      returnPathToRoot(node$parent),
-                                      "$", currentEntityName,
-                                      "[['validation']] <- ");
+  if (rxsVersion < "0.3.0") {
+    validationAssignmentStart <- paste0(lV$indentSpaces,
+                                        returnPathToRoot(node$parent),
+                                        "$", currentEntityName,
+                                        "[['validation']] <- ");
+    backToParent <- NULL;
+  } else {
+    validationAssignmentStart <- paste0(lV$indentSpaces,
+                                        rxsCurrentNodeName,
+                                        "[['validation']] <- ");
+    backToParent <- paste0(lV$indentSpaces,
+                           rxsCurrentNodeName,
+                           " <- ", rxsCurrentNodeName,
+                           "$parent;");
+  }
   validationFollowingSpaces <- repStr(nchar(validationAssignmentStart));
 
   if (length(listEntities) == 1) {
@@ -288,6 +352,7 @@ rxs_fg_list <- function(node,
                 nodeRenaming,
                 entityReferences,
                 fieldReferences,
+                backToParent,
                 lV$lineFiller,
                 closingTxt,
                 lV$lineFiller)));

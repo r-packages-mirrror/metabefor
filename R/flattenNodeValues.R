@@ -3,7 +3,7 @@
 flattenNodeValues <- function(x) {
   
   if (is.null(x) || all(is.na(x))) {
-    return(x);
+    return(unlist(x));
   }
   
   if (!is.list(x)) {
@@ -27,6 +27,6 @@ flattenNodeValues <- function(x) {
     }
     names(res) <- newNames;
   }
-
+  
   return(res);
 }

@@ -6,7 +6,7 @@
 \alias{rxs_minimal_modular_example}
 \title{An very rudimentary example Rxs specification}
 \format{
-An example of an Rxs specification
+An example of an Rxs specification.
 }
 \usage{
 rxs_minimal_example

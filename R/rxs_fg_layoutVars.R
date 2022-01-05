@@ -7,7 +7,7 @@ rxs_fg_layoutVars <- function(level=1,
 
   res <- list();
 
-  level <- level-1;
+  level <- max(level - 1, 0);
 
   if (indent) {
     res$indentSpaces <- repStr(level * indentSpaces);
