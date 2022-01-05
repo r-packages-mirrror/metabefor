@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # install.packages('pkgnet');
 
 packagename <- 'metabefor';
-packageSubtitle <- "Transparant, reproducible, extensible, scalable, and machine-readable systematic reviews";
+packageSubtitle <- "Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Systematic Reviews";
 
 gitLab_ci_badge <-
   paste0("https://gitlab.com/r-packages/", packagename, "/badges/main/pipeline.svg");
@@ -77,7 +77,19 @@ The pkgdown website for this project is located at `r pkgdown_url`.
 <!-- Start of a custom bit for every package -->
 <!--------------------------------------------->
 
-The goal of metabefor is to help design and execute transparant, reproducible, extensible, scalable, and machine-readable systematic reviews, mostly supporting the screening and extraction stages. Originally, the package was intended to help with everything that needs to be done before the [metafor](https://metafor-project.org) package can be used, hence the name. Since then, the [metaverse](https://rmetaverse.github.io/) was born, with dedicated packages for specific stages, such as developing search strategies, working with bibliographic data, and visualisation.
+In systematic reviews, extracting data from primary sources is a
+crucial step with a high potential for introduction of biases. This
+package facilitates specification of R extraction scripts that are
+simultaneously human- and machine-readable. In addition, they are
+modular and extensible, lending themselves well to living reviews
+where insights as to optimal extraction evolve over time. By being
+R Markdown script files, they are optimally transparant, and their
+structure was designed to also be accessible to readers without R.
+Finally, each extraction script contains the original
+specification, enabling bootstrapping new specifications from each
+single extraction script.
+
+Originally, the package was intended to help with everything that needs to be done before the [metafor](https://metafor-project.org) package can be used, hence the name. Since then, the [metaverse](https://rmetaverse.github.io/) was born, with dedicated packages for specific stages, such as developing search strategies, working with bibliographic data, and visualisation. Presently, therefore, `metabefor` mostly covers extraction.
 
 <!--------------------------------------------->
 <!--  End of a custom bit for every package  -->
@@ -97,7 +109,7 @@ You can install the development version of ``r packagename`` from [GitLab](https
 
 ```{r echo=FALSE, comment="", results="asis"}
 cat(paste0("``` r
-remotes::install_gitlab('r-packages/", packagename, "');
+remotes::install_gitlab('r-packages/", packagename, "@main');
 ```"));
 ```
 
@@ -117,7 +129,7 @@ remotes::install_gitlab('r-packages/", packagename, "@dev');
 
 ## Getting started
 
-The SysRevving book may be a good place to get started (like this packages, still under development): https://sysrevving.com.
+The SysRevving book may be a good place to get started (like this package, still under development): https://sysrevving.com.
 
 ## Other useful resources
 
