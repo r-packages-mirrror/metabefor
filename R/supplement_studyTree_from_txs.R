@@ -39,7 +39,7 @@ supplement_studyTrees_from_txs <- function(studies,
          "metabefor::rxs_parseExtractionScripts().");
   }
   
-  dat <- read_sheet(txs_specs);
+  dat <- read_spreadsheet(txs_specs);
   
   entityIds <- unique(trimws(dat[, "entity_id"]));
   

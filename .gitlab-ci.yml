@@ -17,6 +17,7 @@ before_script:
   - R -e 'install.packages(c("data.tree", "rmarkdown", "knitr"))'
   - R -e 'install.packages(c("synthesisr", "googlesheets4", "stringdist"))'
   - R -e 'install.packages(c("remotes", "pkgdown"))'
+  - R -e 'install.packages(c("openxlsx", "writexl", "XLConnect"))'
   - R -e 'remotes::install_gitlab("r-packages/preregr")'
   - R -e 'remotes::install_gitlab("r-packages/justifier")'
   - R -e 'remotes::install_gitlab("r-packages/ufs")'
