@@ -31,7 +31,6 @@
 #' relevant worksheet, where the names of each character value represent the
 #' names of the worksheets contained in each file.
 #' @param graphTheme The graph theme to use.
-#' @param rxsStructure The Rxs specification as loaded from a spreadsheet.
 #' @param ws The worksheet names: a named list with four character values
 #' named `entities`, `valueTemplates`, `definitions`, and `instructions`.
 #' @param localBackup If not `NULL`, either a path to a single `.xlsx` file to
