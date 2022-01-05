@@ -62,9 +62,21 @@
 #' worksheet of the spreadsheet. The default values are stored
 #' in `metabefor::opts$get("valueTemplateColNames")` - if you need to
 #' override these values, just reproduce that object.
+#' @param instructionsCols The instructions worksheet columns: a names list with
+#' character values holding the names of the columns in the `instructions`
+#' worksheet of the spreadsheet. The default values are stored
+#' in `metabefor::opts$get("instructionsColNames")` - if you need to
+#' override these values, just reproduce that object.
+#' @param definitionsCols The definitions worksheet columns: a names list with
+#' character values holding the names of the columns in the `definitions`
+#' worksheet of the spreadsheet. The default values are stored
+#' in `metabefor::opts$get("definitionsColNames")` - if you need to
+#' override these values, just reproduce that object.
 #' @param repeatingSuffix The suffix to use for the entity identifiers/names
 #' of repeating entities.
 #' @param rootName The name of the root element
+#' @param preventOverwriting Whether to prevent accidental overwriting of the
+#' extraction templates.
 #' @param ignoreModules Optionally, you can ignore modules specified in the
 #' Rxs specification spreadsheet by setting `ignoreModules` to `TRUE`.
 #' @param silent Whether to be silent or chatty.
