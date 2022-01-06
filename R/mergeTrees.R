@@ -30,7 +30,8 @@ mergeTrees <- function(tree1,
       
     } else {
       
-      ### We have to add the children of this node one by one.
+      ### We have to add the children of tree2_node[[currentName]] one by one
+      ### as children of tree1_node.
       
     }
     

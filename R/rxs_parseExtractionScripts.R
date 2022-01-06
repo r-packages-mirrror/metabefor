@@ -95,7 +95,7 @@ rxs_parseExtractionScripts <- function(path,
         ("rxsVersion" %in% names(yamlParams$params))) {
       res$log <- c(
         res$log,
-        msg("\nThis is a valid rxs file, version ",
+        msg("\n  - This is a valid rxs file, version ",
             yamlParams$params$rxsVersion, ".",
             silent = silent)
       );
@@ -106,7 +106,7 @@ rxs_parseExtractionScripts <- function(path,
         rxsRootName <- yamlParams$params$rxsRootName;
         res$log <- c(
           res$log,
-          msg("\nThe rxsRootName stored in this rxs file is '",
+          msg("\n  - The rxsRootName stored in this rxs file is '",
               rxsRootName, "'.",
               silent = silent)
         );
@@ -114,11 +114,11 @@ rxs_parseExtractionScripts <- function(path,
         rxsRootName <- metabefor::opts$get("rxsRootName");
         res$log <- c(
           res$log,
-          msg("\nThe rxsRootName was not stored in this rxs file. Using the ",
+          msg("\n  - The rxsRootName was not stored in this rxs file. Using the ",
               "name stored in the options ('",
               rxsRootName, "'. That is, however, a relatively new name - if ",
               "you get any errors, you may want to set it to e.g. 'study' ",
-              "using:\n\n  metabefor::opts$set(rxsRootName = 'study');\n",
+              "using:\n\n    metabefor::opts$set(rxsRootName = 'study');\n",
               silent = silent)
         );
       }
@@ -129,7 +129,7 @@ rxs_parseExtractionScripts <- function(path,
         rxsObjectName <- yamlParams$params$rxsObjectName;
         res$log <- c(
           res$log,
-          msg("\nThe rxsObjectName stored in this rxs file is '",
+          msg("\n  - The rxsObjectName stored in this rxs file is '",
               rxsObjectName, "'.",
               silent = silent)
         );
@@ -137,11 +137,11 @@ rxs_parseExtractionScripts <- function(path,
         rxsObjectName <- metabefor::opts$get("rxsObjectName");
         res$log <- c(
           res$log,
-          msg("\nThe rxsObjectName was not stored in this rxs file. Using the ",
+          msg("\n  - The rxsObjectName was not stored in this rxs file. Using the ",
               "name stored in the options ('",
               rxsObjectName, "'. That is, however, a relatively new name - if ",
               "you get any errors, you may want to set it to e.g. 'study' ",
-              "using:\n\n  metabefor::opts$set(rxsObjectName = 'study');\n",
+              "using:\n\n    metabefor::opts$set(rxsObjectName = 'study');\n",
               silent = silent)
         );
       }
@@ -152,7 +152,7 @@ rxs_parseExtractionScripts <- function(path,
         uniqueSourceIdName <- yamlParams$params$uniqueSourceIdName;
         res$log <- c(
           res$log,
-          msg("\nThe uniqueSourceIdName stored in this rxs file is '",
+          msg("\n  - The uniqueSourceIdName stored in this rxs file is '",
               uniqueSourceIdName, "'.",
               silent = silent)
         );
@@ -160,24 +160,24 @@ rxs_parseExtractionScripts <- function(path,
         uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
         res$log <- c(
           res$log,
-          msg("\nThe uniqueSourceIdName was not stored in this rxs file. Using the ",
+          msg("\n  - The uniqueSourceIdName was not stored in this rxs file. Using the ",
               "name stored in the options ('",
               uniqueSourceIdName, "'. That is, however, a relatively new name - if ",
               "you get any errors, you may want to set it using e.g.:\n\n",
-              "  metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
+              "    metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
               silent = silent)
         );
       }
     } else {
       res$log <- c(
         res$log,
-        msg("\nThis is either a very old rxs file, or not a valid rxs ",
+        msg("\n  - This is either a very old rxs file, or not a valid rxs ",
             "file at all. I will use the settings from the options. If you ",
             "see any errors, you may want to change the root and object ",
             "names to an old value, using e.g. :\n\n",
-            "  metabefor::opts$set(rxsRootName = 'study');\n",
-            "  metabefor::opts$set(rxsObjectName = 'study');\n",
-            "  metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
+            "    metabefor::opts$set(rxsRootName = 'study');\n",
+            "    metabefor::opts$set(rxsObjectName = 'study');\n",
+            "    metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
             silent = silent)
       );
       rxsVersion <- "0.0.1.9999";
@@ -429,7 +429,7 @@ rxs_parseExtractionScripts <- function(path,
       if (any(unlist(lapply(allValues, is.expression)))) {
         res$log <- c(
           res$log,
-          msg("In the extracted entities in filename ", filename,
+          msg("  - In the extracted entities in filename ", filename,
               " for source with identifier '", sourceId, "', one or more ",
               "extracted values are not just values, but ",
               "instead R expressions! This is probably a symptom of ",
