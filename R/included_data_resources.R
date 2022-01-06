@@ -25,7 +25,7 @@ updateEverything <- FALSE;
 "rxs_minimal_modular_example"
 
 if (exists("updateEverything") && updateEverything) {
-  
+
   extDataDir <- here::here("inst", "extdata");
 
   gSheet_url <-

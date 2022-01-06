@@ -8,7 +8,7 @@
 #' @param definitions The definitions, as a data frame
 #' @param eC The entity column names, as a names vector
 #' @param valueTemplateCols The value template column names, as a named vector
-#' @param rootName The name of the root node of the study tree
+#' @param rxsRootName The name of the root node of the study tree
 #'
 #' @return An `rxsStructure` object
 #' @export
@@ -17,11 +17,11 @@ rxs_parseSpecifications <- function(entities,
                                     definitions = NULL,
                                     eC = metabefor::opts$get("entityColNames"),
                                     valueTemplateCols = metabefor::opts$get("valueTemplateColNames"),
-                                    rootName = 'study') {
+                                    rxsRootName = metabefor::opts$get("rxsRootName")) {
 
   res <- list(parsedEntities = rxs_parseEntities(entities = entities,
                                                  eC = eC,
-                                                 rootName = rootName),
+                                                 rxsRootName = rxsRootName),
               parsedValueTemplates = rxs_parseValueTemplates(valueTemplateDataframe=valueTemplates,
                                                              valueTemplateCols = valueTemplateCols));
 

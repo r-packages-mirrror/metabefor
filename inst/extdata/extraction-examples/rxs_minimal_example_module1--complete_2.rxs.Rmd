@@ -1,6 +1,6 @@
 ---
 title: "Systematic Review Extraction Script Template"
-date: "2022-01-06 at 13:42:50 CET (UTC+0100)"
+date: "2022-01-06 at 13:13:29 CET (UTC+0100)"
 output:
   html_document:
     self-contained: yes
@@ -14,7 +14,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r rxs-setup-chunk-sPE94w, echo=FALSE, results='hide'}
+```{r rxs-setup-chunk-pux3tP, echo=FALSE, results='hide'}
 ```
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -41,7 +41,7 @@ uniqueSourceIdentifier <-
 ### 
 ################################################################################
     
-    ""
+    "qurid_7h50rzmz"
     
 ################################################################################
 ############################################# VALUE DESCRIPTION AND EXAMPLES ###
@@ -52,7 +52,7 @@ uniqueSourceIdentifier <-
 ### https://shortdoi.org (the part after the "10/"). For studies without a
 ### DOI (and so, without a shortDOI), this can be, for example, the QURID
 ### (Quasi-Unique Record Identifier) that was designated during the
-### screening phase or which you can create with `metabefor::qurid()`.
+### screening phase.
 ### 
 ### EXAMPLES:
 ### 
@@ -97,7 +97,7 @@ currentEntity <- rxsObject;
     ### 
     ############################################################################
         
-        NA
+        2021
         
     ############################################################################
     ######################################### VALUE DESCRIPTION AND EXAMPLES ###
@@ -131,7 +131,7 @@ currentEntity <- rxsObject;
     ### 
     ############################################################################
         
-        "Enter name here (mandatory)"
+        "Samuel Vimes"
         
     ############################################################################
     ######################################### VALUE DESCRIPTION AND EXAMPLES ###
@@ -165,7 +165,7 @@ currentEntity <- rxsObject;
     ### 
     ############################################################################
         
-        "Enter name here (mandatory)"
+        "Boots' theory of socioeconomic unfairness"
         
     ############################################################################
     ######################################### VALUE DESCRIPTION AND EXAMPLES ###
@@ -218,11 +218,11 @@ if (!(grepl("^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$", rxsObject$rxsMetadata$id, 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
-```{r rxs-show-extracted-data-chunk-OeXc9g}
+```{r rxs-show-extracted-data-chunk-08fFp9}
 metabefor::rxs_partial(rxsObject);
 ```
 
-```{r rxs-validation-chunk-I9D21E, results='asis'}
+```{r rxs-validation-chunk-w2AbLt, results='asis'}
 #metabefor::rxs_validation(rxsObject);
 metabefor::heading('Validation results', headingLevel = 1);
 #rxs_validation(rxsObject,
@@ -235,7 +235,7 @@ if (length(rxsObject$validationResults) > 2) {
 }
 ```
 
-```{r rxs-setup-chunk-sPE94w, include=FALSE, messages=FALSE}
+```{r rxs-setup-chunk-pux3tP, include=FALSE, messages=FALSE}
 ### First check for (and perhaps install) metabefor
 if (!('metabefor' %in% row.names(installed.packages()))) {
   install.packages('metabefor', repos='http://cran.rstudio.com');
@@ -248,7 +248,7 @@ knitr::opts_chunk$set(comment = NA);     ### Suppress output prefix
 
 <!-- Here, the original Rxs template specification is included. ~~~~~~~~~~~-->
 
-```{r rxs-template-specification-chunk-nak8rf, echo=FALSE}
+```{r rxs-template-specification-chunk-UPV0gQ, echo=FALSE}
 
 rxsTemplateSpec <- 
   list(entities = structure(list(title = c("General", "Year", "Authors", 
@@ -272,7 +272,7 @@ rxsTemplateSpec <-
   "method", "variables", "variable", "variableIdentifier", "measurementLevel", 
   "associations", "association", "associationIdentifier", "varId1", 
   "varId2", "r", "t"), valueTemplate = c(NA, "integer.length4.multi", 
-  "string.mandatory", "string.mandatory", NA, NA, "integer", "string", 
+  "countrycode", "string.mandatory", NA, NA, "integer", "string", 
   "categorical", NA, NA, "string.identifier", "categorical", NA, 
   NA, "string.identifier", "string.entityRef.mandatory", "string.entityRef.mandatory", 
   "numeric", "numeric"), validValues = c(NA, NA, NA, NA, NA, NA, 
@@ -395,7 +395,7 @@ rxsTemplateSpec <-
           examplesCol = "examples", validationCol = "validation", 
           errorCol = "error"), rxsRootName = "source", yamlMetadata = list(
           title = "Systematic Review Extraction Script Template", 
-          author = NULL, date = "2022-01-06 at 13:42:50 CET (UTC+0100)"), 
+          author = NULL, date = "2022-01-06 at 13:13:29 CET (UTC+0100)"), 
       indent = TRUE, indentSpaces = 2, commentCharacter = "#", 
       fillerCharacter = "#")
 

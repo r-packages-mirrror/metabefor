@@ -98,7 +98,7 @@ opts$defaults <-
     
     rxsVersion = "0.3.0",
     
-    rootName = "source",
+    rxsRootName = "source",
     
     rxsObjectName = "rxsObject",
     rxsTemplateSpecName = "rxsTemplateSpec",
@@ -171,25 +171,42 @@ opts$defaults <-
              "the \"10/\"). For studies without a DOI (and so, without a ",
              "shortDOI), this can be, for example, the QURID (Quasi-Unique ",
              "Record Identifier) that was designated during the screening ",
-             "phase."),
+             "phase or which you can create with `metabefor::qurid()`."),
     sourceIdValueTemplateExamples = c("\"g5fj\"", "\"qurid_7h4pksl6\""),
     sourceIdValidation = "grepl(\"^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$\", VALUE, ignore.case=TRUE)",
     
-    extractionOverview_list_intro =
-      paste0(
-        "This is an overview of the entities to extract, their titles ",
-        "and descriptions, and other details that will become part of the ",
-        "extraction script template that will be used for the actual ",
-        "extraction."
-      ),
-    
-    extractionOverview_compact_intro =
-      paste0(
-        "This is an overview of the entities to extract, their titles ",
-        "and descriptions, and other details that will become part of the ",
-        "extraction script template that will be used for the actual ",
-        "extraction."
-      ),
+    texts = list(
+      openingRemarks = 
+        paste0(
+          "Welcome to the R Extraction Script (.rxs.Rmd file) for this ",
+          "source!\n\nYou can now start extracting. If you haven't yet ",
+          "studied the extractor instructions, please do so first. If you're ",
+          "all set, good luck!"
+        ),
+      closingRemarks =
+        paste0(
+          "Well done! You are now done extracting this source. Great job!!!\n\n",
+          "Now, please knit the R Extraction Script into an HTML file and ",
+          "carefully check whether you entered everything correctly, since it ",
+          "will cost much less time to correct any errors, now that you still ",
+          "have this source in your mind, than later on when you'll have to ",
+          "dive into it all over."
+        ),
+      extractionOverview_list_intro =
+        paste0(
+          "This is an overview of the entities to extract, their titles ",
+          "and descriptions, and other details that will become part of the ",
+          "extraction script template that will be used for the actual ",
+          "extraction."
+        ),
+      extractionOverview_compact_intro =
+        paste0(
+          "This is an overview of the entities to extract, their titles ",
+          "and descriptions, and other details that will become part of the ",
+          "extraction script template that will be used for the actual ",
+          "extraction."
+        )
+    ),
     
     defaultGraphTheme = list(
       c("fontname", "Arial", "graph"),

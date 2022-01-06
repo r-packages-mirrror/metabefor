@@ -38,7 +38,7 @@ rxs_fg_container <- function(node,
                           commentCharacter = commentCharacter,
                           fillerCharacter = fillerCharacter);
   
-  if (isTRUE(node[[eC$repeatingCol]])) {
+  if (is_TRUE(node[[eC$repeatingCol]])) {
     currentEntityName <- paste0(node$name, repeatingSuffix);
     currentStartEndName <- paste0(node$name, " (REPEATING)");
   } else {

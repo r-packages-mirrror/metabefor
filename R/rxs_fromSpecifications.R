@@ -73,7 +73,7 @@
 #' override these values, just reproduce that object.
 #' @param repeatingSuffix The suffix to use for the entity identifiers/names
 #' of repeating entities.
-#' @param rootName The name of the root element
+#' @param rxsRootName The name of the root element
 #' @param preventOverwriting Whether to prevent accidental overwriting of the
 #' extraction templates.
 #' @param ignoreModules Optionally, you can ignore modules specified in the
@@ -111,7 +111,7 @@ rxs_fromSpecifications <- function(x = NULL,
                                    instructionsCols = metabefor::opts$get("instructionsColNames"),
                                    definitionsCols = metabefor::opts$get("definitionsColNames"),
                                    repeatingSuffix = "__1__",
-                                   rootName = metabefor::opts$get(rootName),
+                                   rxsRootName = metabefor::opts$get(rxsRootName),
                                    preventOverwriting = FALSE,
                                    silent = metabefor::opts$get("silent"),
                                    instructionHeadingLevel = 3,
@@ -128,9 +128,10 @@ rxs_fromSpecifications <- function(x = NULL,
   diagrammerSanitization <-
     metabefor::opts$get('diagrammerSanitization');
   
-  extractionOverview_compact_intro <-
-    metabefor::opts$get('extractionOverview_compact_intro');
+  texts <- metabefor::opts$get('texts');
   
+  extractionOverview_compact_intro <-
+    texts$extractionOverview_compact_intro;
   
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
@@ -419,7 +420,7 @@ rxs_fromSpecifications <- function(x = NULL,
                                       instructionSheet = instructionSheet,
                                       eC = eC,
                                       valueTemplateCols = valueTemplateCols,
-                                      rootName = rootName,
+                                      rxsRootName = rxsRootName,
                                       yamlMetadata = yamlMetadata,
                                       indent=indent,
                                       indentSpaces=indentSpaces,
@@ -491,7 +492,7 @@ rxs_fromSpecifications <- function(x = NULL,
         definitions = definitions,
         eC = eC,
         valueTemplateCols = valueTemplateCols,
-        rootName = rootName
+        rxsRootName = rxsRootName
       );
 
       rxsTemplate_modules[[currentModule]] <- rxs_buildTemplate(
@@ -539,7 +540,7 @@ rxs_fromSpecifications <- function(x = NULL,
       definitions = definitions,
       eC = eC,
       valueTemplateCols = valueTemplateCols,
-      rootName = rootName
+      rxsRootName = rxsRootName
     );
   
     rxsTemplate <- rxs_buildTemplate(

@@ -3,8 +3,10 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
                                            headingLevel = 3,
                                            eC = metabefor::opts$get('entityColNames')) {
   
+  texts <- metabefor::opts$get(texts);
+  
   extractionOverview_list_intro <-
-    metabefor::opts$get('extractionOverview_list_intro');
+    texts$extractionOverview_list_intro;
 
   resTree <- data.tree::Clone(rxsTree);
   
@@ -27,7 +29,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
         );
     },
     filterFun = function(node) {
-      return(isTRUE(node[[eC$listCol]]));
+      return(is_TRUE(node[[eC$listCol]]));
     }
   );
     
@@ -36,7 +38,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
       function(node) {
         if (node$isRoot) {
           return(NULL);
-        } else if (isTRUE(node$parent[[eC$listCol]])) {
+        } else if (is_TRUE(node$parent[[eC$listCol]])) {
           ### Skip children of entity lists
           return(NULL);
         } else {
@@ -50,7 +52,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
           if (!is.null(node[[eC$valueTemplateCol]])) {
             type <- "Extractable Entity";
             listFragment <- FALSE;
-          } else if (isTRUE(node[[eC$listCol]])) {
+          } else if (is_TRUE(node[[eC$listCol]])) {
             type <- "Extractable Entity List";
             listFragment <- node$entityOverview_list_fragment;
           } else {
@@ -120,9 +122,9 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
             paste0(
               res,
               "  \n**Repeating**: `",
-              ifelse(is.null(node$repeating) || !(isTRUE(node$repeating)),
-                     "FALSE",
-                     "TRUE"),
+              ifelse(is_TRUE(node$repeating),
+                     "TRUE",
+                     "FALSE"),
               "`"
             );
           

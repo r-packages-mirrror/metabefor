@@ -10,7 +10,7 @@ rxs_parseSpecifications(
   definitions = NULL,
   eC = metabefor::opts$get("entityColNames"),
   valueTemplateCols = metabefor::opts$get("valueTemplateColNames"),
-  rootName = "study"
+  rxsRootName = metabefor::opts$get("rxsRootName")
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ rxs_parseSpecifications(
 
 \item{valueTemplateCols}{The value template column names, as a named vector}
 
-\item{rootName}{The name of the root node of the study tree}
+\item{rxsRootName}{The name of the root node of the study tree}
 }
 \value{
 An \code{rxsStructure} object

@@ -38,6 +38,7 @@ rxs_parseExtractionScripts <- function(path,
   }
 
   res$rxsOutput <- list();
+  res$rxsTrees_raw <- list();
   res$rxsTrees <- list();
   res$log <- c();
 
@@ -82,7 +83,113 @@ rxs_parseExtractionScripts <- function(path,
       msg("\n\nStarting to process extraction script ", filename, "...",
           silent = silent)
     );
+    
+    ###-------------------------------------------------------------------------
+    ### Get YAML parameters
+    ###-------------------------------------------------------------------------
+    
+    yamlParams <-
+      yum::load_and_simplify(file = file.path(path, filename));
+    
+    if (("params" %in% names(yamlParams)) &&
+        ("rxsVersion" %in% names(yamlParams$params))) {
+      res$log <- c(
+        res$log,
+        msg("\nThis is a valid rxs file, version ",
+            yamlParams$params$rxsVersion, ".",
+            silent = silent)
+      );
+      ###-----------------------------------------------------------------------
+      ### rxsRootName
+      ###-----------------------------------------------------------------------
+      if ("rxsRootName" %in% names(yamlParams$params)) {
+        rxsRootName <- yamlParams$params$rxsRootName;
+        res$log <- c(
+          res$log,
+          msg("\nThe rxsRootName stored in this rxs file is '",
+              rxsRootName, "'.",
+              silent = silent)
+        );
+      } else {
+        rxsRootName <- metabefor::opts$get("rxsRootName");
+        res$log <- c(
+          res$log,
+          msg("\nThe rxsRootName was not stored in this rxs file. Using the ",
+              "name stored in the options ('",
+              rxsRootName, "'. That is, however, a relatively new name - if ",
+              "you get any errors, you may want to set it to e.g. 'study' ",
+              "using:\n\n  metabefor::opts$set(rxsRootName = 'study');\n",
+              silent = silent)
+        );
+      }
+      ###-----------------------------------------------------------------------
+      ### rxsObjectName
+      ###-----------------------------------------------------------------------
+      if ("rxsObjectName" %in% names(yamlParams$params)) {
+        rxsObjectName <- yamlParams$params$rxsObjectName;
+        res$log <- c(
+          res$log,
+          msg("\nThe rxsObjectName stored in this rxs file is '",
+              rxsObjectName, "'.",
+              silent = silent)
+        );
+      } else {
+        rxsObjectName <- metabefor::opts$get("rxsObjectName");
+        res$log <- c(
+          res$log,
+          msg("\nThe rxsObjectName was not stored in this rxs file. Using the ",
+              "name stored in the options ('",
+              rxsObjectName, "'. That is, however, a relatively new name - if ",
+              "you get any errors, you may want to set it to e.g. 'study' ",
+              "using:\n\n  metabefor::opts$set(rxsObjectName = 'study');\n",
+              silent = silent)
+        );
+      }
+      ###-----------------------------------------------------------------------
+      ### uniqueSourceIdName
+      ###-----------------------------------------------------------------------
+      if ("uniqueSourceIdName" %in% names(yamlParams$params)) {
+        uniqueSourceIdName <- yamlParams$params$uniqueSourceIdName;
+        res$log <- c(
+          res$log,
+          msg("\nThe uniqueSourceIdName stored in this rxs file is '",
+              uniqueSourceIdName, "'.",
+              silent = silent)
+        );
+      } else {
+        uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+        res$log <- c(
+          res$log,
+          msg("\nThe uniqueSourceIdName was not stored in this rxs file. Using the ",
+              "name stored in the options ('",
+              uniqueSourceIdName, "'. That is, however, a relatively new name - if ",
+              "you get any errors, you may want to set it using e.g.:\n\n",
+              "  metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
+              silent = silent)
+        );
+      }
+    } else {
+      res$log <- c(
+        res$log,
+        msg("\nThis is either a very old rxs file, or not a valid rxs ",
+            "file at all. I will use the settings from the options. If you ",
+            "see any errors, you may want to change the root and object ",
+            "names to an old value, using e.g. :\n\n",
+            "  metabefor::opts$set(rxsRootName = 'study');\n",
+            "  metabefor::opts$set(rxsObjectName = 'study');\n",
+            "  metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
+            silent = silent)
+      );
+      rxsVersion <- "0.0.1.9999";
+      rxsRootName <- metabefor::opts$get("rxsRootName");
+      rxsRootName <- metabefor::opts$get("rxsObjectName");
+      uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+    }
 
+    ###-------------------------------------------------------------------------
+    ### Extract R chunks
+    ###-------------------------------------------------------------------------
+    
     ### From https://stackoverflow.com/questions/24753969/knitr-run-all-chunks-in-an-rmarkdown-document
 
     ### Create temporary file
@@ -107,11 +214,10 @@ rxs_parseExtractionScripts <- function(path,
       utils::capture.output(
         tryCatch(
           knitr::purl(
-            file.path(path,
-                      filename),
-                      output=tempR,
-                      quiet=TRUE,
-                      encoding=encoding),
+            file.path(path, filename),
+            output=tempR,
+            quiet=TRUE,
+            encoding=encoding),
           error = function(e) {
             cat(paste0("In file '",
                        filename,
@@ -123,6 +229,10 @@ rxs_parseExtractionScripts <- function(path,
           })
       );
 
+    ###-------------------------------------------------------------------------
+    ### Evaluate R chunks
+    ###-------------------------------------------------------------------------
+    
     tryCatch({res$rxsPurlingOutput[[filename]] <-
                 purlingOutput;},
              error = function(e) {
@@ -215,47 +325,141 @@ rxs_parseExtractionScripts <- function(path,
       }
     }
 
-    ### If successful, store the result and delete object; otherwise set to NA
-    if (exists('study', envir=globalenv())) {
+    ###-------------------------------------------------------------------------
+    ### Get the identifier of this source
+    ###-------------------------------------------------------------------------
+    
+    if (exists(uniqueSourceIdName, envir=globalenv())) {
+      sourceId <- get(uniqueSourceIdName, envir=globalenv());
+
+      res$log <- c(
+        res$log,
+        msg("\n  - The unique source identifier was succesfully retrieved: ",
+            sourceId, ".",
+            silent = silent)
+      );
       
-      study <- get('study', envir=globalenv());
+    } else {
       
-      res$rxsTrees[[filename]] <-
-        data.tree::Clone(study);
+      sourceId <- filename;
       
       res$log <- c(
         res$log,
-        msg("\n  - Finally, successfully stored the `study` object, which ",
-            "itself contains ", length(study), " objects.",
+        msg("\n  - The unique source identifier could not be retrieved, using filename instead: ",
+            sourceId, ".",
+            silent = silent)
+      );
+      
+    }
+    
+    ###-------------------------------------------------------------------------
+    ### Make sure we have a unique name to store this object in
+    ###-------------------------------------------------------------------------
+    
+    currentTreeName <- filename;
+    
+    if (currentTreeName %in% names(res$rxsTrees_raw)) {
+      currentTreeName <- paste0(currentTreeName, "__1");
+    }
+    
+    while (currentTreeName %in% names(res$rxsTrees_raw)) {
+      currentNumber <- gsub(".*__([0-9]+)$", "\\1", currentTreeName);
+      currentTreeName <- paste0(currentTreeName, "__", currentNumber+1);
+    }
+    
+    ###-------------------------------------------------------------------------
+    ### Get the result and store it in our results object
+    ###-------------------------------------------------------------------------
+    
+    ### If successful, store the result and delete object; otherwise set to NA
+    if (exists(rxsObjectName, envir=globalenv())) {
+      
+      tmpRxsObject <- get(rxsObjectName, envir=globalenv());
+
+      res$rxsTrees_raw[[currentTreeName]] <-
+        data.tree::Clone(tmpRxsObject);
+      
+      if (is.null(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
+        res$rxsTrees_raw[[currentTreeName]]$rxsMetadata <-
+          list(id_from_parsing = sourceId,
+               filename = filename);
+      } else {
+        res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id_from_parsing <-
+          sourceId;
+        res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$filename <-
+          filename
+        if ("id" %in% names(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
+          if (!(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id == sourceId)) {
+            res$log <- c(
+              res$log,
+              msg("\n  - Warning: the source identifier as specified at the ",
+                  "top of the rxs file ('", sourceId, "') is different from ",
+                  "the source identifier specified in the rxs object's ",
+                  "metadata ('",
+                  res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id,
+                  "'), even though these should be identical! If this ",
+                  "source file was manually altered (e.g. updated from a ",
+                  "version where source identifiers did not exist yet) this ",
+                  "is expected, so then there's no need to worry. Otherwise, ",
+                  "however, it may be a sign that somebody (e.g. an ",
+                  "extractor) accidently changed a part of the rxs file that ",
+                  "should not have changed, so you may want to check ",
+                  "it carefully",
+                  silent = silent)
+            );
+          }
+        }
+      }
+      
+      nrOfEntities <-
+        length(res$rxsTrees_raw[[currentTreeName]]$Get("name"))
+      
+      res$log <- c(
+        res$log,
+        msg("\n  - Finally, successfully stored the object with extracted data, which ",
+            "itself contains ", nrOfEntities, " entities ",
+            "(some of which may be clustering entities (i.e. lists of other ",
+            "entities), in which case even more than ", nrOfEntities,
+            " entities may have been extracted from this source).",
             silent = silent)
       );
 
-      allValues <- study$Get('value');
+      allValues <- res$rxsTrees_raw[[currentTreeName]]$Get('value');
 
       if (any(unlist(lapply(allValues, is.expression)))) {
         res$log <- c(
           res$log,
-          msg("One or more extracted values are not just values, but ",
+          msg("In the extracted entities in filename ", filename,
+              " for source with identifier '", sourceId, "', one or more ",
+              "extracted values are not just values, but ",
               "instead R expressions! This is probably a symptom of ",
-              "a syntax error made during extraction. Carefully check the ",
-              "extraction script file!",
+              "a syntax error made during extraction (e.g. omitted quotes). ",
+              "Carefully check the extraction script file!",
               silent = silent)
         );
       } else {
         res$log <- c(
           res$log,
           msg("\n  - Checked (and discovered) that none of the extracted ",
-              "`values` is in fact an R expression.",
+              "`values` is in fact an R expression, which means that no ",
+              "R syntax errors were probably made (e.g. omitted quotes).",
               silent = silent)
         );
       }
       
-      rm(study, envir=globalenv());
+      rm(list = rxsObjectName, envir=globalenv());
       
     } else {
-      res$rxsTrees[[filename]] <- NA;
+      res$rxsTrees_raw[[currentTreeName]] <- NA;
     }
-
+    
+    res$log <- c(
+      res$log,
+      msg("\n  - Done with source with identifier ", sourceId,
+          " from file ", filename, ".\n",
+          silent = silent)
+    );
+    
     if (progressBar) {
       #p$tick()$print();
       p$tick();
@@ -266,35 +470,178 @@ rxs_parseExtractionScripts <- function(path,
   res$log <- c(
     res$log,
     msg("\n\nFinished processing all Rxs files. ",
-        "Starting verification of Rxs study trees.\n",
+        "Starting merging the Rxs trees.\n",
         silent = silent
     )
   );
-
-  validTrees <- unlist(lapply(res$rxsTrees, inherits, "Node"));
-  validTreeNames <- names(res$rxsTrees[validTrees]);
-  invalidTreeNames <- names(res$rxsTrees[!validTrees]);
   
-  if (sum(!validTrees) > 0) {
-    warning("I read ", sum(!validTrees), " invalid study trees, specifically ",
-            "from files ", vecTxtQ(invalidTreeNames), ". You will probably ",
-            "want to check and correct those, and the re-run this command, ",
-            "before continuing.");
-  }
+  ###-------------------------------------------------------------------------
+  ### Verification of raw trees
+  ###-------------------------------------------------------------------------
+  
+  validRawTrees <- unlist(lapply(res$rxsTrees_raw, inherits, "Node"));
+  validRawTreeNames <- names(res$rxsTrees_raw[validRawTrees]);
+  invalidRawTreeNames <- names(res$rxsTrees_raw[!validRawTrees]);
   
   res$convenience <- list();
-  res$convenience$validTrees <- validTrees;
-  res$convenience$validTreeNames <- validTreeNames;
-  res$convenience$invalidTreeNames <- invalidTreeNames;
+  res$convenience$validRawTrees <- validRawTrees;
+  res$convenience$validRawTreeNames <- validRawTreeNames;
+  res$convenience$invalidRawTreeNames <- invalidRawTreeNames;
   
-  ### Remove invalid trees
-  res$rxsTrees <- res$rxsTrees[validTreeNames];
+  if (sum(!validRawTrees) > 0) {
+    warningMessage <-
+      paste0("When reading the raw rxs trees, I read ", sum(!validRawTrees),
+             " invalid trees, specifically those ",
+             "from rxs files ", vecTxtQ(invalidTreeNames),
+             ". You will probably want to check and correct those, and then ",
+             " re-run this command, before continuing.");
+    res$log <- c(
+      res$log,
+      msg(warningMessage,
+          silent = silent
+      )
+    );
+    if (silent) {
+      warning(warningMessage);
+    }
+  } else {
+    res$log <- c(
+      res$log,
+      msg("\nWhen reading the raw rxs trees, I encountered no invalid trees.\n",
+          silent = silent
+      )
+    );
+  }
   
-  for (currentTree in validTreeNames) {
+  ###-------------------------------------------------------------------------
+  ### Merging trees
+  ###-------------------------------------------------------------------------
+  
+  sourceIds <-
+    lapply(
+      res$rxsTrees_raw[validRawTrees],
+      function(node) {
+        if (is.null(node$root$rxsMetadata)) {
+        } else {
+          if ("id" %in% names(node$root$rxsMetadata)) {
+            return(node$root$rxsMetadata$id);
+          } else {
+            return(node$root$rxsMetadata$id_from_parsing);
+          }
+        }
+      }
+    );
+  
+  filenames_by_sourceId <- stats::setNames(names(sourceIds),
+                                           nm = sourceIds);
+  
+  uniqueSourceIds <- unique(sourceIds);
+    
+  duplicatedSourceIds <- duplicated(unlist(sourceIds));
+  duplicatedSourceIds <- unique(unlist(sourceIds)[duplicatedSourceIds]);
+  
+  res$convenience$sourceIds <- sourceIds;
+  res$convenience$filenames_by_sourceId <- filenames_by_sourceId;
+  res$convenience$uniqueSourceIds <- uniqueSourceIds;
+  res$convenience$duplicatedSourceIds <- duplicatedSourceIds;
+  
+  if (length(duplicatedSourceIds) == 0) {
+    res$log <- c(
+      res$log,
+      msg("\nAll raw rxs trees had unique source identifiers. Therefore, I ",
+          "will not merge any trees.\n",
+          silent = silent
+      )
+    );
+    res$rxsTrees <- res$rxsTrees_raw[validRawTrees];
+  } else {
+    res$log <- c(
+      res$log,
+      msg("\nSome of the raw rxs trees had the same source identifiers. ",
+          "Therefore, I will now attempt to merge those trees.\n",
+          silent = silent
+      )
+    );
+    
+    ###-------------------------------------------------------------------------
+    ### Start of actual merging activity
+    ###-------------------------------------------------------------------------
+
+    res$rxsTrees <-
+      lapply(
+        uniqueSourceIds,
+        function(sourceId) {
+          
+          res$log <- c(
+            res$log,
+            msg("\n  - Starting to merge the trees for source identifier ",
+                sourceId, ".",
+                silent = silent
+            )
+          );
+          
+          indices <- which(sourceIds == sourceId);
+
+          mergingResult <-
+            data.tree::Clone(res$rxsTrees_raw[validRawTrees][[indices[1]]]);
+
+          res$log <- c(
+            res$log,
+            msg("\n    - Taking Rxs file '",
+                mergingResult$rxsMetadata$filename, "' as basis.",
+                silent = silent
+            )
+          );
+          
+          if (length(indices) > 1) {
+            
+            for (i in tail(indices, -1)) {
+              
+              res$log <- c(
+                res$log,
+                msg("\n    - Merging in entities from Rxs file '",
+                    res$rxsTrees_raw[validRawTrees][[i]]$rxsMetadata$filename,
+                    "'.",
+                    silent = silent
+                )
+              );
+              
+              mergingResult <-
+                mergeTrees(
+                  mergingResult,
+                  res$rxsTrees_raw[validRawTrees][[i]]
+                );
+              
+            }
+            
+          } 
+          
+          return(mergingResult);
+          
+        }
+      );
+    
+    names(res$rxsTrees) <- uniqueSourceIds;
+
+  }
+  
+  res$log <- c(
+    res$log,
+    msg("\n\nFinished merging the Rxs trees. ",
+        "Starting verification of Rxs trees.\n",
+        silent = silent
+    )
+  );
+  
+  ###-------------------------------------------------------------------------
+  ### Verification of raw trees
+  ###-------------------------------------------------------------------------
+
+  for (currentTree in names(res$rxsTrees)) {
     if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
       res$log <- c(
         res$log,
-        msg("\nIn the Rxs study tree from file '", currentTree,
+        msg("\nIn the Rxs study tree for source identifier '", currentTree,
             "', not all node names (i.e. entity names) are unique!",
             silent = silent)
       );

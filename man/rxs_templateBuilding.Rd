@@ -14,7 +14,7 @@ rxs_fromSpecifications(
     NULL, date = format(Sys.time(), "\%Y-\%m-\%d at \%H:\%M:\%S \%Z (UTC\%z)")),
   indent = TRUE,
   indentSpaces = 2,
-  fullWidth = 80,
+  fullWidth = 78,
   commentCharacter = "#",
   fillerCharacter = "#",
   ws = metabefor::opts$get("rxsSheetnames"),
@@ -23,7 +23,8 @@ rxs_fromSpecifications(
   instructionsCols = metabefor::opts$get("instructionsColNames"),
   definitionsCols = metabefor::opts$get("definitionsColNames"),
   repeatingSuffix = "__1__",
-  rootName = "study",
+  rxsRootName = metabefor::opts$get(rxsRootName),
+  preventOverwriting = FALSE,
   silent = metabefor::opts$get("silent"),
   instructionHeadingLevel = 3,
   graphTheme = list(c("fontname", "Arial", "node")),
@@ -94,10 +95,25 @@ worksheet of the spreadsheet. The default values are stored
 in \code{metabefor::opts$get("valueTemplateColNames")} - if you need to
 override these values, just reproduce that object.}
 
+\item{instructionsCols}{The instructions worksheet columns: a names list with
+character values holding the names of the columns in the \code{instructions}
+worksheet of the spreadsheet. The default values are stored
+in \code{metabefor::opts$get("instructionsColNames")} - if you need to
+override these values, just reproduce that object.}
+
+\item{definitionsCols}{The definitions worksheet columns: a names list with
+character values holding the names of the columns in the \code{definitions}
+worksheet of the spreadsheet. The default values are stored
+in \code{metabefor::opts$get("definitionsColNames")} - if you need to
+override these values, just reproduce that object.}
+
 \item{repeatingSuffix}{The suffix to use for the entity identifiers/names
 of repeating entities.}
 
-\item{rootName}{The name of the root element}
+\item{rxsRootName}{The name of the root element}
+
+\item{preventOverwriting}{Whether to prevent accidental overwriting of the
+extraction templates.}
 
 \item{silent}{Whether to be silent or chatty.}
 
@@ -122,8 +138,6 @@ value with a valid path to a spreadsheet (\code{.xlsx}) with the worksheets, or
 a named list of character strings each pointing to a \code{.csv} file with the
 relevant worksheet, where the names of each character value represent the
 names of the worksheets contained in each file.}
-
-\item{rxsStructure}{The Rxs specification as loaded from a spreadsheet.}
 }
 \value{
 Either a full object, containing the template and other products,

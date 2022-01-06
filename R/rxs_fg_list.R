@@ -41,7 +41,7 @@ rxs_fg_list <- function(node,
 
   ### For repeating nodes, we only set a temporary name, which
   ### we later change to the value of the first field.
-  if (isTRUE(node[[eC$repeatingCol]])) {
+  if (is_TRUE(node[[eC$repeatingCol]])) {
     currentEntityName <- paste0(node$name, repeatingSuffix);
     currentStartEndName <- paste0(node$name, " (REPEATING)");
   } else {
@@ -120,7 +120,7 @@ rxs_fg_list <- function(node,
   identifyingEntityName <-
     node$Get('name',
              filterFun = function(nd) {
-               return(nd$isLeaf && isTRUE(nd[[eC$identifyingCol]]));
+               return(nd$isLeaf && is_TRUE(nd[[eC$identifyingCol]]));
              });
 
   if (!is.null(identifyingEntityName)) {
@@ -146,7 +146,7 @@ rxs_fg_list <- function(node,
               ". Only using the first one ('",
               identifyingEntityName[1], "').");
     }
-  } else if (is.null(identifyingEntityName) && isTRUE(node[[eC$repeatingCol]])) {
+  } else if (is.null(identifyingEntityName) && is_TRUE(node[[eC$repeatingCol]])) {
 
     ###
     ###   Check rxs version and behave depending on version!!!

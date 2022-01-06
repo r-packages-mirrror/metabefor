@@ -9,10 +9,10 @@
 #'
 #' @return A character value.
 #' @rdname randomSlug
-#' @export
 #'
 #' @examples randomSlug();
 #' idSlug("identifier");
+#' @export
 randomSlug <- function(x = 10,
                        id = NULL,
                        chars = c(letters, LETTERS, 0:9)) {

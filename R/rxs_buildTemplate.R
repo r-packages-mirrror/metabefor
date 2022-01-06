@@ -19,6 +19,7 @@ rxs_buildTemplate <- function(rxsStructure,
   rxsTemplateSpecName <- metabefor::opts$get("rxsTemplateSpecName");
   uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
   sourceIdValidation <- metabefor::opts$get("sourceIdValidation");
+  texts <- metabefor::opts$get("texts");
   
   if (!("rxsStructure" %IN% class(rxsStructure))) {
     stop("The class of the object provided as argument 'rxsStructure' is not ",
@@ -31,7 +32,28 @@ rxs_buildTemplate <- function(rxsStructure,
     rxsObjectName <- rxsRootName;
   }
   
+  ###---------------------------------------------------------------------------
+  ### Opening and closing remarks
+  ###---------------------------------------------------------------------------
 
+  openingBlock <-
+    c(
+      htmlComment(),
+      htmlComment(" ", padding=" "),
+      htmlComment(texts$openingRemarks, padding=" "),
+      htmlComment(" ", padding=" "),
+      htmlComment()
+    );
+
+  closingBlock <-
+    c(
+      htmlComment(),
+      htmlComment(" ", padding=" "),
+      htmlComment(texts$closingRemarks, padding=" "),
+      htmlComment(" ", padding=" "),
+      htmlComment()
+    );
+  
   ###---------------------------------------------------------------------------
   ### Study identifier chunk
   ###---------------------------------------------------------------------------
@@ -104,9 +126,10 @@ rxs_buildTemplate <- function(rxsStructure,
       "    self-contained: yes",
       "    toc: false",
       "params:",
-      paste0("  rxsVersion = \"", rxsVersion, "\""),
-      paste0("  rxsRootName = \"", rxsRootName, "\""),
-      paste0("  rxsObjectName = \"", rxsObjectName, "\""),
+      paste0("  rxsVersion: \"", rxsVersion, "\""),
+      paste0("  rxsRootName: \"", rxsRootName, "\""),
+      paste0("  rxsObjectName: \"", rxsObjectName, "\""),
+      paste0("  uniqueSourceIdName: \"", uniqueSourceIdName, "\""),
       "editor_options:",
       "  chunk_output_type: console",
       "---",
@@ -233,6 +256,8 @@ rxs_buildTemplate <- function(rxsStructure,
              "",
              fieldnameChunk,
              "",
+             openingBlock,
+             "",
              "```{r rxsChunk, echo=FALSE}",
              sourceIdFragment,
              "",
@@ -242,6 +267,8 @@ rxs_buildTemplate <- function(rxsStructure,
              rxsMetadata,
              validateSourceId,
              "```",
+             "",
+             closingBlock,
              "",
              ifelse(!is.na(recursingEntitiesChunk),
                     c(recursingEntitiesChunk, ""),
@@ -256,6 +283,8 @@ rxs_buildTemplate <- function(rxsStructure,
     res <- c(yamlHeader,
              setupChunkInclusion,
              "",
+             openingBlock,
+             "",
              "```{r rxsChunk, echo=FALSE}",
              sourceIdFragment,
              "",
@@ -265,6 +294,8 @@ rxs_buildTemplate <- function(rxsStructure,
              rxsMetadata,
              validateSourceId,
              "```",
+             "",
+             closingBlock,
              "",
              ifelse(!is.na(recursingEntitiesChunk),
                     c(recursingEntitiesChunk, ""),

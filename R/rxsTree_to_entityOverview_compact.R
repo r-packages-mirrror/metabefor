@@ -42,9 +42,9 @@ rxsTree_to_entityOverview_compact <- function(extractionScriptTree,
           paste0(
             res,
             "`  \n**Repeating**: `",
-            ifelse(is.null(node$repeating) || !(isTRUE(node$repeating)),
-                   "FALSE",
-                   "TRUE")
+            ifelse(is_TRUE(node$repeating),
+                   "TRUE",
+                   "FALSE")
           );
         
         res <-

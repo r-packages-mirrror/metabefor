@@ -6,9 +6,11 @@
 #' @param origin The start date to use.
 #'
 #' @return The QURIDs as a character vector.
+#' @rdname qurid
 #' @export
 #'
-#' @examples metabefor::generate_qurids(4);
+#' @examples metabefor::qurid();
+#' metabefor::generate_qurids(4);
 generate_qurids <- function(x, origin = Sys.time()) {
   quridPrefix <- metabefor::opts$get('quridPrefix');
   quridSuffix <- metabefor::opts$get('quridSuffix');
@@ -17,4 +19,10 @@ generate_qurids <- function(x, origin = Sys.time()) {
   timeNrs <- as.numeric(timeNrString) + (0:(x - 1));
   res <- unlist(lapply(timeNrs, metabefor::numericToBase30));
   return(paste0(quridPrefix, res, quridSuffix));
+}
+
+#' @export
+#' @rdname qurid
+qurid <- function() {
+  return(generate_qurids(1));
 }

@@ -39,9 +39,7 @@ rxs_fg_dispatcher <- function(node,
   } else if (is.null(node[[eC$valueTemplateCol]]) ||
              is.na(node[[eC$valueTemplateCol]])) {
     ### This is an organising element, without content
-    if (!is.null(node[[eC$listCol]]) &&
-        (isTRUE(node[[eC$listCol]]) ||
-        (trimws(toupper(node[[eC$listCol]])) == "TRUE"))) {
+    if (is_TRUE(node[[eC$listCol]])) {
       ### Node with children, but children are simple values that can be returned
       ### in a list
       rxs_fg_function <- rxs_fg_list;

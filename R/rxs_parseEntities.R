@@ -1,6 +1,6 @@
 rxs_parseEntities <- function(entities,
                               eC = metabefor::opts$get("entityColNames"),
-                              rootName = 'study') {
+                              rxsRootName = metabefor::opts$get('rxsRootName')) {
 
   reservedNames <-
     c(metabefor::opts$get("rxsReservedNames"),
@@ -29,11 +29,11 @@ rxs_parseEntities <- function(entities,
 
   ### Add a root entity for the entities without one
   dataFrameNetwork[[eC$parentCol]][is.na(dataFrameNetwork[[eC$parentCol]])] <-
-    rootName;
+    rxsRootName;
 
   ### Check for nonexistent parents
   nonExistentParents <-
-    !(dataFrameNetwork[[eC$parentCol]] %in% c(rootName, dataFrameNetwork[[eC$identifierCol]]));
+    !(dataFrameNetwork[[eC$parentCol]] %in% c(rxsRootName, dataFrameNetwork[[eC$identifierCol]]));
   if (any(nonExistentParents)) {
     stop("The items with the following identifiers have a parent that ",
          "cannot be found in the list of parents:\n\n",
