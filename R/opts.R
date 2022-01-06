@@ -98,6 +98,8 @@ opts$defaults <-
     
     rxsVersion = "0.3.0",
     
+    rootName = "source",
+    
     rxsObjectName = "rxsObject",
     rxsTemplateSpecName = "rxsTemplateSpec",
     rxsCurrentNodeName = "currentEntity",

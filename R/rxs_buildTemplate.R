@@ -24,10 +24,13 @@ rxs_buildTemplate <- function(rxsStructure,
     stop("The class of the object provided as argument 'rxsStructure' is not ",
          "'rxsStructure' (but instead ", vecTxtQ(class(rxsStructure)), ").");
   }
+
+  rxsRootName <- rxsStructure$parsedEntities$extractionScriptTree$root$name;
   
   if (rxsVersion < "0.3.0") {
-    rxsObjectName <- rxsStructure$parsedEntities$extractionScriptTree$root$name;
+    rxsObjectName <- rxsRootName;
   }
+  
 
   ###---------------------------------------------------------------------------
   ### Study identifier chunk
@@ -101,7 +104,9 @@ rxs_buildTemplate <- function(rxsStructure,
       "    self-contained: yes",
       "    toc: false",
       "params:",
-      paste0("  rxsVersion = \"", metabefor::opts$get("rxsVersion"), "\""),
+      paste0("  rxsVersion = \"", rxsVersion, "\""),
+      paste0("  rxsRootName = \"", rxsRootName, "\""),
+      paste0("  rxsObjectName = \"", rxsObjectName, "\""),
       "editor_options:",
       "  chunk_output_type: console",
       "---",
