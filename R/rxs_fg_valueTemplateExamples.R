@@ -139,11 +139,14 @@ rxs_fg_valueTemplateExamples <- function(node,
       if (grepl("\\|\\|", fullReplacementList[i])) {
         ### It's multiple elements, so change it into a valid vector
         fieldNameReplacementContents <-
-          paste0("c(",
-                 paste0(trimws(unlist(strsplit(fullReplacementList[i],
-                                             "||", fixed=TRUE))),
-                        collapse=", "),
-                 ")");
+          utils::capture.output(
+            dput(bipiped_value_to_vector(fullReplacementList[i]),
+                 control = "all"));
+          # paste0("c(",
+          #        paste0(trimws(unlist(strsplit(fullReplacementList[i],
+          #                                    "||", fixed=TRUE))),
+          #               collapse=", "),
+          #        ")");
       } else {
         fieldNameReplacementContents <- fullReplacementList[i];
       }
@@ -170,7 +173,8 @@ rxs_fg_valueTemplateExamples <- function(node,
     #                         fillerCharacter = fillerCharacter);
     # res <- paste0(lV$commentPrefix,
     #               trimws(unlist(strsplit(res, "||", fixed=TRUE))));
-    res <- trimws(unlist(strsplit(res, "||", fixed=TRUE)));
+    #res <- trimws(unlist(strsplit(res, "||", fixed=TRUE)));
+    res <- bipiped_value_to_vector(res);
     return(res);
   } else {
     lV <- rxs_fg_layoutVars(level = level,
@@ -180,7 +184,8 @@ rxs_fg_valueTemplateExamples <- function(node,
                             commentCharacter = commentCharacter,
                             fillerCharacter = fillerCharacter);
     res <- paste0(lV$commentPrefix,
-                  trimws(unlist(strsplit(res, "||", fixed=TRUE))));
+                  bipiped_value_to_vector(res));
+                  #trimws(unlist(strsplit(res, "||", fixed=TRUE))));
   }
 
   if (!listVersion) {

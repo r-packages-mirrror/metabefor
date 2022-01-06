@@ -123,11 +123,12 @@ rxs_fg_valueTemplateValidation <- function(node,
     if (grepl("\\|\\|", fullReplacementList[i])) {
       ### It's multiple elements, so change it into a valid vector
       fieldNameReplacementContents <-
-        paste0("c(",
-               paste0(trimws(unlist(strsplit(gsub("\n", " ", fullReplacementList[i]),
-                                           "||", fixed=TRUE))),
-                      collapse=", "),
-               ")");
+        bipiped_value_to_vector(fullReplacementList[i]);
+        # paste0("c(",
+        #        paste0(trimws(unlist(strsplit(gsub("\n", " ", fullReplacementList[i]),
+        #                                    "||", fixed=TRUE))),
+        #               collapse=", "),
+        #        ")");
     } else {
       fieldNameReplacementContents <- fullReplacementList[i];
     }
