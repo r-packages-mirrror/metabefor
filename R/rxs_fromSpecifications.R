@@ -40,18 +40,6 @@
 #' @param yamlMetadata A names list containing character values named
 #' `title`, `author`, and `date` which will be set in the Rmd file that is
 #' the Rxs template as metadata.
-#' @param indent Whether to use indentation to visually organise the Rxs
-#' template. If TRUE, deeper nesting in the Rxs specification's hierarchy
-#' will be visible as deeper indentation.
-#' @param indentSpaces The number of spaces to use when identing.
-#' @param fullWidth The maximum width of the Rxs template in characters.
-#' @param commentCharacter The character used to signify comments - if this is
-#' changed, R will throw errors (unless perhaps it once introduces another
-#' comment symbol).
-#' @param fillerCharacter The character used after the first character for
-#' filling up space.
-#' @param repeatingSuffix The suffix to use for the entity identifiers/names
-#' of repeating entities.
 #' @param rxsRootName The name of the root element
 #' @param preventOverwriting Whether to prevent accidental overwriting of the
 #' extraction templates.
@@ -79,12 +67,6 @@ rxs_fromSpecifications <- function(x = NULL,
                                    yamlMetadata = list(title = "Systematic Review Extraction Script Template",
                                                        author = NULL,
                                                        date = format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')),
-                                   indent = TRUE,
-                                   indentSpaces = 2,
-                                   fullWidth = 78,
-                                   commentCharacter = "#",
-                                   fillerCharacter = "#",
-                                   repeatingSuffix = "__1__",
                                    rxsRootName = metabefor::opts$get(rxsRootName),
                                    preventOverwriting = FALSE,
                                    silent = metabefor::opts$get("silent"),
@@ -105,6 +87,13 @@ rxs_fromSpecifications <- function(x = NULL,
   valueTemplateCols <- metabefor::opts$get("valueTemplateColNames");
   instructionsCols <- metabefor::opts$get("instructionsColNames");
   definitionsCols <- metabefor::opts$get("definitionsColNames");
+  
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   diagrammerSanitization <-
     metabefor::opts$get('diagrammerSanitization');
@@ -223,11 +212,7 @@ rxs_fromSpecifications <- function(x = NULL,
                                       definitions = definitions,
                                       instructionSheet = instructionSheet,
                                       rxsRootName = rxsRootName,
-                                      yamlMetadata = yamlMetadata,
-                                      indent=indent,
-                                      indentSpaces=indentSpaces,
-                                      commentCharacter = commentCharacter,
-                                      fillerCharacter = fillerCharacter),
+                                      yamlMetadata = yamlMetadata),
               rxsInstructions = instructions);
   
   class(res) <- "rxsStructure";
@@ -299,13 +284,6 @@ rxs_fromSpecifications <- function(x = NULL,
         rxsStructure = rxsStructure_modules[[currentModule]],
         rxsSpecification = res$rxsSpecification,
         yamlMetadata = yamlMetadata,
-        indent = indent,
-        indentSpaces = indentSpaces,
-        fullWidth = fullWidth,
-        module = currentModule,
-        commentCharacter = commentCharacter,
-        fillerCharacter = fillerCharacter,
-        repeatingSuffix = repeatingSuffix,
         silent=silent
       );      
       
@@ -344,13 +322,7 @@ rxs_fromSpecifications <- function(x = NULL,
       rxsStructure = rxsStructure,
       rxsSpecification = res$rxsSpecification,
       yamlMetadata = yamlMetadata,
-      indent = indent,
-      indentSpaces = indentSpaces,
-      fullWidth = fullWidth,
       module = NULL,
-      commentCharacter = commentCharacter,
-      fillerCharacter = fillerCharacter,
-      repeatingSuffix = repeatingSuffix,
       silent=silent
     );
   

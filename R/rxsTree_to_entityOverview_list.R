@@ -81,11 +81,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
                     trimws(
                       rxs_fg_valueTemplateDescription(
                         node,
-                        valueTemplates,
-                        commentCharacter = "",
-                        fillerCharacter = "",
-                        indentSpaces = 0,
-                        indent = FALSE
+                        valueTemplates
                       )
                     ),
                     collapse=" "

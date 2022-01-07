@@ -43,7 +43,7 @@ if (exists("updateEverything") && updateEverything) {
     metabefor::rxs_fromSpecifications(
       gSheet_url,
       localBackup = localBackupFile,
-      silent=FALSE,
+      silent = metabefor::opts$get("silent"),
       outputFile = minimalTemplateFile,
       ignoreModules = TRUE
     );
@@ -53,7 +53,7 @@ if (exists("updateEverything") && updateEverything) {
       gSheet_url,
       outputPath = extDataDir,
       outputFilenamePattern = modulesTemplateFilenamePattern,
-      silent=FALSE
+      silent = metabefor::opts$get("silent")
     );
   
   usethis::use_data(rxs_minimal_example, overwrite=TRUE);

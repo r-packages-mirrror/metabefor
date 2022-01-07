@@ -16,3 +16,17 @@ is_TRUE(x)
 This function returns \code{FALSE} if \code{x} is \code{NULL}, \code{NA}, or \code{0}; \code{TRUE} if \code{x}
 is a number other than \code{0} or the text \code{TRUE} (case insensitively).
 }
+\examples{
+### These are all FALSE
+is_TRUE(NULL);
+is_TRUE(NA);
+is_TRUE(0);
+### These ones are finally TRUE
+is_TRUE(2);
+is_TRUE(-2.91);
+is_TRUE("TRUE");
+### And of course
+is_TRUE(2 == 2);
+### And
+is_TRUE(FALSE == TRUE);
+}

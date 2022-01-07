@@ -1,17 +1,17 @@
 rxs_fg_container <- function(node,
                              valueTemplates,
-                             indent = TRUE,
-                             indentSpaces = 2,
-                             fullWidth = 80,
-                             commentCharacter = "#",
-                             fillerCharacter = "#",
-                             repeatingSuffix = "__1__",
                              silent=metabefor::opts$get("silent"),
                              overrideLevel = NULL) {
   
   eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   ### A container that does itself not contain extractable entities,
   ### but which does contains other nodes that contain extractable entities.
@@ -31,12 +31,7 @@ rxs_fg_container <- function(node,
     }
   }
 
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
   
   if (is_TRUE(node[[eC$repeatingCol]])) {
     currentEntityName <- paste0(node$name, repeatingSuffix);
@@ -70,12 +65,7 @@ rxs_fg_container <- function(node,
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
                             description=node[[eC$descriptionCol]],
-                            level=level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+                            level=level);
 
   openingTxt <- paste0(" START: ", currentStartEndName, " ");
   closingTxt <- paste0(" END: ", currentStartEndName, " ");

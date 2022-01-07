@@ -1,17 +1,17 @@
 rxs_fg_recursingEntities <- function(listOfNodes,
                                      valueTemplates,
-                                     indent = TRUE,
-                                     indentSpaces = 2,
-                                     fullWidth = 80,
-                                     commentCharacter = "#",
-                                     fillerCharacter = "#",
-                                     repeatingSuffix = "__1__",
                                      silent=metabefor::opts$get("silent"),
                                      overrideLevel = NULL) {
   
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
   eC <- metabefor::opts$get("entityColNames");
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   ### A container for all recursing entities
 
@@ -30,24 +30,13 @@ rxs_fg_recursingEntities <- function(listOfNodes,
     }
   }
 
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
 
   titleDescription <-
     rxs_fg_TitleDescription(title="RECURSING ENTITIES",
                             description=paste0("This section contains the recursing entities. When done ",
                                                "extracting from this paper, they can be removed from ",
-                                               "the extraction script."),
-                            level=level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+                                               "the extraction script."));
 
   openingTxt <- paste0(" START: RECURSING ENTITIES ");
   closingTxt <- paste0(" END: RECURSING ENTITIES ");
@@ -69,11 +58,6 @@ rxs_fg_recursingEntities <- function(listOfNodes,
                                   function(node) {
                                     res <- rxs_fg_dispatcher(node,
                                                              valueTemplates = valueTemplates,
-                                                             indent = indent,
-                                                             indentSpaces = indentSpaces,
-                                                             commentCharacter = commentCharacter,
-                                                             fillerCharacter = fillerCharacter,
-                                                             repeatingSuffix = repeatingSuffix,
                                                              silent=silent);
                                     ### Remove assignment of addition of node for this entity
                                     if (rxsVersion < "0.3") {

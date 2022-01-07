@@ -1,12 +1,6 @@
 rxs_fg_trueRecursion <- function(node,
                                  valueTemplates,
-                                 indent = TRUE,
-                                 indentSpaces = 2,
-                                 fullWidth = 80,
-                                 commentCharacter = "#",
-                                 fillerCharacter = "#",
-                                 repeatingSuffix = "__1__",
-                                 silent=FALSE,
+                                 silent = metabefor::opts$get("silent"),
                                  overrideLevel = NULL,
                                  trueRecursionText = getOption("metabefor_trueRecursionText",
                                                                rxs_fg_trueRecursionText)) {
@@ -31,12 +25,7 @@ rxs_fg_trueRecursion <- function(node,
     }
   }
 
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
 
   if (is_TRUE(node[[eC$repeatingCol]])) {
     currentEntityName <- paste0(node$name, repeatingSuffix);
@@ -60,12 +49,7 @@ rxs_fg_trueRecursion <- function(node,
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
                             description=node[[eC$descriptionCol]],
-                            level=level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+                            level=level);
 
   valueAssignment <- c(paste0(lV$indentSpaces, "NA"),
                        lV$indentSpaces,

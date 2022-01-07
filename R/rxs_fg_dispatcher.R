@@ -1,14 +1,14 @@
 rxs_fg_dispatcher <- function(node,
                               valueTemplates,
-                              indent = TRUE,
-                              indentSpaces = 2,
-                              fullWidth = 80,
-                              commentCharacter = "#",
-                              fillerCharacter = "#",
-                              repeatingSuffix = "__1__",
                               silent=metabefor::opts$get("silent")) {
   
   eC <- metabefor::opts$get("entityColNames");
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
     if (!silent) {

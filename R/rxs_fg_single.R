@@ -1,17 +1,17 @@
 rxs_fg_single <- function(node,
                           valueTemplates,
-                          indent = TRUE,
-                          indentSpaces = 2,
-                          fullWidth = 80,
-                          commentCharacter = "#",
-                          fillerCharacter = "#",
-                          repeatingSuffix = "__1__",
                           silent=metabefor::opts$get("silent"),
                           overrideLevel = NULL) {
   
   eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   ### Simplest situation; we'll just return a full, simple
   ### fragment for this entity alone.
@@ -31,12 +31,7 @@ rxs_fg_single <- function(node,
     }
   }
 
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
 
   if (is_TRUE(node[[eC$repeatingCol]])) {
     currentEntityName <- paste0(node$name, repeatingSuffix);
@@ -78,22 +73,12 @@ rxs_fg_single <- function(node,
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
                             description=node[[eC$descriptionCol]],
-                            level=level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+                            level=level);
 
   valueAssignment <-
     rxs_fg_defaultValueAssignment(node=node,
                                   valueTemplates = valueTemplates,
-                                  level = level,
-                                  indent = indent,
-                                  indentSpaces = indentSpaces,
-                                  fullWidth = fullWidth,
-                                  commentCharacter = commentCharacter,
-                                  fillerCharacter = fillerCharacter);
+                                  level = level);
 
   descriptionExamplesHeader <-
     paste0(lV$indentSpaces,
@@ -105,32 +90,17 @@ rxs_fg_single <- function(node,
   valueTemplateDescription <-
     rxs_fg_valueTemplateDescription(node=node,
                                     valueTemplates = valueTemplates,
-                                    level = level,
-                                    indent = indent,
-                                    indentSpaces = indentSpaces,
-                                    fullWidth = fullWidth,
-                                    commentCharacter = commentCharacter,
-                                    fillerCharacter = fillerCharacter);
+                                    level = level);
 
   valueTemplateExamples <-
     rxs_fg_valueTemplateExamples(node=node,
                                  valueTemplates = valueTemplates,
-                                 level = level,
-                                 indent = indent,
-                                 indentSpaces = indentSpaces,
-                                 fullWidth = fullWidth,
-                                 commentCharacter = commentCharacter,
-                                 fillerCharacter = fillerCharacter);
+                                 level = level);
 
   valueTemplateValidation <-
     rxs_fg_valueTemplateValidation(node=node,
                                    valueTemplates = valueTemplates,
-                                   level = level,
-                                   indent = indent,
-                                   indentSpaces = indentSpaces,
-                                   fullWidth = fullWidth,
-                                   commentCharacter = commentCharacter,
-                                   fillerCharacter = fillerCharacter);
+                                   level = level);
 
   ### Use 'this' - process afterwards using data.tree - or some other
   ### way to leverage data.tree's "Do"

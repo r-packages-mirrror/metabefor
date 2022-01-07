@@ -8,6 +8,10 @@ mergeTrees(tree1, tree2, spaces = 2, silent = metabefor::opts$get("silent"))
 }
 \arguments{
 \item{tree1, tree2}{The trees to merge.}
+
+\item{spaces}{The number of spaces to use in messages (if \code{silent = metabefor::opts$get("silent")})}
+
+\item{silent}{Whether to be silent or chatty.}
 }
 \value{
 The merged tree, a (cloned) \code{data.tree} \code{Node} object.

@@ -1,18 +1,8 @@
 rxs_fg_TitleDescription <- function(title,
                                     description,
-                                    level = 0,
-                                    indent = TRUE,
-                                    indentSpaces = 2,
-                                    fullWidth = 80,
-                                    commentCharacter = "#",
-                                    fillerCharacter = "#") {
+                                    level = 0) {
 
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
 
   res <- lV$lineFiller;
 

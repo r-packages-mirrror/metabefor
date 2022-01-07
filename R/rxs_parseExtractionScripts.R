@@ -45,7 +45,10 @@ rxs_parseExtractionScripts <- function(path,
   if (anyDuplicated(allScripts)) {
     warning("Warning: two rxs files with the same name found: ",
             vecTxtQ(allScripts[duplicated(allScripts)]),
-            ".");
+            ". This does not need to be a problem if you expect this, for ",
+            "example if you want to merge the Rxs trees specified in these ",
+            "files. However even in that scenario, it would be wise to ",
+            "give them different names.");
     allScripts <- unique(allScripts);
   }
 
@@ -95,7 +98,7 @@ rxs_parseExtractionScripts <- function(path,
         ("rxsVersion" %in% names(yamlParams$params))) {
       res$log <- c(
         res$log,
-        msg("\n  - This is a valid rxs file, version ",
+        msg("\n  - This is a valid Rxs file, version ",
             yamlParams$params$rxsVersion, ".",
             silent = silent)
       );
@@ -106,7 +109,7 @@ rxs_parseExtractionScripts <- function(path,
         rxsRootName <- yamlParams$params$rxsRootName;
         res$log <- c(
           res$log,
-          msg("\n  - The rxsRootName stored in this rxs file is '",
+          msg("\n  - The rxsRootName stored in this Rxs file is '",
               rxsRootName, "'.",
               silent = silent)
         );
@@ -114,7 +117,7 @@ rxs_parseExtractionScripts <- function(path,
         rxsRootName <- metabefor::opts$get("rxsRootName");
         res$log <- c(
           res$log,
-          msg("\n  - The rxsRootName was not stored in this rxs file. Using the ",
+          msg("\n  - The rxsRootName was not stored in this Rxs file. Using the ",
               "name stored in the options ('",
               rxsRootName, "'. That is, however, a relatively new name - if ",
               "you get any errors, you may want to set it to e.g. 'study' ",
@@ -129,7 +132,7 @@ rxs_parseExtractionScripts <- function(path,
         rxsObjectName <- yamlParams$params$rxsObjectName;
         res$log <- c(
           res$log,
-          msg("\n  - The rxsObjectName stored in this rxs file is '",
+          msg("\n  - The rxsObjectName stored in this Rxs file is '",
               rxsObjectName, "'.",
               silent = silent)
         );
@@ -137,7 +140,7 @@ rxs_parseExtractionScripts <- function(path,
         rxsObjectName <- metabefor::opts$get("rxsObjectName");
         res$log <- c(
           res$log,
-          msg("\n  - The rxsObjectName was not stored in this rxs file. Using the ",
+          msg("\n  - The rxsObjectName was not stored in this Rxs file. Using the ",
               "name stored in the options ('",
               rxsObjectName, "'. That is, however, a relatively new name - if ",
               "you get any errors, you may want to set it to e.g. 'study' ",
@@ -152,7 +155,7 @@ rxs_parseExtractionScripts <- function(path,
         uniqueSourceIdName <- yamlParams$params$uniqueSourceIdName;
         res$log <- c(
           res$log,
-          msg("\n  - The uniqueSourceIdName stored in this rxs file is '",
+          msg("\n  - The uniqueSourceIdName stored in this Rxs file is '",
               uniqueSourceIdName, "'.",
               silent = silent)
         );
@@ -160,7 +163,7 @@ rxs_parseExtractionScripts <- function(path,
         uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
         res$log <- c(
           res$log,
-          msg("\n  - The uniqueSourceIdName was not stored in this rxs file. Using the ",
+          msg("\n  - The uniqueSourceIdName was not stored in this Rxs file. Using the ",
               "name stored in the options ('",
               uniqueSourceIdName, "'. That is, however, a relatively new name - if ",
               "you get any errors, you may want to set it using e.g.:\n\n",
@@ -199,7 +202,7 @@ rxs_parseExtractionScripts <- function(path,
     on.exit(unlink(tempR));
 
     if (filename %in% names (res$rxsPurlingOutput)) {
-      warning("RXS purling output was already stored for file '",
+      warning("Rxs purling output was already stored for file '",
               filename,
               "'. Storing existing version as 'BACKUP-",
               filename,
@@ -236,7 +239,7 @@ rxs_parseExtractionScripts <- function(path,
     tryCatch({res$rxsPurlingOutput[[filename]] <-
                 purlingOutput;},
              error = function(e) {
-               stop("Error saving purling output to rxs object! The error is:\n\n",
+               stop("Error saving purling output to Rxs object! The error is:\n\n",
                     e$message,
                     "\n\nEncountered while processing file '", filename, "'.\n");
              });
@@ -287,7 +290,7 @@ rxs_parseExtractionScripts <- function(path,
                 paste0(
                   "In file '",
                   filename,
-                  "', encountered error while running rxs: \n",
+                  "', encountered error while running Rxs: \n",
                   e$message,
                   "\n\n",
                   collapse="\n"
@@ -310,7 +313,7 @@ rxs_parseExtractionScripts <- function(path,
         res$rxsOutput[[filename]] <- rxsOutput;
         },
         error = function(e) {
-          stop("Error saving rxs evaluation output to rxs object! The error is:\n\n",
+          stop("Error saving rxs evaluation output to Rxs object! The error is:\n\n",
                e$message,
                "\n\nEncountered while processing file '", filename, "'.\n");
         });
@@ -318,7 +321,7 @@ rxs_parseExtractionScripts <- function(path,
       if (showErrors) {
         if (any(grepl("In file '",
                       filename,
-                      "', encountered error while running rxs",
+                      "', encountered error while running Rxs",
                       res$rxsOutput[[filename]]))) {
           cat(paste0(res$rxsOutput[[filename]], collapse="\n"));
         }
@@ -395,27 +398,6 @@ rxs_parseExtractionScripts <- function(path,
           res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id <-
             sanitize_filename_to_identifier(filename);
         }
-        # if ("id" %in% names(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
-        #   if (!(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id == sourceId)) {
-        #     res$log <- c(
-        #       res$log,
-        #       msg("\n  - Warning: the source identifier as specified at the ",
-        #           "top of the rxs file ('", sourceId, "') is different from ",
-        #           "the source identifier specified in the rxs object's ",
-        #           "metadata ('",
-        #           res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id,
-        #           "'), even though these should be identical! If this ",
-        #           "source file was manually altered (e.g. updated from a ",
-        #           "version where source identifiers did not exist yet) this ",
-        #           "is expected, so then there's no need to worry. Otherwise, ",
-        #           "however, it may be a sign that somebody (e.g. an ",
-        #           "extractor) accidently changed a part of the rxs file that ",
-        #           "should not have changed, so you may want to check ",
-        #           "it carefully",
-        #           silent = silent)
-        #     );
-        #   }
-        # }
       }
       sourceId <- res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id;
       
@@ -500,7 +482,7 @@ rxs_parseExtractionScripts <- function(path,
     warningMessage <-
       paste0("When reading the raw rxs trees, I read ", sum(!validRawTrees),
              " invalid trees, specifically those ",
-             "from rxs files ", vecTxtQ(invalidTreeNames),
+             "from rxs files ", vecTxtQ(invalidRawTreeNames),
              ". You will probably want to check and correct those, and then ",
              " re-run this command, before continuing.");
     res$log <- c(
@@ -603,7 +585,7 @@ rxs_parseExtractionScripts <- function(path,
           
           if (length(indices) > 1) {
             
-            for (i in tail(indices, -1)) {
+            for (i in utils::tail(indices, -1)) {
               
               res$log <- c(
                 res$log,

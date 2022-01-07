@@ -1,11 +1,5 @@
 rxs_fg_list <- function(node,
                         valueTemplates,
-                        indent = TRUE,
-                        indentSpaces = 2,
-                        fullWidth = 80,
-                        commentCharacter = "#",
-                        fillerCharacter = "#",
-                        repeatingSuffix = "__1__",
                         silent=metabefor::opts$get("silent"),
                         overrideLevel = NULL,
                         codingHelp = "<entityTitle>: <entityDescription> [Examples: <examples>] [Value description: <valueDescription>]",
@@ -14,6 +8,12 @@ rxs_fg_list <- function(node,
   eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   ### A list of relatively simple values.
 
@@ -32,12 +32,7 @@ rxs_fg_list <- function(node,
     }
   }
 
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
 
   ### For repeating nodes, we only set a temporary name, which
   ### we later change to the value of the first field.
@@ -82,35 +77,20 @@ rxs_fg_list <- function(node,
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
                             description=node[[eC$descriptionCol]],
-                            level=level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+                            level=level);
 
   listEntities <- node$Get(function(node) {
     valueAssignment <-
       rxs_fg_defaultValueAssignment(node=node,
                                     valueTemplates = valueTemplates,
-                                    level = level,
-                                    indent = indent,
-                                    indentSpaces = indentSpaces,
-                                    fullWidth = fullWidth,
-                                    commentCharacter = commentCharacter,
-                                    fillerCharacter = fillerCharacter);
+                                    level = level);
     return(paste0(node$name, " = ", trimws(valueAssignment)));
   }, filterFun = data.tree::isLeaf);
 
   entityValidations <- node$Get(function(node) {
     return(rxs_fg_valueTemplateValidation(node=node,
                                           valueTemplates = valueTemplates,
-                                          level = level,
-                                          indent = indent,
-                                          indentSpaces = indentSpaces,
-                                          fullWidth = fullWidth,
-                                          commentCharacter = commentCharacter,
-                                          fillerCharacter = fillerCharacter));
+                                          level = level));
   }, filterFun = data.tree::isLeaf);
 
   ### If this list has a child entity that is marked as an identifying
@@ -273,11 +253,6 @@ rxs_fg_list <- function(node,
         return(rxs_fg_valueTemplateExamples(node=node,
                                             valueTemplates = valueTemplates,
                                             level = level,
-                                            indent = indent,
-                                            indentSpaces = indentSpaces,
-                                            fullWidth = fullWidth,
-                                            commentCharacter = commentCharacter,
-                                            fillerCharacter = fillerCharacter,
                                             listVersion = TRUE));
       }, filterFun = data.tree::isLeaf);
     codingHelpStrings_examples <-
@@ -295,11 +270,6 @@ rxs_fg_list <- function(node,
         return(rxs_fg_valueTemplateDescription(node=node,
                                                valueTemplates = valueTemplates,
                                                level = level,
-                                               indent = indent,
-                                               indentSpaces = indentSpaces,
-                                               fullWidth = fullWidth,
-                                               commentCharacter = commentCharacter,
-                                               fillerCharacter = fillerCharacter,
                                                listVersion = TRUE));
       }, filterFun = data.tree::isLeaf);
 

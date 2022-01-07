@@ -1,13 +1,14 @@
 rxs_fg_defaultValueAssignment <- function(node,
                                           valueTemplates,
-                                          level = 0,
-                                          indent = TRUE,
-                                          indentSpaces = 2,
-                                          fullWidth = 80,
-                                          commentCharacter = "#",
-                                          fillerCharacter = "#") {
+                                          level = 0) {
   
   eC <- metabefor::opts$get("entityColNames");
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   ### This function looks up (or generates) the default value for
   ### an extractable entity.
@@ -17,12 +18,7 @@ rxs_fg_defaultValueAssignment <- function(node,
          "(but instead ", vecTxtQ(class(valueTemplates)), ").");
   }
 
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
 
   if (isTRUE(nchar(node[[eC$recursingCol]]) > 0) || isTRUE(nchar(node[[eC$recurringCol]]) > 0)) {
     return("");

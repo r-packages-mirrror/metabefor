@@ -21,7 +21,7 @@ an SPSS dataset (if you have {\code{haven}} installed), or a comma separated
 values file (which will be read with \code{\link[=read.csv]{read.csv()}}).}
 
 \item{stopOnErrors}{Whether to throw an error or show a warning (or just
-use \code{cat} to show a message is \code{silent=FALSE}) when encountering errors.}
+use \code{cat} to show a message is \code{silent = metabefor::opts$get("silent")}) when encountering errors.}
 
 \item{explode_vector_to_values}{Whether to call \code{explode_vector_to_values}
 if there are vectors among the added values.}

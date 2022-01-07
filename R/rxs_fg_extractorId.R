@@ -1,17 +1,17 @@
 rxs_fg_extractorId <- function(level = 1,
-                               indent = TRUE,
-                               indentSpaces = 2,
-                               fullWidth = 80,
-                               commentCharacter = "#",
-                               fillerCharacter = "#",
-                               repeatingSuffix = "__1__",
                                silent=metabefor::opts$get("silent"),
                                overrideLevel = NULL) {
   
   eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
-
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
+  
   extractorIdName <- metabefor::opts$get("extractorIdName");
   extractorIdTitle <- metabefor::opts$get("extractorIdTitle");
   extractorIdDescription <- metabefor::opts$get("extractorIdDescription");
@@ -20,12 +20,7 @@ rxs_fg_extractorId <- function(level = 1,
   extractorIdDefaultValue <- metabefor::opts$get("extractorIdDefaultValue");
   extractorIdValidation <- metabefor::opts$get("extractorIdValidation");
   
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
   
   # sourceIdOpeningTxt <-
   #   paste0(lV$indentSpaces,
@@ -41,12 +36,7 @@ rxs_fg_extractorId <- function(level = 1,
   titleDescription <-
     rxs_fg_TitleDescription(title=extractorIdTitle,
                             description=extractorIdDescription,
-                            level=level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+                            level=level);
 
   descriptionExamplesHeader <-
     paste0(lV$indentSpaces,

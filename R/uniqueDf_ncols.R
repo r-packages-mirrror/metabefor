@@ -1,5 +1,5 @@
 uniqueDf_ncols <- function(listOfDfs,
-                           silent=FALSE) {
+                           silent = metabefor::opts$get("silent")) {
 
   if (is.null(names(listOfDfs))) {
     dfNames <- paste0("df_", seq_along(listOfDfs));

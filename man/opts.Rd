@@ -60,6 +60,19 @@ worksheet of the spreadsheet. The default values are stored
 in \code{metabefor::opts$get("definitionsColNames")} - if you need to
 override these values, just reproduce that object.}
 
+\item{indent}{Whether to use indentation to visually organise the Rxs
+template. If TRUE, deeper nesting in the Rxs specification's hierarchy
+will be visible as deeper indentation.}
+\item{indentSpaces}{The number of spaces to use when identing.}
+\item{fullWidth}{The maximum width of the Rxs template in characters.}
+\item{commentCharacter}{The character used to signify comments - if this is
+changed, R will throw errors (unless perhaps it once introduces another
+comment symbol).}
+\item{fillerCharacter}{The character used after the first character for
+filling up space.}
+\item{repeatingSuffix}{The suffix to use for the entity identifiers/names
+of repeating entities.}
+
 }
 }
 \examples{

@@ -1,9 +1,9 @@
 rxs_fg_layoutVars <- function(level=1,
-                              indent = TRUE,
-                              indentSpaces = 2,
-                              fullWidth = 80,
-                              commentCharacter = "#",
-                              fillerCharacter = "#") {
+                              indent = metabefor::opts$get("indentDefault"),
+                              indentSpaces = metabefor::opts$get("indentSpaces"),
+                              fullWidth = metabefor::opts$get("fullWidth"),
+                              commentCharacter = metabefor::opts$get("commentCharacter"),
+                              fillerCharacter = metabefor::opts$get("fillerCharacter")) {
 
   res <- list();
 

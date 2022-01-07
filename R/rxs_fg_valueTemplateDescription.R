@@ -1,15 +1,10 @@
 rxs_fg_valueTemplateDescription <- function(node,
                                             valueTemplates,
                                             level = 0,
-                                            indent = TRUE,
-                                            indentSpaces = 2,
-                                            fullWidth = 80,
-                                            commentCharacter = "#",
-                                            fillerCharacter = "#",
                                             listVersion = FALSE) {
   
   eC <- metabefor::opts$get("entityColNames");
-  
+
   ### This function look up (or generates) the default value for
   ### an extractable entity.
 
@@ -42,12 +37,7 @@ rxs_fg_valueTemplateDescription <- function(node,
   }
 
   if (!listVersion) {
-    lV <- rxs_fg_layoutVars(level = level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+    lV <- rxs_fg_layoutVars(level = level);
     res <- strwrap(res,
                    width=lV$commentWidth,
                    prefix=lV$commentPrefix);

@@ -2,12 +2,6 @@ rxs_fg_root <- function(node,
                         valueTemplates,
                         rxsMetadata,
                         entityName = node$name,
-                        indent = TRUE,
-                        indentSpaces = 2,
-                        fullWidth = 80,
-                        commentCharacter = "#",
-                        fillerCharacter = "#",
-                        repeatingSuffix = "__1__",
                         silent=metabefor::opts$get("silent"),
                         overrideLevel = NULL) {
   
@@ -15,7 +9,13 @@ rxs_fg_root <- function(node,
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsObjectName <- metabefor::opts$get("rxsObjectName");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
-
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
+  
   ### The root element, which is basically a container.
 
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
@@ -37,12 +37,7 @@ rxs_fg_root <- function(node,
 
   currentStartEndName <- entityName;
 
-  lV <- rxs_fg_layoutVars(level = level,
-                          indent = indent,
-                          indentSpaces = indentSpaces,
-                          fullWidth = fullWidth,
-                          commentCharacter = commentCharacter,
-                          fillerCharacter = fillerCharacter);
+  lV <- rxs_fg_layoutVars(level = level);
 
   ### This should actually be called 'nodeCreation'
   if (rxsVersion < "0.3.0") {
@@ -59,12 +54,7 @@ rxs_fg_root <- function(node,
   titleDescription <-
     rxs_fg_TitleDescription(title=node[[eC$titleCol]],
                             description=node[[eC$descriptionCol]],
-                            level=level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+                            level=level);
 
   openingTxt <- paste0(" START: ", currentStartEndName, " (ROOT) ");
   closingTxt <- paste0(" END: ", currentStartEndName, " (ROOT) ");
@@ -87,11 +77,6 @@ rxs_fg_root <- function(node,
                                     return(c("",
                                              rxs_fg_dispatcher(node,
                                                                valueTemplates = valueTemplates,
-                                                               indent = indent,
-                                                               indentSpaces = indentSpaces,
-                                                               commentCharacter = commentCharacter,
-                                                               fillerCharacter = fillerCharacter,
-                                                               repeatingSuffix = repeatingSuffix,
                                                                silent=silent),
                                              ""));
                                   }));

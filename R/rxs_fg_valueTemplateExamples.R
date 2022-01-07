@@ -1,15 +1,10 @@
 rxs_fg_valueTemplateExamples <- function(node,
                                          valueTemplates,
                                          level = 0,
-                                         indent = TRUE,
-                                         indentSpaces = 2,
-                                         fullWidth = 80,
-                                         commentCharacter = "#",
-                                         fillerCharacter = "#",
                                          listVersion = FALSE) {
   
   eC <- metabefor::opts$get("entityColNames");
-  
+
   ### This function looks up (or generates) the examples for
   ### an extractable entity.
 
@@ -178,12 +173,7 @@ rxs_fg_valueTemplateExamples <- function(node,
     # res <- bipiped_value_to_vector(res);
     return(res);
   } else {
-    lV <- rxs_fg_layoutVars(level = level,
-                            indent = indent,
-                            indentSpaces = indentSpaces,
-                            fullWidth = fullWidth,
-                            commentCharacter = commentCharacter,
-                            fillerCharacter = fillerCharacter);
+    lV <- rxs_fg_layoutVars(level = level);
     res <- paste0(lV$commentPrefix,
                   bipiped_value_to_vector(res));
                   #trimws(unlist(strsplit(res, "||", fixed=TRUE))));

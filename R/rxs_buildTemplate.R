@@ -3,14 +3,8 @@ rxs_buildTemplate <- function(rxsStructure,
                               yamlMetadata = list(title = "Systematic Review Extraction Script Template",
                                                   author = NULL,
                                                   date = format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')),
-                              indent = TRUE,
-                              indentSpaces = 2,
-                              fullWidth = 78,
                               module = NULL,
-                              commentCharacter = "#",
-                              fillerCharacter = "#",
-                              repeatingSuffix = "__1__",
-                              silent=FALSE) {
+                              silent = metabefor::opts$get("silent")) {
   
   eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
@@ -22,6 +16,13 @@ rxs_buildTemplate <- function(rxsStructure,
   sourceIdValidation <- metabefor::opts$get("sourceIdValidation");
   extractorIdValidation <- metabefor::opts$get("extractorIdValidation");
   texts <- metabefor::opts$get("texts");
+  
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   if (!("rxsStructure" %IN% class(rxsStructure))) {
     stop("The class of the object provided as argument 'rxsStructure' is not ",
@@ -73,12 +74,6 @@ rxs_buildTemplate <- function(rxsStructure,
   scriptChunk <-
     rxs_fg_dispatcher(node = rxsStructure$parsedEntities$extractionScriptTree,
                       valueTemplates = rxsStructure$parsedValueTemplates,
-                      indent = indent,
-                      indentSpaces = indentSpaces,
-                      fullWidth = fullWidth,
-                      commentCharacter = commentCharacter,
-                      fillerCharacter = fillerCharacter,
-                      repeatingSuffix = repeatingSuffix,
                       silent=silent);
 
   ### If this extraction script has any recursing entities, include them
@@ -87,12 +82,6 @@ rxs_buildTemplate <- function(rxsStructure,
     recursingEntitiesChunk <-
       rxs_fg_recursingEntities(rxsStructure$parsedEntities$recursingNodes,
                                valueTemplates = rxsStructure$parsedValueTemplates,
-                               indent = indent,
-                               indentSpaces = indentSpaces,
-                               fullWidth = fullWidth,
-                               commentCharacter = commentCharacter,
-                               fillerCharacter = fillerCharacter,
-                               repeatingSuffix = repeatingSuffix,
                                silent=silent);
     recursingEntitiesChunk <-
       c("```{r rxsChunk-recursingEntities, eval=FALSE, echo=FALSE}",
@@ -252,16 +241,16 @@ rxs_buildTemplate <- function(rxsStructure,
   validateSourceId <-
     paste0("if (!(",
            gsub("VALUE", sourceIdLocation, sourceIdValidation),
-           ")) {\n  stop(\"The source identifier you specified, '\", ",
+           ")) {\n  stop(metabefor::wrap_error(\"The source identifier you specified, '\", ",
            sourceIdLocation, ", \n       \"', does not validate (i.e., it does ",
-           "not match the predefined format)!\");\n}");
+           "not match the predefined format)!\"));\n}");
 
   validateExtractorId <-
     paste0("if (!(",
            gsub("VALUE", extractorIdLocation, extractorIdValidation),
-           ")) {\n  stop(\"The extractor identifier you specified, '\", ",
+           ")) {\n  stop(metabefor::wrap_error(\"The extractor identifier you specified, '\", ",
            extractorIdLocation, ", \n       \"', does not validate (i.e., it does ",
-           "not match the predefined format)!\");\n}");
+           "not match the predefined format)!\"));\n}");
   
   if (rxsVersion < "0.3.0") {
     res <- c(yamlHeader,
@@ -278,13 +267,14 @@ rxs_buildTemplate <- function(rxsStructure,
              "",
              "",
              scriptChunk,
+             setRxsObjectClass,
+             rxsMetadata,
+             rxs_fg_layoutVars(indentSpaces = 0),
              "```",
              "",
              closingBlock,
              rep("", 10),
              "```{r rxs-metadata-and-validation-chunk, echo=FALSE}",
-             setRxsObjectClass,
-             rxsMetadata,
              validateSourceId,
              validateExtractorId,
              "```",
@@ -311,13 +301,14 @@ rxs_buildTemplate <- function(rxsStructure,
              "",
              "",
              scriptChunk,
+             setRxsObjectClass,
+             rxsMetadata,
+             rxs_fg_layoutVars(indentSpaces = 0),
              "```",
              "",
              closingBlock,
              rep("", 10),
              "```{r rxs-metadata-and-validation-chunk, echo=FALSE}",
-             setRxsObjectClass,
-             rxsMetadata,
              validateSourceId,
              validateExtractorId,
              "```",

@@ -14,6 +14,9 @@ nodeName(
 \item{x}{The prospective node name}
 
 \item{entityName}{The original name of the entity before renaming}
+
+\item{thisEntityText}{Text to insert with the the current name of this
+entity, in case it's about to be renamed.}
 }
 \value{
 The (sanitized) node name

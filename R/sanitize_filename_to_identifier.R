@@ -7,7 +7,7 @@ sanitize_filename_to_identifier <-
   x <- trimws(x);
   
   sanitizedIds <-
-    gsub("\\.rxs\\.Rmd", "", x, ignore.case = TRUE);
+    gsub("\\.Rxs\\.Rmd", "", x, ignore.case = TRUE);
   
   sanitizedIds <-
     gsub("[- .]", "_", sanitizedIds);
@@ -24,7 +24,7 @@ sanitize_filename_to_identifier <-
       sprintf(
         message,
         vecTxtQ(x[illegalIds]),
-        vexTctQ(sanitizedIds[illegalIds])
+        vecTxtQ(sanitizedIds[illegalIds])
       )
     );
   }

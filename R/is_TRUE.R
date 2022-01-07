@@ -8,7 +8,18 @@
 #' @return `TRUE` or `FALSE`
 #' @export
 #'
-#' @examples
+#' @examples ### These are all FALSE
+#' is_TRUE(NULL);
+#' is_TRUE(NA);
+#' is_TRUE(0);
+#' ### These ones are finally TRUE
+#' is_TRUE(2);
+#' is_TRUE(-2.91);
+#' is_TRUE("TRUE");
+#' ### And of course
+#' is_TRUE(2 == 2);
+#' ### And
+#' is_TRUE(FALSE == TRUE);
 is_TRUE <- function(x) {
   if (is.null(x)) {
     return(FALSE);

@@ -44,6 +44,20 @@
 #' worksheet of the spreadsheet. The default values are stored
 #' in `metabefor::opts$get("definitionsColNames")` - if you need to
 #' override these values, just reproduce that object.}
+#' 
+#' \item{indent}{Whether to use indentation to visually organise the Rxs
+#' template. If TRUE, deeper nesting in the Rxs specification's hierarchy
+#' will be visible as deeper indentation.}
+#' \item{indentSpaces}{The number of spaces to use when identing.}
+#' \item{fullWidth}{The maximum width of the Rxs template in characters.}
+#' \item{commentCharacter}{The character used to signify comments - if this is
+#' changed, R will throw errors (unless perhaps it once introduces another
+#' comment symbol).}
+#' \item{fillerCharacter}{The character used after the first character for
+#' filling up space.}
+#' \item{repeatingSuffix}{The suffix to use for the entity identifiers/names
+#' of repeating entities.}
+#' 
 #'   
 #' }
 #'
@@ -137,6 +151,14 @@ opts$defaults <-
     
     moduleWithoutName = "moduleWithoutName",
     
+    ### For creating the Rxs template
+    indentDefault <- TRUE,
+    indentSpaces <- 2,
+    fullWidth <- 78,
+    commentCharacter <- "#",
+    fillerCharacter <- "#",
+    repeatingSuffix <- "__1__",
+    
     ### Used to parse rxs specifications
     rxsSheetnames = list(entities = 'entities',
                          valueTemplates = 'valueTemplates',
@@ -172,8 +194,8 @@ opts$defaults <-
     instructionsColNames = list(headingCol = "heading",
                                 descriptionCol = "description"),
     
-    defininitionsColNames = list(termCol = "term",
-                                 definitionCol = "definition"),
+    definitionsColNames = list(termCol = "term",
+                               definitionCol = "definition"),
     
     txsColNames = list(source_identification_entity_id = 'source_identification_entity_id',
                        source_identification_value = 'source_identification_value',

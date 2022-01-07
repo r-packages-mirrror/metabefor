@@ -17,7 +17,7 @@
 #' an SPSS dataset (if you have {`haven`} installed), or a comma separated
 #' values file (which will be read with [read.csv()]).
 #' @param stopOnErrors Whether to throw an error or show a warning (or just
-#' use `cat` to show a message is `silent=FALSE`) when encountering errors.
+#' use `cat` to show a message is `silent = metabefor::opts$get("silent")`) when encountering errors.
 #' @param explode_vector_to_values Whether to call `explode_vector_to_values`
 #' if there are vectors among the added values.
 #' @param silent Whether to the chatty or silent.

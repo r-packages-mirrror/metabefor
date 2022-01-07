@@ -12,12 +12,6 @@ rxs_fromSpecifications(
   localBackup = NULL,
   yamlMetadata = list(title = "Systematic Review Extraction Script Template", author =
     NULL, date = format(Sys.time(), "\%Y-\%m-\%d at \%H:\%M:\%S \%Z (UTC\%z)")),
-  indent = TRUE,
-  indentSpaces = 2,
-  fullWidth = 78,
-  commentCharacter = "#",
-  fillerCharacter = "#",
-  repeatingSuffix = "__1__",
   rxsRootName = metabefor::opts$get(rxsRootName),
   preventOverwriting = FALSE,
   silent = metabefor::opts$get("silent"),
@@ -60,24 +54,6 @@ file.}
 \item{yamlMetadata}{A names list containing character values named
 \code{title}, \code{author}, and \code{date} which will be set in the Rmd file that is
 the Rxs template as metadata.}
-
-\item{indent}{Whether to use indentation to visually organise the Rxs
-template. If TRUE, deeper nesting in the Rxs specification's hierarchy
-will be visible as deeper indentation.}
-
-\item{indentSpaces}{The number of spaces to use when identing.}
-
-\item{fullWidth}{The maximum width of the Rxs template in characters.}
-
-\item{commentCharacter}{The character used to signify comments - if this is
-changed, R will throw errors (unless perhaps it once introduces another
-comment symbol).}
-
-\item{fillerCharacter}{The character used after the first character for
-filling up space.}
-
-\item{repeatingSuffix}{The suffix to use for the entity identifiers/names
-of repeating entities.}
 
 \item{rxsRootName}{The name of the root element}
 

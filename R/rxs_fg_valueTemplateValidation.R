@@ -1,13 +1,14 @@
 rxs_fg_valueTemplateValidation <- function(node,
                                            valueTemplates,
-                                           level = 0,
-                                           indent = TRUE,
-                                           indentSpaces = 2,
-                                           fullWidth = 80,
-                                           commentCharacter = "#",
-                                           fillerCharacter = "#") {
+                                           level = 0) {
   
   eC <- metabefor::opts$get("entityColNames");
+  indent <- metabefor::opts$get("indentDefault");
+  indentSpaces <- metabefor::opts$get("indentSpaces");
+  fullWidth <- metabefor::opts$get("fullWdith");
+  commentCharacter <- metabefor::opts$get("commentCharacter");
+  fillerCharacter <- metabefor::opts$get("fillerCharacter");
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
   
   ### This function looks up (or generates) the validation sets for
   ### an extractable entity.
