@@ -9,6 +9,6 @@ test_that("multiple modules are imported and merged correctly", {
       package = "metabefor"
     );
 
-  rxs <- metabefor::rxs_parseExtractionScripts(rxsPath);
+  rxs <- metabefor::rxs_parseExtractionScripts(rxsPath, silent=FALSE);
   
 })

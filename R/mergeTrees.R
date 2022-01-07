@@ -1,7 +1,9 @@
-#' Merge two `data.tree` trees
+#' Merge two Rxs trees (`data.tree` nodes)
 #' 
 #' Note this this function is used internally and was written to merge Rxs
-#' trees, so it may not fit other use cases.
+#' trees (hence the name), so it may not fit other use cases: for example,
+#' when merging two leaf nodes with the same name and path, if the `value`
+#' attribute is a list, those lists are combined using [base::c()].
 #'
 #' @param tree1,tree2 The trees to merge.
 #'
@@ -9,34 +11,138 @@
 #' @export
 #'
 #' @examples
-mergeTrees <- function(tree1,
-                       tree2) {
+mergeTrees <- function(tree1, 
+                       tree2,
+                       spaces = 2,
+                       silent = metabefor::opts$get("silent")) {
   
   mergedTree <- data.tree::Clone(tree1);
   
-  tree1_node <- mergedTree;
-  tree2_node <- tree2;
+  start <- paste0("\n", repStr(" ", spaces), "- ");
+  nestedStart <- paste0("\n", repStr(" ", spaces+2), "- ");
   
-  tree1_childNames <- names(tree1_node$children);
-  tree2_childNames <- names(tree2_node$children);
-  
-  for (currentName in tree2_childNames) {
-    if (!(currentName %in% tree1_childNames)) {
+  if (tree1$isLeaf && (!tree2$isLeaf)) {
+    stop(wrap_error("The first rxs tree (or 'node') I have to merge ('",
+                    tree1$name, "') consists of a single entity; but the ",
+                    "second rxs tree ('",
+                    tree2$name, "') has children (i.e. is a container ",
+                    "entity). That suggest an error in the specification of ",
+                    "your modules, or an error made during extraction. I ",
+                    "cannot perform this merge."));
+  } else if (!(tree1$isLeaf) && (tree2$isLeaf)) {
+    stop(wrap_error("The first rxs tree (or 'node') I have to merge, ('",
+                    tree1$name, "'), has children (i.e. is a container ",
+                    "entity); but the second rxs tree ('",
+                    tree2$name, "') consists of a ",
+                    "single entity. That suggest an error in the",
+                    "specification of your modules, or an error made during",
+                    "extraction. I cannot perform this merge."));
+  } else if (tree1$isLeaf && tree2$isLeaf) {
+    
+    ### Neither has children, i.e. is a container entity
+    
+    if (is.list(tree1$value) && (!is.list(tree2$value))) {
+      stop(wrap_error("The first rxs tree (or 'node') I have to merge ('",
+                      tree1$name, "') is a clustering entity ; but the ",
+                      "second rxs tree ('",
+                      tree2$name, "') is not (i.e. is a single extracted ",
+                      "entity). That suggest an error in the specification of ",
+                      "your modules, or an error made during extraction. I ",
+                      "cannot perform this merge."));
+    } else if (!(is.list(tree1$value)) && is.list(tree2$value)) {
+      stop(wrap_error("The first rxs tree (or 'node') I have to merge ('",
+                      tree1$name, "') is a single extracted ",
+                      "entity; but the second rxs tree ('",
+                      tree2$name, "') is not (i.e. is a clustering entity). ",
+                      "That suggest an error in the specification of ",
+                      "your modules, or an error made during extraction. I ",
+                      "cannot perform this merge."));
+    } else if (is.list(tree1$value) && is.list(tree2$value)) {
       
-      ### We can add this node without having to check child entities
-      tree1_node$AddChildNode(
-        data.tree::Clone(tree2_node[[currentName]])
-      );
+      ### Both are clustering entities: merge the value lists
+      
+      msg(start,
+          "Both the first rxs tree (or 'node') I have to merge ('",
+          tree1$name, "') and the second second rxs tree ('",
+          tree2$name, "') are clustering entites (i.e. entities ",
+          "with a `value` consisting of a list where multiple ",
+          "single extracted entities are efficiently specified). ",
+          "Merging them and returning the result.",
+          silent = silent);
+      
+      mergedTree$value <- c(tree1$value, tree2$value);
       
     } else {
-      
-      ### We have to add the children of tree2_node[[currentName]] one by one
-      ### as children of tree1_node.
-      
+      stop(wrap_error("Both rxs trees (or 'nodes') I have to merge ('",
+                      tree1$name, "' and '", tree2$name, "') are single ",
+                      "extracted entities. ",
+                      "That suggest an error in the specification of ",
+                      "your modules, or an error made during extraction. I ",
+                      "cannot perform this merge."));
     }
     
+  } else {
+    ### Both have children, i.e. are container entities
+
+    msg(start,
+        "Both the first rxs tree (or 'node') I have to merge ('",
+        tree1$name, "') and the second second rxs tree ('",
+        tree2$name, "') are container entities (i.e. entities ",
+        "that themselves do not contain any extracted data, but ",
+        "that function to organize other extracted entities). ",
+        "Processing those other contained entities now.",
+        silent = silent);
+    
+    tree1_node <- mergedTree; ### Convenience; note that data.tree uses R6
+    tree2_node <- tree2;
+    
+    tree1_childNames <- names(tree1_node$children);
+    tree2_childNames <- names(tree2_node$children);
+    
+    for (currentName in tree2_childNames) {
+      if (!(currentName %in% tree1_childNames)) {
+
+        msg(nestedStart,
+            "The second container entity ('",
+            tree2$name, "') contains an entity that does not exist in the ",
+            "first container entity ('", tree1$name,"'): '",
+            currentName, "'. Adding it to the first container entity).",
+            silent = silent);
+        
+        ### We can add this node without having to check child entities
+        tree1_node$AddChildNode(
+          data.tree::Clone(tree2_node[[currentName]])
+        );
+        
+      } else {
+        
+        ### A child node with the name of the current
+        ### node also exists as a child node of tree1.
+        ### We therefore have to merge those two nodes
+        ### by calling ourselves on them and storing
+        ### the result in the merged tree.
+        
+        msg("\n    - The second container entity ('",
+            tree2$name, "') contains an entity that already exists in the ",
+            "first container entity ('", tree1$name,"'): '",
+            currentName, "'. Calling myself to merge those two entities.",
+            silent = silent);
+        
+        tree1_node$AddChildNode(
+          metabefor::mergeTrees(
+            tree1 = tree1_node[[currentName]],
+            tree2 = tree2_node[[currentName]],
+            spaces = spaces + 2,
+            silent = silent
+          )
+        );
+        
+      }
+      
+    }
+
   }
 
-  return(mergedTree);
+  return(mergedTree); ### (Which is tree1_node because R6 passes by reference)
   
 }

@@ -18,7 +18,9 @@ rxs_buildTemplate <- function(rxsStructure,
   rxsObjectName <- metabefor::opts$get("rxsObjectName");
   rxsTemplateSpecName <- metabefor::opts$get("rxsTemplateSpecName");
   uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+  extractorIdName <- metabefor::opts$get("extractorIdName");
   sourceIdValidation <- metabefor::opts$get("sourceIdValidation");
+  extractorIdValidation <- metabefor::opts$get("extractorIdValidation");
   texts <- metabefor::opts$get("texts");
   
   if (!("rxsStructure" %IN% class(rxsStructure))) {
@@ -55,12 +57,15 @@ rxs_buildTemplate <- function(rxsStructure,
     );
   
   ###---------------------------------------------------------------------------
-  ### Study identifier chunk
+  ### Source and extractor identifier chunk
   ###---------------------------------------------------------------------------
 
   sourceIdFragment <-
     rxs_fg_sourceId();
-    
+  
+  extractorIdFragment <-
+    rxs_fg_extractorId();
+  
   ###---------------------------------------------------------------------------
   ### Script chunk
   ###---------------------------------------------------------------------------
@@ -129,7 +134,7 @@ rxs_buildTemplate <- function(rxsStructure,
       paste0("  rxsVersion: \"", rxsVersion, "\""),
       paste0("  rxsRootName: \"", rxsRootName, "\""),
       paste0("  rxsObjectName: \"", rxsObjectName, "\""),
-      paste0("  uniqueSourceIdName: \"", uniqueSourceIdName, "\""),
+      #paste0("  uniqueSourceIdName: \"", uniqueSourceIdName, "\""),
       "editor_options:",
       "  chunk_output_type: console",
       "---",
@@ -239,9 +244,12 @@ rxs_buildTemplate <- function(rxsStructure,
     paste0(rxsObjectName, "$rxsMetadata <- list(rxsVersion='",
            rxsVersion, "', moduleId=",
            ifelse(is.null(module), "NULL", paste0('"', module, '"')),
-           ", id=", uniqueSourceIdName, ");");
+           ", id=", uniqueSourceIdName,
+           ", extractorId=", extractorIdName,
+           ");");
   
   sourceIdLocation <- paste0(rxsObjectName, "$rxsMetadata$id");
+  extractorIdLocation <- paste0(rxsObjectName, "$rxsMetadata$extractorId");
   
   validateSourceId <-
     paste0("if (!(",
@@ -250,6 +258,13 @@ rxs_buildTemplate <- function(rxsStructure,
            sourceIdLocation, ", \n       \"', does not validate (i.e., it does ",
            "not match the predefined format)!\");\n}");
 
+  validateExtractorId <-
+    paste0("if (!(",
+           gsub("VALUE", extractorIdLocation, extractorIdValidation),
+           ")) {\n  stop(\"The extractor identifier you specified, '\", ",
+           extractorIdLocation, ", \n       \"', does not validate (i.e., it does ",
+           "not match the predefined format)!\");\n}");
+  
   if (rxsVersion < "0.3.0") {
     res <- c(yamlHeader,
              setupChunk,
@@ -258,17 +273,23 @@ rxs_buildTemplate <- function(rxsStructure,
              "",
              openingBlock,
              "",
-             "```{r rxsChunk, echo=FALSE}",
+             "```{r rxs-extraction-chunk, echo=FALSE}",
              sourceIdFragment,
+             "",
+             extractorIdFragment,
              "",
              "",
              scriptChunk,
-             setRxsObjectClass,
-             rxsMetadata,
-             validateSourceId,
              "```",
              "",
              closingBlock,
+             rep("", 10),
+             "```{r rxs-metadata-and-validation-chunk, echo=FALSE}",
+             setRxsObjectClass,
+             rxsMetadata,
+             validateSourceId,
+             validateExtractorId,
+             "```",
              "",
              ifelse(!is.na(recursingEntitiesChunk),
                     c(recursingEntitiesChunk, ""),
@@ -285,17 +306,23 @@ rxs_buildTemplate <- function(rxsStructure,
              "",
              openingBlock,
              "",
-             "```{r rxsChunk, echo=FALSE}",
+             "```{r rxs-extraction-chunk, echo=FALSE}",
              sourceIdFragment,
+             "",
+             extractorIdFragment,
              "",
              "",
              scriptChunk,
-             setRxsObjectClass,
-             rxsMetadata,
-             validateSourceId,
              "```",
              "",
              closingBlock,
+             rep("", 10),
+             "```{r rxs-metadata-and-validation-chunk, echo=FALSE}",
+             setRxsObjectClass,
+             rxsMetadata,
+             validateSourceId,
+             validateExtractorId,
+             "```",
              "",
              ifelse(!is.na(recursingEntitiesChunk),
                     c(recursingEntitiesChunk, ""),

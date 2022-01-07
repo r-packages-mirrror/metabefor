@@ -104,7 +104,8 @@ opts$defaults <-
     rxsTemplateSpecName = "rxsTemplateSpec",
     rxsCurrentNodeName = "currentEntity",
     uniqueSourceIdName = "uniqueSourceIdentifier",
-
+    extractorIdName = "extractorIdentifier",
+    
     ### Used throughout
     debug = FALSE,
     
@@ -174,6 +175,23 @@ opts$defaults <-
              "phase or which you can create with `metabefor::qurid()`."),
     sourceIdValueTemplateExamples = c("\"g5fj\"", "\"qurid_7h4pksl6\""),
     sourceIdValidation = "grepl(\"^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$\", VALUE, ignore.case=TRUE)",
+    
+    identifierExplanationText =
+      paste0("Identifiers can only consist of (lower or uppercase) ",
+             "Latin letters [a-zA-Z], Arabic numerals [0-9], and ",
+             "underscores [_], and always have to start with a letter ",
+             "(as a regular expression: ^[a-zA-Z][a-zA-Z0-9_]*$)."),
+    
+    extractorIdDefaultValue = "\"\"",
+    extractorIdTitle = " SPECIFY YOUR EXTRACTOR IDENTIFIER ",
+    extractorIdDescription =
+      paste0("An identifier unique to every extractor"),
+    extractorIdValueTemplateDescription =
+      paste0("Identifiers can only consist of (lower or uppercase) ",
+             "Latin letters [a-zA-Z], Arabic numerals [0-9], and ",
+             "underscores [_], and always have to start with a letter."),
+    extractorIdValueTemplateExamples = c("\"extractor_1\"", "\"Alex\""),
+    extractorIdValidation = "grepl(\"^[a-zA-Z][a-zA-Z0-9_]*$\", VALUE, ignore.case=TRUE)",
     
     texts = list(
       openingRemarks = 

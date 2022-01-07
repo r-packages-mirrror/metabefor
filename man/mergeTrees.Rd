@@ -2,9 +2,9 @@
 % Please edit documentation in R/mergeTrees.R
 \name{mergeTrees}
 \alias{mergeTrees}
-\title{Merge two \code{data.tree} trees}
+\title{Merge two Rxs trees (\code{data.tree} nodes)}
 \usage{
-mergeTrees(tree1, tree2)
+mergeTrees(tree1, tree2, spaces = 2, silent = metabefor::opts$get("silent"))
 }
 \arguments{
 \item{tree1, tree2}{The trees to merge.}
@@ -14,5 +14,7 @@ The merged tree, a (cloned) \code{data.tree} \code{Node} object.
 }
 \description{
 Note this this function is used internally and was written to merge Rxs
-trees, so it may not fit other use cases.
+trees (hence the name), so it may not fit other use cases: for example,
+when merging two leaf nodes with the same name and path, if the \code{value}
+attribute is a list, those lists are combined using \code{\link[base:c]{base::c()}}.
 }

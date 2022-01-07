@@ -127,17 +127,20 @@ rxs_fg_list <- function(node,
     if (rxsVersion < "0.3.0") {
       nodeRenaming <- c(paste0(lV$indentSpaces,
                                returnPathToRoot(node$parent),
-                               "$", currentEntityName, "$name <- ",
+                               "$", currentEntityName,
+                               "$name <- metabefor::nodeName(",
                                returnPathToRoot(node$parent),
                                "$", currentEntityName, "$value[['",
-                               identifyingEntityName[1], "']];"));
+                               identifyingEntityName[1], "']], \"",
+                               currentEntityName, "\");"));
     } else {
       nodeRenaming <- c(paste0(lV$indentSpaces,
                                rxsCurrentNodeName,
-                               "$name <- ",
+                               "$name <- metabefor::nodeName(",
                                rxsCurrentNodeName,
                                "$value[['",
-                               identifyingEntityName[1], "']];"));
+                               identifyingEntityName[1], "']], \"",
+                               currentEntityName, "\");"));
     }
     if (length(identifyingEntityName) > 1) {
       warning("More than one entity in the list '", node$name,
@@ -155,15 +158,18 @@ rxs_fg_list <- function(node,
     if (rxsVersion < "0.3.0") {
       nodeRenaming <- c(paste0(lV$indentSpaces,
                                returnPathToRoot(node$parent),
-                               "$", currentEntityName, "$name <- ",
+                               "$", currentEntityName,
+                               "$name <- metabefor::nodeName(",
                                returnPathToRoot(node$parent),
-                               "$", currentEntityName, "$value[[1]];"));
+                               "$", currentEntityName, "$value[[1]], \"",
+                               currentEntityName, "\");"));
     } else {
       nodeRenaming <- c(paste0(lV$indentSpaces,
                                rxsCurrentNodeName,
-                               "$name <- ",
+                               "$name <- metabefor::nodeName(",
                                rxsCurrentNodeName,
-                               "$value[[1]];"));
+                               "$value[[1]], \"",
+                               currentEntityName, "\");"));
     }
   } else {
     nodeRenaming <- NULL;

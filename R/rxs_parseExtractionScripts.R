@@ -325,32 +325,34 @@ rxs_parseExtractionScripts <- function(path,
       }
     }
 
-    ###-------------------------------------------------------------------------
-    ### Get the identifier of this source
-    ###-------------------------------------------------------------------------
-    
-    if (exists(uniqueSourceIdName, envir=globalenv())) {
-      sourceId <- get(uniqueSourceIdName, envir=globalenv());
-
-      res$log <- c(
-        res$log,
-        msg("\n  - The unique source identifier was succesfully retrieved: ",
-            sourceId, ".",
-            silent = silent)
-      );
-      
-    } else {
-      
-      sourceId <- filename;
-      
-      res$log <- c(
-        res$log,
-        msg("\n  - The unique source identifier could not be retrieved, using filename instead: ",
-            sourceId, ".",
-            silent = silent)
-      );
-      
-    }
+    # ###-------------------------------------------------------------------------
+    # ### Get the identifier of this source
+    # ###-------------------------------------------------------------------------
+    # 
+    # ### NOTE: No longer using this, only using the version in the metadata!
+    # 
+    # if (exists(uniqueSourceIdName, envir=globalenv())) {
+    #   sourceId <- get(uniqueSourceIdName, envir=globalenv());
+    # 
+    #   res$log <- c(
+    #     res$log,
+    #     msg("\n  - The unique source identifier was succesfully retrieved: ",
+    #         sourceId, ".",
+    #         silent = silent)
+    #   );
+    #   
+    # } else {
+    #   
+    #   sourceId <- filename;
+    #   
+    #   res$log <- c(
+    #     res$log,
+    #     msg("\n  - The unique source identifier could not be retrieved, using filename instead: ",
+    #         sourceId, ".",
+    #         silent = silent)
+    #   );
+    #   
+    # }
     
     ###-------------------------------------------------------------------------
     ### Make sure we have a unique name to store this object in
@@ -381,35 +383,41 @@ rxs_parseExtractionScripts <- function(path,
       
       if (is.null(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
         res$rxsTrees_raw[[currentTreeName]]$rxsMetadata <-
-          list(id_from_parsing = sourceId,
+          list(#id_from_parsing = sourceId,
+               id = sanitize_filename_to_identifier(filename),   
                filename = filename);
       } else {
-        res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id_from_parsing <-
-          sourceId;
+        # res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id_from_parsing <-
+        #   sourceId;
         res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$filename <-
           filename
-        if ("id" %in% names(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
-          if (!(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id == sourceId)) {
-            res$log <- c(
-              res$log,
-              msg("\n  - Warning: the source identifier as specified at the ",
-                  "top of the rxs file ('", sourceId, "') is different from ",
-                  "the source identifier specified in the rxs object's ",
-                  "metadata ('",
-                  res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id,
-                  "'), even though these should be identical! If this ",
-                  "source file was manually altered (e.g. updated from a ",
-                  "version where source identifiers did not exist yet) this ",
-                  "is expected, so then there's no need to worry. Otherwise, ",
-                  "however, it may be a sign that somebody (e.g. an ",
-                  "extractor) accidently changed a part of the rxs file that ",
-                  "should not have changed, so you may want to check ",
-                  "it carefully",
-                  silent = silent)
-            );
-          }
+        if (!("id" %in% names(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata))) {
+          res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id <-
+            sanitize_filename_to_identifier(filename);
         }
+        # if ("id" %in% names(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
+        #   if (!(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id == sourceId)) {
+        #     res$log <- c(
+        #       res$log,
+        #       msg("\n  - Warning: the source identifier as specified at the ",
+        #           "top of the rxs file ('", sourceId, "') is different from ",
+        #           "the source identifier specified in the rxs object's ",
+        #           "metadata ('",
+        #           res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id,
+        #           "'), even though these should be identical! If this ",
+        #           "source file was manually altered (e.g. updated from a ",
+        #           "version where source identifiers did not exist yet) this ",
+        #           "is expected, so then there's no need to worry. Otherwise, ",
+        #           "however, it may be a sign that somebody (e.g. an ",
+        #           "extractor) accidently changed a part of the rxs file that ",
+        #           "should not have changed, so you may want to check ",
+        #           "it carefully",
+        #           silent = silent)
+        #     );
+        #   }
+        # }
       }
+      sourceId <- res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id;
       
       nrOfEntities <-
         length(res$rxsTrees_raw[[currentTreeName]]$Get("name"))
@@ -608,8 +616,10 @@ rxs_parseExtractionScripts <- function(path,
               
               mergingResult <-
                 mergeTrees(
-                  mergingResult,
-                  res$rxsTrees_raw[validRawTrees][[i]]
+                  tree1 = mergingResult,
+                  tree2 = res$rxsTrees_raw[validRawTrees][[i]],
+                  spaces = 6,
+                  silent = silent
                 );
               
             }
