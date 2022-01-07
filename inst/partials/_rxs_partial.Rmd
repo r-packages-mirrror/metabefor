@@ -9,11 +9,11 @@
   options(kableExtra_view_html = FALSE);
   
   if (!exists('headingLevel') || !is.numeric(headingLevel) || (length(headingLevel) != 1)) {
-    headingLevel <- 0;
+    headingLevel <- 1;
   }
   
 ```
-  
+
 ```{r, results='asis', eval=TRUE}
   metabefor::heading("Extracted Study", headingLevel=headingLevel);
 ```
@@ -23,7 +23,7 @@
   res <-
     rxsTree_to_valueDf(x);
 
-  metabefor::heading("Tree of extracted entities", headingLevel=headingLevel+1);
+  metabefor::heading("Rxs tree of extracted entities", headingLevel=headingLevel+1);
 
   if (getOption('metabefor.debug', FALSE)) {
     cat("\n\n\n\n");

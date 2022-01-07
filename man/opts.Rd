@@ -38,7 +38,28 @@ The following options can be set:
 \describe{
 \item{quridPrefix}{The prefix for quasi-unique record identifiers (QURIDs).}
 
-\item{Two}{Second item}
+\item{ws}{The worksheet names: a named list with four character values
+named \code{entities}, \code{valueTemplates}, \code{definitions}, and \code{instructions}.}
+\item{eC}{The entity columns; a named list with character values holding the
+names of the columns in the \code{entities} worksheet of the spreadsheet. The
+default values are stored in \code{metabefor::opts$get("entityColNames")} - if you
+need to override these values, just reproduce that object.}
+\item{valueTemplateCols}{The value template columns; a named list with
+character values holding the names of the columns in the \code{entities}
+worksheet of the spreadsheet. The default values are stored
+in \code{metabefor::opts$get("valueTemplateColNames")} - if you need to
+override these values, just reproduce that object.}
+\item{instructionsCols}{The instructions worksheet columns: a names list with
+character values holding the names of the columns in the \code{instructions}
+worksheet of the spreadsheet. The default values are stored
+in \code{metabefor::opts$get("instructionsColNames")} - if you need to
+override these values, just reproduce that object.}
+\item{definitionsCols}{The definitions worksheet columns: a names list with
+character values holding the names of the columns in the \code{definitions}
+worksheet of the spreadsheet. The default values are stored
+in \code{metabefor::opts$get("definitionsColNames")} - if you need to
+override these values, just reproduce that object.}
+
 }
 }
 \examples{

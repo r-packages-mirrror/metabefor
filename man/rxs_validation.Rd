@@ -2,29 +2,20 @@
 % Please edit documentation in R/rxs_validation.R
 \name{rxs_validation}
 \alias{rxs_validation}
-\title{Validate a study tree}
+\title{Validate an Rxs tree}
 \usage{
-rxs_validation(
-  studyTree,
-  eC = metabefor::opts$get("entityColNames"),
-  rxsStructure = NULL
-)
+rxs_validation(rxsTree, rxsStructure = NULL)
 }
 \arguments{
-\item{studyTree}{The study tree}
-
-\item{eC}{The entity columns; a named list with character values holding the
-names of the columns in the \code{entities} worksheet of the spreadsheet. The
-default values are stored in \code{metabefor::opts$get("entityColNames")} - if you
-need to override these values, just reproduce that object.}
+\item{rxsTree}{The Rxs tree}
 
 \item{rxsStructure}{Optionally, the \code{rxsStructure} as resulting from
 a call to \code{\link[=rxs_parseSpecifications]{rxs_parseSpecifications()}}.}
 }
 \value{
-Invisibly, the study tree (which was altered in place, consistent
+Invisibly, the Rxs tree (which was altered in place, consistent
 with the reference semantics employed by \code{\link[data.tree:Node]{data.tree::Node()}}.
 }
 \description{
-Validate a study tree
+Validate an Rxs tree
 }

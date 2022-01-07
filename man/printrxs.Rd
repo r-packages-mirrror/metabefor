@@ -36,7 +36,7 @@ rxs_partial(
 )
 }
 \arguments{
-\item{x}{The study tree}
+\item{x}{The Rxs tree}
 
 \item{rxsStructure}{Optionally, the rxs structure}
 

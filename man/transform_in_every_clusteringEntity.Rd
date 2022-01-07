@@ -5,7 +5,7 @@
 \title{Perform a transformation for every clustering entity}
 \usage{
 transform_in_every_clusteringEntity(
-  studies,
+  x,
   newEntityName,
   fun,
   funArgs,
@@ -14,7 +14,7 @@ transform_in_every_clusteringEntity(
 )
 }
 \arguments{
-\item{studies}{The \code{studies} object (as produced
+\item{x}{The full Rxs project object (as produced
 by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}).}
 
 \item{newEntityName}{The name of the new entity to add to the clustering
@@ -37,13 +37,13 @@ be processed.}
 that the clustering entity must contain for it to be processed.}
 }
 \value{
-Invisibly, the studies object. Note that the study trees will be
-changed in place given \code{data.tree}'s pass-by-reference logic; so you can
-discard the result.
+Invisibly, the full Rxs project object. Note that the Rxs trees
+will be changed in place given \code{data.tree}'s pass-by-reference logic; so
+you can discard the result.
 }
 \description{
-This function takes a \code{studies} object (as produced
-by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}) and processes all study
+This function takes a full Rxs project object (as produced
+by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}) and processes all Rxs
 trees, looking for clustering entities that match the \code{entityId_regex}
 regular expression (for information about what clustering entities are,
 see \url{https://r-packages.gitlab.io/metabefor/articles/definitions.html})

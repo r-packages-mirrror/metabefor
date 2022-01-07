@@ -5,7 +5,7 @@
 \title{Explode a vector to values}
 \usage{
 explode_vector_to_values(
-  studies,
+  x,
   entityId,
   prefix = NULL,
   values = 0:1,
@@ -13,7 +13,7 @@ explode_vector_to_values(
 )
 }
 \arguments{
-\item{studies}{The \code{studies} object (as produced
+\item{x}{The full Rxs project object (as produced
 by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}).}
 
 \item{entityId}{The entity identifier.}
@@ -28,13 +28,13 @@ values to entity identifiers (i.e. the bit appended to the \code{prefix}). If
 nothing is specified, the original values will be sanitized and used.}
 }
 \value{
-Invisibly, the studies object. Note that the study trees will be
-changed in place given \code{data.tree}'s pass-by-reference logic; so you can
-discard the result.
+Invisibly, the full Rxs project object. Note that the Rxs trees
+will be changed in place given \code{data.tree}'s pass-by-reference logic; so
+you can discard the result if you want.
 }
 \description{
-This function takes a \code{studies} object (as produced
-by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}) and processes all study
+This function takes a full Rxs project (as produced
+by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}) and processes all Rxs
 trees, looking for the values stored in the entity with the specified
 identifier (this cannot be a clustering entity or a clustered entity;
 see the definitions at
@@ -46,42 +46,42 @@ given entity.
 }
 \details{
 For example, imagine the following situation. We want to process an entity
-called \code{exampleVector} in three study trees. In the first study tree,
-that entity contains the value \code{c("a", "b")}; in the second study tree, it
-contains \code{c("a", "c", "d")}; and in the third study tree, it doesn't exist.
-If we would then run if this function is run with its default arguments,
-in all three study trees, four new entities will be added, \code{exampleVector_a},
-\code{exampleVector_b}, \code{exampleVector_c}, and \code{exampleVector_d}. For the first
-study, the values would be, respectively, \code{1}, \code{1}, \code{0}, and \code{0}; for the
-second study, they would be \code{1}, \code{0}, \code{1}, and \code{1}; and for the third
-study, they would all be \code{0} (see the example).
+called \code{exampleVector} in three Rxs trees. In the first Rxs tree,
+that entity contains the value \code{c("a", "b")}; in the second Rxs tree, it
+contains \code{c("a", "c", "d")}; and in the third Rxs tree, it doesn't exist.
+If we would then run this function with its default arguments,
+in all three Rxs trees, four new entities will be added, \code{exampleVector_a},
+\code{exampleVector_b}, \code{exampleVector_c}, and \code{exampleVector_d}. In the first
+Rxs tree, the values would be, respectively, \code{1}, \code{1}, \code{0}, and \code{0}; in the
+second, they would be \code{1}, \code{0}, \code{1}, and \code{1}; and in the third Rxs tree,
+they would all be \code{0} (see the example).
 }
 \examples{
-### Create fake 'studies' object
-studies <-
+### Create fake Rxs project
+rxs <-
   list(rxsTrees = list());
-class(studies) <-
+class(rxs) <-
   "rxs_parsedExtractionScripts";
   
-### Add three fake studies
-studies$rxsTrees <-
-  list(study1 = data.tree::Node$new("study"),
-       study2 = data.tree::Node$new("study"),
-       study3 = data.tree::Node$new("study"));
+### Add three fake sources
+rxs$rxsTrees <-
+  list(source1 = data.tree::Node$new("source"),
+       source2 = data.tree::Node$new("source"),
+       source3 = data.tree::Node$new("source"));
 
 ### Add values for an entity with id 'exampleVector'
-studies$rxsTrees$study1$AddChild(
+rxs$rxsTrees$source1$AddChild(
   "exampleVector", value=c("a", "b")
 );
-studies$rxsTrees$study2$AddChild(
+rxs$rxsTrees$source2$AddChild(
   "exampleVector", value=c("a", "c", "d")
 );
 
 ### Explore this vector
-explode_vector_to_values(studies, "exampleVector");
+explode_vector_to_values(rxs, "exampleVector");
 
-### View the results for the first study
-studies$rxsTrees$study1$Get(
+### View the results for the first source
+rxs$rxsTrees$source1$Get(
   "value",
   filterFun = function(node) {
     return(grepl("exampleVector_", node$name));

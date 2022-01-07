@@ -32,12 +32,12 @@ if (exists("updateEverything") && updateEverything) {
     "https://docs.google.com/spreadsheets/d/1Ty38BS7MVXOgC-GJ6zzr7E3rC_vQNOMKe-uCvIuHs3c";
 
   localBackupFile <-
-    file.path(extDataDir, "rxs_minimal_example.xlsx");
+    file.path(extDataDir, "Rxs_minimal_example.xlsx");
   
   minimalTemplateFile <-
-    file.path(extDataDir, "rxs_minimal_example_noModules.rxs.Rmd");
+    file.path(extDataDir, "Rxs_minimal_example_noModules.Rxs.Rmd");
   
-  modulesTemplateFilenamePattern <- "rxs_minimal_example_%s";
+  modulesTemplateFilenamePattern <- "Rxs_minimal_example_%s";
   
   rxs_minimal_example <-
     metabefor::rxs_fromSpecifications(

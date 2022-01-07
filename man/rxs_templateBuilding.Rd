@@ -17,11 +17,6 @@ rxs_fromSpecifications(
   fullWidth = 78,
   commentCharacter = "#",
   fillerCharacter = "#",
-  ws = metabefor::opts$get("rxsSheetnames"),
-  eC = metabefor::opts$get("entityColNames"),
-  valueTemplateCols = metabefor::opts$get("valueTemplateColNames"),
-  instructionsCols = metabefor::opts$get("instructionsColNames"),
-  definitionsCols = metabefor::opts$get("definitionsColNames"),
   repeatingSuffix = "__1__",
   rxsRootName = metabefor::opts$get(rxsRootName),
   preventOverwriting = FALSE,
@@ -81,32 +76,6 @@ comment symbol).}
 \item{fillerCharacter}{The character used after the first character for
 filling up space.}
 
-\item{ws}{The worksheet names: a named list with four character values
-named \code{entities}, \code{valueTemplates}, \code{definitions}, and \code{instructions}.}
-
-\item{eC}{The entity columns; a named list with character values holding the
-names of the columns in the \code{entities} worksheet of the spreadsheet. The
-default values are stored in \code{metabefor::opts$get("entityColNames")} - if you
-need to override these values, just reproduce that object.}
-
-\item{valueTemplateCols}{The value template columns; a named list with
-character values holding the names of the columns in the \code{entities}
-worksheet of the spreadsheet. The default values are stored
-in \code{metabefor::opts$get("valueTemplateColNames")} - if you need to
-override these values, just reproduce that object.}
-
-\item{instructionsCols}{The instructions worksheet columns: a names list with
-character values holding the names of the columns in the \code{instructions}
-worksheet of the spreadsheet. The default values are stored
-in \code{metabefor::opts$get("instructionsColNames")} - if you need to
-override these values, just reproduce that object.}
-
-\item{definitionsCols}{The definitions worksheet columns: a names list with
-character values holding the names of the columns in the \code{definitions}
-worksheet of the spreadsheet. The default values are stored
-in \code{metabefor::opts$get("definitionsColNames")} - if you need to
-override these values, just reproduce that object.}
-
 \item{repeatingSuffix}{The suffix to use for the entity identifiers/names
 of repeating entities.}
 
@@ -146,5 +115,5 @@ or just the template.
 \description{
 This function processes an R extraction script template specification in
 a spreadsheet format and produce the corresponding R extraction script
-template file (an R Markdown file with the extension \code{.rxs.Rmd})
+template file (an R Markdown file with the extension \code{.Rxs.Rmd})
 }

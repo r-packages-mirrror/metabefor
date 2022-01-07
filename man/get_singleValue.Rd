@@ -4,7 +4,7 @@
 \alias{get_singleValue_fromTree}
 \alias{get_singleValue_fromTreeList}
 \alias{get_singleValue}
-\title{Get a single value from a study tree, list of trees, or studies object}
+\title{Get a single value from a Rxs tree, list of trees, or full Rxs project object}
 \usage{
 get_singleValue_fromTree(
   x,
@@ -51,7 +51,7 @@ get_singleValue(
 )
 }
 \arguments{
-\item{x}{The tree, tree list, or \code{studies} object.}
+\item{x}{The tree, tree list, or full Rxs project object.}
 
 \item{entityId}{The entity identifier of the value to get}
 
@@ -94,5 +94,5 @@ return a character value - if they do, that is shown as a warning or printed
 A list or a dataframe (if \code{returnDf} is \code{TRUE})
 }
 \description{
-Get a single value from a study tree, list of trees, or studies object
+Get a single value from a Rxs tree, list of trees, or full Rxs project object
 }

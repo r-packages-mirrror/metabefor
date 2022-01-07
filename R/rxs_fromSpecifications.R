@@ -2,7 +2,7 @@
 #' 
 #' This function processes an R extraction script template specification in
 #' a spreadsheet format and produce the corresponding R extraction script
-#' template file (an R Markdown file with the extension `.rxs.Rmd`)
+#' template file (an R Markdown file with the extension `.Rxs.Rmd`)
 #'
 #' @param x A Google Sheets URL (make sure it's viewable by anybody
 #' with the link!) or either a character
@@ -182,183 +182,6 @@ rxs_fromSpecifications <- function(x = NULL,
   valueTemplates[[valueTemplateCols$identifierCol]] <-
     gsub("[^a-zA-Z0-9_.]+", "",
          valueTemplates[[valueTemplateCols$identifierCol]]);
-  
-  # if (!is.null(gs_url)) {
-  #   tryCatch({
-  #     googlesheets4::gs4_deauth();
-  #     sheetNames <- googlesheets4::sheet_names(gs_url);
-  #   },
-  #   error = function(e) {
-  #     if (!silent) {
-  #       cat("You specified a google sheet, but I have problems",
-  #           "accessing it (error: '",
-  #           e$message,
-  #           "'). Trying to access local files.\n");
-  #     }
-  #     if (getOption("metabefor.debug", FALSE)) {
-  #       cat0("Error message:\n  ",
-  #            e$message,
-  #            "\n");
-  #     }
-  #   });
-  #   
-  #   if (exists("sheetNames")) {
-  # 
-  #     if (!(ws$entities %in% sheetNames)) {
-  #       stop("In the google sheet you specified, the worksheet names are ",
-  #            vecTxtQ(sheetNames), ", while in argument `ws$entities`, you ",
-  #            "passed '", ws$entities, "' as the name of the worksheet ",
-  #            "that specifies the entities to extract.");
-  #     }
-  #     
-  #     if (!(ws$valueTemplates %in% sheetNames)) {
-  #       stop("In the google sheet you specified, the worksheet names are ",
-  #            vecTxtQ(sheetNames), ", while in argument `ws$valueTemplates`, ",
-  #            "you passed '", ws$valueTemplates, "' as the name of the worksheet ",
-  #            "that specifies the value templates to use.");
-  #     }
-  #     
-  #     entities <- as.data.frame(
-  #       googlesheets4::read_sheet(gs_url, sheet = ws$entities)
-  #     );
-  # 
-  #     valueTemplates <- as.data.frame(
-  #       googlesheets4::read_sheet(gs_url, sheet = ws$valueTemplates)
-  #     );
-  #     
-  #     if (!is.null(ws$definitions) && (ws$definitions %in% sheetNames)) {
-  #       definitions <- as.data.frame(
-  #         googlesheets4::read_sheet(gs_url, sheet = ws$definitions)
-  #       );
-  #     } else {
-  #       definitions <- NULL;
-  #     }
-  #     
-  #     if (!is.null(ws$instructions) && (ws$instructions %in% sheetNames)) {
-  #       instructionSheet <- as.data.frame(
-  #         googlesheets4::read_sheet(gs_url, sheet = ws$instructions)
-  #       );
-  #     } else {
-  #       instructionSheet <- NULL;
-  #     }
-  #     
-  #     if (!silent) {
-  #       cat("Successfully read the extraction script specifications from Google sheets.\n");
-  #     }
-  #     
-  #   }     
-  #   
-  # }
-  
-  ###---------------------------------------------------------------------------
-  ### Read sheets from local file
-  ###---------------------------------------------------------------------------
-  
-  # ### If the sheets identifier was not provided, or loading it failed,
-  # ### load from a local file
-  # if (!is.data.frame(entities)) {
-  # 
-  #   ### Check whether the files exist
-  #   if (!is.null(entitiesFilename)) {
-  #     if (!file.exists(entitiesFilename)) {
-  #       stop("You specified a filename for 'entitiesFilename' ('",
-  #            entitiesFilename, "'), but it does not exist.");
-  #     }
-  #   } else {
-  #     stop("Either a google sheets URL was not provided in gs_url, ",
-  #          "or loading the sheets failed; and you did not provide ",
-  #          "a filename in 'entitiesFilename'. That means that I cannot ",
-  #          "load the extraction script specifications.");
-  #   }
-  # 
-  #   if (!is.null(valueTemplatesFilename)) {
-  #     if (!file.exists(valueTemplatesFilename)) {
-  #       stop("You specified a filename for 'valueTemplatesFilename' ('",
-  #            valueTemplatesFilename, "'), but it does not exist.");
-  #     }
-  #   } else {
-  #     stop("Either a google sheets URL was not provided in gs_url, ",
-  #          "or loading the sheets failed; and you did not provide ",
-  #          "a filename in 'valueTemplatesFilename'. That means that I cannot ",
-  #          "load the extraction script specifications.");
-  #   }
-  # 
-  #   entities <- utils::read.csv(entitiesFilename,
-  #                               stringsAsFactors = FALSE);
-  #   valueTemplates <- utils::read.csv(valueTemplatesFilename,
-  #                                     stringsAsFactors = FALSE);
-  #   if (!is.null(definitionsFilename)) {
-  #     definitions <- utils::read.csv(definitionsFilename,
-  #                                    stringsAsFactors = FALSE);
-  #   }
-  # 
-  #   if (!silent) {
-  #     cat("Succesfully read the extraction script specifications from local files.\n");
-  #   }
-  # 
-  # }
-
-  ###---------------------------------------------------------------------------
-  ### Write local backup, if need be
-  ###---------------------------------------------------------------------------
-  
-  # if (!is.null(localBackup$entities)) {
-  #   
-  #   ### Sometimes, for some odd reason, columns have the 'list' class;
-  #   ### convert those to character.
-  #   entitiesToWrite <-
-  #     purgeListsFromDf(entities);
-  # 
-  #   if (tolower(tools::file_ext(localBackup$entities)) == "csv") {
-  #     utils::write.csv(entitiesToWrite,
-  #                      row.names=FALSE,
-  #                      localBackup$entities);
-  #   } else if (tolower(tools::file_ext(localBackup$entities)) == "xlsx") {
-  #     openxlsx::write.xlsx(
-  #       entitiesToWrite,
-  #       localBackup$entities
-  #     );
-  #   } else {
-  #     stop("For the entities spreadsheet, you passed an extension implying ",
-  #          "you want me to export to a format I don't know (",
-  #          tools::file_ext(localBackup$entities), ")!");
-  #   }
-  #   
-  #   if (!silent) {
-  #     cat0("Stored local backup of entities to '", localBackup$entities, "'.\n");
-  #   }
-  # }
-  # if (!is.null(localBackup$valueTemplates)) {
-  #   
-  #   ### Sometimes, for some odd reason, columns have the 'list' class;
-  #   ### convert those to character.
-  #   valueTemplatesToWrite <-
-  #     purgeListsFromDf(valueTemplates);
-  #   
-  #   utils::write.csv(valueTemplatesToWrite,
-  #                    row.names=FALSE,
-  #                    localBackup$valueTemplates);
-  #   if (!silent) {
-  #     cat0("Stored local backup of value templates to '", localBackup$valueTemplates, "'.\n");
-  #   }
-  # }
-  # if (!is.null(localBackup$definitions) && !is.null(definitions)) {
-  #   utils::write.csv(definitions,
-  #                    row.names=FALSE,
-  #                    localBackup$definitions);
-  #   if (!silent) {
-  #     cat0("Stored local backup of definitions to '", localBackup$definitions, "'.\n");
-  #   }
-  # }
-  # if (!is.null(localBackup$instructions) && !is.null(instructions)) {
-  #   utils::write.csv(instructions,
-  #                    row.names=FALSE,
-  #                    localBackup$instructions);
-  #   if (!silent) {
-  #     cat0("Stored local backup of instructions to '", localBackup$instructions, "'.\n");
-  #   }
-  # }
-  
   
   ###---------------------------------------------------------------------------
   ### Extraction instructions
@@ -685,8 +508,8 @@ rxs_fromSpecifications <- function(x = NULL,
         
         fileToWriteTo <- sprintf(outputFilenamePattern, currentModule);
         
-        if (!grepl("\\.rxs.Rmd$", fileToWriteTo, ignore.case = TRUE)) {
-          fileToWriteTo <- paste0(fileToWriteTo, ".rxs.Rmd");
+        if (!grepl("\\.Rxs.Rmd$", fileToWriteTo, ignore.case = TRUE)) {
+          fileToWriteTo <- paste0(fileToWriteTo, ".Rxs.Rmd");
         }
         
         fileToWriteTo <- file.path(outputPath, fileToWriteTo);
@@ -717,14 +540,14 @@ rxs_fromSpecifications <- function(x = NULL,
     if (!is.null(outputFile)) {
       if (isTRUE(outputFile)) {
         ### Write to current working directory
-        fileToWriteTo <- file.path(getwd(), "template.rxs.Rmd");
+        fileToWriteTo <- file.path(getwd(), "template.Rxs.Rmd");
       } else if (is.character(outputFile)) {
         ### Path is specified in 'outputFile'
         fileToWriteTo <- outputFile;
       }
       
-      if (!grepl("\\.rxs.Rmd$", fileToWriteTo, ignore.case = TRUE)) {
-        fileToWriteTo <- paste0(fileToWriteTo, ".rxs.Rmd");
+      if (!grepl("\\.Rxs.Rmd$", fileToWriteTo, ignore.case = TRUE)) {
+        fileToWriteTo <- paste0(fileToWriteTo, ".Rxs.Rmd");
       }
       
       if (file.exists(fileToWriteTo) && preventOverwriting) {
