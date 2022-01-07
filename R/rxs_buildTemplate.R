@@ -9,10 +9,10 @@ rxs_buildTemplate <- function(rxsStructure,
                               module = NULL,
                               commentCharacter = "#",
                               fillerCharacter = "#",
-                              eC = metabefor::opts$get("entityColNames"),
                               repeatingSuffix = "__1__",
                               silent=FALSE) {
   
+  eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
   rxsObjectName <- metabefor::opts$get("rxsObjectName");
@@ -78,7 +78,6 @@ rxs_buildTemplate <- function(rxsStructure,
                       fullWidth = fullWidth,
                       commentCharacter = commentCharacter,
                       fillerCharacter = fillerCharacter,
-                      eC = eC,
                       repeatingSuffix = repeatingSuffix,
                       silent=silent);
 
@@ -93,7 +92,6 @@ rxs_buildTemplate <- function(rxsStructure,
                                fullWidth = fullWidth,
                                commentCharacter = commentCharacter,
                                fillerCharacter = fillerCharacter,
-                               eC = eC,
                                repeatingSuffix = repeatingSuffix,
                                silent=silent);
     recursingEntitiesChunk <-

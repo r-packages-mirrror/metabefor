@@ -5,10 +5,10 @@ rxs_fg_sourceId <- function(level = 1,
                             commentCharacter = "#",
                             fillerCharacter = "#",
                             repeatingSuffix = "__1__",
-                            eC = metabefor::opts$get("entityColNames"),
                             silent=metabefor::opts$get("silent"),
                             overrideLevel = NULL) {
   
+  eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
 

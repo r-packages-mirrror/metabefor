@@ -1,20 +1,20 @@
-#' Flatten one or more study trees into a tidy data frame
+#' Flatten one or more Rxs trees into a tidy data frame
 #'
-#' @param x A list of study trees
-#' @param studyTree The study tree to convert
-#' @param studyName The name of the study
-#' @param eC The names of the entity columns
+#' @param x A list of Rxs trees
+#' @param rxsTree The Rxs tree to convert
+#' @param sourceId The source identifier
 #' @param flattenToString Whether to flatten lists to a string
 #' or explode to separate variables.
 #' @param silent Whether to be silent or chatty.
 #'
 #' @return A data frame
-#' @rdname tidy_studyTrees
+#' @rdname tidy_rxsTrees
 #' @export
-tidy_studyTrees <- function(x,
-                            eC = metabefor::opts$get('entityColNames'),
-                            flattenToString = TRUE,
-                            silent = metabefor::opts$get('silent')) {
+tidy_rxsTrees <- function(x,
+                          flattenToString = TRUE,
+                          silent = metabefor::opts$get('silent')) {
+  
+  eC <- metabefor::opts$get('entityColNames');
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
     x <- x$rxsTrees;
@@ -28,15 +28,15 @@ tidy_studyTrees <- function(x,
     metabefor::rbind_df_list(
       lapply(
         names(x),
-        function(treeName) {
+        function(sourceId) {
           if (!silent) {
-            cat0("\n\nStarting to process study tree with name ", treeName, "...");
+            cat0("\n\nStarting to process Rxs tree for source identifier ",
+                 sourceId, "...");
           }
           return(
-            tidy_studyTree(
-              studyTree = x[[treeName]],
-              studyName = treeName,
-              eC = eC,
+            tidy_rxsTree(
+              rxsTree = x[[sourceId]],
+              sourceId = sourceId,
               flattenToString = flattenToString,
               silent = silent
             )

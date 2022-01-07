@@ -1,6 +1,6 @@
 #' @rdname supplement_data_from_list
 #' @export
-supplement_data_from_lists <- function(studyTree,
+supplement_data_from_lists <- function(rxsTree,
                                        sourceEntityNodeIdField_in_targetEntity,
                                        idField_in_targetEntityNode = NULL,
                                        idField_in_sourceEntityNode = NULL,
@@ -12,35 +12,35 @@ supplement_data_from_lists <- function(studyTree,
                                        suffix = "",
                                        silent = metabefor::opts$get("silent")) {
   
-  if (is.null(studyTree)) {
+  if (is.null(rxsTree)) {
     if (!silent) {
-      cat0("What you passed as `studyTree` is NULL!");
+      cat0("What you passed as `rxsTree` is NULL!");
     }
     return(invisible(NULL));
   }
   
-  if (inherits(studyTree, "rxs_parsedExtractionScripts")) {
+  if (inherits(rxsTree, "rxs_parsedExtractionScripts")) {
     
     if (!silent) {
       cat0("\nYou passed an object with parsed Rxs files. I'm going to ",
-           "call myself on each of the ", length(studyTree$rxsTrees),
-           " study trees in this object.\n");
+           "call myself on each of the ", length(rxsTree$rxsTrees),
+           " Rxs trees in this object.\n");
     }
     
-    if (is.null(names(studyTree$rxsTrees))) {
-      studyTreeNames <- seq_along(studyTree$rxsTrees);
+    if (is.null(names(rxsTree$rxsTrees))) {
+      rxsTreeNames <- seq_along(rxsTree$rxsTrees);
     } else {
-      studyTreeNames <- names(studyTree$rxsTrees);
+      rxsTreeNames <- names(rxsTree$rxsTrees);
     }
     
-    for (i in studyTreeNames) {
+    for (i in rxsTreeNames) {
       
       if (!silent) {
-        cat0("\n\nStarting to process study tree ", i, "...\n");
+        cat0("\n\nStarting to process Rxs tree ", i, "...\n");
       }
       
       supplement_data_from_lists(
-        studyTree = studyTree$rxsTrees[[i]],
+        rxsTree = rxsTree$rxsTrees[[i]],
         sourceEntityNodeIdField_in_targetEntity = sourceEntityNodeIdField_in_targetEntity,
         idField_in_targetEntityNode = idField_in_targetEntityNode,
         idField_in_sourceEntityNode = idField_in_sourceEntityNode,
@@ -53,17 +53,17 @@ supplement_data_from_lists <- function(studyTree,
         silent = silent
       );
     }
-    return(invisible(studyTree));
+    return(invisible(rxsTree));
   }
   
-  if (!(inherits(studyTree, "Node"))) {
+  if (!(inherits(rxsTree, "Node"))) {
     if (!silent) {
-      cat0("What you passed as `studyTree` is not actually a study tree, ",
+      cat0("What you passed as `rxsTree` is not actually a Rxs tree, ",
            "nor an object with parsed Rxs files that contains a set of ",
-           "study trees. Instead, it has class(es) ",
-           vecTxtQ(class(studyTree)), ".\n");
+           "Rxs trees. Instead, it has class(es) ",
+           vecTxtQ(class(rxsTree)), ".\n");
     }
-    return(invisible(studyTree));
+    return(invisible(rxsTree));
   }
   
   ###---------------------------------------------------------------------------
@@ -72,7 +72,7 @@ supplement_data_from_lists <- function(studyTree,
   
   targetNodes <-
     data.tree::Traverse(
-      studyTree,
+      rxsTree,
       filterFun = function(node) {
         if (is.null(node$value)) {
           return(FALSE);
@@ -120,9 +120,9 @@ supplement_data_from_lists <- function(studyTree,
       cat0("\nProcessing ", targetEntityNodeId, "... ");
     }
     
-    studyTree <-
+    rxsTree <-
       supplement_data_from_list_inSingleNode(
-        studyTree = studyTree,
+        rxsTree = rxsTree,
         targetEntityNodeId = targetEntityNodeId,
         sourceEntityNodeIdField_in_targetEntity = sourceEntityNodeIdField_in_targetEntity,
         idField_in_targetEntityNode = idField_in_targetEntityNode,
@@ -142,6 +142,6 @@ supplement_data_from_lists <- function(studyTree,
     cat0("\nProcessed all entities.");
   }
  
-  return(invisible(studyTree)); 
+  return(invisible(rxsTree)); 
   
 }

@@ -5,13 +5,13 @@ rxs_fg_trueRecursion <- function(node,
                                  fullWidth = 80,
                                  commentCharacter = "#",
                                  fillerCharacter = "#",
-                                 eC = metabefor::opts$get("entityColNames"),
                                  repeatingSuffix = "__1__",
                                  silent=FALSE,
                                  overrideLevel = NULL,
                                  trueRecursionText = getOption("metabefor_trueRecursionText",
                                                                rxs_fg_trueRecursionText)) {
-
+  eC <- metabefor::opts$get("entityColNames");
+  
   ### This is a recursive occurrence of a recurring node.
   ### Therefore, we notify the coder that they should copy-paste
   ### the recursive node from the bottom.

@@ -1,6 +1,6 @@
-#' Get a single value from a study tree, list of trees, or studies object
+#' Get a single value from a Rxs tree, list of trees, or full Rxs project object
 #'
-#' @param x The tree, tree list, or `studies` object.
+#' @param x The tree, tree list, or full Rxs project object.
 #' @param entityId The entity identifier of the value to get
 #' @param lookInValueLists Whether to also look inside value lists
 #' @param returnDf Whether to return a data frame or not
@@ -297,7 +297,7 @@ get_singleValue_fromTree <- function(x,
       return(invisible(NULL));
     }
   } else {
-    stop("The object you passed is not a study tree! It has class(es) ",
+    stop("The object you passed is not a Rxs tree! It has class(es) ",
          vecTxtQ(class(x)), ".");
   }
 }
@@ -351,7 +351,7 @@ get_singleValue_fromTreeList <- function(x,
       function(i) {
         if (!silent) {
           cat0("\nStarting to extract entity with identifier '", entityId,
-               "' from study ", i, "...");
+               "' from source ", i, "...");
         }
         return(
           get_singleValue_fromTree(
@@ -429,7 +429,7 @@ get_singleValue_fromTreeList <- function(x,
         if ((!all(is.na(warningValueResult))) && any(warningValueResult)) {
           msg <- paste0(
             "\nWhen checking for matches with warning value '",
-            warningValues[[i]], "', I found matches for studies ",
+            warningValues[[i]], "', I found matches for sources ",
             vecTxtQ(ids[which(warningValueResult)]), "."
           );
           if (!silent) {

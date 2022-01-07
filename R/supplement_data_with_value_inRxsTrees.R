@@ -1,47 +1,47 @@
 #' @rdname supplement_data_with_value
 #' @export
-supplement_data_with_value_inStudyTrees <- function(studies,
-                                                    sourceEntityNodeId,
-                                                    targetEntityNodeId = NULL,
-                                                    targetEntityNode_requiredField = NULL,
-                                                    forceCopyingOfExistingValues = FALSE,
-                                                    sourcePathString_regex = NULL,
-                                                    targetPathString_regex = NULL,
-                                                    targetNodeListCreation_prefix = "",
-                                                    targetNodeListCreation_suffix = "_value",
-                                                    prefix = "supplemented_",
-                                                    suffix = "",
-                                                    silent = metabefor::opts$get("silent")) {
+supplement_data_with_value_inRxsTrees <- function(x,
+                                                  sourceEntityNodeId,
+                                                  targetEntityNodeId = NULL,
+                                                  targetEntityNode_requiredField = NULL,
+                                                  forceCopyingOfExistingValues = FALSE,
+                                                  sourcePathString_regex = NULL,
+                                                  targetPathString_regex = NULL,
+                                                  targetNodeListCreation_prefix = "",
+                                                  targetNodeListCreation_suffix = "_value",
+                                                  prefix = "supplemented_",
+                                                  suffix = "",
+                                                  silent = metabefor::opts$get("silent")) {
   
-  if (is.null(studies)) {
+  if (is.null(x)) {
     if (!silent) {
-      cat0("What you passed as `studies` is NULL!");
+      cat0("What you passed as `x` is NULL!");
     }
     return(invisible(NULL));
   }
   
-  if (inherits(studies, "rxs_parsedExtractionScripts")) {
+  if (inherits(x, "rxs_parsedExtractionScripts")) {
     
     if (!silent) {
       cat0("\nYou passed an object with parsed Rxs files. I'm going to ",
-           "call myself on each of the ", length(studies$rxsTrees),
-           " study trees in this object.\n");
+           "call myself on each of the ", length(x$rxsTrees),
+           " Rxs trees in this object.\n");
     }
     
-    if (is.null(names(studies$rxsTrees))) {
-      studyTreeNames <- seq_along(studies$rxsTrees);
+    if (is.null(names(x$rxsTrees))) {
+      rxsTreeNames <- seq_along(x$rxsTrees);
     } else {
-      studyTreeNames <- names(studies$rxsTrees);
+      rxsTreeNames <- names(x$rxsTrees);
     }
     
-    for (i in studyTreeNames) {
+    for (i in rxsTreeNames) {
       
       if (!silent) {
-        cat0("\n\nStarting to process study tree ", i, "...\n");
+        cat0("\n\nStarting to process Rxs tree ", i, "...\n");
       }
       
-      supplement_data_with_value_inStudyTrees(
-        studies = studies$rxsTrees[[i]],
+      supplement_data_with_value_inRxsTrees(
+        x = x$rxsTrees[[i]],
         sourceEntityNodeId = sourceEntityNodeId,
         targetEntityNodeId = targetEntityNodeId,
         targetEntityNode_requiredField = targetEntityNode_requiredField,
@@ -57,35 +57,35 @@ supplement_data_with_value_inStudyTrees <- function(studies,
     }
     
     if (!silent) {
-      cat0("\n\nDone processing all ", length(studies$rxsTrees),
-           "study trees you passed.\n");
+      cat0("\n\nDone processing all ", length(x$rxsTrees),
+           "Rxs trees you passed.\n");
     }
     
-    return(invisible(studies));
+    return(invisible(x));
     
   }
   
-  if (!(inherits(studies, "Node"))) {
+  if (!(inherits(x, "Node"))) {
     if (!silent) {
-      cat0("What you passed as `studies` is not actually a study tree, ",
+      cat0("What you passed as `x` is not actually a Rxs tree, ",
            "nor an object with parsed Rxs files that contains a set of ",
-           "study trees. Instead, it has class(es) ",
-           vecTxtQ(class(studies)), ".\n");
+           "Rxs trees. Instead, it has class(es) ",
+           vecTxtQ(class(x)), ".\n");
     }
-    return(invisible(studies));
+    return(invisible(x));
   }
   
   ###---------------------------------------------------------------------------
   ### Start looking for the target nodes
   ###---------------------------------------------------------------------------
 
-  ### (if we get to this point, `studies` is actually a single study tree)
+  ### (if we get to this point, `x` is actually a single Rxs tree)
   
   if (!is.null(targetEntityNodeId)) {
     
     targetNodes <-
       data.tree::Traverse(
-        studies,
+        x,
         filterFun = function(node) {
           return(node$name == targetEntityNodeId);
         }
@@ -95,7 +95,7 @@ supplement_data_with_value_inStudyTrees <- function(studies,
     
     targetNodes <-
       data.tree::Traverse(
-        studies,
+        x,
         filterFun = function(node) {
           if (is.null(node$value)) {
             return(FALSE);
@@ -140,7 +140,7 @@ supplement_data_with_value_inStudyTrees <- function(studies,
     cat0("\nFound ", length(targetNodeNames),
          " target entity node identifiers (",
          vecTxtQ(targetNodeNames),
-         ") in this study tree that matched the path string regex (`",
+         ") in this Rxs tree that matched the path string regex (`",
          targetPathString_regex, "`). Starting to process them one by one.\n");
   }
 
@@ -152,9 +152,9 @@ supplement_data_with_value_inStudyTrees <- function(studies,
       cat0("\nProcessing ", targetEntityNodeId, "... ");
     }
 
-    studyTree <-
+    rxsTree <-
       supplement_data_with_value_inSingleNode(
-        studyTree = studies,
+        rxsTree = x,
         targetEntityNodeId = targetEntityNodeId,
         sourceEntityNodeId = sourceEntityNodeId,
         forceCopyingOfExistingValues = forceCopyingOfExistingValues,
@@ -170,9 +170,9 @@ supplement_data_with_value_inStudyTrees <- function(studies,
   }
 
   if (!silent) {
-    cat0("\nProcessed all entities in this study tree.\n");
+    cat0("\nProcessed all entities in this Rxs tree.\n");
   }
 
-  return(invisible(studies));
+  return(invisible(x));
 
 }

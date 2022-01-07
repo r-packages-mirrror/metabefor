@@ -1,6 +1,6 @@
-#' Get a value list as data frame from a study tree, list of trees, or studies object
+#' Get a value list as data frame from an Rxs tree, list of trees, or full Rxs project
 #'
-#' @param x The study tree, list of trees, or studies object
+#' @param x The Rxs tree, list of trees, or full Rxs project
 #' @param requiredFields Fields that have to exist in the target entities
 #' (otherwise, the entity is excluded)
 #' @param pathString_regex_select Regex that the target entities' path strings have to
@@ -22,14 +22,14 @@
 #'
 #' @export
 #' @rdname get_valueList_asDf
-get_valueList_asDf_fromStudyTree <- function(x,
-                                             requiredFields = NULL,
-                                             flattenVectorsInDf = TRUE,
-                                             pathString_regex_select = NULL,
-                                             pathString_regex_flatten = NULL,
-                                             pathString_regex_explode = NULL,
-                                             fieldname_regex_alwaysFlatten = NULL,
-                                             silent = metabefor::opts$get("silent")) {
+get_valueList_asDf_fromRxsTree <- function(x,
+                                           requiredFields = NULL,
+                                           flattenVectorsInDf = TRUE,
+                                           pathString_regex_select = NULL,
+                                           pathString_regex_flatten = NULL,
+                                           pathString_regex_explode = NULL,
+                                           fieldname_regex_alwaysFlatten = NULL,
+                                           silent = metabefor::opts$get("silent")) {
   
   if (is.null(x)) {
     if (!silent) {
@@ -116,7 +116,7 @@ get_valueList_asDf_fromStudyTree <- function(x,
     if (!silent) {
       cat0("\nStarting to combine ",
            length(res),
-           " data frames with values into one data frame for this study...\n");
+           " data frames with values into one data frame for this source...\n");
     }
     
     res <- rbind_df_list(res);
@@ -128,7 +128,7 @@ get_valueList_asDf_fromStudyTree <- function(x,
     return(res);
     
   } else {
-    stop("The object you passed is not a study tree! It has class(es) ",
+    stop("The object you passed is not a Rxs tree! It has class(es) ",
          vecTxtQ(class(x)), ".");
   }
 
@@ -182,10 +182,10 @@ get_valueList_asDf <- function(x,
         names(x),
         function(i) {
           if (!silent) {
-            cat0("\nStarting to process study ", i, "... ");
+            cat0("\nStarting to process source ", i, "... ");
           }
           res <- 
-            get_valueList_asDf_fromStudyTree(
+            get_valueList_asDf_fromRxsTree(
               x = x[[i]],
               requiredFields = requiredFields,
               pathString_regex_select = pathString_regex_select,
@@ -199,8 +199,8 @@ get_valueList_asDf <- function(x,
             if (!silent) {
               cat0("Data frame returned.\n");
             }
-            ### Set study identifier
-            res$studyId <- i;
+            ### Set source identifier
+            res$sourceId <- i;
             ### Return result
             return(res);
           } else {

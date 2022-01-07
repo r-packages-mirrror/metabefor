@@ -5,13 +5,13 @@ rxs_fg_recursingEntities <- function(listOfNodes,
                                      fullWidth = 80,
                                      commentCharacter = "#",
                                      fillerCharacter = "#",
-                                     eC = metabefor::opts$get("entityColNames"),
                                      repeatingSuffix = "__1__",
                                      silent=metabefor::opts$get("silent"),
                                      overrideLevel = NULL) {
   
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
+  eC <- metabefor::opts$get("entityColNames");
   
   ### A container for all recursing entities
 
@@ -73,13 +73,17 @@ rxs_fg_recursingEntities <- function(listOfNodes,
                                                              indentSpaces = indentSpaces,
                                                              commentCharacter = commentCharacter,
                                                              fillerCharacter = fillerCharacter,
-                                                             eC = eC,
                                                              repeatingSuffix = repeatingSuffix,
                                                              silent=silent);
                                     ### Remove assignment of addition of node for this entity
+                                    if (rxsVersion < "0.3") {
+                                      pattern <- paste0("study$AddChild('", node$name, "');");
+                                    } else {
+                                      pattern <- paste0("currentNode$AddChild('", node$name, "');");
+                                    }
                                     res <- sapply(res,
                                                   gsub,
-                                                  pattern=paste0("study$AddChild('", node$name, "');"),
+                                                  pattern=pattern,
                                                   replacement="",
                                                   fixed=TRUE);
                                     ### In each recursive entity (and its entire tree), replace

@@ -6,9 +6,10 @@ rxs_fg_valueTemplateExamples <- function(node,
                                          fullWidth = 80,
                                          commentCharacter = "#",
                                          fillerCharacter = "#",
-                                         eC = metabefor::opts$get("entityColNames"),
                                          listVersion = FALSE) {
-
+  
+  eC <- metabefor::opts$get("entityColNames");
+  
   ### This function looks up (or generates) the examples for
   ### an extractable entity.
 

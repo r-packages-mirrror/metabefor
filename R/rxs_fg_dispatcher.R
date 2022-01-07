@@ -5,10 +5,11 @@ rxs_fg_dispatcher <- function(node,
                               fullWidth = 80,
                               commentCharacter = "#",
                               fillerCharacter = "#",
-                              eC = metabefor::opts$get("entityColNames"),
                               repeatingSuffix = "__1__",
                               silent=metabefor::opts$get("silent")) {
-
+  
+  eC <- metabefor::opts$get("entityColNames");
+  
   if (!("parsedValueTemplates" %in% class(valueTemplates))) {
     if (!silent) {
       cat("\nThe argument you provided as 'valueTemplates' does not have ",
@@ -57,7 +58,6 @@ rxs_fg_dispatcher <- function(node,
                          indentSpaces = indentSpaces,
                          commentCharacter = commentCharacter,
                          fillerCharacter = fillerCharacter,
-                         eC = eC,
                          repeatingSuffix = repeatingSuffix,
                          silent=silent));
 

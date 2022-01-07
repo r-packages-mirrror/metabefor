@@ -1,5 +1,5 @@
 #' @param freqTab The frequency table (as produced
-#' by `studyTreeList_to_freqTab`).
+#' by `rxsTreeList_to_freqTab`).
 #' @param rowLab,colLab,freqLab,plotTitle The labels to use for the rows (y
 #' axis), columns (x axis), frequencies (fill), and the plot title to use.
 #' @param fillScale The fill scale to use.

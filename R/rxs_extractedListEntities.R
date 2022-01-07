@@ -1,16 +1,15 @@
-rxs_extractedListEntities <- function(rxs,
+rxs_extractedListEntities <- function(x,
                                       valueRegex = ".*",
                                       entityName = NULL,
                                       withinEntity = NULL) {
 
+  if (inherits(x, "rxs_parsedExtractionScripts")) {
+    ### Processing multiple sources
 
-  if ("rxs_parsedExtractionScripts" %IN% class(rxs)) {
-    ### Processing multiple studies
-
-    res <- lapply(names(rxs$rxsTrees), function(studyName) {
+    res <- lapply(names(x$rxsTrees), function(sourceId) {
       ### data.tree seems to strip the first class for some reason;
       ### so we use structure to manually force it.
-      values <- rxs_extractedListEntities(rxs=structure(rxs$rxsTrees[[studyName]],
+      values <- rxs_extractedListEntities(rxs=structure(x$rxsTrees[[sourceId]],
                                                         class=c("rxs", "Node", "R6")),
                                           valueRegex=valueRegex,
                                           entityName=entityName,
@@ -18,24 +17,24 @@ rxs_extractedListEntities <- function(rxs,
       if (is.null(values)) {
         return(NULL);
       } else {
-        values <- cbind(rep(studyName, nrow(values)),
+        values <- cbind(rep(sourceId, nrow(values)),
                         values);
-        names(values) <- c("study", "path", "entity");
+        names(values) <- c("sourceId", "path", "entity");
         return(values);
       }
     });
 
     res <- do.call(rbind, res);
 
-    res$study <- sub(pattern='(\\.rxs\\.Rmd)?.?[0-9]*$',
-                     replacement="",
-                     x=res$study,
-                     ignore.case=TRUE);
+    res$sourceId <- sub(pattern='(\\.rxs\\.Rmd)?.?[0-9]*$',
+                        replacement="",
+                        x=res$sourceId,
+                        ignore.case=TRUE);
 
     return(res);
 
-  } else if ("rxs" %IN% class(rxs)) {
-    ### Processing one study
+  } else if ("rxs" %IN% class(x)) {
+    ### Processing one Rxs tree from one source
 
     if (is.null(entityName) && is.null(withinEntity)) {
       filterFun = NULL;
@@ -54,7 +53,7 @@ rxs_extractedListEntities <- function(rxs,
       }
     }
 
-    res <- rxs$Get(function(node) {
+    res <- x$Get(function(node) {
       nodeName <- node$name;
       nodeValue <- node$value;
       if (is.null(nodeValue)) {
@@ -97,5 +96,18 @@ rxs_extractedListEntities <- function(rxs,
       row.names(res) <- NULL;
       return(res);
     }
+  } else {
+    
+    if (!inherits(x, "rxs_parsedExtractionScripts")) {
+      stop(wrap_error(
+        "As `x`, you have to pass either a single Rxs tree (i.e. as ",
+        "produced by an R Extraction Script, an `.Rxs.Rmd` file) or ",
+        "a full Rxs project (i.e. as ",
+        "obtained when parsing a set of Rxs files ",
+        "with `metabefor::rxs_parseExtractionScripts()`), but instead, ",
+        "you passed an object with class(es) ", vecTxtQ(class(x)), "."
+      ));
+    }
+    
   }
 }

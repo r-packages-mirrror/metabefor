@@ -651,7 +651,7 @@ rxs_parseExtractionScripts <- function(path,
     if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
       res$log <- c(
         res$log,
-        msg("\nIn the Rxs study tree for source identifier '", currentTree,
+        msg("\nIn the Rxs Rxs tree for source identifier '", currentTree,
             "', not all node names (i.e. entity names) are unique!",
             silent = silent)
       );
@@ -663,7 +663,7 @@ rxs_parseExtractionScripts <- function(path,
 
   res$log <- c(
     res$log,
-    msg("\nFinished verifying all Rxs study trees.\n",
+    msg("\nFinished verifying all Rxs Rxs trees.\n",
         silent = silent)
   );
 

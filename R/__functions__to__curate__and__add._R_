@@ -85,8 +85,8 @@
 # 
 # 
 # a <-
-# studies_matchingUniqueEntityIdentifiers(
-#   studies,
+# rxsProject_matchingUniqueEntityIdentifiers(
+#   rxsProject,
 #   regex = "substanceType"
 # );
 # 
@@ -94,7 +94,7 @@
 # 
 # 
 # heatMap_from_freqTab(
-#   studyTreeList_to_freqTab(studies$rxsTrees,
+#   rxsTreeList_to_freqTab(rxsProject$rxsTrees,
 #                            rowRegex = "substanceType",
 #                            colRegex = "crimeType"),
 #   rowLab = "Substance",
@@ -260,7 +260,7 @@
 
 
 # rxsLongDataframe <-
-#   metabefor::tidy_studyTrees(rxs);
+#   metabefor::tidy_rxsTrees(rxs);
 # 
 # ### Starting on the wide dataframe
 # 

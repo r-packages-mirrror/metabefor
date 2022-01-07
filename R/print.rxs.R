@@ -1,6 +1,6 @@
 #' Printing a tree of R extraction scripts
 #'
-#' @param x The study tree
+#' @param x The Rxs tree
 #' @param rxsStructure Optionally, the rxs structure
 #' @param headingLevel The level of the top-most R Markdown heading
 #' @param printPlots Whether to print plots
@@ -83,22 +83,22 @@ print.rxs <- function(x,
     
   } else {
     
-    studyTree <- x;
+    rxsTree <- x;
     
     headerPrefix <-
       paste0(paste(rep("#", headingLevel), collapse=""), " " );
     
     res <-
-      studyTree_to_valueDf(studyTree);
+      rxsTree_to_valueDf(rxsTree);
 
     cat(paste0(headerPrefix, " Tree of extracted entities\n\n"));
 
-    printableStudyTree <- data.tree::Clone(studyTree);
-    class(printableStudyTree) <- setdiff(class(studyTree), c("rxs","rxsObject"));
+    printableRxsTree <- data.tree::Clone(rxsTree);
+    class(printableRxsTree) <- setdiff(class(rxsTree), c("rxs","rxsObject"));
     
     ### Suppress warnings until bug in data.tree is fixed, see:
     ### https://github.com/gluc/data.tree/issues/106
-    suppressWarnings(print(printableStudyTree));
+    suppressWarnings(print(printableRxsTree));
 
     cat(paste0(headerPrefix, " Table with extracted entities and extracted values\n\n"));
     

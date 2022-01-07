@@ -1,14 +1,14 @@
-#' Create a long ('tidy') data frame with the full study tree
+#' Create a long ('tidy') data frame with the full Rxs tree
 #'
 #' The data frame has columns "`path`", "`entity`", and "`nodeValue`".
 #'
-#' @param studyTree The study tree
+#' @param rxsTree The Rxs tree
 #'
 #' @return A data frame
 #' @export
-studyTree_to_valueDf <- function(studyTree) {
+rxsTree_to_valueDf <- function(rxsTree) {
   
-  res <- studyTree$Get(function(node) {
+  res <- rxsTree$Get(function(node) {
     nodeName <- node$name;
     nodeValue <- node$value;
     if (is.null(nodeValue)) {
@@ -27,7 +27,7 @@ studyTree_to_valueDf <- function(studyTree) {
       names(res) <- c("path", "entity", "nodeValue");
       
       if (ncol(res) > 3) {
-        warning("When converting a study tree to a data frame, in ",
+        warning("When converting a Rxs tree to a data frame, in ",
                 "'", nodeName,
                 "', a data frame with too many columns was produced.");
       }
@@ -43,7 +43,7 @@ studyTree_to_valueDf <- function(studyTree) {
       names(res) <- c("path", "entity", "nodeValue");
       
       if (ncol(res) > 3) {
-        warning("When converting a study tree to a data frame, in ",
+        warning("When converting a Rxs tree to a data frame, in ",
                 "'", nodeName,
                 "', a data frame with too many columns was produced.");
       }

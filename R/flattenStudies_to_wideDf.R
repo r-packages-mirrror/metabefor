@@ -1,18 +1,27 @@
-#' Flatten all studies to a wide data frame (somewhat brutally)
+#' Flatten all sources' Rxs trees to a wide data frame (somewhat brutally)
 #'
-#' @param studies The studies object (i.e. parsed rxs files)
+#' @param x The full Rxs Project object (i.e. the parsed Rxs files)
 #' @param silent Whether to be silent or chatty.
 #'
 #' @return A data frame
 #' @export
 #'
 #' @examples
-flattenStudies_to_wideDf <- function(studies,
-                                     silent = metabefor::opts$get("silent")) {
-
+flattenRxsProject_to_wideDf <- function(x,
+                                        silent = metabefor::opts$get("silent")) {
+  
+  if (!inherits(x, "rxs_parsedExtractionScripts")) {
+    stop(wrap_error(
+      "As `x`, you have to pass a full Rxs project (i.e. as ",
+      "obtained when parsing a set of Rxs files ",
+      "with `metabefor::rxs_parseExtractionScripts()`), but instead, ",
+      "you passed an object with class(es) ", vecTxtQ(class(x)), "."
+    ));
+  }
+  
   ### Using iconv because during purling/evaluation, conversion got lost
   rxsList <- lapply(
-    studies$rxsTrees,
+    x$rxsTrees,
     function(rxsObject) {
       if (inherits(rxsObject, "Node")) {
         return(rxsObject$Get('value'));
@@ -20,7 +29,7 @@ flattenStudies_to_wideDf <- function(studies,
         return(NA);
       }
     });
-  names(rxsList) <- names(studies$rxsTrees);
+  names(rxsList) <- names(x$rxsTrees);
   
   flattenedValues <-
     lapply(

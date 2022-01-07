@@ -31,8 +31,6 @@
 #' relevant worksheet, where the names of each character value represent the
 #' names of the worksheets contained in each file.
 #' @param graphTheme The graph theme to use.
-#' @param ws The worksheet names: a named list with four character values
-#' named `entities`, `valueTemplates`, `definitions`, and `instructions`.
 #' @param localBackup If not `NULL`, either a path to a single `.xlsx` file to
 #' save a local backup spreadsheet to, or a named list with character values,
 #' where each name is the name of a worksheet (e.g. `entities`,
@@ -52,25 +50,6 @@
 #' comment symbol).
 #' @param fillerCharacter The character used after the first character for
 #' filling up space.
-#' @param eC The entity columns; a named list with character values holding the
-#' names of the columns in the `entities` worksheet of the spreadsheet. The
-#' default values are stored in `metabefor::opts$get("entityColNames")` - if you
-#' need to override these values, just reproduce that object.
-#' @param valueTemplateCols The value template columns; a named list with
-#' character values holding the names of the columns in the `entities`
-#' worksheet of the spreadsheet. The default values are stored
-#' in `metabefor::opts$get("valueTemplateColNames")` - if you need to
-#' override these values, just reproduce that object.
-#' @param instructionsCols The instructions worksheet columns: a names list with
-#' character values holding the names of the columns in the `instructions`
-#' worksheet of the spreadsheet. The default values are stored
-#' in `metabefor::opts$get("instructionsColNames")` - if you need to
-#' override these values, just reproduce that object.
-#' @param definitionsCols The definitions worksheet columns: a names list with
-#' character values holding the names of the columns in the `definitions`
-#' worksheet of the spreadsheet. The default values are stored
-#' in `metabefor::opts$get("definitionsColNames")` - if you need to
-#' override these values, just reproduce that object.
 #' @param repeatingSuffix The suffix to use for the entity identifiers/names
 #' of repeating entities.
 #' @param rxsRootName The name of the root element
@@ -105,11 +84,6 @@ rxs_fromSpecifications <- function(x = NULL,
                                    fullWidth = 78,
                                    commentCharacter = "#",
                                    fillerCharacter = "#",
-                                   ws = metabefor::opts$get("rxsSheetnames"),
-                                   eC = metabefor::opts$get("entityColNames"),
-                                   valueTemplateCols = metabefor::opts$get("valueTemplateColNames"),
-                                   instructionsCols = metabefor::opts$get("instructionsColNames"),
-                                   definitionsCols = metabefor::opts$get("definitionsColNames"),
                                    repeatingSuffix = "__1__",
                                    rxsRootName = metabefor::opts$get(rxsRootName),
                                    preventOverwriting = FALSE,
@@ -121,9 +95,16 @@ rxs_fromSpecifications <- function(x = NULL,
                                    gs_url = NULL,
                                    localFile = NULL) {
   
+  
   ###---------------------------------------------------------------------------
   ### Get options
   ###---------------------------------------------------------------------------
+  
+  eC <- metabefor::opts$get("entityColNames");
+  ws <- metabefor::opts$get("rxsSheetnames");
+  valueTemplateCols <- metabefor::opts$get("valueTemplateColNames");
+  instructionsCols <- metabefor::opts$get("instructionsColNames");
+  definitionsCols <- metabefor::opts$get("definitionsColNames");
   
   diagrammerSanitization <-
     metabefor::opts$get('diagrammerSanitization');
@@ -418,7 +399,6 @@ rxs_fromSpecifications <- function(x = NULL,
                                       valueTemplates = valueTemplates,
                                       definitions = definitions,
                                       instructionSheet = instructionSheet,
-                                      eC = eC,
                                       valueTemplateCols = valueTemplateCols,
                                       rxsRootName = rxsRootName,
                                       yamlMetadata = yamlMetadata,
@@ -490,7 +470,6 @@ rxs_fromSpecifications <- function(x = NULL,
         entities = entities[entities[[eC$moduleCol]] == currentModule, ],
         valueTemplates = valueTemplates,
         definitions = definitions,
-        eC = eC,
         valueTemplateCols = valueTemplateCols,
         rxsRootName = rxsRootName
       );
@@ -505,7 +484,6 @@ rxs_fromSpecifications <- function(x = NULL,
         module = currentModule,
         commentCharacter = commentCharacter,
         fillerCharacter = fillerCharacter,
-        eC = eC,
         repeatingSuffix = repeatingSuffix,
         silent=silent
       );      
@@ -538,7 +516,6 @@ rxs_fromSpecifications <- function(x = NULL,
       entities = entities,
       valueTemplates = valueTemplates,
       definitions = definitions,
-      eC = eC,
       valueTemplateCols = valueTemplateCols,
       rxsRootName = rxsRootName
     );
@@ -553,7 +530,6 @@ rxs_fromSpecifications <- function(x = NULL,
       module = NULL,
       commentCharacter = commentCharacter,
       fillerCharacter = fillerCharacter,
-      eC = eC,
       repeatingSuffix = repeatingSuffix,
       silent=silent
     );

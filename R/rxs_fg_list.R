@@ -5,13 +5,13 @@ rxs_fg_list <- function(node,
                         fullWidth = 80,
                         commentCharacter = "#",
                         fillerCharacter = "#",
-                        eC = metabefor::opts$get("entityColNames"),
                         repeatingSuffix = "__1__",
                         silent=metabefor::opts$get("silent"),
                         overrideLevel = NULL,
                         codingHelp = "<entityTitle>: <entityDescription> [Examples: <examples>] [Value description: <valueDescription>]",
                         codingHelpSep = "; ") {
   
+  eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
   
@@ -98,8 +98,7 @@ rxs_fg_list <- function(node,
                                     indentSpaces = indentSpaces,
                                     fullWidth = fullWidth,
                                     commentCharacter = commentCharacter,
-                                    fillerCharacter = fillerCharacter,
-                                    eC = eC);
+                                    fillerCharacter = fillerCharacter);
     return(paste0(node$name, " = ", trimws(valueAssignment)));
   }, filterFun = data.tree::isLeaf);
 
@@ -111,8 +110,7 @@ rxs_fg_list <- function(node,
                                           indentSpaces = indentSpaces,
                                           fullWidth = fullWidth,
                                           commentCharacter = commentCharacter,
-                                          fillerCharacter = fillerCharacter,
-                                          eC = eC));
+                                          fillerCharacter = fillerCharacter));
   }, filterFun = data.tree::isLeaf);
 
   ### If this list has a child entity that is marked as an identifying
@@ -280,7 +278,6 @@ rxs_fg_list <- function(node,
                                             fullWidth = fullWidth,
                                             commentCharacter = commentCharacter,
                                             fillerCharacter = fillerCharacter,
-                                            eC = eC,
                                             listVersion = TRUE));
       }, filterFun = data.tree::isLeaf);
     codingHelpStrings_examples <-
@@ -303,7 +300,6 @@ rxs_fg_list <- function(node,
                                                fullWidth = fullWidth,
                                                commentCharacter = commentCharacter,
                                                fillerCharacter = fillerCharacter,
-                                               eC = eC,
                                                listVersion = TRUE));
       }, filterFun = data.tree::isLeaf);
 

@@ -7,11 +7,11 @@ rxs_fg_root <- function(node,
                         fullWidth = 80,
                         commentCharacter = "#",
                         fillerCharacter = "#",
-                        eC = metabefor::opts$get("entityColNames"),
                         repeatingSuffix = "__1__",
                         silent=metabefor::opts$get("silent"),
                         overrideLevel = NULL) {
   
+  eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsObjectName <- metabefor::opts$get("rxsObjectName");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
@@ -91,7 +91,6 @@ rxs_fg_root <- function(node,
                                                                indentSpaces = indentSpaces,
                                                                commentCharacter = commentCharacter,
                                                                fillerCharacter = fillerCharacter,
-                                                               eC = eC,
                                                                repeatingSuffix = repeatingSuffix,
                                                                silent=silent),
                                              ""));

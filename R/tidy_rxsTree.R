@@ -1,13 +1,15 @@
 #' @export
-#' @rdname tidy_studyTrees
-tidy_studyTree <- function(studyTree,
-                           studyName = "",
-                           eC = metabefor::opts$get('entityColNames'),
-                           flattenToString = TRUE,
-                           silent = metabefor::opts$get('silent')) {
+#' @rdname tidy_rxsTrees
+tidy_rxsTree <- function(rxsTree,
+                         sourceId = "",
+                         flattenToString = TRUE,
+                         silent = metabefor::opts$get('silent')) {
+  
+  eC <- metabefor::opts$get('entityColNames');
+  
   res <-
     metabefor::rbind_df_list(
-      studyTree$Get(
+      rxsTree$Get(
         function(node) {
           if (is.null(node$value)) {
             value <- NA;
@@ -48,7 +50,7 @@ tidy_studyTree <- function(studyTree,
         simplify = FALSE
       )
     );
-  res$study <- studyName;
+  res$sourceId <- sourceId;
   return(res);
 }
 

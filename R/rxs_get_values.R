@@ -4,12 +4,12 @@ rxs_get_values <- function(rxs,
                            withinEntity = NULL) {
 
   if ("rxs_parsedExtractionScripts" %IN% class(rxs)) {
-    ### Processing multiple studies
+    ### Processing multiple sources
 
-    res <- lapply(names(rxs$rxsTrees), function(studyName) {
+    res <- lapply(names(rxs$rxsTrees), function(sourceId) {
       ### data.tree seems to strip the first class for some reason;
       ### so we use structure to manually force it.
-      values <- rxs_get_values(rxs=structure(rxs$rxsTrees[[studyName]],
+      values <- rxs_get_values(rxs=structure(rxs$rxsTrees[[sourceId]],
                                              class=c("rxs", "Node", "R6")),
                                valueName=valueName,
                                entityName=entityName,
@@ -18,7 +18,7 @@ rxs_get_values <- function(rxs,
         return(NULL);
       } else {
         values <- list(values);
-        names(values) <- studyName;
+        names(values) <- sourceId;
         return(values);
       }
     });
@@ -37,7 +37,7 @@ rxs_get_values <- function(rxs,
     return(res);
 
   } else if ("rxs" %IN% class(rxs)) {
-    ### Processing one study
+    ### Processing one source
 
     if (is.null(entityName) && is.null(withinEntity)) {
       filterFun = NULL;

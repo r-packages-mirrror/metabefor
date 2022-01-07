@@ -6,10 +6,10 @@ rxs_fg_single <- function(node,
                           commentCharacter = "#",
                           fillerCharacter = "#",
                           repeatingSuffix = "__1__",
-                          eC = metabefor::opts$get("entityColNames"),
                           silent=metabefor::opts$get("silent"),
                           overrideLevel = NULL) {
   
+  eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
   
@@ -93,8 +93,7 @@ rxs_fg_single <- function(node,
                                   indentSpaces = indentSpaces,
                                   fullWidth = fullWidth,
                                   commentCharacter = commentCharacter,
-                                  fillerCharacter = fillerCharacter,
-                                  eC = eC);
+                                  fillerCharacter = fillerCharacter);
 
   descriptionExamplesHeader <-
     paste0(lV$indentSpaces,
@@ -111,8 +110,7 @@ rxs_fg_single <- function(node,
                                     indentSpaces = indentSpaces,
                                     fullWidth = fullWidth,
                                     commentCharacter = commentCharacter,
-                                    fillerCharacter = fillerCharacter,
-                                    eC = eC);
+                                    fillerCharacter = fillerCharacter);
 
   valueTemplateExamples <-
     rxs_fg_valueTemplateExamples(node=node,
@@ -122,8 +120,7 @@ rxs_fg_single <- function(node,
                                  indentSpaces = indentSpaces,
                                  fullWidth = fullWidth,
                                  commentCharacter = commentCharacter,
-                                 fillerCharacter = fillerCharacter,
-                                 eC = eC);
+                                 fillerCharacter = fillerCharacter);
 
   valueTemplateValidation <-
     rxs_fg_valueTemplateValidation(node=node,
@@ -133,8 +130,7 @@ rxs_fg_single <- function(node,
                                    indentSpaces = indentSpaces,
                                    fullWidth = fullWidth,
                                    commentCharacter = commentCharacter,
-                                   fillerCharacter = fillerCharacter,
-                                   eC = eC);
+                                   fillerCharacter = fillerCharacter);
 
   ### Use 'this' - process afterwards using data.tree - or some other
   ### way to leverage data.tree's "Do"

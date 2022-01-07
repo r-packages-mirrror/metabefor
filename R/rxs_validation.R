@@ -1,35 +1,30 @@
-#' Validate a study tree
+#' Validate an Rxs tree
 #'
-#' @param studyTree The study tree
-#' @param eC The entity columns; a named list with character values holding the
-#' names of the columns in the `entities` worksheet of the spreadsheet. The
-#' default values are stored in `metabefor::opts$get("entityColNames")` - if you
-#' need to override these values, just reproduce that object.
+#' @param rxsTree The Rxs tree
 #' @param rxsStructure Optionally, the `rxsStructure` as resulting from
 #' a call to [rxs_parseSpecifications()].
 #'
-#' @return Invisibly, the study tree (which was altered in place, consistent
+#' @return Invisibly, the Rxs tree (which was altered in place, consistent
 #' with the reference semantics employed by [data.tree::Node()].
 #' 
 #' @export
-rxs_validation <- function(studyTree,
-                           eC = metabefor::opts$get("entityColNames"),
+rxs_validation <- function(rxsTree,
                            rxsStructure=NULL) {
   
-  
-  
-  studyTree$Set(validationResults = paste0("Validation run starting at ",
+  eC <- metabefor::opts$get("entityColNames");
+
+  rxsTree$Set(validationResults = paste0("Validation run starting at ",
                                            format(Sys.time(), "%Y-%m-%d %H:%S")));
   
-  if (!data.tree::AreNamesUnique(studyTree)) {
-    studyTree$Set(validationResults =
-                  list(c(studyTree$root$validationResults,
+  if (!data.tree::AreNamesUnique(rxsTree)) {
+    rxsTree$Set(validationResults =
+                  list(c(rxsTree$root$validationResults,
                          "Failed validation: not all node (entity) names are unique!")),
              filterFun = data.tree::isRoot,
              traversal = 'ancestor');
   }
 
-  studyTree$Do(function(node) {
+  rxsTree$Do(function(node) {
     if (is.list(node$value)) {
       ### Loop through the elements
       listValidationMessages <-
@@ -155,14 +150,14 @@ rxs_validation <- function(studyTree,
     }
   });
   
-  studyTree$Set(validationResults =
-                  list(c(studyTree$validationResults,
+  rxsTree$Set(validationResults =
+                  list(c(rxsTree$validationResults,
                          paste0("Validation run ending at ",
                                 format(Sys.time(), "%Y-%m-%d %H:%S")))),
                 filterFun = data.tree::isRoot);
   
-  studyTree$validationResults <- unlist(studyTree$validationResults);
+  rxsTree$validationResults <- unlist(rxsTree$validationResults);
   
-  return(invisible(studyTree));
+  return(invisible(rxsTree));
   
 }

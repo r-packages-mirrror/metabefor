@@ -1,12 +1,12 @@
 #' @rdname matchingUniqueEntityIdentifiers
 #' @export
-studyTree_matchingUniqueEntityIdentifiers <- function(studyTree,
-                                                      regex,
-                                                      includeValueListsOfMatch = TRUE,
-                                                      excludeParentWhenValueListReturned = TRUE) {
+rxsTree_matchingUniqueEntityIdentifiers <- function(rxsTree,
+                                                    regex,
+                                                    includeValueListsOfMatch = TRUE,
+                                                    excludeParentWhenValueListReturned = TRUE) {
   
   res <-
-    studyTree$Get(
+    rxsTree$Get(
       function(node) {
         if (is.null(node$value)) {
           return(NULL);

@@ -1,9 +1,9 @@
 rxsTree_to_entityOverview_list <- function(rxsTree,
                                            valueTemplates,
-                                           headingLevel = 3,
-                                           eC = metabefor::opts$get('entityColNames')) {
+                                           headingLevel = 3) {
   
   texts <- metabefor::opts$get(texts);
+  eC <- metabefor::opts$get("entityColNames");
   
   extractionOverview_list_intro <-
     texts$extractionOverview_list_intro;

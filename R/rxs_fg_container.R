@@ -5,11 +5,11 @@ rxs_fg_container <- function(node,
                              fullWidth = 80,
                              commentCharacter = "#",
                              fillerCharacter = "#",
-                             eC = metabefor::opts$get("entityColNames"),
                              repeatingSuffix = "__1__",
                              silent=metabefor::opts$get("silent"),
                              overrideLevel = NULL) {
   
+  eC <- metabefor::opts$get("entityColNames");
   rxsVersion <- metabefor::opts$get("rxsVersion");
   rxsCurrentNodeName <- metabefor::opts$get("rxsCurrentNodeName");
   

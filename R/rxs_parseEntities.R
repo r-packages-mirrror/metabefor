@@ -1,7 +1,8 @@
 rxs_parseEntities <- function(entities,
-                              eC = metabefor::opts$get("entityColNames"),
                               rxsRootName = metabefor::opts$get('rxsRootName')) {
 
+  eC <- metabefor::opts$get("entityColNames");
+  
   reservedNames <-
     c(metabefor::opts$get("rxsReservedNames"),
       data.tree::NODE_RESERVED_NAMES_CONST);

@@ -1,4 +1,4 @@
-#' Supplement a target entitity node with a value from another entity node
+#' Supplement a target entity node with a value from another entity node
 #' 
 #' This function supplements an entity node with a value from another entity
 #' node. Note that the source entity *cannot be* a clustering entity (i.e.
@@ -7,13 +7,13 @@
 #' must be a list of values for clustered entities).
 #' Whereas for `supplement_data_with_value_inSingleNode()`, you have to specify
 #' the entity identifier for the entity you want to supplement, for
-#' `supplement_data_with_value_inStudyTrees()`, use `targetPathString_regex` to
+#' `supplement_data_with_value_inRxsTrees()`, use `targetPathString_regex` to
 #' specify which entities you would like to supplement (i.e. copy the relevant
 #' value to). Of course, this can also be an entity identifier if you only want
-#' to copy to a single entity but in all study trees in an object with parsed
+#' to copy to a single entity but in all Rxs trees in an object with parsed
 #' Rxs files.
 #'  
-#' @param studyTree,studies The study tree or the `studies` object.
+#' @param rxsTree,x The Rxs tree or the Rxs project object.
 #' @param targetEntityNodeId The identifier of the target entity node (the
 #' entity node to supplement)
 #' @param sourceEntityNodeId The identifier of the source entity node.
@@ -31,14 +31,14 @@
 #' provides additional control over which target entities to process.
 #' @param silent Whether to be quiet or chatty.
 #'
-#' @return Invisibly, the (altered) study tree - but note that since
+#' @return Invisibly, the (altered) Rxs tree - but note that since
 #' the `data.tree` package uses `R6`'s pass-by-reference semantics, that object
 #' is altered in place, and sothe returned object can be discarded.
 #' @rdname supplement_data_with_value
 #' @export
 #'
 #' @examples
-supplement_data_with_value_inSingleNode <- function(studyTree,
+supplement_data_with_value_inSingleNode <- function(rxsTree,
                                                     targetEntityNodeId,
                                                     sourceEntityNodeId,
                                                     forceCopyingOfExistingValues = FALSE,
@@ -50,18 +50,18 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
                                                     suffix = "",
                                                     silent = metabefor::opts$get("silent")) {
   
-  if (is.null(studyTree)) {
+  if (is.null(rxsTree)) {
     if (!silent) {
-      cat0("What you passed as `studyTree` is NULL!");
+      cat0("What you passed as `rxsTree` is NULL!");
     }
     return(invisible(NULL));
   }
   
-  if (!(inherits(studyTree, "Node"))) {
+  if (!(inherits(rxsTree, "Node"))) {
     if (!silent) {
-      cat0("What you passed as `studyTree` is not actually a study tree!");
+      cat0("What you passed as `rxsTree` is not actually a Rxs tree!");
     }
-    return(invisible(studyTree));
+    return(invisible(rxsTree));
   }
   
   ###---------------------------------------------------------------------------
@@ -69,7 +69,7 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
   ###---------------------------------------------------------------------------
   
   targetNode <- data.tree::FindNode(
-    studyTree,
+    rxsTree,
     targetEntityNodeId
   );
     
@@ -79,10 +79,10 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
   
   if (is.null(targetNode)) {
     if (!silent) {
-      cat0("The studyTree you passed does not contain the node you ",
+      cat0("The rxsTree you passed does not contain the node you ",
            "specified as target entity node (", targetEntityNodeId, ").");
     }
-    return(invisible(studyTree));
+    return(invisible(rxsTree));
   }
   
   ###---------------------------------------------------------------------------
@@ -92,12 +92,12 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
   if (!is.null(targetPathString_regex)) {
     if (!grepl(targetPathString_regex, targetNode$pathString)) {
       if (!silent) {
-        cat0("The studyTree you passed contains the node you ",
+        cat0("The rxsTree you passed contains the node you ",
              "specified as target entity node (", targetEntityNodeId, "),",
              " but its path string does not match the regular expression ",
              "you passed ('", targetPathString_regex, "').");
       }
-      return(invisible(studyTree));
+      return(invisible(rxsTree));
     }
   }
 
@@ -106,7 +106,7 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
   ###---------------------------------------------------------------------------
 
   sourceNode <- data.tree::FindNode(
-    studyTree,
+    rxsTree,
     sourceEntityNodeId
   );
 
@@ -116,11 +116,11 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
   
   if (is.null(sourceNode)) {
     if (!silent) {
-      cat("In the studyTree you passed, I found the target entity node you ",
+      cat("In the rxsTree you passed, I found the target entity node you ",
           "specified, but I could not find the source entity node you ",
-          "specified (", sourceEntityNodeId, ") in the studyTree you passed.");
+          "specified (", sourceEntityNodeId, ") in the rxsTree you passed.");
     }
-    return(invisible(studyTree));
+    return(invisible(rxsTree));
   }
   
   ###---------------------------------------------------------------------------
@@ -130,13 +130,13 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
   if (!is.null(sourcePathString_regex)) {
     if (!grepl(sourcePathString_regex, sourceNode$pathString)) {
       if (!silent) {
-        cat0("In the studyTree you passed, I found both the target entity node ",
+        cat0("In the rxsTree you passed, I found both the target entity node ",
              "and the source entity node you specified.",
              "However, the source entity path string does not ",
              "match the regular expression you passed ('",
              sourcePathString_regex, "').");
       }
-      return(invisible(studyTree));
+      return(invisible(rxsTree));
     }
   }
     
@@ -172,7 +172,7 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
       overlappingNames <-
         intersect(names(sourceNodeValue), names(targetNodeValue));
       if (!silent) {
-        cat0("In the studyTree you passed, I found both the target entity node ",
+        cat0("In the rxsTree you passed, I found both the target entity node ",
              "you specified and the source entity node referred to in the target ",
              "entity node. However, one or more names occur in both lists (",
              vecTxtQ(overlappingNames),
@@ -181,7 +181,7 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
              "I am aborting. If you want to override this error, use ",
              "argument 'forceCopyingOfExistingValues=TRUE'.");
       }
-      return(invisible(studyTree));
+      return(invisible(rxsTree));
     }
   };
   
@@ -196,7 +196,7 @@ supplement_data_with_value_inSingleNode <- function(studyTree,
          "target entity node with identifier '", targetEntityNodeId, "'.\n");
   }
   
-  return(invisible(studyTree));
+  return(invisible(rxsTree));
   
 }
                                       

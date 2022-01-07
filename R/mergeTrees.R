@@ -15,7 +15,7 @@ mergeTrees <- function(tree1,
                        tree2,
                        spaces = 2,
                        silent = metabefor::opts$get("silent")) {
-  
+
   mergedTree <- data.tree::Clone(tree1);
   
   start <- paste0("\n", repStr(" ", spaces), "- ");

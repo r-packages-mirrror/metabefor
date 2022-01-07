@@ -23,7 +23,28 @@
 #' \describe{
 #'   \item{quridPrefix}{The prefix for quasi-unique record identifiers (QURIDs).}
 #'
-#'   \item{Two}{Second item}
+#' \item{ws}{The worksheet names: a named list with four character values
+#' named `entities`, `valueTemplates`, `definitions`, and `instructions`.}
+#' \item{eC}{The entity columns; a named list with character values holding the
+#' names of the columns in the `entities` worksheet of the spreadsheet. The
+#' default values are stored in `metabefor::opts$get("entityColNames")` - if you
+#' need to override these values, just reproduce that object.}
+#' \item{valueTemplateCols}{The value template columns; a named list with
+#' character values holding the names of the columns in the `entities`
+#' worksheet of the spreadsheet. The default values are stored
+#' in `metabefor::opts$get("valueTemplateColNames")` - if you need to
+#' override these values, just reproduce that object.}
+#' \item{instructionsCols}{The instructions worksheet columns: a names list with
+#' character values holding the names of the columns in the `instructions`
+#' worksheet of the spreadsheet. The default values are stored
+#' in `metabefor::opts$get("instructionsColNames")` - if you need to
+#' override these values, just reproduce that object.}
+#' \item{definitionsCols}{The definitions worksheet columns: a names list with
+#' character values holding the names of the columns in the `definitions`
+#' worksheet of the spreadsheet. The default values are stored
+#' in `metabefor::opts$get("definitionsColNames")` - if you need to
+#' override these values, just reproduce that object.}
+#'   
 #' }
 #'
 #' @aliases opts set get reset
@@ -154,8 +175,8 @@ opts$defaults <-
     defininitionsColNames = list(termCol = "term",
                                  definitionCol = "definition"),
     
-    txsColNames = list(study_identification_entity_id = 'study_identification_entity_id',
-                       study_identification_value = 'study_identification_value',
+    txsColNames = list(source_identification_entity_id = 'source_identification_entity_id',
+                       source_identification_value = 'source_identification_value',
                        parent_entity_id = 'parent_entity_id',
                        entity_id = 'entity_id',
                        value = 'value'),
@@ -169,7 +190,7 @@ opts$defaults <-
       paste0("A unique identifier to use in this systematic review. ",
              "For sources with a DOI, this is the last part of the shortDOI ",
              "as looked up through https://shortdoi.org (the part after ",
-             "the \"10/\"). For studies without a DOI (and so, without a ",
+             "the \"10/\"). For sources without a DOI (and so, without a ",
              "shortDOI), this can be, for example, the QURID (Quasi-Unique ",
              "Record Identifier) that was designated during the screening ",
              "phase or which you can create with `metabefor::qurid()`."),

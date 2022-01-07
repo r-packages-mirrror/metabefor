@@ -2,7 +2,7 @@
 #' 
 #' For example, `c('red', 'brown')` becomes `list(red = 1, brown = 1)`.
 #'
-#' @param x A study tree
+#' @param x A Rxs tree
 #' @param entityId The entity Id
 #' @param allPossibleValues A list of all possible values; if provided,
 #' the value list will contain all those.
@@ -12,9 +12,9 @@
 #' @export
 #'
 #' @examples
-studyTree_vectorValue_to_valueList <- function(x,
-                                               entityId,
-                                               allPossibleValues = NULL) {
+rxsTree_vectorValue_to_valueList <- function(x,
+                                             entityId,
+                                             allPossibleValues = NULL) {
   
   if (!(inherits(x, c("rxs", "Node")))) {
     return(invisible(x));

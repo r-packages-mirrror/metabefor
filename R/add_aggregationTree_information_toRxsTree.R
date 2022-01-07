@@ -1,21 +1,21 @@
-#' Add information from an aggregation tree to a study tree
+#' Add information from an aggregation tree to a Rxs tree
 #'
-#' @param studyTree,studies The study tree (as `studyTree`) or the object with
-#' multiple study trees (as `studies`)
+#' @param rxsTree,x The Rxs tree (as `rxsTree`) or the object with
+#' multiple Rxs trees (as `x`)
 #' @param aggregationTree The aggregation tree
 #' @param fieldName The field storing the values along which to aggregate
 #' @param prefixes,suffixes Vector of pre- and suffixes to add to the
 #' `fieldname` when storing the values for progressive aggregation
 #'
-#' @return Invisibly (and, irrelevantly), the study tree
+#' @return Invisibly (and, irrelevantly), the Rxs tree
 #' @rdname add_aggregationTree_information
 #' @export
 #'
-add_aggregationTree_information_toStudyTree <- function(studyTree,
-                                                        aggregationTree,
-                                                        fieldName,
-                                                        prefixes = NULL,
-                                                        suffixes = NULL) {
+add_aggregationTree_information_toRxsTree <- function(rxsTree,
+                                                      aggregationTree,
+                                                      fieldName,
+                                                      prefixes = NULL,
+                                                      suffixes = NULL) {
   
   maxDepth <- max(aggregationTree$Get("level")) - 1;
   
@@ -29,7 +29,7 @@ add_aggregationTree_information_toStudyTree <- function(studyTree,
       paste0("_aggr", 1:maxDepth);
   }
   
-  studyTree$Do(
+  rxsTree$Do(
     function(node) {
       
       if (is.null(node$value)) {
@@ -46,7 +46,7 @@ add_aggregationTree_information_toStudyTree <- function(studyTree,
           );
           
           if (is.null(aggTreeNode)) {
-            return(invisible(studyTree));
+            return(invisible(rxsTree));
           }
           
           reqAggregationValueLength <- max(length(prefixes),
@@ -91,6 +91,6 @@ add_aggregationTree_information_toStudyTree <- function(studyTree,
     }
   );
   
-  return(invisible(studyTree));
+  return(invisible(rxsTree));
   
 }

@@ -6,9 +6,10 @@ rxs_fg_valueTemplateDescription <- function(node,
                                             fullWidth = 80,
                                             commentCharacter = "#",
                                             fillerCharacter = "#",
-                                            eC = metabefor::opts$get("entityColNames"),
                                             listVersion = FALSE) {
-
+  
+  eC <- metabefor::opts$get("entityColNames");
+  
   ### This function look up (or generates) the default value for
   ### an extractable entity.
 

@@ -1,7 +1,7 @@
 #' Perform a transformation for every clustering entity
 #' 
-#' This function takes a `studies` object (as produced
-#' by [metabefor::rxs_parseExtractionScripts()]) and processes all study
+#' This function takes a full Rxs project object (as produced
+#' by [metabefor::rxs_parseExtractionScripts()]) and processes all Rxs
 #' trees, looking for clustering entities that match the `entityId_regex`
 #' regular expression (for information about what clustering entities are,
 #' see <https://r-packages.gitlab.io/metabefor/articles/definitions.html>)
@@ -12,7 +12,7 @@
 #' corresponding name before `fun` is called using `do.call`. This allows 
 #' you to select values and rename them to match the function arguments.
 #'
-#' @param studies The `studies` object (as produced
+#' @param x The full Rxs project object (as produced
 #' by [metabefor::rxs_parseExtractionScripts()]).
 #' @param newEntityName The name of the new entity to add to the clustering
 #' entity (i.e., the target entity's parent entity, a container entity).
@@ -29,34 +29,37 @@
 #' @param requiredField_regex An optional regular expression specifying a field
 #' that the clustering entity must contain for it to be processed.
 #'
-#' @return Invisibly, the studies object. Note that the study trees will be
-#' changed in place given `data.tree`'s pass-by-reference logic; so you can
-#' discard the result.
+#' @return Invisibly, the full Rxs project object. Note that the Rxs trees
+#' will be changed in place given `data.tree`'s pass-by-reference logic; so
+#' you can discard the result.
 #' 
 #' @export
 #'
 #' @examples
-transform_in_every_clusteringEntity <- function(studies,
+transform_in_every_clusteringEntity <- function(x,
                                                 newEntityName,
                                                 fun,
                                                 funArgs,
                                                 entityId_regex = NULL,
                                                 requiredField_regex = NULL) {
   
-  if (!inherits(studies, "rxs_parsedExtractionScripts")) {
-    stop("The object you pass as 'studies' must be an object ",
-         "with parsed Rxs files, as produced by a call to ",
-         "metabefor::rxs_parseExtractionScripts().");
+  if (!inherits(x, "rxs_parsedExtractionScripts")) {
+    stop(wrap_error(
+      "As `x`, you have to pass a full Rxs project (i.e. as ",
+      "obtained when parsing a set of Rxs files ",
+      "with `metabefor::rxs_parseExtractionScripts()`), but instead, ",
+      "you passed an object with class(es) ", vecTxtQ(class(x)), "."
+    ));
   }
   
   if (!is.function(fun)) {
     stop("As `fun`, you must pass a function.");
   }
   
-  for (currentStudyId in names(studies$rxsTrees)) {
+  for (currentSourceId in names(x$rxsTrees)) {
     
     ### Traverse tree and add standardized means (where applicable)
-    studies$rxsTrees[[currentStudyId]]$Do(
+    x$rxsTrees[[currentSourceId]]$Do(
       
       ### For every node for which the filterFun specified
       ### below returns TRUE, execute this function:
@@ -108,6 +111,6 @@ transform_in_every_clusteringEntity <- function(studies,
     
   }
   
-  return(invisible(studies));
+  return(invisible(x));
   
 }

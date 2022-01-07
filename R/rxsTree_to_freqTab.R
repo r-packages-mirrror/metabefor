@@ -1,37 +1,37 @@
 #' @rdname freqTab_heatMaps
 #' @export
-studyTree_to_freqTab <- function(x,
-                                 rowRegex,
-                                 colRegex,
-                                 rowTargetValue = NULL,
-                                 colTargetValue = NULL,
-                                 valuePreprocessingFunction = vectorValue_to_valueList,
-                                 rowColMultiplicationFunction = `*`,
-                                 rowTargetFunction = `==`,
-                                 colTargetFunction = `==`,
-                                 rowLabels = NULL,
-                                 colLabels = NULL,
-                                 rowOrder = NULL,
-                                 colOrder = NULL,
-                                 sortRowsAlphabetically = TRUE,
-                                 sortColsAlphabetically = TRUE,
-                                 includeValueListsOfMatch = TRUE,
-                                 flattenValues = TRUE,
-                                 excludeParentWhenValueListReturned = TRUE,
-                                 silent = metabefor::opts$get("silent")) {
+rxsTree_to_freqTab <- function(x,
+                               rowRegex,
+                               colRegex,
+                               rowTargetValue = NULL,
+                               colTargetValue = NULL,
+                               valuePreprocessingFunction = vectorValue_to_valueList,
+                               rowColMultiplicationFunction = `*`,
+                               rowTargetFunction = `==`,
+                               colTargetFunction = `==`,
+                               rowLabels = NULL,
+                               colLabels = NULL,
+                               rowOrder = NULL,
+                               colOrder = NULL,
+                               sortRowsAlphabetically = TRUE,
+                               sortColsAlphabetically = TRUE,
+                               includeValueListsOfMatch = TRUE,
+                               flattenValues = TRUE,
+                               excludeParentWhenValueListReturned = TRUE,
+                               silent = metabefor::opts$get("silent")) {
 
-  if (!metabefor::studyTree_has_entity(x, rowRegex)) {
-    stop("The study tree you passed has no entities with an identifier ",
+  if (!metabefor::rxsTree_has_entity(x, rowRegex)) {
+    stop("The Rxs tree you passed has no entities with an identifier ",
          "that matches the `rowRegex` you passed ('", rowRegex, "').");
   }
 
-  if (!metabefor::studyTree_has_entity(x, colRegex)) {
-    stop("The study tree you passed has no entities with an identifier ",
+  if (!metabefor::rxsTree_has_entity(x, colRegex)) {
+    stop("The Rxs tree you passed has no entities with an identifier ",
          "that matches the `colRegex` you passed ('", colRegex, "').");
   }
   
   rowEntityIDs <- 
-    studyTree_matchingUniqueEntityIdentifiers(
+    rxsTree_matchingUniqueEntityIdentifiers(
       x,
       regex = rowRegex,
       includeValueListsOfMatch = includeValueListsOfMatch,
@@ -39,7 +39,7 @@ studyTree_to_freqTab <- function(x,
     );
   
   colEntityIDs <- 
-    studyTree_matchingUniqueEntityIdentifiers(
+    rxsTree_matchingUniqueEntityIdentifiers(
       x,
       regex = colRegex,
       includeValueListsOfMatch = includeValueListsOfMatch,
