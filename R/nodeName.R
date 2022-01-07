@@ -2,6 +2,8 @@
 #'
 #' @param x The prospective node name
 #' @param entityName The original name of the entity before renaming
+#' @param thisEntityText Text to insert with the the current name of this
+#' entity, in case it's about to be renamed.
 #'
 #' @return The (sanitized) node name
 #' @export

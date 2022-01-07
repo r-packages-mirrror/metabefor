@@ -20,8 +20,7 @@ rxs_parseSpecifications <- function(entities,
   
   res <- list(parsedEntities = rxs_parseEntities(entities = entities,
                                                  rxsRootName = rxsRootName),
-              parsedValueTemplates = rxs_parseValueTemplates(valueTemplateDataframe=valueTemplates,
-                                                             valueTemplateCols = valueTemplateCols));
+              parsedValueTemplates = rxs_parseValueTemplates(valueTemplateDataframe=valueTemplates));
 
   class(res) <- "rxsStructure";
 

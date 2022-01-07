@@ -222,7 +222,6 @@ rxs_fromSpecifications <- function(x = NULL,
                                       valueTemplates = valueTemplates,
                                       definitions = definitions,
                                       instructionSheet = instructionSheet,
-                                      valueTemplateCols = valueTemplateCols,
                                       rxsRootName = rxsRootName,
                                       yamlMetadata = yamlMetadata,
                                       indent=indent,
@@ -293,7 +292,6 @@ rxs_fromSpecifications <- function(x = NULL,
         entities = entities[entities[[eC$moduleCol]] == currentModule, ],
         valueTemplates = valueTemplates,
         definitions = definitions,
-        valueTemplateCols = valueTemplateCols,
         rxsRootName = rxsRootName
       );
 
@@ -339,7 +337,6 @@ rxs_fromSpecifications <- function(x = NULL,
       entities = entities,
       valueTemplates = valueTemplates,
       definitions = definitions,
-      valueTemplateCols = valueTemplateCols,
       rxsRootName = rxsRootName
     );
   

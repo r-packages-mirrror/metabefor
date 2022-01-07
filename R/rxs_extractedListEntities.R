@@ -9,8 +9,8 @@ rxs_extractedListEntities <- function(x,
     res <- lapply(names(x$rxsTrees), function(sourceId) {
       ### data.tree seems to strip the first class for some reason;
       ### so we use structure to manually force it.
-      values <- rxs_extractedListEntities(rxs=structure(x$rxsTrees[[sourceId]],
-                                                        class=c("rxs", "Node", "R6")),
+      values <- rxs_extractedListEntities(x=structure(x$rxsTrees[[sourceId]],
+                                                      class=c("rxs", "Node", "R6")),
                                           valueRegex=valueRegex,
                                           entityName=entityName,
                                           withinEntity=withinEntity);

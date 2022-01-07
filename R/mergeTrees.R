@@ -6,6 +6,8 @@
 #' attribute is a list, those lists are combined using [base::c()].
 #'
 #' @param tree1,tree2 The trees to merge.
+#' @param spaces The number of spaces to use in messages (if `silent=FALSE`)
+#' @param silent Whether to be silent or chatty.
 #'
 #' @return The merged tree, a (cloned) `data.tree` `Node` object.
 #' @export

@@ -1,5 +1,6 @@
-rxs_parseValueTemplates <- function(valueTemplateDataframe,
-                                    valueTemplateCols = metabefor::opts$get("valueTemplateColNames")) {
+rxs_parseValueTemplates <- function(valueTemplateDataframe) {
+  
+  valueTemplateCols <- metabefor::opts$get("valueTemplateColNames");
   
   # ### Convert the dataframe to a list
   # res <- as.list(valueTemplateDataframe);
