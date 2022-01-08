@@ -51,6 +51,24 @@ packages for specific stages, such as developing search strategies,
 working with bibliographic data, and visualisation. Presently,
 therefore, `metabefor` mostly covers extraction.
 
+## Getting started
+
+Eventually, the best place to get started will be the
+[SysRevving](https://sysrevving.com) book. However, as yet that is still
+very much in its early stages. For now, the following pages form a good
+starting point:
+
+1.  The [Planning](https://sysrevving.com/planning) chapter in the
+    SysRevving book (in progress)
+2.  The [Extraction](https://sysrevving.com/extraction) chapter in the
+    SysRevving book (in progress)
+3.  The [R Extraction
+    Scripts](http://r-packages.gitlab.io/metabefor/articles/r-extraction-scripts.html)
+    vignette (in progress)
+4.  The
+    [Definitions](http://r-packages.gitlab.io/metabefor/articles/definitions.html)
+    vignette (in progress)
+
 <!--------------------------------------------->
 <!--  End of a custom bit for every package  -->
 <!--------------------------------------------->

@@ -19,7 +19,7 @@ rxs_buildTemplate <- function(rxsStructure,
   
   indent <- metabefor::opts$get("indentDefault");
   indentSpaces <- metabefor::opts$get("indentSpaces");
-  fullWidth <- metabefor::opts$get("fullWdith");
+  fullWidth <- metabefor::opts$get("fullWidth");
   commentCharacter <- metabefor::opts$get("commentCharacter");
   fillerCharacter <- metabefor::opts$get("fillerCharacter");
   repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
@@ -269,7 +269,7 @@ rxs_buildTemplate <- function(rxsStructure,
              scriptChunk,
              setRxsObjectClass,
              rxsMetadata,
-             rxs_fg_layoutVars(indentSpaces = 0),
+             rep(rxs_fg_layoutVars(indent = 0)$lineFiller, 3),
              "```",
              "",
              closingBlock,
@@ -303,7 +303,7 @@ rxs_buildTemplate <- function(rxsStructure,
              scriptChunk,
              setRxsObjectClass,
              rxsMetadata,
-             rxs_fg_layoutVars(indentSpaces = 0),
+             rep(rxs_fg_layoutVars(indent = 0)$lineFiller, 3),
              "```",
              "",
              closingBlock,

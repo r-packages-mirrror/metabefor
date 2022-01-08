@@ -1,23 +1,25 @@
 ---
-title: "Definitions"
+title: "Definitions in `metabefor`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Definitions}
+  %\VignetteIndexEntry{Definitions in `metabefor`}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
+This vignette contains definitions of the terms in `metabefor`.
+
 Container entity
-  : An entity that does not have a value (i.e. cannot itself be extracted) but serves to organise other entities in a hierarchy.
+  : An *entity* that does not store a value (i.e. cannot itself be extracted) but serves to organise other entities in a hierarchy. For example, a container entity could be "Provenance", containing "regular" entities "Authors", "Region", and "Date". For the latter three, values are extracted, and though those three together can form a source's provenance, the entity provenance itself has no value: it just contains the other three entities.
 
 Cluster
-  : A set of entities specified in a list in a parent entity.
+  : A set of entities specified in a list in a parent entity: see *clustering entity* and *clustered entity*.
 
 Clustered entity
-  : An *entity* that is specified in a list within a *clustering entity*. To specify that an entity is a value list entity, specify as its parent entity a *clustering entity*. Clustering entities are presented in a list in the `Rxs template` (within the parent entity).
+  : An *entity* that is specified in a list within a *clustering entity*. To specify that an entity is a value list entity, specify as its parent entity a *clustering entity*. Clustering entities are presented in a list in the `Rxs template` (within the parent entity). The coding guides that are normally presented above and below every entity are then concatenated and shows after it. This has two drawbacks. First, if word wrapping is active, it makes the Rxs file look quite messy and potentially intimidating. Second, since the descriptions and examples are less salient, this is a bit less straightforward for extractors, so may require more intensive training.
 
 Clustering entity
-  : An *entity* that as its value contains a list of *clustered entities*. To specify that an entity is a clustering entity, set the `list` column in the *Rxs specification* spreadsheet to `TRUE`. All entities that specify that clustering entity as parent will then be presented in a list within that entity in the `Rxs template`.
+  : An *entity* that as its value contains a list of *clustered entities*. To specify that an entity is a clustering entity, set the `list` column in the *Rxs specification* spreadsheet to `TRUE`. All entities that specify that clustering entity as parent will then be presented in a list within that entity in the `Rxs template`. They are useful to efficiently extract closely related information. For example, characteristics of a variable that is reported on in a source; various possible effect size measures that could be reported to describe an association; or closely related characteristics of a procedure that is described in a source.
 
 Entity
   : Something that can be extracted from a *source*: examples are effect sizes, sample sizes, study design characteristics, author names, publication dates, journal names, whether sampling strategies were justified, or the literal text used to phrase the main conclusion. Once an *extraction script* has been parsed, entities are also commonly referred to as *fields* that hold *values*. However, note that entities can be repeating: they refer to a type of thing that can be extracted, not to any specific thing that has been extracted, whereas a field always holds a specific extracted value. For example, it is possible to specify a *clustering entity* called `result_association` used to extract various effect sizes or other statistics that may be specified to describe an association between two variables, each as a *clustered entity*, e.g. entities called `pearson_r` and `cohen_d`. In any given extraction script, multiple instances of that `result_association` entity can be extracted, each being represented by a different `entity node`, and each of those *clustering entities* holding multiple *clustered entities* or *fields*. Each entity node holds a `pearson_r` field and a `cohen_d` field, but in the *extraction script specification*, only one entity is specified for each of `result_association`, `pearson_r`, and `cohen_d`. To refer explicitly to the entity as a "thing that can be extracted", you can use the terms *entity specification* or *extractable entity*. To refer explicitly to an entity that has been extracted, use `field` or `extracted entity`.
@@ -47,16 +49,19 @@ Extraction
   : The act of registering an *entity* in an *extraction script* (or extraction form, if `metabefor` isn't used) in the form of a text string or an entity conform the coding instructions (as specified in the *Rxs specification* if `metabefor` is used).
 
 Extraction script (`.Rxs` file)
-  : An R Markdown file with the extension `.rxs.Rmd` that is a completed *Rxs template*, and as such, set up such that it can be parsed by `metabefor`.
+  : An R Markdown file with the extension `.Rxs.Rmd` that is a completed *Rxs template*, and as such, set up such that it can be parsed by `metabefor`.
 
 Extraction script specification
   : A spreadsheet specifying which entities to extract, how they are hierarchically structured, which *value templates* they use, and their extraction instructions (or coding instructions).
 
 Field
-  : A synonym of entity that is used when it is referred to as a specific value holder in a context completed extraction script. For example, when in an *extraction script specification* an entity is specified to extract the source's publication date with entity identifier `pub_date`, in the parsed *extraction script*, the value of that date can be referred to as being stored in the `pub_date` field. A field represents an instance of an *entity*: see that definition for more details.
+  : A synonym of entity that is used when it is referred to as a specific value holder in the context of a completed extraction script. For example, when in an *extraction script specification* an entity is specified to extract the source's publication date with entity identifier `pub_date`, in the parsed *extraction script*, the value of that date can be referred to as being stored in the `pub_date` field. A field represents an instance of an *entity*: see that definition for more details.
 
 List
   : A list of multiple *clustered entities*. Lists are an efficient way to extract closely related entities, such as measurement details about a given variable, descriptives for an outcome, or various effect size metrics that may be reported.
+  
+Rxs file
+  : A file with an R extraction script. One example is an *Rxs template* as produced by [metabefor::rxs_fromSpecifications()], but usually these Rxs files will be completed versions of that template, each containing one or more extracted *entities* from a *source*. Rxs files have the extension `.Rxs.Rmd`.
 
 Rxs specification
   : See *extraction script specification*.

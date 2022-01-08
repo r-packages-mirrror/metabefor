@@ -1,6 +1,6 @@
 ---
 title: "Systematic Review Extraction Script Template"
-date: "2022-01-07 at 22:39:23 CET (UTC+0100)"
+date: "2022-01-08 at 09:51:49 CET (UTC+0100)"
 output:
   html_document:
     self-contained: yes
@@ -13,7 +13,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r rxs-setup-chunk-uWKBe6, echo=FALSE, results='hide'}
+```{r rxs-setup-chunk-FfXZ4w, echo=FALSE, results='hide'}
 ```
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -27,58 +27,59 @@ editor_options:
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 ```{r rxs-extraction-chunk, echo=FALSE}
-################################################################################
-############################################## START: uniqueSourceIdentifier ###
-################################################################################
+##############################################################################
+############################################ START: uniqueSourceIdentifier ###
+##############################################################################
 uniqueSourceIdentifier <- 
-################################################################################
+##############################################################################
 ### 
 ### SET UNIQUE SOURCE IDENTIFIER
 ### 
 ### A unique identifier used in this systematic review to refer to this
 ### source
 ### 
-################################################################################
+##############################################################################
     
     ""
     
-################################################################################
-############################################# VALUE DESCRIPTION AND EXAMPLES ###
-################################################################################
+##############################################################################
+########################################### VALUE DESCRIPTION AND EXAMPLES ###
+##############################################################################
 ### 
-### A unique identifier to use in this systematic review. For sources with
-### a DOI, this is the last part of the shortDOI as looked up through
-### https://shortdoi.org (the part after the "10/"). For sources without a
-### DOI (and so, without a shortDOI), this can be, for example, the QURID
-### (Quasi-Unique Record Identifier) that was designated during the
-### screening phase or which you can create with `metabefor::qurid()`.
+### A unique identifier to use in this systematic review. For sources
+### with a DOI, this is the last part of the shortDOI as looked up
+### through https://shortdoi.org (the part after the "10/"). For sources
+### without a DOI (and so, without a shortDOI), this can be, for example,
+### the QURID (Quasi-Unique Record Identifier) that was designated during
+### the screening phase or which you can create with
+### `metabefor::qurid()`.
 ### 
 ### EXAMPLES:
 ### 
 ### "g5fj"
 ### "qurid_7h4pksl6"
 ### 
-################################################################################
-################################################ END: uniqueSourceIdentifier ###
-################################################################################
+##############################################################################
+############################################## END: uniqueSourceIdentifier ###
+##############################################################################
 
-################################################################################
-################################################# START: extractorIdentifier ###
-################################################################################
+##############################################################################
+############################################### START: extractorIdentifier ###
+##############################################################################
 extractorIdentifier <- 
-################################################################################
+##############################################################################
 ### 
 ### SPECIFY YOUR EXTRACTOR IDENTIFIER
 ### 
 ### An identifier unique to every extractor
 ### 
-################################################################################
+##############################################################################
     
     ""
     
-################################################################################
-############################################# VALUE DESCRIPTION AND EXAMPLES ###
-################################################################################
+##############################################################################
+########################################### VALUE DESCRIPTION AND EXAMPLES ###
+##############################################################################
 ### 
 ### Identifiers can only consist of (lower or uppercase) Latin letters
 ### [a-zA-Z], Arabic numerals [0-9], and underscores [_], and always have
@@ -89,111 +90,111 @@ extractorIdentifier <-
 ### "extractor_1"
 ### "Alex"
 ### 
-################################################################################
-################################################### END: extractorIdentifier ###
-################################################################################
+##############################################################################
+################################################# END: extractorIdentifier ###
+##############################################################################
 
 
-################################################################################
-####################################################### START: source (ROOT) ###
-################################################################################
+##############################################################################
+##################################################### START: source (ROOT) ###
+##############################################################################
 rxsObject <- data.tree::Node$new('source');
 currentEntity <- rxsObject;
-################################################################################
+##############################################################################
 
-  ##############################################################################
-  ########################################################### START: methods ###
-  ##############################################################################
+  ############################################################################
+  ######################################################### START: methods ###
+  ############################################################################
   currentEntity <- currentEntity$AddChild('methods');
-  ##############################################################################
+  ############################################################################
   ### 
   ### METHODS
   ### 
   ### Description of the methods used by the study
   ### 
-  ##############################################################################
+  ############################################################################
       
   
-    ############################################################################
-    ####################################################### START: variables ###
-    ############################################################################
+    ##########################################################################
+    ##################################################### START: variables ###
+    ##########################################################################
     currentEntity <- currentEntity$AddChild('variables');
-    ############################################################################
+    ##########################################################################
     ### 
     ### VARIABLES
     ### 
     ### The variables in this study
     ### 
-    ############################################################################
+    ##########################################################################
         
     
-      ##########################################################################
-      ########################################## START: variable (REPEATING) ###
-      ##########################################################################
+      ########################################################################
+      ######################################## START: variable (REPEATING) ###
+      ########################################################################
       currentEntity <- currentEntity$AddChild('variable__1__');
       currentEntity[['value']] <-
-      ##########################################################################
+      ########################################################################
       ### 
       ### VARIABLE
       ### 
       ### The description of one variable in this study
       ### 
-      ##########################################################################
+      ########################################################################
           
           list(variableIdentifier = NA,  ### Variable Identifier: The unique identifier for this variable [Examples: "example1"; "another_identifier_example"; "finalExample"] [Value description: A single character value that is used as an identifier and so is always mandatory and can only contain a-z, A-Z, 0-9, and underscores, and must start with a letter.]
                measurementLevel = NA);   ### Measurement Level: The emasurement level of this variable [Examples: c("Nominal", "Ordinal", "Continuous")] [Value description: A string that has to exactly match one of the values specified in the "values" column of the Coding sheet]
           
-      ##########################################################################
+      ########################################################################
       currentEntity[['validation']] <- list(`variableIdentifier` = expression(grepl("[a-zA-Z][a-zA-Z0-9_]*", VALUE)),
                                             `measurementLevel` = expression(is.na(VALUE) || (VALUE %in% c("Nominal", "Ordinal", "Continuous"))));
       currentEntity$name <- metabefor::nodeName(currentEntity$value[['variableIdentifier']], "variable__1__");
       currentEntity <- currentEntity$parent;
-      ##########################################################################
-      ############################################ END: variable (REPEATING) ###
-      ##########################################################################
+      ########################################################################
+      ########################################## END: variable (REPEATING) ###
+      ########################################################################
     
         
-    ############################################################################
-    ############################################################################
+    ##########################################################################
+    ##########################################################################
     currentEntity <- currentEntity$parent;
-    ############################################################################
-    ######################################################### END: variables ###
-    ############################################################################
+    ##########################################################################
+    ####################################################### END: variables ###
+    ##########################################################################
   
       
-  ##############################################################################
-  ##############################################################################
+  ############################################################################
+  ############################################################################
   currentEntity <- currentEntity$parent;
-  ##############################################################################
-  ############################################################# END: methods ###
-  ##############################################################################
+  ############################################################################
+  ########################################################### END: methods ###
+  ############################################################################
 
 
-  ##############################################################################
-  ###################################################### START: associations ###
-  ##############################################################################
+  ############################################################################
+  #################################################### START: associations ###
+  ############################################################################
   currentEntity <- currentEntity$AddChild('associations');
-  ##############################################################################
+  ############################################################################
   ### 
   ### ASSOCIATIONS
   ### 
   ### Associations that are extracted from this study
   ### 
-  ##############################################################################
+  ############################################################################
       
   
-    ############################################################################
-    ######################################### START: association (REPEATING) ###
-    ############################################################################
+    ##########################################################################
+    ####################################### START: association (REPEATING) ###
+    ##########################################################################
     currentEntity <- currentEntity$AddChild('association__1__');
     currentEntity[['value']] <-
-    ############################################################################
+    ##########################################################################
     ### 
     ### ASSOCIATION
     ### 
     ### One single association
     ### 
-    ############################################################################
+    ##########################################################################
         
         list(associationIdentifier = NA,           ### Association Identifier: A unique identifier for this association [Examples: "example1"; "another_identifier_example"; "finalExample"] [Value description: A single character value that is used as an identifier and so is always mandatory and can only contain a-z, A-Z, 0-9, and underscores, and must start with a letter.]
              varId1 = "enter <<entityRef>> here",  ### Variable Identifier vor variable 1: The identifier of the one variable (specified in the methods section) that this association relates to [Examples: <no example>] [Value description: A string that specifies another entity and which MUST be provided]
@@ -201,7 +202,7 @@ currentEntity <- rxsObject;
              r = NA,                               ### Pearson's r: The Pearson correlation coefficient for this association (if both variables are continuous) [Examples: 2.3; 643.2] [Value description: Any valid number]
              t = NA);                              ### Student's t: The Student's t value for this association (if one of the two variables is dichotomous) [Examples: 2.3; 643.2] [Value description: Any valid number]
         
-    ############################################################################
+    ##########################################################################
     currentEntity[['validation']] <- list(`associationIdentifier` = expression(grepl("[a-zA-Z][a-zA-Z0-9_]*", VALUE)),
                                           `varId1` = expression(rxs_findEntity(node, "variableIdentifier", VALUE)),
                                           `varId2` = expression(rxs_findEntity(node, "variableIdentifier", VALUE)),
@@ -210,30 +211,27 @@ currentEntity <- rxsObject;
     currentEntity$name <- metabefor::nodeName(currentEntity$value[['associationIdentifier']], "association__1__");
     currentEntity[['entityRefs']] <- c(varId1="variableIdentifier", varId2="variableIdentifier");
     currentEntity <- currentEntity$parent;
-    ############################################################################
-    ########################################### END: association (REPEATING) ###
-    ############################################################################
+    ##########################################################################
+    ######################################### END: association (REPEATING) ###
+    ##########################################################################
   
       
-  ##############################################################################
-  ##############################################################################
+  ############################################################################
+  ############################################################################
   currentEntity <- currentEntity$parent;
-  ##############################################################################
-  ######################################################## END: associations ###
-  ##############################################################################
+  ############################################################################
+  ###################################################### END: associations ###
+  ############################################################################
 
     
-################################################################################
-######################################################### END: source (ROOT) ###
-################################################################################
-class(rxsObject) <- c('rxs', 'rxsObject', class(rxsObject));
-rxsObject$rxsMetadata <- list(rxsVersion='0.3.0', moduleId="module3", id=uniqueSourceIdentifier, extractorId=extractorIdentifier);
-
-78
 ##############################################################################
-74
-### 
-    
+####################################################### END: source (ROOT) ###
+##############################################################################
+class(rxsObject) <- c('rxs', 'rxsObject', class(rxsObject));
+rxsObject$rxsMetadata <- list(rxsVersion='0.3.0', moduleId=NULL, id=uniqueSourceIdentifier, extractorId=extractorIdentifier);
+##############################################################################
+##############################################################################
+##############################################################################
 ```
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -269,11 +267,11 @@ if (!(grepl("^[a-zA-Z][a-zA-Z0-9_]*$", rxsObject$rxsMetadata$extractorId, ignore
 ```
 
 
-```{r rxs-show-extracted-data-chunk-AivZHu}
+```{r rxs-show-extracted-data-chunk-tWPBSm}
 metabefor::rxs_partial(rxsObject);
 ```
 
-```{r rxs-validation-chunk-wYFsNI, results='asis'}
+```{r rxs-validation-chunk-PS1lXt, results='asis'}
 #metabefor::rxs_validation(rxsObject);
 metabefor::heading('Validation results', headingLevel = 1);
 #rxs_validation(rxsObject,
@@ -286,7 +284,7 @@ if (length(rxsObject$validationResults) > 2) {
 }
 ```
 
-```{r rxs-setup-chunk-uWKBe6, include=FALSE, messages=FALSE}
+```{r rxs-setup-chunk-FfXZ4w, include=FALSE, messages=FALSE}
 ### First check for (and perhaps install) metabefor
 if (!('metabefor' %in% row.names(installed.packages()))) {
   install.packages('metabefor', repos='http://cran.rstudio.com');
@@ -299,7 +297,7 @@ knitr::opts_chunk$set(comment = NA);     ### Suppress output prefix
 
 <!-- Here, the original Rxs template specification is included. ~~~~~~~~~~~-->
 
-```{r rxs-template-specification-chunk-0hUoXk, echo=FALSE}
+```{r rxs-template-specification-chunk-tuHUTN, echo=FALSE}
 
 rxsTemplateSpec <- 
   list(entities = structure(list(title = c("General", "Year", "Authors", 
@@ -441,9 +439,7 @@ rxsTemplateSpec <-
           "Well done! You are now done extracting this source. Great job!!!\r\n\r\nNow, please knit the R Extraction Script into an HTML file and carefully check whether you entered everything correctly, since it will cost much less time to correct any errors, now that you still have this source in your mind, than later on when you'll have to dive into it all over."
           )), row.names = c(NA, -4L), class = "data.frame"), rxsRootName = "source", 
       yamlMetadata = list(title = "Systematic Review Extraction Script Template", 
-          author = NULL, date = "2022-01-07 at 22:39:23 CET (UTC+0100)"), 
-      indent = TRUE, indentSpaces = 2, commentCharacter = "#", 
-      fillerCharacter = "#")
+          author = NULL, date = "2022-01-08 at 09:51:49 CET (UTC+0100)"))
 
 ```
 

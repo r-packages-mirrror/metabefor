@@ -21,44 +21,65 @@
 #' The following options can be set:
 #'
 #' \describe{
-#'   \item{quridPrefix}{The prefix for quasi-unique record identifiers (QURIDs).}
+#' 
+#' \item{quridPrefix}
+#' {The prefix for quasi-unique record identifiers (QURIDs).}
 #'
-#' \item{ws}{The worksheet names: a named list with four character values
+#' \item{ws}
+#' {The worksheet names: a named list with four character values
 #' named `entities`, `valueTemplates`, `definitions`, and `instructions`.}
-#' \item{eC}{The entity columns; a named list with character values holding the
+#' 
+#' \item{eC}
+#' {The entity columns; a named list with character values holding the
 #' names of the columns in the `entities` worksheet of the spreadsheet. The
 #' default values are stored in `metabefor::opts$get("entityColNames")` - if you
 #' need to override these values, just reproduce that object.}
-#' \item{valueTemplateCols}{The value template columns; a named list with
+#' 
+#' \item{valueTemplateCols}
+#' {The value template columns; a named list with
 #' character values holding the names of the columns in the `entities`
 #' worksheet of the spreadsheet. The default values are stored
 #' in `metabefor::opts$get("valueTemplateColNames")` - if you need to
 #' override these values, just reproduce that object.}
-#' \item{instructionsCols}{The instructions worksheet columns: a names list with
+#' 
+#' \item{instructionsCols}
+#' {The instructions worksheet columns: a names list with
 #' character values holding the names of the columns in the `instructions`
 #' worksheet of the spreadsheet. The default values are stored
 #' in `metabefor::opts$get("instructionsColNames")` - if you need to
 #' override these values, just reproduce that object.}
-#' \item{definitionsCols}{The definitions worksheet columns: a names list with
+#' 
+#' \item{definitionsCols}
+#' {The definitions worksheet columns: a names list with
 #' character values holding the names of the columns in the `definitions`
 #' worksheet of the spreadsheet. The default values are stored
 #' in `metabefor::opts$get("definitionsColNames")` - if you need to
 #' override these values, just reproduce that object.}
 #' 
-#' \item{indent}{Whether to use indentation to visually organise the Rxs
+#' \item{indentDefault}
+#' {Whether to use indentation to visually organise the Rxs
 #' template. If TRUE, deeper nesting in the Rxs specification's hierarchy
 #' will be visible as deeper indentation.}
-#' \item{indentSpaces}{The number of spaces to use when identing.}
-#' \item{fullWidth}{The maximum width of the Rxs template in characters.}
-#' \item{commentCharacter}{The character used to signify comments - if this is
+#' 
+#' \item{indentSpaces}
+#' {The number of spaces to use when identing.}
+#' 
+#' \item{fullWidth}
+#' {The maximum width of the Rxs template in characters.}
+#' 
+#' \item{commentCharacter}
+#' {The character used to signify comments - if this is
 #' changed, R will throw errors (unless perhaps it once introduces another
 #' comment symbol).}
-#' \item{fillerCharacter}{The character used after the first character for
+#' 
+#' \item{fillerCharacter}
+#' {The character used after the first character for
 #' filling up space.}
-#' \item{repeatingSuffix}{The suffix to use for the entity identifiers/names
+#' 
+#' \item{repeatingSuffix}
+#' {The suffix to use for the entity identifiers/names
 #' of repeating entities.}
 #' 
-#'   
 #' }
 #'
 #' @aliases opts set get reset
@@ -152,12 +173,12 @@ opts$defaults <-
     moduleWithoutName = "moduleWithoutName",
     
     ### For creating the Rxs template
-    indentDefault <- TRUE,
-    indentSpaces <- 2,
-    fullWidth <- 78,
-    commentCharacter <- "#",
-    fillerCharacter <- "#",
-    repeatingSuffix <- "__1__",
+    indentDefault = TRUE,
+    indentSpaces = 2,
+    fullWidth = 78,
+    commentCharacter = "#",
+    fillerCharacter = "#",
+    repeatingSuffix = "__1__",
     
     ### Used to parse rxs specifications
     rxsSheetnames = list(entities = 'entities',

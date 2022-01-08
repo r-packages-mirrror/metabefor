@@ -58,7 +58,7 @@ if (exists("updateEverything") && updateEverything) {
   
   usethis::use_data(rxs_minimal_example, overwrite=TRUE);
   usethis::use_data(rxs_minimal_modular_example, overwrite=TRUE);
-  
+
 }
 
 ###-----------------------------------------------------------------------------

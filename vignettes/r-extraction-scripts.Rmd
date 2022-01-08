@@ -1,10 +1,10 @@
 ---
-title: "R Extraction Scripts (Rxs)"
+title: "R Extraction Scripts (`.Rxs.Rmd` files)"
 author: "Gjalt-Jorn Peters"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{R Extraction Scripts (Rxs)}
+  %\VignetteIndexEntry{R Extraction Scripts (`.Rxs.Rmd` files)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Once sources have been screened, the relevant data have to be extracted from the included sources. `metabefor` can facilitate this process through R Extraction Scripts (abbreviated to Rxs; the corresponding file extension is `.rxs.Rmd`). 
+Once sources have been screened, the relevant data have to be extracted from the included sources. This is the main purpose of `metabefor`. Specifically, this extraction is done in R Extraction Scripts (abbreviated to Rxs; the corresponding file extension is `.Rxs.Rmd`). 
 
 The extraction script is generated based on a spreadsheet that specifies the entities to be extracted from the included sources as well as what kinds of values are accepted for these entities. These specifications can be read from a Google Sheets document as well as from local comma separated values files. `metabefor` function `rxs_fromSpecifications` reads these specifications and writes an Rxs remplate to disk that can then be copied for each source and filled with the extracted information.
 

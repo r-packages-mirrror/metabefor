@@ -7,6 +7,7 @@
 #' is returned.
 #'
 #' @param x The value or vector of values.
+#' @param stripQuotes Whether to strip enclosing quotes fromeach vector element.
 #'
 #' @return A vector or list of vectors.
 #' @rdname bipiped_value_to_vector
@@ -16,7 +17,8 @@
 #'   paste0('"Purposefully select" || "Aselect" || ',
 #'          '"Likely self-selected" || "Ameliorated self-selection"');
 #' bipiped_value_to_vector(exampleValue);
-bipiped_value_to_vector <- function(x) {
+bipiped_value_to_vector <- function(x,
+                                    stripQuotes = TRUE) {
   if (is.null(x)) {
     return(x);
   } else if (is.na(x)) {
@@ -31,18 +33,20 @@ bipiped_value_to_vector <- function(x) {
   }
   res <- strsplit(x, "\\|\\|")[[1]];
   res <- trimws(res);
-  res <-
-    ifelse(
-      grepl('^"(.*)"$', res),
-      gsub('^"(.*)"$', "\\1", res),
-      res
-    );
-  res <-
-    ifelse(
-      grepl("^'(.*)'$", res),
-      gsub("^'(.*)'$", "\\1", res),
-      res
-    );
+  if (stripQuotes) {
+    res <-
+      ifelse(
+        grepl('^"(.*)"$', res),
+        gsub('^"(.*)"$', "\\1", res),
+        res
+      );
+    res <-
+      ifelse(
+        grepl("^'(.*)'$", res),
+        gsub("^'(.*)'$", "\\1", res),
+        res
+      );
+  }
   return(res);
 }
 

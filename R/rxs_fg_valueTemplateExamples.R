@@ -169,14 +169,13 @@ rxs_fg_valueTemplateExamples <- function(node,
     #                         fillerCharacter = fillerCharacter);
     # res <- paste0(lV$commentPrefix,
     #               trimws(unlist(strsplit(res, "||", fixed=TRUE))));
-    res <- trimws(unlist(strsplit(res, "||", fixed=TRUE)));
-    # res <- bipiped_value_to_vector(res);
+    # res <- trimws(unlist(strsplit(res, "||", fixed=TRUE)));
+    res <- bipiped_value_to_vector(res, stripQuotes = FALSE);
     return(res);
   } else {
     lV <- rxs_fg_layoutVars(level = level);
     res <- paste0(lV$commentPrefix,
-                  bipiped_value_to_vector(res));
-                  #trimws(unlist(strsplit(res, "||", fixed=TRUE))));
+                  bipiped_value_to_vector(res, stripQuotes = FALSE));
   }
 
   if (!listVersion) {

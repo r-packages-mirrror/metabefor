@@ -90,7 +90,7 @@ rxs_fromSpecifications <- function(x = NULL,
   
   indent <- metabefor::opts$get("indentDefault");
   indentSpaces <- metabefor::opts$get("indentSpaces");
-  fullWidth <- metabefor::opts$get("fullWdith");
+  fullWidth <- metabefor::opts$get("fullWidth");
   commentCharacter <- metabefor::opts$get("commentCharacter");
   fillerCharacter <- metabefor::opts$get("fillerCharacter");
   repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
