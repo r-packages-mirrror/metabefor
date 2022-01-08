@@ -172,21 +172,24 @@ rxs_parseExtractionScripts <- function(path,
         );
       }
     } else {
-      res$log <- c(
-        res$log,
-        msg("\n  - This is either a very old rxs file, or not a valid rxs ",
-            "file at all. I will use the settings from the options. If you ",
-            "see any errors, you may want to change the root and object ",
-            "names to an old value, using e.g. :\n\n",
-            "    metabefor::opts$set(rxsRootName = 'study');\n",
-            "    metabefor::opts$set(rxsObjectName = 'study');\n",
-            "    metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
-            silent = silent)
-      );
       rxsVersion <- "0.0.1.9999";
       rxsRootName <- metabefor::opts$get("rxsRootName");
       rxsObjectName <- metabefor::opts$get("rxsObjectName");
       uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+      res$log <- c(
+        res$log,
+        msg("\n  - This is either a very old rxs file, or not a valid rxs ",
+            "file at all. I will use the settings from the options ",
+            "(specifically, setting rxsVersion to '", rxsVersion,
+            "', and based on the options, using rxsRootName='", rxsRootName,
+            "', rxsObjectName='", rxsObjectName,
+            "', uniqueSourceIdName='", uniqueSourceIdName, "'). If you ",
+            "see any errors, you may want to change the root and object ",
+            "names to something else, using e.g. the old default:\n\n",
+            "    metabefor::opts$set(rxsRootName = 'study');\n",
+            "    metabefor::opts$set(rxsObjectName = 'study');\n",
+            silent = silent)
+      );
     }
     
     ###-------------------------------------------------------------------------
