@@ -37,9 +37,10 @@
 #' `valueTemplates`, `definitions`, and `instructions`), and each named value
 #' is the path to store the corresponding worksheets will be stored as `.csv`
 #' file.
-#' @param yamlMetadata A names list containing character values named
-#' `title`, `author`, and `date` which will be set in the Rmd file that is
-#' the Rxs template as metadata.
+#' @param yamlMetadata Optionally, override the YAML metadata set in the
+#' template, specifically, by providing a named list containing one or more
+#' of `title`, `author`, and `date` as character values. If provided, these
+#' will override the default values in the Rmd file that is the Rxs template.
 #' @param rxsRootName The name of the root element
 #' @param preventOverwriting Whether to prevent accidental overwriting of the
 #' extraction templates.
@@ -64,9 +65,7 @@ rxs_fromSpecifications <- function(x = NULL,
                                    outputPath = NULL,
                                    outputFilenamePattern = NULL,
                                    localBackup = NULL,
-                                   yamlMetadata = list(title = "Systematic Review Extraction Script Template",
-                                                       author = NULL,
-                                                       date = format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')),
+                                   yamlMetadata = NULL,
                                    rxsRootName = metabefor::opts$get(rxsRootName),
                                    preventOverwriting = FALSE,
                                    silent = metabefor::opts$get("silent"),

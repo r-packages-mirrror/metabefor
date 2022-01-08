@@ -5,12 +5,14 @@
 \alias{bipiped_values_to_vector}
 \title{Convert a "bipiped" value (or vector of values) to a vector}
 \usage{
-bipiped_value_to_vector(x)
+bipiped_value_to_vector(x, stripQuotes = TRUE)
 
 bipiped_values_to_vector(x)
 }
 \arguments{
 \item{x}{The value or vector of values.}
+
+\item{stripQuotes}{Whether to strip enclosing quotes fromeach vector element.}
 }
 \value{
 A vector or list of vectors.

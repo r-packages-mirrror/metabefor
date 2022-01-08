@@ -14,16 +14,12 @@
   
 ```
 
-```{r, results='asis', eval=TRUE}
-  metabefor::heading("Extracted Study", headingLevel=headingLevel);
-```
-
 ```{r, echo=echoPartial, results='asis', eval=TRUE}
 
   res <-
     rxsTree_to_valueDf(x);
 
-  metabefor::heading("Rxs tree of extracted entities", headingLevel=headingLevel+1);
+  metabefor::heading("Rxs tree of extracted entities", headingLevel=headingLevel);
 
   if (getOption('metabefor.debug', FALSE)) {
     cat("\n\n\n\n");
@@ -50,7 +46,7 @@
 
   metabefor::heading(
     "Table with extracted entities and extracted values",
-    headingLevel=headingLevel + 1
+    headingLevel=headingLevel
   );
 
       # cat(knitr::knit(text = "\n\n```{r, echo=FALSE, cache=FALSE, message=FALSE, results='asis' }\n  knitr::kable(res, row.names=FALSE);\n```\n\n",
@@ -65,7 +61,7 @@
   
   metabefor::heading(
     "Plot",
-    headingLevel = headingLevel + 1
+    headingLevel = headingLevel
   );
   
   x$output$plot;

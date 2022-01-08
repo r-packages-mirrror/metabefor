@@ -10,8 +10,7 @@ rxs_fromSpecifications(
   outputPath = NULL,
   outputFilenamePattern = NULL,
   localBackup = NULL,
-  yamlMetadata = list(title = "Systematic Review Extraction Script Template", author =
-    NULL, date = format(Sys.time(), "\%Y-\%m-\%d at \%H:\%M:\%S \%Z (UTC\%z)")),
+  yamlMetadata = NULL,
   rxsRootName = metabefor::opts$get(rxsRootName),
   preventOverwriting = FALSE,
   silent = metabefor::opts$get("silent"),
@@ -51,9 +50,10 @@ where each name is the name of a worksheet (e.g. \code{entities},
 is the path to store the corresponding worksheets will be stored as \code{.csv}
 file.}
 
-\item{yamlMetadata}{A names list containing character values named
-\code{title}, \code{author}, and \code{date} which will be set in the Rmd file that is
-the Rxs template as metadata.}
+\item{yamlMetadata}{Optionally, override the YAML metadata set in the
+template, specifically, by providing a named list containing one or more
+of \code{title}, \code{author}, and \code{date} as character values. If provided, these
+will override the default values in the Rmd file that is the Rxs template.}
 
 \item{rxsRootName}{The name of the root element}
 

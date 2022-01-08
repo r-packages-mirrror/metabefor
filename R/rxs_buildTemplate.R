@@ -1,8 +1,6 @@
 rxs_buildTemplate <- function(rxsStructure,
                               rxsSpecification,
-                              yamlMetadata = list(title = "Systematic Review Extraction Script Template",
-                                                  author = NULL,
-                                                  date = format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')),
+                              yamlMetadata = NULL,
                               module = NULL,
                               silent = metabefor::opts$get("silent")) {
   
@@ -91,21 +89,28 @@ rxs_buildTemplate <- function(rxsStructure,
     recursingEntitiesChunk <-
       NA;
   }
+  
+  yamlTitle <-
+    paste0(
+      "title: \"`r paste0('Rxs for \\'', ",
+      uniqueSourceIdName,
+      ", '\\' (', metabefor::knittedFileSansExt(), ')')`\""
+    );
+  yamlAuthor <-
+    paste0("author: \"`r paste0('Extractor: ', ", extractorIdName, ")`\"");
+  yamlDate <-
+    "date: \"`r format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')`\"";
 
-  if (is.null(yamlMetadata$title)) {
-    yamlTitle <- NULL;
-  } else {
-    yamlTitle <- paste0("title: \"", yamlMetadata$title, "\"");
-  }
-  if (is.null(yamlMetadata$author)) {
-    yamlAuthor <- NULL;
-  } else {
-    yamlAuthor <- paste0("author: \"", yamlMetadata$author, "\"");
-  }
-  if (is.null(yamlMetadata$date)) {
-    yamlDate <- NULL;
-  } else {
-    yamlDate <- paste0("date: \"", yamlMetadata$date, "\"");
+  if (!is.null(yamlMetadata)) {
+    if (!is.null(yamlMetadata$title)) {
+      yamlTitle <- paste0("title: \"", yamlMetadata$title, "\"");
+    }
+    if (!is.null(yamlMetadata$author)) {
+      yamlAuthor <- paste0("author: \"", yamlMetadata$author, "\"");
+    }
+    if (!is.null(yamlMetadata$date)) {
+      yamlDate <- paste0("date: \"", yamlMetadata$date, "\"");
+    }
   }
 
   yamlHeader <-
@@ -190,15 +195,9 @@ rxs_buildTemplate <- function(rxsStructure,
 
   validationChunk <-
     c(paste0("```{r ", validationChunkLabel, ", results='asis'}"),
-      paste0("#metabefor::rxs_validation(", rxsObjectName, ");"),
       "metabefor::heading('Validation results', headingLevel = 1);",
-      paste0("#rxs_validation(", rxsObjectName, ","),
-      "#               rxsStructure = fullResults$rxsStructure);",
-      paste0("if (length(", rxsObjectName, "$validationResults) > 2) {"),
-      paste0("  cat(paste0('- ', ", rxsObjectName, "$validationResults), sep='\n');"),
-      "} else {",
-      "  cat('Validation successful!');",
-      "}",
+      paste0("metabefor::rxs_validation(", rxsObjectName, ");"),
+      paste0("cat(paste0('- ', ", rxsObjectName, "$validationLog), sep='\\n');"),
       "```");
 
   ### Rxs template specification
@@ -253,8 +252,7 @@ rxs_buildTemplate <- function(rxsStructure,
            "not match the predefined format)!\"));\n}");
   
   if (rxsVersion < "0.3.0") {
-    res <- c(yamlHeader,
-             setupChunk,
+    res <- c(setupChunk,
              "",
              fieldnameChunk,
              "",
@@ -286,11 +284,12 @@ rxs_buildTemplate <- function(rxsStructure,
              "",
              validationChunk,
              "",
+             yamlHeader,
+             "",
              rxsTemplateSpecificationChunkSourceCode,
              "");
   } else {
-    res <- c(yamlHeader,
-             setupChunkInclusion,
+    res <- c(setupChunkInclusion,
              "",
              openingBlock,
              "",
@@ -321,6 +320,8 @@ rxs_buildTemplate <- function(rxsStructure,
              validationChunk,
              "",
              setupChunk,
+             "",
+             yamlHeader,
              "",
              rxsTemplateSpecificationChunkSourceCode,
              "");
