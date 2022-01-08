@@ -355,35 +355,6 @@ rxs_parseExtractionScripts <- function(path,
       }
     }
 
-    # ###-------------------------------------------------------------------------
-    # ### Get the identifier of this source
-    # ###-------------------------------------------------------------------------
-    # 
-    # ### NOTE: No longer using this, only using the version in the metadata!
-    # 
-    # if (exists(uniqueSourceIdName, envir=globalenv())) {
-    #   sourceId <- get(uniqueSourceIdName, envir=globalenv());
-    # 
-    #   res$log <- c(
-    #     res$log,
-    #     msg("\n  - The unique source identifier was succesfully retrieved: ",
-    #         sourceId, ".",
-    #         silent = silent)
-    #   );
-    #   
-    # } else {
-    #   
-    #   sourceId <- filename;
-    #   
-    #   res$log <- c(
-    #     res$log,
-    #     msg("\n  - The unique source identifier could not be retrieved, using filename instead: ",
-    #         sourceId, ".",
-    #         silent = silent)
-    #   );
-    #   
-    # }
-    
     ###-------------------------------------------------------------------------
     ### Get the result and store it in our results object
     ###-------------------------------------------------------------------------
@@ -395,6 +366,10 @@ rxs_parseExtractionScripts <- function(path,
 
       res$rxsTrees_raw[[currentTreeName]] <-
         data.tree::Clone(tmpRxsObject);
+      
+      class(res$rxsTrees_raw[[currentTreeName]]) <-
+        union(c("rxs", "rxsOject"),
+              class(res$rxsTrees_raw[[currentTreeName]]));
       
       if (is.null(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
         res$rxsTrees_raw[[currentTreeName]]$rxsMetadata <-
@@ -427,9 +402,12 @@ rxs_parseExtractionScripts <- function(path,
       );
 
       allValues <-
-        unlist(lapply(res$rxsTrees_raw[[currentTreeName]]$Get('value')));
+        res$rxsTrees_raw[[currentTreeName]]$Get('value');
+      
+      valuesThatAreExpressions <-
+        unlist(lapply(allValues, is.expression));
 
-      if (any(allValues, is.expression)) {
+      if (any(valuesThatAreExpressions)) {
         res$log <- c(
           res$log,
           msg("  - In the extracted entities in filename ", filename,
@@ -437,7 +415,10 @@ rxs_parseExtractionScripts <- function(path,
               "extracted values are not just values, but ",
               "instead R expressions! This is probably a symptom of ",
               "a syntax error made during extraction (e.g. omitted quotes). ",
-              "Carefully check the extraction script file!",
+              "Carefully check the extraction script file, specifically ",
+              "the entities with the following identifiers: ",
+              vecTxtQ(names(allValues)[valuesThatAreExpressions]),
+              ".",
               silent = silent)
         );
       } else {
@@ -508,7 +489,12 @@ rxs_parseExtractionScripts <- function(path,
              " invalid trees, specifically those ",
              "from rxs files ", vecTxtQ(invalidRawTreeNames),
              ". You will probably want to check and correct those, and then ",
-             " re-run this command, before continuing.");
+             " re-run this command, before continuing.\n\n",
+             "Alternatively, some or more files may use the old rxs file ",
+             "format. If that is the case, you may want to change the root ",
+             "and object names used when parsing the files using:\n\n",
+             "    metabefor::opts$set(rxsRootName = 'study');\n",
+             "    metabefor::opts$set(rxsObjectName = 'study');\n");
     res$log <- c(
       res$log,
       msg(warningMessage,
@@ -533,20 +519,37 @@ rxs_parseExtractionScripts <- function(path,
   
   sourceIds <-
     lapply(
-      res$rxsTrees_raw[validRawTrees],
-      function(node) {
+      names(res$rxsTrees_raw[validRawTrees]),
+      function(treeName) {
+        node <- res$rxsTrees_raw[validRawTrees][[treeName]];
         if (is.null(node$root$rxsMetadata)) {
+          stop("No Rxs metadata found in raw Rxs tree '", treeName, "'!");
         } else {
           if ("id" %in% names(node$root$rxsMetadata)) {
             return(node$root$rxsMetadata$id);
           } else {
-            return(node$root$rxsMetadata$id_from_parsing);
+            stop("In the Rxs metadata found in raw Rxs tree '", treeName,
+                 "', no source identifier was stored!");
           }
         }
       }
     );
+
+  treeFilenames <-
+    lapply(
+      names(res$rxsTrees_raw[validRawTrees]),
+      function(treeName) {
+        node <- res$rxsTrees_raw[validRawTrees][[treeName]];
+        if ("filename" %in% names(node$root$rxsMetadata)) {
+          return(node$root$rxsMetadata$filename);
+        } else {
+          stop("In the Rxs metadata found in raw Rxs tree '", treeName,
+               "', no original Rxs filename was stored!");
+        }
+      }
+    );
   
-  filenames_by_sourceId <- stats::setNames(names(sourceIds),
+  filenames_by_sourceId <- stats::setNames(treeFilenames,
                                            nm = sourceIds);
   
   uniqueSourceIds <- unique(sourceIds);
@@ -576,7 +579,7 @@ rxs_parseExtractionScripts <- function(path,
           silent = silent
       )
     );
-    
+
     ###-------------------------------------------------------------------------
     ### Start of actual merging activity
     ###-------------------------------------------------------------------------
@@ -657,7 +660,7 @@ rxs_parseExtractionScripts <- function(path,
     if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
       res$log <- c(
         res$log,
-        msg("\nIn the Rxs Rxs tree for source identifier '", currentTree,
+        msg("\nIn the Rxs tree for source identifier '", currentTree,
             "', not all node names (i.e. entity names) are unique!",
             silent = silent)
       );
