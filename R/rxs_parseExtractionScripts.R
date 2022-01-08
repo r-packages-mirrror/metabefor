@@ -13,15 +13,15 @@
 #' @return A list of parsed extraction scripts.
 #' @export
 rxs_parseExtractionScripts <- function(path,
-                                       pattern="\\.rxs\\.Rmd$|\\.rxs$",
-                                       exclude=c("extractionScriptTemplate.rxs.Rmd",
-                                                 "\\[EXCLUDED]"),
-                                       ignore.case=TRUE,
-                                       recursive=TRUE,
-                                       silent=metabefor::opts$get("silent"),
+                                       pattern = "\\.rxs\\.Rmd$|\\.rxs$",
+                                       exclude = c("extractionScriptTemplate.rxs.Rmd",
+                                                   "\\[EXCLUDED]"),
+                                       ignore.case = TRUE,
+                                       recursive = TRUE,
+                                       silent = metabefor::opts$get("silent"),
                                        progressBar = TRUE,
-                                       showErrors=TRUE,
-                                       encoding="UTF-8") {
+                                       showErrors = TRUE,
+                                       encoding = "UTF-8") {
 
   res <- list(input = as.list(environment()));
 
@@ -185,10 +185,32 @@ rxs_parseExtractionScripts <- function(path,
       );
       rxsVersion <- "0.0.1.9999";
       rxsRootName <- metabefor::opts$get("rxsRootName");
-      rxsRootName <- metabefor::opts$get("rxsObjectName");
+      rxsObjectName <- metabefor::opts$get("rxsObjectName");
       uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
     }
-
+    
+    ###-------------------------------------------------------------------------
+    ### Make sure we have a unique name to store this object in
+    ###-------------------------------------------------------------------------
+    
+    currentTreeName <- filename;
+    
+    if (currentTreeName %in% names(res$rxsTrees_raw)) {
+      currentTreeName <- paste0(currentTreeName, "__1");
+    }
+    
+    while (currentTreeName %in% names(res$rxsTrees_raw)) {
+      currentNumber <- gsub(".*__([0-9]+)$", "\\1", currentTreeName);
+      currentTreeName <- paste0(currentTreeName, "__", currentNumber+1);
+    }
+    
+    res$log <- c(
+      res$log,
+      msg("\n  - The name of the raw Rxs tree for the current file will be '",
+          currentTreeName, "'.",
+          silent = silent)
+    );
+    
     ###-------------------------------------------------------------------------
     ### Extract R chunks
     ###-------------------------------------------------------------------------
@@ -201,16 +223,16 @@ rxs_parseExtractionScripts <- function(path,
     ### Make sure it's deleted when we're done
     on.exit(unlink(tempR));
 
-    if (filename %in% names (res$rxsPurlingOutput)) {
-      warning("Rxs purling output was already stored for file '",
-              filename,
-              "'. Storing existing version as 'BACKUP-",
-              filename,
-              "'.");
-      res$rxsPurlingOutput[[paste0("BACKUP-",filename)]] <-
-        res$rxsPurlingOutput[[filename]];
-      res$rxsPurlingOutput[[filename]] <- NULL;
-    }
+    # if (filename %in% names (res$rxsPurlingOutput)) {
+    #   warning("Rxs purling output was already stored for file '",
+    #           filename,
+    #           "'. Storing existing version as 'BACKUP-",
+    #           filename,
+    #           "'.");
+    #   res$rxsPurlingOutput[[paste0("BACKUP-",filename)]] <-
+    #     res$rxsPurlingOutput[[filename]];
+    #   res$rxsPurlingOutput[[filename]] <- NULL;
+    # }
 
     ### Extract R chunks and write them to another file
     purlingOutput <-
@@ -231,35 +253,36 @@ rxs_parseExtractionScripts <- function(path,
             invisible(e);
           })
       );
-
+    
+    tryCatch({res$rxsPurlingOutput[[currentTreeName]] <-
+      purlingOutput;},
+      error = function(e) {
+        stop("Error saving purling output to Rxs object! The error is:\n\n",
+             e$message,
+             "\n\nEncountered while processing file '", filename, "'.\n");
+      });
+    
     ###-------------------------------------------------------------------------
     ### Evaluate R chunks
     ###-------------------------------------------------------------------------
     
-    tryCatch({res$rxsPurlingOutput[[filename]] <-
-                purlingOutput;},
-             error = function(e) {
-               stop("Error saving purling output to Rxs object! The error is:\n\n",
-                    e$message,
-                    "\n\nEncountered while processing file '", filename, "'.\n");
-             });
-    
     res$log <- c(
       res$log,
       msg("\n  - Extracted R script fragments: ",
-          length(res$rxsPurlingOutput[[filename]]),
-          " lines extracted.",
+          length(res$rxsPurlingOutput[[currentTreeName]]),
+          " lines extracted (", sum(nchar(res$rxsPurlingOutput[[currentTreeName]])),
+          " characters).",
           silent = silent)
     );
 
     if (any(grepl("In file '",
                     filename,
                     "', encountered error while purling",
-                    res$rxsPurlingOutput[[filename]]))) {
-      res$rxsOutput[[filename]] <-
+                    res$rxsPurlingOutput[[currentTreeName]]))) {
+      res$rxsOutput[[currentTreeName]] <-
         "Could not run this extraction script because of purling problems."
       if (showErrors) {
-        cat(paste0(res$rxsPurlingOutput[[filename]], collapse="\n"));
+        cat(paste0(res$rxsPurlingOutput[[currentTreeName]], collapse="\n"));
       }
     } else {
       # oldEncoding <- getOption("encoding");
@@ -305,12 +328,13 @@ rxs_parseExtractionScripts <- function(path,
       res$log <- c(
         res$log,
         msg("\n  - Also executed R script fragments: ", length(rxsOutput),
-            " lines of output generated and stored.",
+            " lines of output generated and stored (",
+            sum(nchar(rxsOutput)), " characters).",
             silent = silent)
       );
 
       tryCatch({
-        res$rxsOutput[[filename]] <- rxsOutput;
+        res$rxsOutput[[currentTreeName]] <- rxsOutput;
         },
         error = function(e) {
           stop("Error saving rxs evaluation output to Rxs object! The error is:\n\n",
@@ -322,8 +346,8 @@ rxs_parseExtractionScripts <- function(path,
         if (any(grepl("In file '",
                       filename,
                       "', encountered error while running Rxs",
-                      res$rxsOutput[[filename]]))) {
-          cat(paste0(res$rxsOutput[[filename]], collapse="\n"));
+                      res$rxsOutput[[currentTreeName]]))) {
+          cat(paste0(res$rxsOutput[[currentTreeName]], collapse="\n"));
         }
       }
     }
@@ -358,26 +382,11 @@ rxs_parseExtractionScripts <- function(path,
     # }
     
     ###-------------------------------------------------------------------------
-    ### Make sure we have a unique name to store this object in
-    ###-------------------------------------------------------------------------
-    
-    currentTreeName <- filename;
-    
-    if (currentTreeName %in% names(res$rxsTrees_raw)) {
-      currentTreeName <- paste0(currentTreeName, "__1");
-    }
-    
-    while (currentTreeName %in% names(res$rxsTrees_raw)) {
-      currentNumber <- gsub(".*__([0-9]+)$", "\\1", currentTreeName);
-      currentTreeName <- paste0(currentTreeName, "__", currentNumber+1);
-    }
-    
-    ###-------------------------------------------------------------------------
     ### Get the result and store it in our results object
     ###-------------------------------------------------------------------------
-    
+
     ### If successful, store the result and delete object; otherwise set to NA
-    if (exists(rxsObjectName, envir=globalenv())) {
+    if (exists(quote(rxsObjectName), envir=globalenv())) {
       
       tmpRxsObject <- get(rxsObjectName, envir=globalenv());
 
@@ -439,16 +448,26 @@ rxs_parseExtractionScripts <- function(path,
       
       rm(list = rxsObjectName, envir=globalenv());
       
+      res$log <- c(
+        res$log,
+        msg("\n  - Done with source with identifier ", sourceId,
+            " from file ", filename, ".\n",
+            silent = silent)
+      );
+      
     } else {
+      
       res$rxsTrees_raw[[currentTreeName]] <- NA;
+      
+      res$log <- c(
+        res$log,
+        msg("\n  - Parsed file ", filename, ", but no object named '",
+            rxsObjectName,
+            "' was produced, and so no Rxs tree was obtained.\n",
+            silent = silent)
+      );
+      
     }
-    
-    res$log <- c(
-      res$log,
-      msg("\n  - Done with source with identifier ", sourceId,
-          " from file ", filename, ".\n",
-          silent = silent)
-    );
     
     if (progressBar) {
       #p$tick()$print();

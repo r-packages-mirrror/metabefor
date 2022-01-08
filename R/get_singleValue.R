@@ -571,6 +571,22 @@ get_singleValue <- function(x,
         silent = silent
       )
     );
+  } else if (inherits(x, "rxs") && inherits(x, "rxsObject")) {
+    return(
+      get_singleValue_fromTree(
+        x = x,
+        entityId = entityId,
+        lookInValueLists = lookInValueLists,
+        returnDf = returnDf,
+        flattenVectorsInDf = flattenVectorsInDf,
+        pathString_regex_flatten = pathString_regex_flatten,
+        pathString_regex_explode = pathString_regex_explode,
+        fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten,
+        returnLongDf = returnLongDf,
+        pathString_regex_select = pathString_regex_select,
+        silent = silent
+      )
+    );
   } else {
     stop("The object you passed is not an object with parsed Rxs files! It has class(es) ",
          vecTxtQ(class(x)), ".");

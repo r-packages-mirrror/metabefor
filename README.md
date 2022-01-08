@@ -97,11 +97,6 @@ using the `install.packages` function)
 <!-- Start of a custom bit for every package -->
 <!--------------------------------------------->
 
-## Getting started
-
-The SysRevving book may be a good place to get started (like this
-package, still under development): <https://sysrevving.com>.
-
 ## Other useful resources
 
 For an extensive resource about effect size computation and conversion,

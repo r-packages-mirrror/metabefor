@@ -8,6 +8,13 @@
 #' @export
 rxsTree_to_valueDf <- function(rxsTree) {
   
+  if (!inherits(x, "rxsObject")) {
+    stop(wrap_error(
+      "As `x`, you have to pass an Rxs tree, but instead, ",
+      "you passed an object with class(es) ", vecTxtQ(class(x)), "."
+    ));
+  }
+  
   res <- rxsTree$Get(function(node) {
     nodeName <- node$name;
     nodeValue <- node$value;
