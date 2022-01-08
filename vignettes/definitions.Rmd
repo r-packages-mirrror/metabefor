@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette contains definitions of the terms in `metabefor`.
+This vignette contains definitions of the terms in `metabefor`. For more background information, check the documentation linked to in the Getting Started section of the [`metabefor` PkgDown site](https://r-packages.gitlab.io/metabefor).
 
 Container entity
   : An *entity* that does not store a value (i.e. cannot itself be extracted) but serves to organise other entities in a hierarchy. For example, a container entity could be "Provenance", containing "regular" entities "Authors", "Region", and "Date". For the latter three, values are extracted, and though those three together can form a source's provenance, the entity provenance itself has no value: it just contains the other three entities.
