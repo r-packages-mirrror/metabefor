@@ -21,6 +21,7 @@ before_script:
   - R -e 'remotes::install_gitlab("r-packages/preregr")'
   - R -e 'remotes::install_gitlab("r-packages/justifier")'
   - R -e 'remotes::install_gitlab("r-packages/ufs")'
+  - R -e 'remotes::install_gitlab("r-packages/rock")'
   - R -e "install.packages(c('tinytex'), repos='http://cran.rstudio.com')"
   - R -e "tinytex::install_tinytex()"
 

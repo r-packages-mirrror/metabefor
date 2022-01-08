@@ -285,13 +285,13 @@ rxs_fromSpecifications <- function(x = NULL,
         entities = entities[entities[[eC$moduleCol]] == currentModule, ],
         valueTemplates = valueTemplates,
         definitions = definitions,
-        errorOnFailingValidation = errorOnFailingValidation,
         rxsRootName = rxsRootName
       );
 
       rxsTemplate_modules[[currentModule]] <- rxs_buildTemplate(
         rxsStructure = rxsStructure_modules[[currentModule]],
         rxsSpecification = res$rxsSpecification,
+        errorOnFailingValidation = errorOnFailingValidation,
         yamlMetadata = yamlMetadata,
         silent=silent
       );      
@@ -324,13 +324,13 @@ rxs_fromSpecifications <- function(x = NULL,
       entities = entities,
       valueTemplates = valueTemplates,
       definitions = definitions,
-      errorOnFailingValidation = errorOnFailingValidation,
       rxsRootName = rxsRootName
     );
   
     rxsTemplate <- rxs_buildTemplate(
       rxsStructure = rxsStructure,
       rxsSpecification = res$rxsSpecification,
+      errorOnFailingValidation = errorOnFailingValidation,
       yamlMetadata = yamlMetadata,
       module = NULL,
       silent=silent
