@@ -389,7 +389,7 @@ rxs_parseExtractionScripts <- function(path,
     ###-------------------------------------------------------------------------
 
     ### If successful, store the result and delete object; otherwise set to NA
-    if (exists(quote(rxsObjectName), envir=globalenv())) {
+    if (exists(rxsObjectName, envir=globalenv())) {
       
       tmpRxsObject <- get(rxsObjectName, envir=globalenv());
 
@@ -426,9 +426,10 @@ rxs_parseExtractionScripts <- function(path,
             silent = silent)
       );
 
-      allValues <- res$rxsTrees_raw[[currentTreeName]]$Get('value');
+      allValues <-
+        unlist(lapply(res$rxsTrees_raw[[currentTreeName]]$Get('value')));
 
-      if (any(unlist(lapply(allValues, is.expression)))) {
+      if (any(allValues, is.expression)) {
         res$log <- c(
           res$log,
           msg("  - In the extracted entities in filename ", filename,
@@ -442,7 +443,8 @@ rxs_parseExtractionScripts <- function(path,
       } else {
         res$log <- c(
           res$log,
-          msg("\n  - Checked (and discovered) that none of the extracted ",
+          msg("\n  - Checked (and discovered) that none of the ",
+              length(allValues), " extracted ",
               "`values` is in fact an R expression, which means that no ",
               "R syntax errors were probably made (e.g. omitted quotes).",
               silent = silent)
@@ -642,7 +644,7 @@ rxs_parseExtractionScripts <- function(path,
   res$log <- c(
     res$log,
     msg("\n\nFinished merging the Rxs trees. ",
-        "Starting verification of Rxs trees.\n",
+        "Starting superficial verification (i.e. without validation) of Rxs trees.\n",
         silent = silent
     )
   );
@@ -667,7 +669,7 @@ rxs_parseExtractionScripts <- function(path,
 
   res$log <- c(
     res$log,
-    msg("\nFinished verifying all Rxs Rxs trees.\n",
+    msg("\nFinished superficially verifying all Rxs trees.\n",
         silent = silent)
   );
 
