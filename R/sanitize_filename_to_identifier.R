@@ -7,7 +7,8 @@ sanitize_filename_to_identifier <-
   x <- trimws(x);
   
   sanitizedIds <-
-    gsub("\\.Rxs\\.Rmd", "", x, ignore.case = TRUE);
+    gsub("\\.[Rr]xs\\.[Rr]md", "", x,
+         ignore.case = TRUE);
   
   sanitizedIds <-
     gsub("[- .]", "_", sanitizedIds);

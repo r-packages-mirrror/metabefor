@@ -172,6 +172,8 @@ opts$defaults <-
     
     moduleWithoutName = "moduleWithoutName",
     
+    maxCores = NULL,
+    
     ### For creating the Rxs template
     indentDefault = TRUE,
     indentSpaces = 2,

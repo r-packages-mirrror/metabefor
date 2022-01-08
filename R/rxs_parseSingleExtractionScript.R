@@ -5,6 +5,7 @@
 #' @param progress Optionally, a progress bar to tick after the file
 #' has been parsed  (must be a [progress::progress_bar()] object.
 #' @param silent Whether to be quiet or chatty.
+#' @param parallel_options Used to pass options for parallel processing.
 #' @param showErrors Whether to show or hide errors that are encountered.
 #' @param encoding The files' encoding.
 #'
@@ -14,6 +15,7 @@ rxs_parseSingleExtractionScript <- function(filename,
                                             path,
                                             progress = NULL,
                                             silent = metabefor::opts$get("silent"),
+                                            parallel_options = NULL,
                                             showErrors = TRUE,
                                             encoding = "UTF-8") {
 
@@ -27,9 +29,31 @@ rxs_parseSingleExtractionScript <- function(filename,
   ### Get YAML parameters
   ###-------------------------------------------------------------------------
   
-  yamlParams <-
-    yum::load_and_simplify(file = file.path(path, filename));
+  ### Extract R chunks and write them to another file
+  res$yamlResult <-
+    utils::capture.output(
+      tryCatch(
+        yum::load_and_simplify(file = file.path(path, filename)),
+        error = function(e) {
+          cat(paste0("In file '",
+                     filename,
+                     "', encountered error while parsing extracted YAML: \n",
+                     e$message,
+                     "\n\n",
+                     collapse="\n"));
+          invisible(e);
+        })
+    );
   
+  if (is.list(res$yamlResult)) {
+    yamlParams <- res$yamlResult;
+    res$yamlParams <- yamlParams;
+  } else {
+    yamlParams <- list();
+    res$yamlParams <- NA;
+    res$log <- msg(res$yamlResult, silent = silent);
+  }
+
   if (("params" %in% names(yamlParams)) &&
       ("rxsVersion" %in% names(yamlParams$params))) {
     res$log <- c(
@@ -109,9 +133,15 @@ rxs_parseSingleExtractionScript <- function(filename,
     }
   } else {
     rxsVersion <- "0.0.1.9999";
-    rxsRootName <- metabefor::opts$get("rxsRootName");
-    rxsObjectName <- metabefor::opts$get("rxsObjectName");
-    uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+    if (is.null(parallel_options)) {
+      rxsRootName <- metabefor::opts$get("rxsRootName");
+      rxsObjectName <- metabefor::opts$get("rxsObjectName");
+      uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+    } else {
+      rxsRootName <- parallel_options[["rxsRootName"]];
+      rxsObjectName <- parallel_options[["rxsObjectName"]];
+      uniqueSourceIdName <- parallel_options[["uniqueSourceIdName"]];
+    }
     res$log <- c(
       res$log,
       msg("\n  - This is either a very old rxs file, or not a valid rxs ",
