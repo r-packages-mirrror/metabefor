@@ -5,7 +5,8 @@ rxs_fg_trueRecursion <- function(node,
                                  trueRecursionText = getOption("metabefor_trueRecursionText",
                                                                rxs_fg_trueRecursionText)) {
   eC <- metabefor::opts$get("entityColNames");
-  
+  repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
+
   ### This is a recursive occurrence of a recurring node.
   ### Therefore, we notify the coder that they should copy-paste
   ### the recursive node from the bottom.
@@ -61,16 +62,16 @@ rxs_fg_trueRecursion <- function(node,
   closingTxt <- paste0(" END: ", currentStartEndName, " ");
   openingTxt <-
     paste0(lV$indentSpaces,
-           commentCharacter,
-           repStr(lV$fullWidth - nchar(openingTxt) - 4, fillerCharacter),
+           lV$commentCharacter,
+           repStr(lV$fullWidth - nchar(openingTxt) - 4, lV$fillerCharacter),
            openingTxt,
-           repStr(fillerCharacter, 3));
+           repStr(lV$fillerCharacter, 3));
   closingTxt <-
     paste0(lV$indentSpaces,
-           commentCharacter,
-           repStr(lV$fullWidth - nchar(closingTxt) - 4, fillerCharacter),
+           lV$commentCharacter,
+           repStr(lV$fullWidth - nchar(closingTxt) - 4, lV$fillerCharacter),
            closingTxt,
-           repStr(fillerCharacter, 3));
+           repStr(lV$fillerCharacter, 3));
 
   ### Return the result in a list in case we're called for multiple nodes
   return(list(c(lV$lineFiller,

@@ -4,17 +4,20 @@
 \alias{rxs_validation}
 \title{Validate an Rxs tree}
 \usage{
-rxs_validation(rxsTree, rxsStructure = NULL)
+rxs_validation(rxsTree, stopOnFailure = FALSE, rxsStructure = NULL)
 }
 \arguments{
-\item{rxsTree}{The Rxs tree}
+\item{rxsTree}{The Rxs tree.}
+
+\item{stopOnFailure}{Whether to throw an error when validation fails.}
 
 \item{rxsStructure}{Optionally, the \code{rxsStructure} as resulting from
 a call to \code{\link[=rxs_parseSpecifications]{rxs_parseSpecifications()}}.}
 }
 \value{
 Invisibly, the Rxs tree (which was altered in place, consistent
-with the reference semantics employed by \code{\link[data.tree:Node]{data.tree::Node()}}.
+with the reference semantics employed by \code{\link[data.tree:Node]{data.tree::Node()}} - so you can
+just discard the result).
 }
 \description{
 Validate an Rxs tree

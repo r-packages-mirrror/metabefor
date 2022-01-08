@@ -4,7 +4,11 @@
 \alias{knittedFileSansExt}
 \title{Return the currently knitted file, without \code{.Rxs.Rmd} extension}
 \usage{
-knittedFileSansExt()
+knittedFileSansExt(x = NULL)
+}
+\arguments{
+\item{x}{Optionally, a filename. If \code{NULL}, \code{\link[knitr:current_input]{knitr::current_input()}} is
+read instead.}
 }
 \value{
 The currently knitted file, without \code{.Rxs.Rmd} extension

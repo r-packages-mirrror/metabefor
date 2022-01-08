@@ -26,6 +26,9 @@ rxs_fg_layoutVars <- function(level=1,
                               " ");
   res$valuePrefix <- paste0(res$indentSpaces, repStr(4));
 
+  res$fillerCharacter <- fillerCharacter;
+  res$commentCharacter <- commentCharacter;
+  
   return(res);
 
 }

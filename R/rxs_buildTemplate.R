@@ -1,5 +1,6 @@
 rxs_buildTemplate <- function(rxsStructure,
                               rxsSpecification,
+                              errorOnFailingValidation = errorOnFailingValidation,
                               yamlMetadata = NULL,
                               module = NULL,
                               silent = metabefor::opts$get("silent")) {
@@ -196,7 +197,8 @@ rxs_buildTemplate <- function(rxsStructure,
   validationChunk <-
     c(paste0("```{r ", validationChunkLabel, ", results='asis'}"),
       "metabefor::heading('Validation results', headingLevel = 1);",
-      paste0("metabefor::rxs_validation(", rxsObjectName, ");"),
+      paste0("metabefor::rxs_validation(\n  ", rxsObjectName,
+             ",\n  stopOnFailure = ", errorOnFailingValidation, ");"),
       paste0("cat(paste0('- ', ", rxsObjectName, "$validationLog), sep='\\n');"),
       "```");
 

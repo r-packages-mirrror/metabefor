@@ -44,6 +44,9 @@
 #' @param rxsRootName The name of the root element
 #' @param preventOverwriting Whether to prevent accidental overwriting of the
 #' extraction templates.
+#' @param errorOnFailingValidation Whether to throw an error when validation
+#' failed or not. If `FALSE`, the validation log is shown in the rendered
+#' output; if `TRUE` rendering is aborted by an error that shows the log.
 #' @param ignoreModules Optionally, you can ignore modules specified in the
 #' Rxs specification spreadsheet by setting `ignoreModules` to `TRUE`.
 #' @param silent Whether to be silent or chatty.
@@ -68,6 +71,7 @@ rxs_fromSpecifications <- function(x = NULL,
                                    yamlMetadata = NULL,
                                    rxsRootName = metabefor::opts$get(rxsRootName),
                                    preventOverwriting = FALSE,
+                                   errorOnFailingValidation = FALSE,
                                    silent = metabefor::opts$get("silent"),
                                    instructionHeadingLevel = 3,
                                    graphTheme = list(c("fontname", "Arial", "node")),
@@ -206,13 +210,18 @@ rxs_fromSpecifications <- function(x = NULL,
   ### Set up results object
   ###---------------------------------------------------------------------------
   
-  res <- list(rxsSpecification = list(entities = entities,
-                                      valueTemplates = valueTemplates,
-                                      definitions = definitions,
-                                      instructionSheet = instructionSheet,
-                                      rxsRootName = rxsRootName,
-                                      yamlMetadata = yamlMetadata),
-              rxsInstructions = instructions);
+  res <- list(
+    rxsSpecification = list(
+      entities = entities,
+      valueTemplates = valueTemplates,
+      definitions = definitions,
+      instructionSheet = instructionSheet,
+      errorOnFailingValidation = errorOnFailingValidation,
+      rxsRootName = rxsRootName,
+      yamlMetadata = yamlMetadata
+    ),
+    rxsInstructions = instructions
+  );
   
   class(res) <- "rxsStructure";
 
@@ -276,6 +285,7 @@ rxs_fromSpecifications <- function(x = NULL,
         entities = entities[entities[[eC$moduleCol]] == currentModule, ],
         valueTemplates = valueTemplates,
         definitions = definitions,
+        errorOnFailingValidation = errorOnFailingValidation,
         rxsRootName = rxsRootName
       );
 
@@ -314,6 +324,7 @@ rxs_fromSpecifications <- function(x = NULL,
       entities = entities,
       valueTemplates = valueTemplates,
       definitions = definitions,
+      errorOnFailingValidation = errorOnFailingValidation,
       rxsRootName = rxsRootName
     );
   
