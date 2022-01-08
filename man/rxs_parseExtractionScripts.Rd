@@ -13,7 +13,8 @@ rxs_parseExtractionScripts(
   silent = metabefor::opts$get("silent"),
   progressBar = TRUE,
   showErrors = TRUE,
-  encoding = "UTF-8"
+  encoding = "UTF-8",
+  nCores = 1
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ rxs_parseExtractionScripts(
 \item{showErrors}{Whether to show or hide errors that are encountered.}
 
 \item{encoding}{The files' encoding.}
+
+\item{nCores}{Number of cores to use.}
 }
 \value{
 A list of parsed extraction scripts.

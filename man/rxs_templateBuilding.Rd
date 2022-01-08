@@ -13,6 +13,7 @@ rxs_fromSpecifications(
   yamlMetadata = NULL,
   rxsRootName = metabefor::opts$get(rxsRootName),
   preventOverwriting = FALSE,
+  errorOnFailingValidation = FALSE,
   silent = metabefor::opts$get("silent"),
   instructionHeadingLevel = 3,
   graphTheme = list(c("fontname", "Arial", "node")),
@@ -59,6 +60,10 @@ will override the default values in the Rmd file that is the Rxs template.}
 
 \item{preventOverwriting}{Whether to prevent accidental overwriting of the
 extraction templates.}
+
+\item{errorOnFailingValidation}{Whether to throw an error when validation
+failed or not. If \code{FALSE}, the validation log is shown in the rendered
+output; if \code{TRUE} rendering is aborted by an error that shows the log.}
 
 \item{silent}{Whether to be silent or chatty.}
 

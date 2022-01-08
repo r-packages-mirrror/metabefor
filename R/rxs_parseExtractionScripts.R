@@ -9,6 +9,7 @@
 #' @param progressBar Whether to show the progress bar.
 #' @param showErrors Whether to show or hide errors that are encountered.
 #' @param encoding The files' encoding.
+#' @param nCores Number of cores to use.
 #'
 #' @return A list of parsed extraction scripts.
 #' @export
@@ -21,7 +22,8 @@ rxs_parseExtractionScripts <- function(path,
                                        silent = metabefor::opts$get("silent"),
                                        progressBar = TRUE,
                                        showErrors = TRUE,
-                                       encoding = "UTF-8") {
+                                       encoding = "UTF-8",
+                                       nCores = 1) {
 
   res <- list(input = as.list(environment()));
 
@@ -54,22 +56,6 @@ rxs_parseExtractionScripts <- function(path,
 
   res$input$allScripts <- allScripts;
   
-  if (progressBar) {
-    if (!interactive()) {
-      progressBar <- FALSE;
-    }
-    if (!requireNamespace("progress", quietly = TRUE)) {
-      progressBar <- FALSE;
-    }
-  }
-
-  if (progressBar) {
-    p <- progress::progress_bar$new(
-      total = length(allScripts),
-      format = ":spin [:bar] :percent in :elapsedfull, :eta to go");
-    #p <- dplyr::progress_estimated(length(allScripts));
-  };
-
   res$log <- c(
     res$log,
     msg("\nStarting to process ", length(allScripts),
@@ -78,388 +64,471 @@ rxs_parseExtractionScripts <- function(path,
         " but excluding all files matching regular expression ",
         exclude, ".", silent = silent)
   );
-
-  for (filename in allScripts) {
-    
-    res$log <- c(
-      res$log,
-      msg("\n\nStarting to process extraction script ", filename, "...",
-          silent = silent)
-    );
-    
-    ###-------------------------------------------------------------------------
-    ### Get YAML parameters
-    ###-------------------------------------------------------------------------
-    
-    yamlParams <-
-      yum::load_and_simplify(file = file.path(path, filename));
-    
-    if (("params" %in% names(yamlParams)) &&
-        ("rxsVersion" %in% names(yamlParams$params))) {
-      res$log <- c(
-        res$log,
-        msg("\n  - This is a valid Rxs file, version ",
-            yamlParams$params$rxsVersion, ".",
-            silent = silent)
-      );
-      ###-----------------------------------------------------------------------
-      ### rxsRootName
-      ###-----------------------------------------------------------------------
-      if ("rxsRootName" %in% names(yamlParams$params)) {
-        rxsRootName <- yamlParams$params$rxsRootName;
-        res$log <- c(
-          res$log,
-          msg("\n  - The rxsRootName stored in this Rxs file is '",
-              rxsRootName, "'.",
-              silent = silent)
-        );
-      } else {
-        rxsRootName <- metabefor::opts$get("rxsRootName");
-        res$log <- c(
-          res$log,
-          msg("\n  - The rxsRootName was not stored in this Rxs file. Using the ",
-              "name stored in the options ('",
-              rxsRootName, "'. That is, however, a relatively new name - if ",
-              "you get any errors, you may want to set it to e.g. 'study' ",
-              "using:\n\n    metabefor::opts$set(rxsRootName = 'study');\n",
-              silent = silent)
-        );
-      }
-      ###-----------------------------------------------------------------------
-      ### rxsObjectName
-      ###-----------------------------------------------------------------------
-      if ("rxsObjectName" %in% names(yamlParams$params)) {
-        rxsObjectName <- yamlParams$params$rxsObjectName;
-        res$log <- c(
-          res$log,
-          msg("\n  - The rxsObjectName stored in this Rxs file is '",
-              rxsObjectName, "'.",
-              silent = silent)
-        );
-      } else {
-        rxsObjectName <- metabefor::opts$get("rxsObjectName");
-        res$log <- c(
-          res$log,
-          msg("\n  - The rxsObjectName was not stored in this Rxs file. Using the ",
-              "name stored in the options ('",
-              rxsObjectName, "'. That is, however, a relatively new name - if ",
-              "you get any errors, you may want to set it to e.g. 'study' ",
-              "using:\n\n    metabefor::opts$set(rxsObjectName = 'study');\n",
-              silent = silent)
-        );
-      }
-      ###-----------------------------------------------------------------------
-      ### uniqueSourceIdName
-      ###-----------------------------------------------------------------------
-      if ("uniqueSourceIdName" %in% names(yamlParams$params)) {
-        uniqueSourceIdName <- yamlParams$params$uniqueSourceIdName;
-        res$log <- c(
-          res$log,
-          msg("\n  - The uniqueSourceIdName stored in this Rxs file is '",
-              uniqueSourceIdName, "'.",
-              silent = silent)
-        );
-      } else {
-        uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
-        res$log <- c(
-          res$log,
-          msg("\n  - The uniqueSourceIdName was not stored in this Rxs file. Using the ",
-              "name stored in the options ('",
-              uniqueSourceIdName, "'. That is, however, a relatively new name - if ",
-              "you get any errors, you may want to set it using e.g.:\n\n",
-              "    metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
-              silent = silent)
-        );
-      }
-    } else {
-      rxsVersion <- "0.0.1.9999";
-      rxsRootName <- metabefor::opts$get("rxsRootName");
-      rxsObjectName <- metabefor::opts$get("rxsObjectName");
-      uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
-      res$log <- c(
-        res$log,
-        msg("\n  - This is either a very old rxs file, or not a valid rxs ",
-            "file at all. I will use the settings from the options ",
-            "(specifically, setting rxsVersion to '", rxsVersion,
-            "', and based on the options, using rxsRootName='", rxsRootName,
-            "', rxsObjectName='", rxsObjectName,
-            "', uniqueSourceIdName='", uniqueSourceIdName, "'). If you ",
-            "see any errors, you may want to change the root and object ",
-            "names to something else, using e.g. the old default:\n\n",
-            "    metabefor::opts$set(rxsRootName = 'study');\n",
-            "    metabefor::opts$set(rxsObjectName = 'study');\n",
-            silent = silent)
-      );
-    }
-    
-    ###-------------------------------------------------------------------------
-    ### Make sure we have a unique name to store this object in
-    ###-------------------------------------------------------------------------
-    
-    currentTreeName <- filename;
-    
-    if (currentTreeName %in% names(res$rxsTrees_raw)) {
-      currentTreeName <- paste0(currentTreeName, "__1");
-    }
-    
-    while (currentTreeName %in% names(res$rxsTrees_raw)) {
-      currentNumber <- gsub(".*__([0-9]+)$", "\\1", currentTreeName);
-      currentTreeName <- paste0(currentTreeName, "__", currentNumber+1);
-    }
-    
-    res$log <- c(
-      res$log,
-      msg("\n  - The name of the raw Rxs tree for the current file will be '",
-          currentTreeName, "'.",
-          silent = silent)
-    );
-    
-    ###-------------------------------------------------------------------------
-    ### Extract R chunks
-    ###-------------------------------------------------------------------------
-    
-    ### From https://stackoverflow.com/questions/24753969/knitr-run-all-chunks-in-an-rmarkdown-document
-
-    ### Create temporary file
-    tempR <- tempfile(fileext = ".R");
-
-    ### Make sure it's deleted when we're done
-    on.exit(unlink(tempR));
-
-    # if (filename %in% names (res$rxsPurlingOutput)) {
-    #   warning("Rxs purling output was already stored for file '",
-    #           filename,
-    #           "'. Storing existing version as 'BACKUP-",
-    #           filename,
-    #           "'.");
-    #   res$rxsPurlingOutput[[paste0("BACKUP-",filename)]] <-
-    #     res$rxsPurlingOutput[[filename]];
-    #   res$rxsPurlingOutput[[filename]] <- NULL;
-    # }
-
-    ### Extract R chunks and write them to another file
-    purlingOutput <-
-      utils::capture.output(
-        tryCatch(
-          knitr::purl(
-            file.path(path, filename),
-            output=tempR,
-            quiet=TRUE,
-            encoding=encoding),
-          error = function(e) {
-            cat(paste0("In file '",
-                       filename,
-                       "', encountered error while purling: \n",
-                       e$message,
-                       "\n\n",
-                       collapse="\n"));
-            invisible(e);
-          })
-      );
-    
-    tryCatch({res$rxsPurlingOutput[[currentTreeName]] <-
-      purlingOutput;},
-      error = function(e) {
-        stop("Error saving purling output to Rxs object! The error is:\n\n",
-             e$message,
-             "\n\nEncountered while processing file '", filename, "'.\n");
-      });
-    
-    ###-------------------------------------------------------------------------
-    ### Evaluate R chunks
-    ###-------------------------------------------------------------------------
-    
-    res$log <- c(
-      res$log,
-      msg("\n  - Extracted R script fragments: ",
-          length(res$rxsPurlingOutput[[currentTreeName]]),
-          " lines extracted (", sum(nchar(res$rxsPurlingOutput[[currentTreeName]])),
-          " characters).",
-          silent = silent)
-    );
-
-    if (any(grepl("In file '",
-                    filename,
-                    "', encountered error while purling",
-                    res$rxsPurlingOutput[[currentTreeName]]))) {
-      res$rxsOutput[[currentTreeName]] <-
-        "Could not run this extraction script because of purling problems."
-      if (showErrors) {
-        cat(paste0(res$rxsPurlingOutput[[currentTreeName]], collapse="\n"));
-      }
-    } else {
-      # oldEncoding <- getOption("encoding");
-      # on.exit(options(encoding = oldEncoding));
-      # options(encoding = "UTF-8");
-      # ###
-      # ### If the above doesn't work, use source instead of sys.source
-      # ### so that it's possible to pass an encoding.
-      # ###
-      
-      ###-----------------------------------------------------------------------
-      ### Can't see how to resolve this; any attempt to force UTF-8 encoding
-      ### results in 
-      ###-----------------------------------------------------------------------
-      
-      ### Run the other file with error handling
-      rxsOutput <-
-        # capture.output(tryCatch(sys.source(tempR, envir=globalenv()),
-        utils::capture.output(
-          tryCatch(
-            source(
-              tempR,
-              local=globalenv(),
-              encoding = "UTF-8"
-            ),
-            error = function(e) {
-              cat(
-                paste0(
-                  "In file '",
-                  filename,
-                  "', encountered error while running Rxs: \n",
-                  e$message,
-                  "\n\n",
-                  collapse="\n"
-                )
-              );
-        # cat(e$message);
-            invisible(e);
-          }
-        )
-      );
-      
-      res$log <- c(
-        res$log,
-        msg("\n  - Also executed R script fragments: ", length(rxsOutput),
-            " lines of output generated and stored (",
-            sum(nchar(rxsOutput)), " characters).",
-            silent = silent)
-      );
-
-      tryCatch({
-        res$rxsOutput[[currentTreeName]] <- rxsOutput;
-        },
-        error = function(e) {
-          stop("Error saving rxs evaluation output to Rxs object! The error is:\n\n",
-               e$message,
-               "\n\nEncountered while processing file '", filename, "'.\n");
-        });
-
-      if (showErrors) {
-        if (any(grepl("In file '",
-                      filename,
-                      "', encountered error while running Rxs",
-                      res$rxsOutput[[currentTreeName]]))) {
-          cat(paste0(res$rxsOutput[[currentTreeName]], collapse="\n"));
-        }
-      }
-    }
-
-    ###-------------------------------------------------------------------------
-    ### Get the result and store it in our results object
-    ###-------------------------------------------------------------------------
-
-    ### If successful, store the result and delete object; otherwise set to NA
-    if (exists(rxsObjectName, envir=globalenv())) {
-      
-      tmpRxsObject <- get(rxsObjectName, envir=globalenv());
-
-      res$rxsTrees_raw[[currentTreeName]] <-
-        data.tree::Clone(tmpRxsObject);
-      
-      class(res$rxsTrees_raw[[currentTreeName]]) <-
-        union(c("rxs", "rxsOject"),
-              class(res$rxsTrees_raw[[currentTreeName]]));
-      
-      if (is.null(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
-        res$rxsTrees_raw[[currentTreeName]]$rxsMetadata <-
-          list(#id_from_parsing = sourceId,
-               id = sanitize_filename_to_identifier(filename),   
-               filename = filename);
-      } else {
-        # res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id_from_parsing <-
-        #   sourceId;
-        res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$filename <-
-          filename
-        if (!("id" %in% names(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata))) {
-          res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id <-
-            sanitize_filename_to_identifier(filename);
-        }
-      }
-      sourceId <- res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id;
-      
-      nrOfEntities <-
-        length(res$rxsTrees_raw[[currentTreeName]]$Get("name"))
-      
-      res$log <- c(
-        res$log,
-        msg("\n  - Finally, successfully stored the object with extracted data, which ",
-            "itself contains ", nrOfEntities, " entities ",
-            "(some of which may be clustering entities (i.e. lists of other ",
-            "entities), in which case even more than ", nrOfEntities,
-            " entities may have been extracted from this source).",
-            silent = silent)
-      );
-
-      allValues <-
-        res$rxsTrees_raw[[currentTreeName]]$Get('value');
-      
-      valuesThatAreExpressions <-
-        unlist(lapply(allValues, is.expression));
-
-      if (any(valuesThatAreExpressions)) {
-        res$log <- c(
-          res$log,
-          msg("  - In the extracted entities in filename ", filename,
-              " for source with identifier '", sourceId, "', one or more ",
-              "extracted values are not just values, but ",
-              "instead R expressions! This is probably a symptom of ",
-              "a syntax error made during extraction (e.g. omitted quotes). ",
-              "Carefully check the extraction script file, specifically ",
-              "the entities with the following identifiers: ",
-              vecTxtQ(names(allValues)[valuesThatAreExpressions]),
-              ".",
-              silent = silent)
-        );
-      } else {
-        res$log <- c(
-          res$log,
-          msg("\n  - Checked (and discovered) that none of the ",
-              length(allValues), " extracted ",
-              "`values` is in fact an R expression, which means that no ",
-              "R syntax errors were probably made (e.g. omitted quotes).",
-              silent = silent)
-        );
-      }
-      
-      rm(list = rxsObjectName, envir=globalenv());
-      
-      res$log <- c(
-        res$log,
-        msg("\n  - Done with source with identifier ", sourceId,
-            " from file ", filename, ".\n",
-            silent = silent)
-      );
-      
-    } else {
-      
-      res$rxsTrees_raw[[currentTreeName]] <- NA;
-      
-      res$log <- c(
-        res$log,
-        msg("\n  - Parsed file ", filename, ", but no object named '",
-            rxsObjectName,
-            "' was produced, and so no Rxs tree was obtained.\n",
-            silent = silent)
-      );
-      
-    }
-    
+  
+  if (nCores == 1) {
+  
     if (progressBar) {
-      #p$tick()$print();
-      p$tick();
+      if (!interactive()) {
+        progressBar <- FALSE;
+      }
+      if (!requireNamespace("progress", quietly = TRUE)) {
+        progressBar <- FALSE;
+      }
+    }
+  
+    if (progressBar) {
+      p <- progress::progress_bar$new(
+        total = length(allScripts),
+        format = ":spin [:bar] :percent in :elapsedfull, :eta to go");
+      #p <- dplyr::progress_estimated(length(allScripts));
     };
 
+    # for (filename in allScripts) {
+      
+    parsedRxsFiles <-
+      lapply(
+        allScripts,
+        rxs_parseSingleExtractionScript,
+        path = path,
+        silent = silent,
+        progress = p,
+        showErrors = showErrors,
+        encoding = encoding
+      );
+    
+    ###-------------------------------------------------------------------------
+    ### Make sure we have unique names to store the objects in
+    ###-------------------------------------------------------------------------
+    
+    cumulativeDuplicateCounts <-
+      cumulativeDuplicateCount(allScripts) - 1;
+    
+    filenameSuffixes <-
+      ifelse(cumulativeDuplicateCounts == 0,
+             "",
+             paste0("__", cumulativeDuplicateCounts));
+    
+    parsedRxsFiles_names <-
+      paste0(allScripts, filenameSuffixes);
+
+    res$log <-
+      c(res$log,
+        unlist(lapply(parsedRxsFiles,
+                      function(x) {
+                        return(x$log);
+                      })));
+    
+    res$rxsPurlingOutput <-
+      lapply(parsedRxsFiles,
+             function(x) {
+               return(x$rxsPurlingOutput);
+             });
+    
+    res$rxsOutput <-
+      lapply(parsedRxsFiles,
+             function(x) {
+               return(x$rxsOutput);
+             });
+    
+    res$rxsTrees_raw <-
+      lapply(parsedRxsFiles,
+             function(x) {
+               return(x$rxsTrees_raw);
+             });
+    
+    names(res$rxsPurlingOutput) <- parsedRxsFiles_names;
+    names(res$rxsOutput) <- parsedRxsFiles_names;
+    names(res$rxsTrees_raw) <- parsedRxsFiles_names;
+    
+
+      # res$log <- c(
+      #   res$log,
+      #   msg("\n\nStarting to process extraction script ", filename, "...",
+      #       silent = silent)
+      # );
+      # 
+      # ###-------------------------------------------------------------------------
+      # ### Get YAML parameters
+      # ###-------------------------------------------------------------------------
+      # 
+      # yamlParams <-
+      #   yum::load_and_simplify(file = file.path(path, filename));
+      # 
+      # if (("params" %in% names(yamlParams)) &&
+      #     ("rxsVersion" %in% names(yamlParams$params))) {
+      #   res$log <- c(
+      #     res$log,
+      #     msg("\n  - This is a valid Rxs file, version ",
+      #         yamlParams$params$rxsVersion, ".",
+      #         silent = silent)
+      #   );
+      #   ###-----------------------------------------------------------------------
+      #   ### rxsRootName
+      #   ###-----------------------------------------------------------------------
+      #   if ("rxsRootName" %in% names(yamlParams$params)) {
+      #     rxsRootName <- yamlParams$params$rxsRootName;
+      #     res$log <- c(
+      #       res$log,
+      #       msg("\n  - The rxsRootName stored in this Rxs file is '",
+      #           rxsRootName, "'.",
+      #           silent = silent)
+      #     );
+      #   } else {
+      #     rxsRootName <- metabefor::opts$get("rxsRootName");
+      #     res$log <- c(
+      #       res$log,
+      #       msg("\n  - The rxsRootName was not stored in this Rxs file. Using the ",
+      #           "name stored in the options ('",
+      #           rxsRootName, "'. That is, however, a relatively new name - if ",
+      #           "you get any errors, you may want to set it to e.g. 'study' ",
+      #           "using:\n\n    metabefor::opts$set(rxsRootName = 'study');\n",
+      #           silent = silent)
+      #     );
+      #   }
+      #   ###-----------------------------------------------------------------------
+      #   ### rxsObjectName
+      #   ###-----------------------------------------------------------------------
+      #   if ("rxsObjectName" %in% names(yamlParams$params)) {
+      #     rxsObjectName <- yamlParams$params$rxsObjectName;
+      #     res$log <- c(
+      #       res$log,
+      #       msg("\n  - The rxsObjectName stored in this Rxs file is '",
+      #           rxsObjectName, "'.",
+      #           silent = silent)
+      #     );
+      #   } else {
+      #     rxsObjectName <- metabefor::opts$get("rxsObjectName");
+      #     res$log <- c(
+      #       res$log,
+      #       msg("\n  - The rxsObjectName was not stored in this Rxs file. Using the ",
+      #           "name stored in the options ('",
+      #           rxsObjectName, "'. That is, however, a relatively new name - if ",
+      #           "you get any errors, you may want to set it to e.g. 'study' ",
+      #           "using:\n\n    metabefor::opts$set(rxsObjectName = 'study');\n",
+      #           silent = silent)
+      #     );
+      #   }
+      #   ###-----------------------------------------------------------------------
+      #   ### uniqueSourceIdName
+      #   ###-----------------------------------------------------------------------
+      #   if ("uniqueSourceIdName" %in% names(yamlParams$params)) {
+      #     uniqueSourceIdName <- yamlParams$params$uniqueSourceIdName;
+      #     res$log <- c(
+      #       res$log,
+      #       msg("\n  - The uniqueSourceIdName stored in this Rxs file is '",
+      #           uniqueSourceIdName, "'.",
+      #           silent = silent)
+      #     );
+      #   } else {
+      #     uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+      #     res$log <- c(
+      #       res$log,
+      #       msg("\n  - The uniqueSourceIdName was not stored in this Rxs file. Using the ",
+      #           "name stored in the options ('",
+      #           uniqueSourceIdName, "'. That is, however, a relatively new name - if ",
+      #           "you get any errors, you may want to set it using e.g.:\n\n",
+      #           "    metabefor::opts$set(uniqueSourceIdName = 'uniqueSourceIdentifier');\n",
+      #           silent = silent)
+      #     );
+      #   }
+      # } else {
+      #   rxsVersion <- "0.0.1.9999";
+      #   rxsRootName <- metabefor::opts$get("rxsRootName");
+      #   rxsObjectName <- metabefor::opts$get("rxsObjectName");
+      #   uniqueSourceIdName <- metabefor::opts$get("uniqueSourceIdName");
+      #   res$log <- c(
+      #     res$log,
+      #     msg("\n  - This is either a very old rxs file, or not a valid rxs ",
+      #         "file at all. I will use the settings from the options ",
+      #         "(specifically, setting rxsVersion to '", rxsVersion,
+      #         "', and based on the options, using rxsRootName='", rxsRootName,
+      #         "', rxsObjectName='", rxsObjectName,
+      #         "', uniqueSourceIdName='", uniqueSourceIdName, "'). If you ",
+      #         "see any errors, you may want to change the root and object ",
+      #         "names to something else, using e.g. the old default:\n\n",
+      #         "    metabefor::opts$set(rxsRootName = 'study');\n",
+      #         "    metabefor::opts$set(rxsObjectName = 'study');\n",
+      #         silent = silent)
+      #   );
+      # }
+      # 
+      # ###-------------------------------------------------------------------------
+      # ### Make sure we have a unique name to store this object in
+      # ###-------------------------------------------------------------------------
+      # 
+      # currentTreeName <- filename;
+      # 
+      # if (currentTreeName %in% names(res$rxsTrees_raw)) {
+      #   currentTreeName <- paste0(currentTreeName, "__1");
+      # }
+      # 
+      # while (currentTreeName %in% names(res$rxsTrees_raw)) {
+      #   currentNumber <- gsub(".*__([0-9]+)$", "\\1", currentTreeName);
+      #   currentTreeName <- paste0(currentTreeName, "__", currentNumber+1);
+      # }
+      # 
+      # res$log <- c(
+      #   res$log,
+      #   msg("\n  - The name of the raw Rxs tree for the current file will be '",
+      #       currentTreeName, "'.",
+      #       silent = silent)
+      # );
+      # 
+      # ###-------------------------------------------------------------------------
+      # ### Extract R chunks
+      # ###-------------------------------------------------------------------------
+      # 
+      # ### From https://stackoverflow.com/questions/24753969/knitr-run-all-chunks-in-an-rmarkdown-document
+      # 
+      # ### Create temporary file
+      # tempR <- tempfile(fileext = ".R");
+      # 
+      # ### Make sure it's deleted when we're done
+      # on.exit(unlink(tempR));
+      # 
+      # # if (filename %in% names (res$rxsPurlingOutput)) {
+      # #   warning("Rxs purling output was already stored for file '",
+      # #           filename,
+      # #           "'. Storing existing version as 'BACKUP-",
+      # #           filename,
+      # #           "'.");
+      # #   res$rxsPurlingOutput[[paste0("BACKUP-",filename)]] <-
+      # #     res$rxsPurlingOutput[[filename]];
+      # #   res$rxsPurlingOutput[[filename]] <- NULL;
+      # # }
+      # 
+      # ### Extract R chunks and write them to another file
+      # purlingOutput <-
+      #   utils::capture.output(
+      #     tryCatch(
+      #       knitr::purl(
+      #         file.path(path, filename),
+      #         output=tempR,
+      #         quiet=TRUE,
+      #         encoding=encoding),
+      #       error = function(e) {
+      #         cat(paste0("In file '",
+      #                    filename,
+      #                    "', encountered error while purling: \n",
+      #                    e$message,
+      #                    "\n\n",
+      #                    collapse="\n"));
+      #         invisible(e);
+      #       })
+      #   );
+      # 
+      # tryCatch({res$rxsPurlingOutput[[currentTreeName]] <-
+      #   purlingOutput;},
+      #   error = function(e) {
+      #     stop("Error saving purling output to Rxs object! The error is:\n\n",
+      #          e$message,
+      #          "\n\nEncountered while processing file '", filename, "'.\n");
+      #   });
+      # 
+      # ###-------------------------------------------------------------------------
+      # ### Evaluate R chunks
+      # ###-------------------------------------------------------------------------
+      # 
+      # res$log <- c(
+      #   res$log,
+      #   msg("\n  - Extracted R script fragments: ",
+      #       length(res$rxsPurlingOutput[[currentTreeName]]),
+      #       " lines extracted (", sum(nchar(res$rxsPurlingOutput[[currentTreeName]])),
+      #       " characters).",
+      #       silent = silent)
+      # );
+      # 
+      # if (any(grepl("In file '",
+      #                 filename,
+      #                 "', encountered error while purling",
+      #                 res$rxsPurlingOutput[[currentTreeName]]))) {
+      #   res$rxsOutput[[currentTreeName]] <-
+      #     "Could not run this extraction script because of purling problems."
+      #   if (showErrors) {
+      #     cat(paste0(res$rxsPurlingOutput[[currentTreeName]], collapse="\n"));
+      #   }
+      # } else {
+      #   # oldEncoding <- getOption("encoding");
+      #   # on.exit(options(encoding = oldEncoding));
+      #   # options(encoding = "UTF-8");
+      #   # ###
+      #   # ### If the above doesn't work, use source instead of sys.source
+      #   # ### so that it's possible to pass an encoding.
+      #   # ###
+      #   
+      #   ###-----------------------------------------------------------------------
+      #   ### Can't see how to resolve this; any attempt to force UTF-8 encoding
+      #   ### results in 
+      #   ###-----------------------------------------------------------------------
+      #   
+      #   ### Run the other file with error handling
+      #   rxsOutput <-
+      #     # capture.output(tryCatch(sys.source(tempR, envir=globalenv()),
+      #     utils::capture.output(
+      #       tryCatch(
+      #         source(
+      #           tempR,
+      #           local=globalenv(),
+      #           encoding = "UTF-8"
+      #         ),
+      #         error = function(e) {
+      #           cat(
+      #             paste0(
+      #               "In file '",
+      #               filename,
+      #               "', encountered error while running Rxs: \n",
+      #               e$message,
+      #               "\n\n",
+      #               collapse="\n"
+      #             )
+      #           );
+      #     # cat(e$message);
+      #         invisible(e);
+      #       }
+      #     )
+      #   );
+      #   
+      #   res$log <- c(
+      #     res$log,
+      #     msg("\n  - Also executed R script fragments: ", length(rxsOutput),
+      #         " lines of output generated and stored (",
+      #         sum(nchar(rxsOutput)), " characters).",
+      #         silent = silent)
+      #   );
+      # 
+      #   tryCatch({
+      #     res$rxsOutput[[currentTreeName]] <- rxsOutput;
+      #     },
+      #     error = function(e) {
+      #       stop("Error saving rxs evaluation output to Rxs object! The error is:\n\n",
+      #            e$message,
+      #            "\n\nEncountered while processing file '", filename, "'.\n");
+      #     });
+      # 
+      #   if (showErrors) {
+      #     if (any(grepl("In file '",
+      #                   filename,
+      #                   "', encountered error while running Rxs",
+      #                   res$rxsOutput[[currentTreeName]]))) {
+      #       cat(paste0(res$rxsOutput[[currentTreeName]], collapse="\n"));
+      #     }
+      #   }
+      # }
+      # 
+      # ###-------------------------------------------------------------------------
+      # ### Get the result and store it in our results object
+      # ###-------------------------------------------------------------------------
+      # 
+      # ### If successful, store the result and delete object; otherwise set to NA
+      # if (exists(rxsObjectName, envir=globalenv())) {
+      #   
+      #   tmpRxsObject <- get(rxsObjectName, envir=globalenv());
+      # 
+      #   res$rxsTrees_raw[[currentTreeName]] <-
+      #     data.tree::Clone(tmpRxsObject);
+      #   
+      #   class(res$rxsTrees_raw[[currentTreeName]]) <-
+      #     union(c("rxs", "rxsObject"),
+      #           class(res$rxsTrees_raw[[currentTreeName]]));
+      #   
+      #   if (is.null(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata)) {
+      #     res$rxsTrees_raw[[currentTreeName]]$rxsMetadata <-
+      #       list(#id_from_parsing = sourceId,
+      #            id = sanitize_filename_to_identifier(filename),   
+      #            filename = filename);
+      #   } else {
+      #     # res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id_from_parsing <-
+      #     #   sourceId;
+      #     res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$filename <-
+      #       filename
+      #     if (!("id" %in% names(res$rxsTrees_raw[[currentTreeName]]$rxsMetadata))) {
+      #       res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id <-
+      #         sanitize_filename_to_identifier(filename);
+      #     }
+      #   }
+      #   sourceId <- res$rxsTrees_raw[[currentTreeName]]$rxsMetadata$id;
+      #   
+      #   nrOfEntities <-
+      #     length(res$rxsTrees_raw[[currentTreeName]]$Get("name"))
+      #   
+      #   res$log <- c(
+      #     res$log,
+      #     msg("\n  - Finally, successfully stored the object with extracted data, which ",
+      #         "itself contains ", nrOfEntities, " entities ",
+      #         "(some of which may be clustering entities (i.e. lists of other ",
+      #         "entities), in which case even more than ", nrOfEntities,
+      #         " entities may have been extracted from this source).",
+      #         silent = silent)
+      #   );
+      # 
+      #   allValues <-
+      #     res$rxsTrees_raw[[currentTreeName]]$Get('value');
+      #   
+      #   valuesThatAreExpressions <-
+      #     unlist(lapply(allValues, is.expression));
+      # 
+      #   if (any(valuesThatAreExpressions)) {
+      #     res$log <- c(
+      #       res$log,
+      #       msg("  - In the extracted entities in filename ", filename,
+      #           " for source with identifier '", sourceId, "', one or more ",
+      #           "extracted values are not just values, but ",
+      #           "instead R expressions! This is probably a symptom of ",
+      #           "a syntax error made during extraction (e.g. omitted quotes). ",
+      #           "Carefully check the extraction script file, specifically ",
+      #           "the entities with the following identifiers: ",
+      #           vecTxtQ(names(allValues)[valuesThatAreExpressions]),
+      #           ".",
+      #           silent = silent)
+      #     );
+      #   } else {
+      #     res$log <- c(
+      #       res$log,
+      #       msg("\n  - Checked (and discovered) that none of the ",
+      #           length(allValues), " extracted ",
+      #           "`values` is in fact an R expression, which means that no ",
+      #           "R syntax errors were probably made (e.g. omitted quotes).",
+      #           silent = silent)
+      #     );
+      #   }
+      #   
+      #   rm(list = rxsObjectName, envir=globalenv());
+      #   
+      #   res$log <- c(
+      #     res$log,
+      #     msg("\n  - Done with source with identifier ", sourceId,
+      #         " from file ", filename, ".\n",
+      #         silent = silent)
+      #   );
+      #   
+      # } else {
+      #   
+      #   res$rxsTrees_raw[[currentTreeName]] <- NA;
+      #   
+      #   res$log <- c(
+      #     res$log,
+      #     msg("\n  - Parsed file ", filename, ", but no object named '",
+      #         rxsObjectName,
+      #         "' was produced, and so no Rxs tree was obtained.\n",
+      #         silent = silent)
+      #   );
+        
+      #}
+      
+      # if (progressBar) {
+      #   #p$tick()$print();
+      #   p$tick();
+      # };
+  
+    # }
+    
+  } else {
+    
+    
+    
+    
+    
+    
   }
   
   res$log <- c(
