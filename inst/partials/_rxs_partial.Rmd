@@ -26,7 +26,8 @@
   }
     
   printableRxsTree <- data.tree::Clone(x);
-  class(printableRxsTree) <- setdiff(class(x), "rxs");
+  class(printableRxsTree) <-
+    setdiff(class(printableRxsTree), c("rxs","rxsObject"));
 
 ```
 
@@ -56,19 +57,6 @@
 
 ```
 
-
-```{r, echo=echoPartial, results='asis', eval=(!is.null(x$output$plot)), fig.width=5, fig.height=5, fig.cap="Scatterplot with regression line" }
-  
-  metabefor::heading(
-    "Plot",
-    headingLevel = headingLevel
-  );
-  
-  x$output$plot;
-  
-```
-
-  
 ```{r echo=FALSE}
   if (!is.null(oldKableViewOption)) {
     options(kableExtra_view_html = oldKableViewOption);

@@ -336,6 +336,7 @@ rxs_parseExtractionScripts <- function(path,
       )
     );
     res$rxsTrees <- res$rxsTrees_raw[validRawTrees];
+    names(res$rxsTrees) <- sourceIds[validRawTrees];
   } else {
     res$log <- c(
       res$log,

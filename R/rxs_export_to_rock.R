@@ -10,6 +10,17 @@ rxs_export_to_rock <- function(x,
       "install.packages('rock');\n"
     ));
   }
+
+  if ((!inherits(x, "rxs_parsedExtractionScripts")) &&
+      (!inherits(x, "rxsObject")) &&
+      !(inherits(x, "rxs") && inherits(x, "Node"))) {
+    stop(wrap_error(
+      "As `x`, you have to pass a full Rxs project (i.e. as ",
+      "obtained when parsing a set of Rxs files ",
+      "with `metabefor::rxs_parseExtractionScripts()`), but instead, ",
+      "you passed an object with class(es) ", vecTxtQ(class(x)), "."
+    ));
+  }
   
   # if (is.null(entityId) && is.null(entityRegex)) {
   #   stop(wrap_error(
@@ -22,26 +33,19 @@ rxs_export_to_rock <- function(x,
   
   df <- metabefor::get_singleValue(
     x = x,
-    entityId = entityId
+    entityId = entityId,
+    returnDf = TRUE,
+    returnLongDf = TRUE
   );
   
-  browser();
-  
-  if (inherits(x, "rxs_parsedExtractionScripts")) {
-    
-    
-    
-  } else if (inherits(x, "rxsObject")) {
-    
-    
-    
-  } else {
-    stop(wrap_error(
-      "As `x`, you have to pass a full Rxs project (i.e. as ",
-      "obtained when parsing a set of Rxs files ",
-      "with `metabefor::rxs_parseExtractionScripts()`), but instead, ",
-      "you passed an object with class(es) ", vecTxtQ(class(x)), "."
-    ));
-  }
+  return(
+    rock::convert_df_to_source(
+      data = df,
+      output = outputFile,
+      cols_to_utterances = "value",
+      cols_to_ciids = c(rxsSourceId = "sourceId",
+                        rxsEntityId = "entityId")
+    )
+  );
 
 }

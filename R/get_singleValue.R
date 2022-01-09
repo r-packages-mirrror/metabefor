@@ -47,6 +47,14 @@ get_singleValue_fromTree <- function(x,
 
   if (inherits(x, "rxs") && inherits(x, "Node")) {
     
+    ### Get the source identifier of this tree, if available
+    if ((!is.null(x$root$rxsMetadata) &&
+         (!is.null(x$root$rxsMetadata)))) {
+      sourceId <- x$root$rxsMetadata$id;
+    } else {
+      sourceId <- NA;
+    }
+    
     foundNode <- data.tree::FindNode(
         x,
         entityId
@@ -144,7 +152,15 @@ get_singleValue_fromTree <- function(x,
           
         }
 
-        return(data.frame(value = res));
+        ### Long ('tidy') data frame, with all values in one column
+        return(
+          anything_to_tidyDf(
+            res,
+            sourceId = sourceId,
+            entityId = entityId
+          )
+        );
+        #return(data.frame(value = res));
         
       } else if (returnDf) {
 
@@ -251,9 +267,15 @@ get_singleValue_fromTree <- function(x,
           msg("Returning result in a long ('tidy') dataframe (with ",
               "all values in one column).\n\n",
               silent=silent);
-          
+
           ### Long ('tidy') data frame, with all values in one column
-          return(data.frame(res));
+          return(
+            anything_to_tidyDf(
+              res,
+              sourceId = sourceId,
+              entityId = entityId
+            )
+          );
           
         } else if (returnDf) {
           
@@ -309,6 +331,7 @@ get_singleValue_fromTreeList <- function(x,
                                          returnDf = TRUE,
                                          nullValue = 0,
                                          naValue = NULL,
+                                         lookInValueLists = TRUE,
                                          flattenVectorsInDf = TRUE,
                                          warningValues = list(NULL, NA),
                                          warningFunctions = NULL,
@@ -484,52 +507,10 @@ get_singleValue_fromTreeList <- function(x,
     if (returnDf) {
       resDfList <-
         mapply(
-          function(resVector, id) {
-  
-            ### In case we have a value list
-            resVector <- unlist(resVector,
-                                recursive = FALSE);
-  
-            ### In case a list was stored in the value list
-            if (is.list(resVector)) {
-              stop("Encountered an extracted `value` that is a list with ",
-                   "at least 2 levels - no way to automatically process this.");
-            }
-  
-            if (!is.null(names(resVector))) {
-              resVectorNames <- names(resVector);
-            } else {
-              resVectorNames <- rep(NA, length(resVector));
-            }
-  
-            resDf <-
-              data.frame(
-                rep(id, length(resVector)),
-                resVectorNames,
-                resVector
-              );
-            
-            # if (!is.data.frame(resDf)) {
-            #   browser();
-            # }
-            # 
-            # 
-            # if (length(names(resDf)) != 3) {
-            #   browser();
-            # }
-            
-            if (nrow(resDf) == 0) {
-              resDf <- NULL;
-            } else {
-              names(resDf) <-
-                c("Id", "Field", entityId);
-            }
-
-            return(resDf);
-  
-          },
+          anything_to_tidyDf,
           res,
           ids,
+          MoreArgs = list(entityId = entityId),
           SIMPLIFY = FALSE
         );
   
@@ -550,6 +531,7 @@ get_singleValue <- function(x,
                             returnDf = TRUE,
                             flattenVectorsInDf = TRUE,
                             returnLongDf = TRUE,
+                            lookInValueLists = TRUE,
                             pathString_regex_select = ".*",
                             pathString_regex_flatten = NULL,
                             pathString_regex_explode = NULL,
@@ -563,6 +545,7 @@ get_singleValue <- function(x,
         entityId = entityId,
         returnDf = returnDf,
         flattenVectorsInDf = flattenVectorsInDf,
+        lookInValueLists = TRUE,
         pathString_regex_select = pathString_regex_select,
         pathString_regex_flatten = pathString_regex_flatten,
         pathString_regex_explode = pathString_regex_explode,
