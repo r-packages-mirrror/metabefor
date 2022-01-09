@@ -1,6 +1,6 @@
 rxs_export_to_rock <- function(x,
                                entityId = NULL,
-                               entityRegex = NULL,
+                               # entityRegex = NULL,
                                outputFile = NULL) {
   
   if (!(requireNamespace("rock", quietly = TRUE))) {
@@ -11,14 +11,21 @@ rxs_export_to_rock <- function(x,
     ));
   }
   
-  if (is.null(entityId) && is.null(entityRegex)) {
-    stop(wrap_error(
-      "You have to pass either `entityId` or `entityRegex`, but ",
-      "you passed neither."
-    ));
-  } else if (is.null(entityRegex)) {
-    entityRegex <- paste0("^", entityId, "$");
-  }
+  # if (is.null(entityId) && is.null(entityRegex)) {
+  #   stop(wrap_error(
+  #     "You have to pass either `entityId` or `entityRegex`, but ",
+  #     "you passed neither."
+  #   ));
+  # } else if (is.null(entityRegex)) {
+  #   entityRegex <- paste0("^", entityId, "$");
+  # }
+  
+  df <- metabefor::get_singleValue(
+    x = x,
+    entityId = entityId
+  );
+  
+  browser();
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
     
