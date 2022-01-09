@@ -220,6 +220,9 @@ opts$defaults <-
     definitionsColNames = list(termCol = "term",
                                definitionCol = "definition"),
     
+    textsColNames = list(textIdCol = "textIdentifier",
+                         contentCol = "content"),
+    
     txsColNames = list(source_identification_entity_id = 'source_identification_entity_id',
                        source_identification_value = 'source_identification_value',
                        parent_entity_id = 'parent_entity_id',
