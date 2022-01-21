@@ -313,6 +313,9 @@ opts$defaults <-
       c("fillcolor", "#FFFFFF", "node")
     ),
     
+    rockInterfacing_rxsSourceId = "rxsSourceId",
+    rockInterfacing_rxsEntityId = "rxsEntityId",
+    
     rxsReservedNames = c("title", "value"),
     
     diagrammerSanitization = list(c("\\\"", "`"),
