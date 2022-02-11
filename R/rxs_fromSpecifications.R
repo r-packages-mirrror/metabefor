@@ -285,7 +285,8 @@ rxs_fromSpecifications <- function(x = NULL,
         entities = entities[entities[[eC$moduleCol]] == currentModule, ],
         valueTemplates = valueTemplates,
         definitions = definitions,
-        rxsRootName = rxsRootName
+        rxsRootName = rxsRootName,
+        silent = silent
       );
 
       rxsTemplate_modules[[currentModule]] <- rxs_buildTemplate(
@@ -324,7 +325,8 @@ rxs_fromSpecifications <- function(x = NULL,
       entities = entities,
       valueTemplates = valueTemplates,
       definitions = definitions,
-      rxsRootName = rxsRootName
+      rxsRootName = rxsRootName,
+      silent = silent
     );
   
     rxsTemplate <- rxs_buildTemplate(

@@ -1,5 +1,6 @@
 rxs_parseEntities <- function(entities,
-                              rxsRootName = metabefor::opts$get('rxsRootName')) {
+                              rxsRootName = metabefor::opts$get('rxsRootName'),
+                              silent = metabefor::opts$get("silent")) {
 
   eC <- metabefor::opts$get("entityColNames");
   
@@ -24,8 +25,9 @@ rxs_parseEntities <- function(entities,
                                     eC$parentCol, names(entities)))]);
 
   if (getOption("metabefor.debug", FALSE)) {
-    cat0("\nrxs_parseEntities read an entity spreadsheet with the following columns: ",
-              vecTxtQ(names(dataFrameNetwork)), ".\n");
+    msg("\nrxs_parseEntities read an entity spreadsheet with the following columns: ",
+        vecTxtQ(names(dataFrameNetwork)), ".\n",
+        silent = silent);
   }
 
   ### Add a root entity for the entities without one

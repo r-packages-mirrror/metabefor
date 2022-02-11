@@ -13,13 +13,15 @@
 rxs_parseSpecifications <- function(entities,
                                     valueTemplates,
                                     definitions = NULL,
-                                    rxsRootName = metabefor::opts$get("rxsRootName")) {
+                                    rxsRootName = metabefor::opts$get("rxsRootName"),
+                                    silent = metabefor::opts$get("silent")) {
 
   eC <- metabefor::opts$get("entityColNames");
   valueTemplateCols <- metabefor::opts$get("valueTemplateColNames");
   
   res <- list(parsedEntities = rxs_parseEntities(entities = entities,
-                                                 rxsRootName = rxsRootName),
+                                                 rxsRootName = rxsRootName,
+                                                 silent = silent),
               parsedValueTemplates = rxs_parseValueTemplates(valueTemplateDataframe=valueTemplates));
 
   class(res) <- "rxsStructure";
