@@ -267,10 +267,18 @@ read_spreadsheet <- function(x,
           names(res) <- sheetNames;
 
         } else {
-
-          stop("To read Excel spreadsheets (`.xlsx`), the {readxl} package ",
-               "has to be installed. You can install it with:\n\n",
-               "  install.packages('readxl');\n");
+          
+          if (exportGoogleSheet && grepl(gSheetId_extractionRegex, x)) {
+            stop("I just read a Google Sheet, and `exportGoogleSheet=TRUE`, ",
+                 "so I exported it as an Excel spreadsheet. However, to now ",
+                 "import that `.xlsx` file, the {readxl} package ",
+                 "has to be installed. You can install it with:\n\n",
+                 "  install.packages('readxl');\n");
+          } else {
+            stop("To read Excel spreadsheets (`.xlsx`), the {readxl} package ",
+                 "has to be installed. You can install it with:\n\n",
+                 "  install.packages('readxl');\n");
+          }
 
         }
 
