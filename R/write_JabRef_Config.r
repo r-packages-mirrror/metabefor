@@ -160,7 +160,10 @@ write_JabRef_Config <- function(outputPath,
              "",
              res$intermediate$screenerXML[[currentScreener]]);
     }
-    res$intermediate$screenerXML[[currentScreener]] <- gsub("SYSREV_SCREENERFIELD", res$intermediate$screenerFields[currentScreener], res$intermediate$screenerXML[[currentScreener]]);
+    res$intermediate$screenerXML[[currentScreener]] <-
+      gsub("SYSREV_SCREENERFIELD",
+           res$intermediate$screenerFields[currentScreener],
+           res$intermediate$screenerXML[[currentScreener]]);
 
     ### Replace fields to screen
     res$intermediate$screenerXML[[currentScreener]] <-
