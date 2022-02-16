@@ -285,7 +285,7 @@ rxs_fromSpecifications <- function(x = NULL,
         entities = entities[entities[[eC$moduleCol]] == currentModule, ],
         valueTemplates = valueTemplates,
         definitions = definitions,
-        moduleName = moduleName,
+        moduleName = currentModule,
         rxsRootName = rxsRootName,
         silent = silent
       );
