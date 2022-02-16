@@ -1,4 +1,5 @@
 rxs_parseEntities <- function(entities,
+                              moduleName = NULL,
                               rxsRootName = metabefor::opts$get('rxsRootName'),
                               silent = metabefor::opts$get("silent")) {
 
@@ -12,7 +13,12 @@ rxs_parseEntities <- function(entities,
     reservedNames %IN% entities[[eC$identifierCol]];
   
   if (any(usedReservedNames)) {
-    stop("In the column with entity identifiers ('", eC$identifierCol,
+    if (!is.null(moduleName)) {
+      moduleBit <- paste0("While processing module '", moduleName, "', in ");
+    } else {
+      moduleBit <- "In ";
+    }
+    stop(moduleBit, "the column with entity identifiers ('", eC$identifierCol,
          "'), you specified one of the reserved names as an identifier, ",
          "specifically ", vecTxtQ(reservedNames[usedReservedNames]), ". ",
          "Please change it to something else!");
@@ -24,11 +30,16 @@ rxs_parseEntities <- function(entities,
                            unique(c(eC$identifierCol,
                                     eC$parentCol, names(entities)))]);
 
-  if (getOption("metabefor.debug", FALSE)) {
-    msg("\nrxs_parseEntities read an entity spreadsheet with the following columns: ",
-        vecTxtQ(names(dataFrameNetwork)), ".\n",
-        silent = silent);
+  if (!is.null(moduleName)) {
+    moduleBit <- paste0("for module '", moduleName, "' ");
+  } else {
+    moduleBit <- "";
   }
+  
+  msg("\nrxs_parseEntities read an entity spreadsheet ",
+      moduleBit, "with the following columns: ",
+      vecTxtQ(names(dataFrameNetwork)), ".\n",
+      silent = silent);
 
   ### Add a root entity for the entities without one
   dataFrameNetwork[[eC$parentCol]][is.na(dataFrameNetwork[[eC$parentCol]])] <-
@@ -38,12 +49,20 @@ rxs_parseEntities <- function(entities,
   nonExistentParents <-
     !(dataFrameNetwork[[eC$parentCol]] %in% c(rxsRootName, dataFrameNetwork[[eC$identifierCol]]));
   if (any(nonExistentParents)) {
-    stop("The items with the following identifiers have a parent that ",
-         "cannot be found in the list of parents:\n\n",
+    
+    if (!is.null(moduleName)) {
+      moduleBit <- paste0("In module '", moduleName, "', the ");
+    } else {
+      moduleBit <- "The ";
+    }
+    
+    stop(moduleBit, "items with the following identifiers have a parent ",
+         "(i.e., specify a container entity that should contain them) with an ",
+         "identifier that cannot be found in the list of entity identifiers:\n\n",
          paste0(paste0("  - '",
                        dataFrameNetwork[[eC$identifierCol]][nonExistentParents],
                        "' with parent '",
-                       dataFrameNetwork$Parent[nonExistentParents],
+                       dataFrameNetwork$parent[nonExistentParents],
                        "' on line ",
                        which(entities[[eC$identifierCol]] %in%
                                entities[[eC$identifierCol]][nonExistentParents])),
