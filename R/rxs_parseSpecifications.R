@@ -24,7 +24,7 @@ rxs_parseSpecifications <- function(entities,
   
   res <- list(parsedEntities = rxs_parseEntities(entities = entities,
                                                  rxsRootName = rxsRootName,
-                                                 moduleName = NULL,
+                                                 moduleName = moduleName,
                                                  silent = silent),
               parsedValueTemplates = rxs_parseValueTemplates(valueTemplateDataframe=valueTemplates));
 
