@@ -13,6 +13,10 @@
 #' @param x The Rxs object, either an Rxs project (as produced
 #' by [metabefor::rxs_parseExtractionScripts()]) or a single Rxs
 #' extraction tree, to export from or merge into.
+#' @param input The filename or path with files from which to import the ROCK
+#' sources.
+#' @param filenameRegex Optionally, a regular expression: if not `NULL`, only
+#' files matching this regualr expression will be imported.
 #' @param entityId The identifier of the entity to create a source for.
 #' @param rxsEntityId,rxsSourceId The class instance identifiers to use in
 #' the ROCK source to identify instances of the 'entity' and 'source' classes.

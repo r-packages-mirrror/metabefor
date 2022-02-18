@@ -14,7 +14,7 @@ rxs_export_to_rock(
 )
 
 rxs_import_from_rock(
-  rxs,
+  x,
   input = NULL,
   filenameRegex = NULL,
   rxsSourceId = metabefor::opts$get("rockInterfacing_rxsSourceId"),
@@ -37,6 +37,12 @@ the ROCK source to identify instances of the 'entity' and 'source' classes.
 Note that source here refers to a source in the systematic review, i.e. an
 Rxs tree; not to be confused with a ROCK source (i.e. a plain text file
 with one or more data fragments to code).}
+
+\item{input}{The filename or path with files from which to import the ROCK
+sources.}
+
+\item{filenameRegex}{Optionally, a regular expression: if not \code{NULL}, only
+files matching this regualr expression will be imported.}
 }
 \value{
 The ROCK source as a character vector, invisibly, unless
