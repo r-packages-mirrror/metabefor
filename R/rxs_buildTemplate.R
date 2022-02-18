@@ -191,7 +191,8 @@ rxs_buildTemplate <- function(rxsStructure,
   
   showExtractedDataChunk <-
     c(paste0("```{r ", showExtractedDataChunkLabel, "}"),
-      paste0("metabefor::rxs_partial(", rxsObjectName, ");"),
+        paste0("if ((!(exists('parsingMultipleRxsFiles'))) || (!parsingMultipleRxsFiles)) {",
+               "  metabefor::rxs_partial(", rxsObjectName, "); }"),
       "```");
 
   validationChunk <-

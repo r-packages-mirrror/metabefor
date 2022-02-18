@@ -154,7 +154,7 @@ rxs_parseExtractionScripts <- function(path,
         rxsObjectName = metabefor::opts$get("rxsObjectName"),
         uniqueSourceIdName = metabefor::opts$get("uniqueSourceIdName")
       );
-
+    
     ### Export these objects and the 'silent' setting
     parallel::clusterExport(
       cl,
@@ -168,7 +168,7 @@ rxs_parseExtractionScripts <- function(path,
     
     ### Perform the parallel computations
     parsedRxsFiles <-
-      parallel::parLapply(
+      parallel::parLapplyLB(
         cl,
         allScripts,
         metabefor::rxs_parseSingleExtractionScript,

@@ -203,17 +203,19 @@ rxs_parseSingleExtractionScript <- function(filename,
   
   res$log <- c(
     res$log,
-    msg("\n  - Extracted R script fragments: ",
-        length(res$rxsPurlingOutput),
-        " lines extracted (", sum(nchar(res$rxsPurlingOutput)),
-        " characters).",
+    msg("\n  - Extracted R script fragments and stored them in ",
+        "a temporary file ('", res$rxsPurlingOutput, "').",
         silent = silent)
   );
 
-  if (any(grepl("In file '",
-                  filename,
-                  "', encountered error while purling",
-                  res$rxsPurlingOutput))) {
+  if (any(grepl(
+    paste0(
+      "In file '",
+      filename,
+      "', encountered error while purling"
+    ),
+    res$rxsPurlingOutput
+  ))) {
     res$rxsOutput <-
       "Could not run this extraction script because of purling problems."
     if (showErrors) {
@@ -233,15 +235,24 @@ rxs_parseSingleExtractionScript <- function(filename,
     ### results in 
     ###-----------------------------------------------------------------------
     
+    ### Create a fresh environment and store our activity as parsing
+    ### multiple extraction files, preventing the calling to knitr.
+    parsingEnv <- new.env();
+    base::assign('parsingMultipleRxsFiles', TRUE, envir=parsingEnv);
+    #base::assign('parsingMultipleRxsFiles', TRUE, envir=globalenv());
+
     ### Run the other file with error handling
     rxsOutput <-
       # capture.output(tryCatch(sys.source(tempR, envir=globalenv()),
       utils::capture.output(
         tryCatch(
-          source(
+          #base::source(
+          base::sys.source(
             tempR,
-            local=globalenv(),
-            encoding = "UTF-8"
+            envir = parsingEnv,
+            #local = globalenv()
+            #local=parsingEnv,
+            #encoding = "UTF-8"
           ),
           error = function(e) {
             cat(
@@ -292,9 +303,9 @@ rxs_parseSingleExtractionScript <- function(filename,
   ###-------------------------------------------------------------------------
 
   ### If successful, store the result and delete object; otherwise set to NA
-  if (exists(rxsObjectName, envir=globalenv())) {
+  if (exists(rxsObjectName, envir=parsingEnv)) { #envir=globalenv())) {
     
-    tmpRxsObject <- get(rxsObjectName, envir=globalenv());
+    tmpRxsObject <- get(rxsObjectName, envir=parsingEnv); # envir=globalenv());
 
     res$rxsTrees_raw <-
       data.tree::Clone(tmpRxsObject);
@@ -364,7 +375,9 @@ rxs_parseSingleExtractionScript <- function(filename,
       );
     }
     
-    rm(list = rxsObjectName, envir=globalenv());
+    #  ### No longer necessary, now we do everything in 'parsingEnv'
+    #rm(list = rxsObjectName, envir=globalenv());
+    #rm(list = 'parsingMultipleRxsFiles', envir=globalenv());
     
     res$log <- c(
       res$log,
