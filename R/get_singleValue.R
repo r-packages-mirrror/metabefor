@@ -19,7 +19,8 @@
 #' flattening of fields regardless of matching to other regular expressions.
 #' @param returnLongDf Whether to return a long ('tidy') data frame, with all
 #' values on a separate row, or a wide ('multivariate') data frame, where
-#' columns represent different variables.
+#' columns represent different variables. Setting this to `FALSE` is not yet
+#' supported.
 #' @param nullValue,naValue Values to return when encountering `NULL` or `NA`.
 #' @param warningValues Values to return warnings for.
 #' @param warningFunctions A list of functions to run on the values that can
@@ -54,7 +55,7 @@ get_singleValue_fromTree <- function(x,
     } else {
       sourceId <- NA;
     }
-    
+
     foundNode <- data.tree::FindNode(
         x,
         entityId

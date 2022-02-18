@@ -8,7 +8,9 @@ rxs_parseSpecifications(
   entities,
   valueTemplates,
   definitions = NULL,
-  rxsRootName = metabefor::opts$get("rxsRootName")
+  moduleName = NULL,
+  rxsRootName = metabefor::opts$get("rxsRootName"),
+  silent = metabefor::opts$get("silent")
 )
 }
 \arguments{
@@ -18,7 +20,12 @@ rxs_parseSpecifications(
 
 \item{definitions}{The definitions, as a data frame}
 
+\item{moduleName}{The name of the module; only used to make error messages
+more informative, and only used if not NULL.}
+
 \item{rxsRootName}{The name of the root node of the Rxs tree}
+
+\item{silent}{Whether to be silent or chatty.}
 }
 \value{
 An \code{rxsStructure} object

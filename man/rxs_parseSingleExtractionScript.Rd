@@ -9,6 +9,7 @@ rxs_parseSingleExtractionScript(
   path,
   progress = NULL,
   silent = metabefor::opts$get("silent"),
+  parallel_options = NULL,
   showErrors = TRUE,
   encoding = "UTF-8"
 )
@@ -22,6 +23,8 @@ rxs_parseSingleExtractionScript(
 has been parsed  (must be a \code{\link[progress:progress_bar]{progress::progress_bar()}} object.}
 
 \item{silent}{Whether to be quiet or chatty.}
+
+\item{parallel_options}{Used to pass options for parallel processing.}
 
 \item{showErrors}{Whether to show or hide errors that are encountered.}
 

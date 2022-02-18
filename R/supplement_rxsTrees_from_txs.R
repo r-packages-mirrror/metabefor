@@ -31,17 +31,28 @@ supplement_rxsTrees_from_txs <- function(x,
                                          txs_specs,
                                          stopOnErrors = FALSE,
                                          explode_vector_to_values = FALSE,
-                                         silent=metabefor::opts$get("silent")) {
+                                         silent = metabefor::opts$get("silent")) {
   
+  txsColNames <- metabefor::opts$get("txsColNames");
+
   if (!inherits(x, "rxs_parsedExtractionScripts")) {
     stop("The object you pass as 'x' must be an object ",
          "with parsed Rxs files, as produced by a call to ",
          "metabefor::rxs_parseExtractionScripts().");
   }
   
-  dat <- read_spreadsheet(txs_specs);
+  dat <- read_spreadsheet(txs_specs,
+                          sheet = 1,
+                          flattenSingleDf = TRUE,
+                          silent=silent);
   
-  entityIds <- unique(trimws(dat[, "entity_id"]));
+  checkForColName(dat, txsColNames$source_identification_entity_id);
+  checkForColName(dat, txsColNames$source_identification_value);
+  checkForColName(dat, txsColNames$parent_entity_id);
+  checkForColName(dat, txsColNames$entity_id);
+  checkForColName(dat, txsColNames$value);
+  
+  entityIds <- unique(trimws(dat[, txsColNames$entity_id]));
   
   msg("Read ", nrow(dat), " txs specifications for entity identifiers ",
       vecTxtQ(entityIds), "\n",
@@ -50,15 +61,15 @@ supplement_rxsTrees_from_txs <- function(x,
   for (i in 1:nrow(dat)) {
     
     source_identification_entity_id <-
-      trimws(dat[i, "source_identification_entity_id"]);
+      trimws(dat[i, txsColNames$source_identification_entity_id]);
     source_identification_value <-
-      trimws(dat[i, "source_identification_value"]);
+      trimws(dat[i, txsColNames$source_identification_value]);
     parent_entity_id <-
-      trimws(dat[i, "parent_entity_id"]);
+      trimws(dat[i, txsColNames$parent_entity_id]);
     entity_id <-
-      trimws(dat[i, "entity_id"]);
+      trimws(dat[i, txsColNames$entity_id]);
     value <-
-      trimws(dat[i, "value"]);
+      trimws(dat[i, txsColNames$value]);
 
     if (is.na(source_identification_entity_id) ||
         nchar(source_identification_entity_id) == 0) {

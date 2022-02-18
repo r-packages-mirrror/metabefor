@@ -21,10 +21,6 @@
 
   metabefor::heading("Rxs tree of extracted entities", headingLevel=headingLevel);
 
-  if (getOption('metabefor.debug', FALSE)) {
-    cat("\n\n\n\n");
-  }
-    
   printableRxsTree <- data.tree::Clone(x);
   class(printableRxsTree) <-
     setdiff(class(printableRxsTree), c("rxs","rxsObject"));

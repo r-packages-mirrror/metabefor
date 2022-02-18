@@ -6,15 +6,15 @@
 \usage{
 rxs_parseExtractionScripts(
   path,
-  pattern = "\\\\.rxs\\\\.Rmd$|\\\\.rxs$",
-  exclude = c("extractionScriptTemplate.rxs.Rmd", "\\\\[EXCLUDED]"),
+  pattern = "\\\\.[Rr]xs\\\\.[Rr]md$|\\\\.Rxs$",
+  exclude = c("extractionScriptTemplate.[Rr]xs.[Rr]md", "\\\\[EXCLUDED]"),
   ignore.case = TRUE,
   recursive = TRUE,
   silent = metabefor::opts$get("silent"),
   progressBar = TRUE,
   showErrors = TRUE,
   encoding = "UTF-8",
-  nCores = 1
+  parallel = FALSE
 )
 }
 \arguments{
@@ -36,7 +36,7 @@ rxs_parseExtractionScripts(
 
 \item{encoding}{The files' encoding.}
 
-\item{nCores}{Number of cores to use.}
+\item{parallel}{Whether to use parallel processing.}
 }
 \value{
 A list of parsed extraction scripts.

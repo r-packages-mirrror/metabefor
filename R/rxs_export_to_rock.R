@@ -10,7 +10,7 @@
 #' the coded sources can be imported back into `metabefor` and merged with
 #' the Rxs project.
 #'
-#' @param rxs The Rxs object, either an Rxs project (as produced
+#' @param x The Rxs object, either an Rxs project (as produced
 #' by [metabefor::rxs_parseExtractionScripts()]) or a single Rxs
 #' extraction tree, to export from or merge into.
 #' @param entityId The identifier of the entity to create a source for.
@@ -32,7 +32,7 @@
 #' @rdname rock_import_and_export
 #'
 #' @examples
-rxs_export_to_rock <- function(rxs,
+rxs_export_to_rock <- function(x,
                                entityId = NULL,
                                outputFile = NULL,
                                rxsEntityId = metabefor::opts$get("rockInterfacing_rxsEntityId"),

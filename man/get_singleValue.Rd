@@ -26,6 +26,7 @@ get_singleValue_fromTreeList(
   returnDf = TRUE,
   nullValue = 0,
   naValue = NULL,
+  lookInValueLists = TRUE,
   flattenVectorsInDf = TRUE,
   warningValues = list(NULL, NA),
   warningFunctions = NULL,
@@ -43,6 +44,7 @@ get_singleValue(
   returnDf = TRUE,
   flattenVectorsInDf = TRUE,
   returnLongDf = TRUE,
+  lookInValueLists = TRUE,
   pathString_regex_select = ".*",
   pathString_regex_flatten = NULL,
   pathString_regex_explode = NULL,
@@ -75,7 +77,8 @@ flattening of fields regardless of matching to other regular expressions.}
 
 \item{returnLongDf}{Whether to return a long ('tidy') data frame, with all
 values on a separate row, or a wide ('multivariate') data frame, where
-columns represent different variables.}
+columns represent different variables. Setting this to \code{FALSE} is not yet
+supported.}
 
 \item{pathString_regex_select}{Regex that the target entities' path strings
 have to match (otherwise, the entity is excluded)}
