@@ -147,11 +147,6 @@ get_singleValue_fromTree <- function(x,
       ### Start returning result
 
       if (returnDf && returnLongDf) {
-        
-        ### Long ('tidy') data frame, with all values in one column
-        if (is.list(res)) {
-          
-        }
 
         ### Long ('tidy') data frame, with all values in one column
         return(
@@ -166,13 +161,12 @@ get_singleValue_fromTree <- function(x,
       } else if (returnDf) {
 
         ### Wide dataframe, with one column for each entity
-        return(
-          do.call(
-            data.frame,
-            as.list(res)
-          )
-        );
-        
+        res <-
+          data.frame(rep(sourceId, length(res)),
+                     res);
+        names(res) <- c('sourceId', entityId);
+        return(res);
+
       } else {
         
         ### Don't return a data frame; just return 'raw'
@@ -285,12 +279,11 @@ get_singleValue_fromTree <- function(x,
               silent=silent);
           
           ### Wide dataframe, with one column for each entity
-          return(
-            do.call(
-              data.frame,
-              as.list(res)
-            )
-          );
+          res <-
+            data.frame(rep(sourceId, length(res)),
+                       res);
+          names(res) <- c('sourceId', entityId);
+          return(res);
           
         } else {
 
@@ -387,7 +380,8 @@ get_singleValue_fromTreeList <- function(x,
             pathString_regex_explode = pathString_regex_explode,
             fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten,
             silent = silent,
-            returnDf = returnDf
+            returnDf = returnDf,
+            returnLongDf = returnLongDf
           )
         );
       }

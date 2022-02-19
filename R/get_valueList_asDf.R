@@ -1,4 +1,8 @@
 #' Get a value list as data frame from an Rxs tree, list of trees, or full Rxs project
+#' 
+#' A value list is another name for the values of the entities within a clustering
+#' entity. This function retrieves all those values and returns them in a data
+#' frame.
 #'
 #' @param x The Rxs tree, list of trees, or full Rxs project
 #' @param requiredFields Fields that have to exist in the target entities
