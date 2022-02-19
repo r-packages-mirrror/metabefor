@@ -11,6 +11,7 @@ supplement_data_with_value_inRxsTrees <- function(x,
                                                   targetNodeListCreation_suffix = "_value",
                                                   prefix = "supplemented_",
                                                   suffix = "",
+                                                  flattenVectors = FALSE,
                                                   silent = metabefor::opts$get("silent")) {
   
   if (is.null(x)) {
@@ -52,13 +53,14 @@ supplement_data_with_value_inRxsTrees <- function(x,
         targetNodeListCreation_suffix = targetNodeListCreation_suffix,
         prefix = prefix,
         suffix = suffix,
+        flattenVectors = flattenVectors,
         silent = silent
       );
     }
     
     if (!silent) {
       cat0("\n\nDone processing all ", length(x$rxsTrees),
-           "Rxs trees you passed.\n");
+           " Rxs trees you passed.\n");
     }
     
     return(invisible(x));
@@ -164,6 +166,7 @@ supplement_data_with_value_inRxsTrees <- function(x,
         targetNodeListCreation_suffix = targetNodeListCreation_suffix,
         prefix = prefix,
         suffix = suffix,
+        flattenVectors = flattenVectors,
         silent = silent
       );
 

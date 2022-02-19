@@ -123,7 +123,7 @@ get_singleValue_fromTree <- function(x,
       }
       
       ### We found a node with this name, return its value
-      
+
       if (flattenTheVector) {
         
         ### Flatten vectors to strings with VecTxtQ
@@ -143,29 +143,77 @@ get_singleValue_fromTree <- function(x,
         }
 
       }
-      
+
       ### Start returning result
 
       if (returnDf && returnLongDf) {
-
         ### Long ('tidy') data frame, with all values in one column
-        return(
-          anything_to_tidyDf(
-            res,
-            sourceId = sourceId,
-            entityId = entityId
-          )
-        );
-        #return(data.frame(value = res));
         
+        if (is.list(foundNode$value)) {
+          ### (we look at foundNode$value instead of res because res may
+          ###  have become a vector, even if foundNode$value is a list)
+          
+          ### List of entities in a clustering entity
+          resDf <-
+            rbind_df_list(
+              lapply(
+                res,
+                anything_to_tidyDf,
+                sourceId = sourceId,
+                entityId = entityId
+              )
+            );
+          
+          ### Set entity names, take potential vectors into account
+          resDf$entityId =
+            unname(
+              unlist(
+                mapply(
+                  rep,
+                  x = names(res),
+                  times = unlist(lapply(res, length)),
+                  SIMPLIFY = FALSE
+                )
+              )
+            );
+          
+          return(resDf);
+            
+        } else {
+          
+          ### Vector from a single entity
+          return(
+            anything_to_tidyDf(
+              res,
+              sourceId = sourceId,
+              entityId = entityId
+            )
+          );
+          
+        }
+
       } else if (returnDf) {
 
-        ### Wide dataframe, with one column for each entity
-        res <-
-          data.frame(rep(sourceId, length(res)),
-                     res);
-        names(res) <- c('sourceId', entityId);
-        return(res);
+        if (is.list(foundNode$value)) {
+          ### (we look at foundNode$value instead of res because res may
+          ###  have become a vector, even if foundNode$value is a list)
+          
+          res <- as.data.frame(res);
+          res <- cbind(data.frame(sourceId = rep(sourceId, nrow(res))),
+                       res);
+          
+          return(res);
+          
+        } else {
+          
+          ### Wide dataframe, with one column for each entity
+          res <-
+            data.frame(rep(sourceId, length(res)),
+                       res);
+          names(res) <- c('sourceId', entityId);
+          return(res);
+          
+        }
 
       } else {
         

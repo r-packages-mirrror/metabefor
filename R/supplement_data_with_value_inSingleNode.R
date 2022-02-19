@@ -29,6 +29,7 @@
 #' @param targetEntityNode_requiredField A required field that, if it does not
 #' occur in the target entity, causes that target entity to be skipped. This
 #' provides additional control over which target entities to process.
+#' @param flattenVectors Whether to flatten vectors when copying them over.
 #' @param silent Whether to be quiet or chatty.
 #'
 #' @return Invisibly, the (altered) Rxs tree - but note that since
@@ -48,6 +49,7 @@ supplement_data_with_value_inSingleNode <- function(rxsTree,
                                                     targetNodeListCreation_suffix = "_value",
                                                     prefix = "supplemented_",
                                                     suffix = "",
+                                                    flattenVectors = FALSE,
                                                     silent = metabefor::opts$get("silent")) {
   
   if (is.null(rxsTree)) {
@@ -141,7 +143,7 @@ supplement_data_with_value_inSingleNode <- function(rxsTree,
   }
     
   ###---------------------------------------------------------------------------
-  ### Start copying over values
+  ### Obtain values of source and target nodes
   ###---------------------------------------------------------------------------
   
   sourceNodeValue <-
@@ -149,6 +151,20 @@ supplement_data_with_value_inSingleNode <- function(rxsTree,
 
   targetNodeValue <-
     targetNode$Get("value", simplify=FALSE)[[targetEntityNodeId]];
+  
+  if (flattenVectors) {
+    if (is.list(sourceNodeValue)) {
+      sourceNodeValue <- flattenNodeValues(sourceNodeValue);
+    } else {
+      sourceNodeValue <- flattenNodeValue(sourceNodeValue);
+    }
+  }
+  
+  if (length(sourceNodeValue) > 1) browser();
+
+  ###---------------------------------------------------------------------------
+  ### Start copying over values
+  ###---------------------------------------------------------------------------
   
   if (!is.list(targetNodeValue)) {
     targetNodeValue <- list(targetNodeValue);
@@ -166,36 +182,47 @@ supplement_data_with_value_inSingleNode <- function(rxsTree,
   ### Rename values with the prefix and suffix
   names(sourceNodeValue) <-
     paste0(prefix, names(sourceNodeValue), suffix);
-  
-  if (!forceCopyingOfExistingValues) {
-    if (any(names(sourceNodeValue) %in% names(targetNodeValue))) {
-      overlappingNames <-
-        intersect(names(sourceNodeValue), names(targetNodeValue));
-      if (!silent) {
-        cat0("In the rxsTree you passed, I found both the target entity node ",
-             "you specified and the source entity node referred to in the target ",
-             "entity node. However, one or more names occur in both lists (",
-             vecTxtQ(overlappingNames),
-             "). This should not be possible normally, as entity identifiers ",
-             "should be unique. Maybe you already ran this command? ",
-             "I am aborting. If you want to override this error, use ",
-             "argument 'forceCopyingOfExistingValues=TRUE'.");
-      }
-      return(invisible(rxsTree));
+
+  if (any(names(sourceNodeValue) %in% names(targetNodeValue))) {
+    
+    overlappingNames <-
+      intersect(names(sourceNodeValue), names(targetNodeValue));
+
+    msg("In the rxsTree you passed, I found both the target entity node ",
+        "you specified and the source entity node referred to in the target ",
+        "entity node. However, one or more names occur in both lists (",
+        vecTxtQ(overlappingNames),
+        "). ",
+        silent = silent);
+    
+    if (forceCopyingOfExistingValues) {
+      msg("Because 'forceCopyingOfExistingValues=TRUE', I am removing the ",
+          "original values from the target entity node. ",
+          silent = silent);
+      targetNodeValue <- targetNodeValue[
+        setdiff(names(targetNodeValue), overlappingNames)
+      ];
+    } else {
+      msg("This should not be possible normally, as entity identifiers ",
+          "should be unique. Maybe you already ran this command? ",
+          "I am aborting. If you want to override this error, use ",
+          "argument 'forceCopyingOfExistingValues=TRUE'.",
+          silent = silent);
+      return(invisible(rxsTree));      
     }
-  };
-  
+  }
+
   targetNode$value <-
     c(targetNodeValue,
       sourceNodeValue);
   
-  if (!silent) {
-    cat0("Succesfully copied over ", length(sourceNodeValue),
-         " fields (", vecTxtQ(names(sourceNodeValue)), ") from the source ",
-         "entity node with identifier '", sourceEntityNodeId, "' to the ",
-         "target entity node with identifier '", targetEntityNodeId, "'.\n");
-  }
-  
+  msg("Succesfully copied over ", length(sourceNodeValue),
+      " fields (", vecTxtQ(names(sourceNodeValue)), ") from the source ",
+      "entity node with identifier '", sourceEntityNodeId, "' to the ",
+      "target entity node with identifier '", targetEntityNodeId, "'.\n",
+      silent = silent
+      );
+
   return(invisible(rxsTree));
   
 }

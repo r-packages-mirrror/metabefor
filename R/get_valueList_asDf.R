@@ -122,7 +122,7 @@ get_valueList_asDf_fromRxsTree <- function(x,
            length(res),
            " data frames with values into one data frame for this source...\n");
     }
-    
+
     res <- rbind_df_list(res);
     
     if (!silent) {
