@@ -159,8 +159,16 @@ supplement_data_with_value_inSingleNode <- function(rxsTree,
       sourceNodeValue <- flattenNodeValue(sourceNodeValue);
     }
   }
-  
-  if (length(sourceNodeValue) > 1) browser();
+
+  if ((length(sourceNodeValue) > 1) && (!flattenVectors)) {
+    msg(
+      "Warning: I extracted a vector (i.e. more than one element), but ",
+      "flattenVectors = FALSE. This may cause unexpected and potentially ",
+      "problematic behavior if you extract a data frame and there are ",
+      "inconsistent vector lengths. \n",
+      silent = silent
+    );
+  }
 
   ###---------------------------------------------------------------------------
   ### Start copying over values
