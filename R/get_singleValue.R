@@ -198,7 +198,14 @@ get_singleValue_fromTree <- function(x,
           ### (we look at foundNode$value instead of res because res may
           ###  have become a vector, even if foundNode$value is a list)
           
-          res <- as.data.frame(res);
+          if (is.list(res)) {
+            res <- as.data.frame(res);
+          } else {
+            ### If it's a character vector, we have to convert it to a list
+            ### first
+            res <- as.data.frame(as.list(res));
+          }
+
           res <- cbind(data.frame(sourceId = rep(sourceId, nrow(res))),
                        res);
           
@@ -325,6 +332,18 @@ get_singleValue_fromTree <- function(x,
           msg("Returning result in a wide dataframe (with the values ",
               "in separate columns).\n\n",
               silent=silent);
+          
+          ### I don't know yet whether this is necessary here; it's
+          ### included a few lines higher, 201-208, but not sure we
+          ### need it here, too.
+          
+          # if (is.list(res)) {
+          #   res <- as.data.frame(res);
+          # } else {
+          #   ### If it's a character vector, we have to convert it to a list
+          #   ### first
+          #   res <- as.data.frame(as.list(res));
+          # }
           
           ### Wide dataframe, with one column for each entity
           res <-
