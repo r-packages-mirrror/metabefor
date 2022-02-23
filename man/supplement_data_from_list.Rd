@@ -86,6 +86,8 @@ values that are copied.}
 
 \item{targetEntityNodeId}{The identifier of the target entity node (the node to
 supplement)}
+
+\item{flattenVectors}{Whether to flatten vectors when copying them over.}
 }
 \value{
 Invisibly, the (altered) input - but note that since the \code{data.tree}

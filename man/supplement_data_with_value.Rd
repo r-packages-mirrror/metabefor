@@ -18,6 +18,7 @@ supplement_data_with_value_inRxsTrees(
   targetNodeListCreation_suffix = "_value",
   prefix = "supplemented_",
   suffix = "",
+  flattenVectors = FALSE,
   silent = metabefor::opts$get("silent")
 )
 
@@ -32,6 +33,7 @@ supplement_data_with_value_inSingleNode(
   targetNodeListCreation_suffix = "_value",
   prefix = "supplemented_",
   suffix = "",
+  flattenVectors = FALSE,
   silent = metabefor::opts$get("silent")
 )
 }
@@ -57,6 +59,8 @@ and suffix to add when a list is created.}
 
 \item{prefix, suffix}{A text string to prepend and append to the entity
 identifier when copying it to the target entity.}
+
+\item{flattenVectors}{Whether to flatten vectors when copying them over.}
 
 \item{silent}{Whether to be quiet or chatty.}
 
