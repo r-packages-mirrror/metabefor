@@ -43,7 +43,7 @@ get_short_doi <- function(x = NULL, strip10 = TRUE,
   
   close(urlConnection);
   
-  if (!grepl("\"ShortDOI\":", res)) {
+  if (!(any(grepl("\"ShortDOI\":", res)))) {
     if (throttle) {
       Sys.sleep(1);
     } else {
