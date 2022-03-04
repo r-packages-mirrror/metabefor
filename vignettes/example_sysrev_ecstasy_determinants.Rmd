@@ -1,0 +1,111 @@
+---
+title: "`metabefor` example: A systematic review into determinants of ecstasy use"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{`metabefor` example: A systematic review into determinants of ecstasy use}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+
+basePath <-
+  system.file(
+    "extdata",
+    "example_sysrev_ecstasy_determinants",
+    package="metabefor"
+  );
+
+searchPath <- file.path(basePath, "search");
+
+```
+
+In this fictional example, let us pretend we want to conduct a systematic review about the determinants of substance use, specifically a scoping review.
+
+## Planning: Research Question
+
+The research question in this fictional example is whether the exponential explosion of the scientific literature is also reflected in a growing evidence base for health promotion interventions targeting recreational substance use.
+
+## Planning: Synthesis
+
+Because this is a fictional example we'll just 
+
+## Planning: Extraction
+
+## Planning: Screening
+
+## Planning: Search
+
+We will search using the Ebsco interface in the PsycINFO and Ebsco E-journals databases, and we will use PubMed (using its own interface).
+
+We will only search in titles, and our conceptual query consists of two main terms (substance synonyms and determinant synonyms), where the first main term is split per set of synonyms for each substance.
+
+In the Ebsco query syntax, the query is:
+
+```
+(TI (((ecstasy OR mdma) OR (coke OR cocaine) OR (GHB) OR (LSD) OR (ketamine OR "special K")) AND (determinants OR factors OR reasons)))
+```
+
+That will be used for the PsycINFO and Ebsco E-Journals databases.
+
+In the PubMed query synax, the query is:
+
+```
+(((ecstasy[Title] OR mdma[Title]) OR (coke[Title] OR cocaine[Title]) OR (GHB[Title]) OR (LSD[Title]) OR (ketamine[Title] OR "special K"[Title])) AND (determinants[Title] OR factors[Title] OR reasons[Title]))
+```
+
+## Preregistration
+
+## Execution: Search
+
+The queries are entered into the specified interfaces to search the specified databases, separately for each database. The three RIS-files are stored using the following filename convention: `YYYY-MM-DD_interface_database_originalFileName.RIS`.
+
+The hits in PubMed are saved in the PubMed format, whch is basically RIS. Both can be imported by the `synthesisr` package, which we will call from `metabefor`:
+
+```{r, execution-search-import}
+
+searchResults <-
+  metabefor::import_search_results(
+    searchPath
+  );
+
+```
+
+This is the number of hits we have for each database:
+
+```{r, execution-search-hits-per-database}
+
+knitr::kable(
+  table(searchResults$bibHitDf$originDatabase)
+);
+
+```
+
+We also see that only a minority of the records has a DOI - at least one that was correctly recognized by `synthesisr`:
+
+```{r, execution-search-dois}
+
+knitr::kable(
+  table(!is.na(searchResults$bibHitDf$doi)),
+  col.names = c("DOI present?", "Number of records")
+);
+
+```
+
+## Execution: Screening
+
+
+## Execution: Extraction
+
+
+## Execution: Synthesis
+

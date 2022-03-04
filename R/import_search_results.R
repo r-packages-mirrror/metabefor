@@ -12,7 +12,8 @@
 #' @param recursive Whether to recursively read subdirectories.
 #' @param search_metadataRegex A regular expression to match against the
 #' filenames. If it matches, metadata will be extracted in three capturing
-#' groups, in the order data, interface, and database.
+#' groups, in the order date (using ISO standard 8601 format, i.e. 2022-03-05),
+#' interface, and database.
 #' @param silent Whether to be silent or chatty.
 #'
 #' @return An object with all the imported information, including, most
@@ -24,7 +25,7 @@ import_search_results <- function(path,
                                   dirRegex = ".*",
                                   fileRegex = "\\.ris$",
                                   recursive = TRUE,
-                                  search_metadataRegex = metabefor::opts$get("silent"),
+                                  search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
                                   silent = metabefor::opts$get("silent")) {
   
   if (!requireNamespace("synthesisr", quietly = TRUE)) {
@@ -35,9 +36,9 @@ import_search_results <- function(path,
   
   search_originFile_col <- metabefor::opts$get("search_originFile_col");
   search_originDir_col <- metabefor::opts$get("search_originDir_col");
-  search_originDatabase_col <- metabefor::opts$get("search_originDatabase_col");
-  search_originInterface_col <- metabefor::opts$get("search_originInterface_col");
   search_originDate_col <- metabefor::opts$get("search_originDate_col");
+  search_originInterface_col <- metabefor::opts$get("search_originInterface_col");
+  search_originDatabase_col <- metabefor::opts$get("search_originDatabase_col");
 
   ### Get all subdirectories; search hits are placed in alphabetically
   ### ordered subdirectories.
@@ -56,9 +57,19 @@ import_search_results <- function(path,
   searchHitDirs <-
     grep(dirRegex, searchHitDirs, value=TRUE);
   
-  msg("Identified the following subdirectories in the specified path ('",
-      path, "': ", vecTxtQ(searchHitDirs), ".\n",
-      silent = silent);
+  if ((length(searchHitDirs) == 0) ||
+       ((length(searchHitDirs) == 1) && (searchHitDirs == ""))) {
+    searchHitDirs <- basename(path);
+    path <- dirname(path);
+    msg("Identified no subdirectories in the specified path ('",
+        path, "') that matched the regular expression. Using that ",
+        "path as only directory to process.\n",
+        silent = silent);
+  } else {
+    msg("Identified the following subdirectories in the specified path ('",
+        path, "'): ", vecTxtQ(searchHitDirs), ".\n",
+        silent = silent);
+  }
   
   ### Get all files in each subdirectory
   searchHitFiles <-
@@ -71,22 +82,31 @@ import_search_results <- function(path,
       recursive = FALSE
     );
   names(searchHitFiles) <- searchHitDirs;
-  
+
   ### Remove subdirectories
   searchHitFiles <-
     lapply(
-      searchHitDirs,
-      function(fileList) {
-        if (length(fileList) == 0) {
+      names(searchHitFiles),
+      function(searchHitDirName) {
+        if (length(searchHitFiles[[searchHitDirName]]) == 0) {
           return(NULL);
         } else {
           return(
-            fileList[file.exists(fileList)]
+            searchHitFiles[[searchHitDirName]][
+              file.exists(
+                file.path(
+                  path,
+                  searchHitDirName,
+                  searchHitFiles[[searchHitDirName]]
+                )
+              )
+            ]
           );
         }
       }
     );
-
+  names(searchHitFiles) <- searchHitDirs;
+  
   ### Remove subdirectories with no remaining files
   searchHitFiles <-
     searchHitFiles[
@@ -97,10 +117,15 @@ import_search_results <- function(path,
         )
       ) > 0
     ];
+  names(searchHitFiles) <- searchHitDirs;
   
-  msg("Will now start to import the following files: ",
-      vecTxtQ(unlist(searchHitFiles)), ".\n",
-      silent = silent);
+  if (length(unlist(searchHitFiles)) == 0) {
+    stop("No files found that match your parameters!\n");
+  } else {
+    msg("Will now start to import the following files: ",
+        vecTxtQ(unlist(searchHitFiles)), ".\n",
+        silent = silent);
+  }
 
   searchHitDfs <-
     lapply(
@@ -124,9 +149,23 @@ import_search_results <- function(path,
       }
     );
   names(searchHitDfs) <- names(searchHitFiles);
-  
+
   bibHitDf <-
-    metabefor::rbind_df_list(searchHitDfs);
+    metabefor::rbind_df_list(
+      lapply(
+        searchHitDfs,
+        metabefor::rbind_df_list
+      )
+    );
+  
+  justFileNames <- bibHitDf[, search_originFile_col];
+  
+  bibHitDf[, search_originDate_col] <-
+    gsub(search_metadataRegex, "\\1", justFileNames);
+  bibHitDf[, search_originInterface_col] <-
+    gsub(search_metadataRegex, "\\2", justFileNames);
+  bibHitDf[, search_originDatabase_col] <-
+    gsub(search_metadataRegex, "\\3", justFileNames);
 
   res <-
     list(input = list(path = path,

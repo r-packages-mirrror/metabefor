@@ -318,7 +318,7 @@ opts$defaults <-
     
     ### Working with search results
     
-    search_metadataRegex = "^(\\d\\d-\\d\\d-\\d\\d\\d\\d)_([[:alnum:]]+)_([[:alnum:]]+)_?([[:alnum:]]*)\\.ris$",
+    search_metadataRegex = "^(\\d\\d\\d\\d-\\d\\d-\\d\\d)_([[:alnum:]]+)_([[:alnum:]]+)(_.*)?\\.ris$",
     search_originDir_col = "originDir",
     search_originFile_col = "originFile",
     search_originDatabase_col = "originDatabase",
