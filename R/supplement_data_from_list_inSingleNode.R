@@ -32,7 +32,7 @@
 #' used to select fields to copy over from the source node to the target node.
 #' @param sourcePathString_regex,targetPathString_regex Regular expressions
 #' that must match the path string of the source of target node.
-#' @param flattenVectors Whether to flatten vectors when copying them over.
+# #' @param flattenVectors Whether to flatten vectors when copying them over.
 #' @param silent Whether to be quiet or chatty.
 #'
 #' @return Invisibly, the (altered) input - but note that since the `data.tree`
