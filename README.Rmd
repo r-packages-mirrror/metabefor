@@ -93,12 +93,15 @@ Originally, the package was intended to help with everything that needs to be do
 
 ## Getting started
 
-Eventually, the best place to get started will be the [SysRevving](https://sysrevving.com) book. However, as yet that is still very much in its early stages. For now, the following pages form a good starting point:
+Depending on your situation there are three places to get started.
 
-1. The [Planning](https://sysrevving.com/planning) chapter in the SysRevving book (in progress)
-2. The [Extraction](https://sysrevving.com/extraction) chapter in the SysRevving book (in progress)
-3. The [R Extraction Scripts](http://r-packages.gitlab.io/metabefor/articles/r-extraction-scripts.html) vignette (in progress)
-4. The [Definitions](http://r-packages.gitlab.io/metabefor/articles/definitions.html) vignette (in progress)
+If you're already familiar with systematic reviews and evidence synthesis, you may want to start with NITRO, the Narrated Illustration of a Transparent Review Outline. This is somewhat of a worked example, available at https://sci-ops.gitlab.io/narrated-illustration-of-a-transparent-review-outline.
+
+Second, if you're relatively new to systematic reviews, you may want to start with the SysRevving book, available at https://sysrevving.com. This living open access book is intended as a general resource on conducting systematic reviews, built around `metabefor`.
+
+Third, if you're already using `metabefor`, you may just want to consult the manual as included with the package. From within R, each function's manual page can be displayed by prepending the function name with a question mark (e.g. `?metabefor::rxs_fromSpecifications`. Alternatively, the index of functions is available at the `metabefor` PkgDown site http://r-packages.gitlab.io/metabefor.
+
+Finally, in any case you may want to keep the glossary of terms ready. This is located at https://sysrevving.com/glossary.
 
 <!--------------------------------------------->
 <!--  End of a custom bit for every package  -->

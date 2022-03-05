@@ -9,7 +9,7 @@ import_search_results(
   dirRegex = ".*",
   fileRegex = "\\\\.ris$",
   recursive = TRUE,
-  search_metadataRegex = metabefor::opts$get("silent"),
+  search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
   silent = metabefor::opts$get("silent")
 )
 }
@@ -24,7 +24,8 @@ import_search_results(
 
 \item{search_metadataRegex}{A regular expression to match against the
 filenames. If it matches, metadata will be extracted in three capturing
-groups, in the order data, interface, and database.}
+groups, in the order date (using ISO standard 8601 format, i.e. 2022-03-05),
+interface, and database.}
 
 \item{silent}{Whether to be silent or chatty.}
 }

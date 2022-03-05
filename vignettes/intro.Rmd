@@ -1,0 +1,16 @@
+---
+title: "Introduction to `metabefor`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to `metabefor`}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette is an introduction to metabefor, mostly serving to point you to the main `metabefor` resources. Three such resources exist.
+
+First, of course, there is the manual as included with the package. From within R, each function's manual page can be displayed by prepending the function name with a question mark (e.g. `?metabefor::rxs_fromSpecifications`. Alternatively, the index of functions is available at the `metabefor` PkgDown site http://r-packages.gitlab.io/metabefor.
+
+Second, there is the SysRevving book, available at https://sysrevving.com. This living open access book is intended as a general resource on conducting systematic reviews, built around `metabefor`.
+
+Third, there is NITRO, the Narrated Illustration of a Transparent Review Outline. This is somewhat of a worked example, available at https://sci-ops.gitlab.io/narrated-illustration-of-a-transparent-review-outline.
