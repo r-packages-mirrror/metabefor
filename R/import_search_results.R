@@ -10,6 +10,7 @@
 #' @param dirRegex The regular expression to match subdirectories against.
 #' @param fileRegex The regular expression to match filenames against.
 #' @param recursive Whether to recursively read subdirectories.
+#' @param parallel Whether to use multiple cores for parallel processing.
 #' @param search_metadataRegex A regular expression to match against the
 #' filenames. If it matches, metadata will be extracted in three capturing
 #' groups, in the order date (using ISO standard 8601 format, i.e. 2022-03-05),
@@ -25,6 +26,7 @@ import_search_results <- function(path,
                                   dirRegex = ".*",
                                   fileRegex = "\\.ris$",
                                   recursive = TRUE,
+                                  parallel = FALSE,
                                   search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
                                   silent = metabefor::opts$get("silent")) {
   
@@ -48,7 +50,7 @@ import_search_results <- function(path,
       full.names = FALSE,
       recursive = recursive
     );
-  
+
   ### Sort alphabetically
   searchHitDirs <-
     sort(searchHitDirs);
@@ -57,8 +59,10 @@ import_search_results <- function(path,
   searchHitDirs <-
     grep(dirRegex, searchHitDirs, value=TRUE);
   
-  if ((length(searchHitDirs) == 0) ||
-       ((length(searchHitDirs) == 1) && (searchHitDirs == ""))) {
+  searchHitDirs <-
+    searchHitDirs[nchar(searchHitDirs)>0];
+  
+  if (length(searchHitDirs) == 0) {
     searchHitDirs <- basename(path);
     path <- dirname(path);
     msg("Identified no subdirectories in the specified path ('",
@@ -70,7 +74,7 @@ import_search_results <- function(path,
         path, "'): ", vecTxtQ(searchHitDirs), ".\n",
         silent = silent);
   }
-  
+
   ### Get all files in each subdirectory
   searchHitFiles <-
     lapply(
@@ -126,38 +130,79 @@ import_search_results <- function(path,
         vecTxtQ(unlist(searchHitFiles)), ".\n",
         silent = silent);
   }
-
-  searchHitDfs <-
+  
+  dir_file_combinations <-
     lapply(
       names(searchHitFiles),
       function(currentDirName) {
         return(
-          lapply(
-            searchHitFiles[[currentDirName]],
-            function(currentFileName) {
-              res <-
-                synthesisr::read_refs(
-                  filename = file.path(path, currentDirName, currentFileName),
-                  verbose = !silent
-                );
-              res[, search_originFile_col] <- currentFileName;
-              res[, search_originDir_col] <- currentDirName;
-              return(res);
-            }
-          )
+          mapply(
+            c,
+            rep(currentDirName, length(searchHitFiles[[currentDirName]])),
+            searchHitFiles[[currentDirName]]
+          ),
+          simplify = FALSE,
+          use.names = FALSE
         );
       }
     );
-  names(searchHitDfs) <- names(searchHitFiles);
-
-  bibHitDf <-
-    metabefor::rbind_df_list(
-      lapply(
-        searchHitDfs,
-        metabefor::rbind_df_list
-      )
-    );
   
+  if (parallel) {
+    
+  
+  
+  } else {
+    
+    searchHitDfs <-
+      lapply(
+        dir_file_combinations,
+        function(dir_and_file) {
+          res <-
+            synthesisr::read_refs(
+              filename = file.path(path, dir_and_file[1], dir_and_file[2]),
+              verbose = !silent
+            );
+          res[, search_originFile_col] <- dir_and_file[2];
+          res[, search_originDir_col] <- dir_and_file[1];
+          return(res);
+        }
+      );
+
+    bibHitDf <- metabefor::rbind_df_list(searchHitDfs);
+    
+  }
+
+  # searchHitDfs <-
+  #   lapply(
+  #     names(searchHitFiles),
+  #     function(currentDirName) {
+  #       return(
+  #         lapply(
+  #           searchHitFiles[[currentDirName]],
+  #           function(currentFileName) {
+  #             res <-
+  #               synthesisr::read_refs(
+  #                 filename = file.path(path, currentDirName, currentFileName),
+  #                 verbose = !silent
+  #               );
+  #             res[, search_originFile_col] <- currentFileName;
+  #             res[, search_originDir_col] <- currentDirName;
+  #             return(res);
+  #           }
+  #         )
+  #       );
+  #     }
+  #   );
+  # names(searchHitDfs) <- names(searchHitFiles);
+  # 
+  # bibHitDf <-
+  #   metabefor::rbind_df_list(
+  #     lapply(
+  #       searchHitDfs,
+  #       metabefor::rbind_df_list
+  #     )
+  #   );
+
   justFileNames <- bibHitDf[, search_originFile_col];
   
   bibHitDf[, search_originDate_col] <-

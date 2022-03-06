@@ -73,8 +73,7 @@ rxs_parseExtractionScripts <- function(path,
            "*should* normally be part of base R.");
     }
     
-    ### Then for all other languages in parallel; detect number of cores
-    ### and create a cluster
+    ### Detect number of cores and create a cluster
     nCores <- parallel::detectCores();
     
     ### Because the trick below doesn't seem to work
