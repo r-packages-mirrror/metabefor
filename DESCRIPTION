@@ -5,7 +5,7 @@ Authors@R:
     person(given = "Gjalt-Jorn",
            family = "Peters",
            role = c("aut", "cre"),
-           email = "gjalt-jorn@userfriendlyscience.com")
+           email = "gjalt-jorn@behaviorchange.eu")
 Description: In systematic reviews, extracting data from primary
              sources is a crucial step with a high potential for
              introduction of biases. This package facilitates

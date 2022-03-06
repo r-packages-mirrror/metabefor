@@ -246,13 +246,12 @@ rxs_parseSingleExtractionScript <- function(filename,
       # capture.output(tryCatch(sys.source(tempR, envir=globalenv()),
       utils::capture.output(
         tryCatch(
-          #base::source(
-          base::sys.source(
+          base::source(
+          #base::sys.source(
             tempR,
-            envir = parsingEnv,
-            #local = globalenv()
-            #local=parsingEnv,
-            #encoding = "UTF-8"
+            #envir = parsingEnv,
+            local = parsingEnv, #globalenv()
+            encoding = "UTF-8"
           ),
           error = function(e) {
             cat(
