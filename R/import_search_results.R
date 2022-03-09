@@ -9,7 +9,10 @@
 #' @param path The path to the files with the search results.
 #' @param dirRegex The regular expression to match subdirectories against.
 #' @param fileRegex The regular expression to match filenames against.
+#' @param dirsToIgnoreRegex,filesToIgnoreRegex A regular expression to specify
+#' which directories and files should be ignored.
 #' @param recursive Whether to recursively read subdirectories.
+#' @param perl Whether to use Perl regular expressions
 #' @param parallel Whether to use multiple cores for parallel processing.
 #' @param search_metadataRegex A regular expression to match against the
 #' filenames. If it matches, metadata will be extracted in three capturing
@@ -25,7 +28,10 @@
 import_search_results <- function(path,
                                   dirRegex = ".*",
                                   fileRegex = "\\.ris$",
+                                  dirsToIgnoreRegex = NULL,
+                                  filesToIgnoreRegex = NULL,
                                   recursive = TRUE,
+                                  perl = TRUE,
                                   parallel = FALSE,
                                   search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
                                   silent = metabefor::opts$get("silent")) {
@@ -57,11 +63,16 @@ import_search_results <- function(path,
   
   ### Select directories using regex
   searchHitDirs <-
-    grep(dirRegex, searchHitDirs, value=TRUE);
+    grep(dirRegex, searchHitDirs, value=TRUE, perl=perl);
   
+  ### Ignore directories using regex
+  searchHitDirs <-
+    grep(dirsToIgnoreRegex, searchHitDirs, value=TRUE, invert=TRUE, perl=perl);
+
+  ### Remove empty directories (e.g. `path`)
   searchHitDirs <-
     searchHitDirs[nchar(searchHitDirs)>0];
-  
+
   if (length(searchHitDirs) == 0) {
     searchHitDirs <- basename(path);
     path <- dirname(path);
@@ -81,13 +92,12 @@ import_search_results <- function(path,
       file.path(path, searchHitDirs),
       list.files,
       full.names = FALSE,
-      pattern = fileRegex,
-      ignore.case = TRUE,
       recursive = FALSE
     );
   names(searchHitFiles) <- searchHitDirs;
-
-  ### Remove subdirectories
+  
+  ### Select files matching the fileRegex, files matching fileToIgnoreRegex,
+  ### and remove subdirectories
   searchHitFiles <-
     lapply(
       names(searchHitFiles),
@@ -95,8 +105,17 @@ import_search_results <- function(path,
         if (length(searchHitFiles[[searchHitDirName]]) == 0) {
           return(NULL);
         } else {
-          return(
-            searchHitFiles[[searchHitDirName]][
+          ### Select files using regex
+          res <-
+            grep(fileRegex,
+                 searchHitFiles[[searchHitDirName]],
+                 value=TRUE,
+                 perl=perl);
+          ### Ignore files using regex
+          res <-
+            grep(filesToIgnoreRegex, res, value=TRUE, invert=TRUE, perl=perl);
+          ### Remove subdirectories (instead of files)          
+          res <- searchHitFiles[[searchHitDirName]][
               file.exists(
                 file.path(
                   path,
@@ -104,8 +123,8 @@ import_search_results <- function(path,
                   searchHitFiles[[searchHitDirName]]
                 )
               )
-            ]
-          );
+            ];
+          return(res);
         }
       }
     );

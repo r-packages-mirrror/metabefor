@@ -8,7 +8,11 @@ import_search_results(
   path,
   dirRegex = ".*",
   fileRegex = "\\\\.ris$",
+  dirsToIgnoreRegex = NULL,
+  filesToIgnoreRegex = NULL,
   recursive = TRUE,
+  perl = TRUE,
+  parallel = FALSE,
   search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
   silent = metabefor::opts$get("silent")
 )
@@ -20,7 +24,14 @@ import_search_results(
 
 \item{fileRegex}{The regular expression to match filenames against.}
 
+\item{dirsToIgnoreRegex, filesToIgnoreRegex}{A regular expression to specify
+which directories and files should be ignored.}
+
 \item{recursive}{Whether to recursively read subdirectories.}
+
+\item{perl}{Whether to use Perl regular expressions}
+
+\item{parallel}{Whether to use multiple cores for parallel processing.}
 
 \item{search_metadataRegex}{A regular expression to match against the
 filenames. If it matches, metadata will be extracted in three capturing
