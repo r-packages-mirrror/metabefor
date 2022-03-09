@@ -153,7 +153,7 @@ import_search_results <- function(path,
         vecTxtQ(unlist(searchHitFiles)), ".\n",
         silent = silent);
   }
-  
+
   dir_file_combinations <-
     lapply(
       names(searchHitFiles),
@@ -162,14 +162,19 @@ import_search_results <- function(path,
           mapply(
             c,
             rep(currentDirName, length(searchHitFiles[[currentDirName]])),
-            searchHitFiles[[currentDirName]]
-          ),
-          simplify = FALSE,
-          use.names = FALSE
+            searchHitFiles[[currentDirName]],
+            SIMPLIFY = FALSE,
+            USE.NAMES = FALSE
+          )
         );
       }
     );
   
+  ### Remove highest level of this nested list to get
+  ### a list of vectors (no longer nested in directory)
+  dir_file_combinations <-
+    unlist(dir_file_combinations, recursive = FALSE);
+
   if (parallel) {
     
   
