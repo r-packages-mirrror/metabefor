@@ -66,8 +66,10 @@ import_search_results <- function(path,
     grep(dirRegex, searchHitDirs, value=TRUE, perl=perl);
   
   ### Ignore directories using regex
-  searchHitDirs <-
-    grep(dirsToIgnoreRegex, searchHitDirs, value=TRUE, invert=TRUE, perl=perl);
+  if (!is.null(dirsToIgnoreRegex)) {
+    searchHitDirs <-
+      grep(dirsToIgnoreRegex, searchHitDirs, value=TRUE, invert=TRUE, perl=perl);
+  }
 
   ### Remove empty directories (e.g. `path`)
   searchHitDirs <-
@@ -112,8 +114,10 @@ import_search_results <- function(path,
                  value=TRUE,
                  perl=perl);
           ### Ignore files using regex
-          res <-
-            grep(filesToIgnoreRegex, res, value=TRUE, invert=TRUE, perl=perl);
+          if (!is.null(filesToIgnoreRegex)) {
+            res <-
+              grep(filesToIgnoreRegex, res, value=TRUE, invert=TRUE, perl=perl);
+          }
           ### Remove subdirectories (instead of files)          
           res <- searchHitFiles[[searchHitDirName]][
               file.exists(
