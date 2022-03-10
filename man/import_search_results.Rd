@@ -12,6 +12,7 @@ import_search_results(
   filesToIgnoreRegex = NULL,
   recursive = TRUE,
   perl = TRUE,
+  idFieldName = "original_id",
   parallel = FALSE,
   search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
   silent = metabefor::opts$get("silent")
@@ -30,6 +31,9 @@ which directories and files should be ignored.}
 \item{recursive}{Whether to recursively read subdirectories.}
 
 \item{perl}{Whether to use Perl regular expressions}
+
+\item{idFieldName}{New name to use for the \code{id} field (column), a reserved
+name in JabRef (if \code{NULL}, the field is not renamed).}
 
 \item{parallel}{Whether to use multiple cores for parallel processing.}
 

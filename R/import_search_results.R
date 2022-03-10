@@ -13,6 +13,8 @@
 #' which directories and files should be ignored.
 #' @param recursive Whether to recursively read subdirectories.
 #' @param perl Whether to use Perl regular expressions
+#' @param idFieldName New name to use for the `id` field (column), a reserved
+#' name in JabRef (if `NULL`, the field is not renamed).
 #' @param parallel Whether to use multiple cores for parallel processing.
 #' @param search_metadataRegex A regular expression to match against the
 #' filenames. If it matches, metadata will be extracted in three capturing
@@ -32,6 +34,7 @@ import_search_results <- function(path,
                                   filesToIgnoreRegex = NULL,
                                   recursive = TRUE,
                                   perl = TRUE,
+                                  idFieldName = "original_id",
                                   parallel = FALSE,
                                   search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
                                   silent = metabefor::opts$get("silent")) {
@@ -107,6 +110,7 @@ import_search_results <- function(path,
         if (length(searchHitFiles[[searchHitDirName]]) == 0) {
           return(NULL);
         } else {
+          
           ### Select files using regex
           res <-
             grep(fileRegex,
@@ -119,12 +123,12 @@ import_search_results <- function(path,
               grep(filesToIgnoreRegex, res, value=TRUE, invert=TRUE, perl=perl);
           }
           ### Remove subdirectories (instead of files)          
-          res <- searchHitFiles[[searchHitDirName]][
+          res <- res[
               file.exists(
                 file.path(
                   path,
                   searchHitDirName,
-                  searchHitFiles[[searchHitDirName]]
+                  res
                 )
               )
             ];
@@ -133,7 +137,7 @@ import_search_results <- function(path,
       }
     );
   names(searchHitFiles) <- searchHitDirs;
-  
+
   ### Remove subdirectories with no remaining files
   searchHitFiles <-
     searchHitFiles[
@@ -180,11 +184,13 @@ import_search_results <- function(path,
   
   
   } else {
-    
+
     searchHitDfs <-
       lapply(
         dir_file_combinations,
         function(dir_and_file) {
+          msg("  - ",
+              silent = silent);
           res <-
             synthesisr::read_refs(
               filename = file.path(path, dir_and_file[1], dir_and_file[2]),
@@ -192,6 +198,9 @@ import_search_results <- function(path,
             );
           res[, search_originFile_col] <- dir_and_file[2];
           res[, search_originDir_col] <- dir_and_file[1];
+          msg("  - Imported ", nrow(res),
+              " records and ", ncol(res), " fields.\n",
+              silent = silent);
           return(res);
         }
       );
@@ -239,6 +248,11 @@ import_search_results <- function(path,
     gsub(search_metadataRegex, "\\2", justFileNames);
   bibHitDf[, search_originDatabase_col] <-
     gsub(search_metadataRegex, "\\3", justFileNames);
+  
+  if (!is.null(idFieldName)) {
+    names(bibHitDf)[grepl("^[iI][dD]$", names(bibHitDf))] <-
+      idFieldName;
+  }
 
   res <-
     list(input = list(path = path,

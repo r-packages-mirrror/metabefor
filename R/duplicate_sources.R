@@ -1,5 +1,5 @@
 #' Detect duplicate sources
-#'
+#' 
 #' @param primarySources The primary dataframe with sources
 #' @param secondarySources The secondary dataframe with sources
 #' @param stringDistance The string distance for titles
@@ -30,6 +30,11 @@ duplicate_sources <- function(primarySources,
                               forDeduplicationSuffix = "_forDeduplication",
                               returnRawStringDistances = FALSE,
                               silent = metabefor::opts$get("silent")) {
+  
+  if (!requireNamespace("stringdist", quietly = TRUE)) {
+    stop("To deduplicate, you need the `stringdist` package! You can ",
+         "install it with:\n\n  install.packages('stringdist');\n");
+  }
   
   if (!(doiCol %in% names(primarySources))) {
     stop("The column specified for the DOIs with argument `doiCol`, '",

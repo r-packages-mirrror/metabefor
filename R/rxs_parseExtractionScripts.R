@@ -141,7 +141,7 @@ rxs_parseExtractionScripts <- function(path,
     
     cl <- parallel::makeCluster(nCores);
     
-    ### Load the limonaid package in each cluster
+    ### Load the metabefor package in each cluster
     parallel::clusterEvalQ(
       cl,
       library(metabefor)
