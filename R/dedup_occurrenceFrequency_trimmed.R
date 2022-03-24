@@ -11,6 +11,6 @@ dedup_occurrenceFrequency_trimmed <- function(x, start=0, end=0) {
   freqTab <- table(x);
   
   return(
-    freqTab[x];
+    freqTab[x]
   );
 }
