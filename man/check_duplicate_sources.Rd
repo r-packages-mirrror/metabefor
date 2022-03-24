@@ -13,8 +13,8 @@ check_duplicate_sources(
   charsToZap = "[^A-Za-z0-9]",
   doiCol = "doi",
   matchFully = c("year", "title", "author"),
-  matchStart = c(title = 20, author = 10),
-  matchEnd = c(title = 20, author = 10),
+  matchStart = c(title = 40, author = 30),
+  matchEnd = c(title = 40, author = 30),
   forDeduplicationSuffix = "_forDeduplication",
   returnRawStringDistances = FALSE,
   silent = metabefor::opts$get("silent")
@@ -35,6 +35,16 @@ that can be very slow and take along time if you have thousands of sources.}
 \item{charsToZap}{The characters to delete from fields before looking for duplicates}
 
 \item{doiCol}{The name of the column with the DOIs}
+
+\item{matchFully}{A vector of columns to check for full
+matches (after 'zapping'). Pass \code{NULL} to not check any columns.}
+
+\item{matchStart, matchEnd}{Named vectors with columns and numbers of
+characters to check from the start and from the end. Because requiring full
+matched can be too conservative, you can also look at the first or last X
+characters. Pass \code{NULL} to not check from the start and from the end, or
+pass named vectors where the names are the column names and the elements
+are the corresponding numbers of characters to look at for each column.}
 
 \item{forDeduplicationSuffix}{Suffix to add to optional deduplication columns}
 

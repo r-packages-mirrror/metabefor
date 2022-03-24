@@ -8,6 +8,14 @@
 #' @param stringDistanceMethod Method to use for string distance computation
 #' @param charsToZap The characters to delete from fields before looking for duplicates
 #' @param doiCol The name of the column with the DOIs
+#' @param matchFully A vector of columns to check for full 
+#' matches (after 'zapping'). Pass `NULL` to not check any columns.
+#' @param matchStart,matchEnd Named vectors with columns and numbers of
+#' characters to check from the start and from the end. Because requiring full
+#' matched can be too conservative, you can also look at the first or last X
+#' characters. Pass `NULL` to not check from the start and from the end, or
+#' pass named vectors where the names are the column names and the elements
+#' are the corresponding numbers of characters to look at for each column.
 #' @param forDeduplicationSuffix Suffix to add to optional deduplication columns
 #' @param returnRawStringDistances Whether to return the raw string distances
 #' or not (this can be _very_ large).
