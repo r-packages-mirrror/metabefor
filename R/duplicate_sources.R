@@ -21,6 +21,7 @@
 #' @examples
 duplicate_sources <- function(primarySources,
                               secondarySources = NULL,
+                              useStringDistances = FALSE,
                               stringDistance = 5,
                               stringDistanceMethod = "osa",
                               titleCharsToZap = "[^A-Za-z0-9]",
@@ -102,27 +103,30 @@ duplicate_sources <- function(primarySources,
           sep="");
     }
     
-    if (!silent) {
-      cat("Starting to look for internal duplicates based on string distance.");
+    if (useStringDistances) {
+    
+      if (!silent) {
+        cat("Starting to look for internal duplicates based on string distance.");
+      }
+      
+      ### Get the string distances (takes a few seconds)
+      stringDistances.raw <-
+        stringdist::stringdistmatrix(
+          primarySources[, title_forDeduplicationCol],
+          primarySources[, title_forDeduplicationCol],
+          method = stringDistanceMethod
+        );
+      
+      ### Get lower diagonal
+      stringDistances <- stringDistances.raw;
+      stringDistances[
+        upper.tri(
+          stringDistances,
+          diag = TRUE
+        )
+      ] <- NA;
+      
     }
-    
-    ### Get the string distances (takes a few seconds)
-    stringDistances.raw <-
-      stringdist::stringdistmatrix(
-        primarySources[, title_forDeduplicationCol],
-        primarySources[, title_forDeduplicationCol],
-        method = stringDistanceMethod
-      );
-    
-    ### Get lower diagonal
-    stringDistances <- stringDistances.raw;
-    stringDistances[
-      upper.tri(
-        stringDistances,
-        diag = TRUE
-      )
-    ] <- NA;
-    
     
   } else {
     
@@ -157,107 +161,111 @@ duplicate_sources <- function(primarySources,
           sep="");
     }
 
-    if (!silent) {
-      cat("Starting to look for duplicates based on string distance.");
+    if (useStringDistances) {
+      
+      if (!silent) {
+        cat("Starting to look for duplicates based on string distance.");
+      }
+      
+      ### Get the string distances (takes a few seconds)
+      stringDistances <-
+        stringdist::stringdistmatrix(
+          secondarySources[, title_forDeduplicationCol],
+          primarySources[, title_forDeduplicationCol],
+          method = stringDistanceMethod
+        );
+  
     }
-    
-    ### Get the string distances (takes a few seconds)
-    stringDistances <-
-      stringdist::stringdistmatrix(
-        secondarySources[, title_forDeduplicationCol],
-        primarySources[, title_forDeduplicationCol],
-        method = stringDistanceMethod
+  
+    ### Flag duplicates
+    stringDistancesFlagged <-
+      stringDistances < stringDistance;
+  
+    ### Get indices of duplicates for each entry
+    stringDistanceDuplicates <-
+      apply(
+        stringDistancesFlagged,
+        1,
+        which
       );
-
-  }
-
-  ### Flag duplicates
-  stringDistancesFlagged <-
-    stringDistances < stringDistance;
-
-  ### Get indices of duplicates for each entry
-  stringDistanceDuplicates <-
-    apply(
-      stringDistancesFlagged,
-      1,
-      which
-    );
-  
-  stringDistances_forFlagged <-
-    lapply(
-      seq_along(stringDistanceDuplicates),
-      function(rowIndex) {
-        return(stringDistances[rowIndex, stringDistanceDuplicates[[rowIndex]]]);
-      }
-    );
-
-  stringDistanceDuplicates_asString <-
-    unlist(lapply(stringDistanceDuplicates, vecTxtQ));
-  stringDistance_nrOfDuplicates <-
-    unlist(lapply(stringDistanceDuplicates, length));
-  stringDistance_hasDuplicates <-
-    stringDistance_nrOfDuplicates > 0;
-  stringDistance_duplicateTitles <-
-    lapply(
-      stringDistanceDuplicates,
-      function(i) {
-        return(primarySources[i, titleCol]);
-      }
-    );
-  
-  if (is.null(secondarySources)) {
-    stringDistance_originalTitles <-
+    
+    stringDistances_forFlagged <-
       lapply(
-        which(stringDistance_hasDuplicates),
+        seq_along(stringDistanceDuplicates),
+        function(rowIndex) {
+          return(stringDistances[rowIndex, stringDistanceDuplicates[[rowIndex]]]);
+        }
+      );
+  
+    stringDistanceDuplicates_asString <-
+      unlist(lapply(stringDistanceDuplicates, vecTxtQ));
+    stringDistance_nrOfDuplicates <-
+      unlist(lapply(stringDistanceDuplicates, length));
+    stringDistance_hasDuplicates <-
+      stringDistance_nrOfDuplicates > 0;
+    stringDistance_duplicateTitles <-
+      lapply(
+        stringDistanceDuplicates,
         function(i) {
           return(primarySources[i, titleCol]);
         }
       );
-  } else {
-    stringDistance_originalTitles <-
-      lapply(
-        which(stringDistance_hasDuplicates),
-        function(i) {
-          return(secondarySources[i, titleCol]);
-        }
+    
+    if (is.null(secondarySources)) {
+      stringDistance_originalTitles <-
+        lapply(
+          which(stringDistance_hasDuplicates),
+          function(i) {
+            return(primarySources[i, titleCol]);
+          }
+        );
+    } else {
+      stringDistance_originalTitles <-
+        lapply(
+          which(stringDistance_hasDuplicates),
+          function(i) {
+            return(secondarySources[i, titleCol]);
+          }
+        );
+    }
+  
+    ### Set duplicate, using the deduplication_identifier column
+    ### earlier because tmpBibHitDf has less rows than bibHitDf
+    res <-
+      paste0(
+        res,
+        ifelse(
+          stringDistance_hasDuplicates,
+          ">strdist",
+          ""
+        )
       );
-  }
-
-  ### Set duplicate, using the deduplication_identifier column
-  ### earlier because tmpBibHitDf has less rows than bibHitDf
-  res <-
-    paste0(
-      res,
-      ifelse(
-        stringDistance_hasDuplicates,
-        ">strdist",
-        ""
-      )
-    );
-  
-  if (!silent) {
-    cat("Found ",
-        sum(grepl("strdist", res)),
-        " duplicates based on string distance.\n",
-        sep="");
-  }
-
-  attr(res, "duplicateInfo") <-
-    list(
-      secondaryRowsWithDuplicates = which(stringDistance_hasDuplicates),
-      primaryDuplicateRows = sort(unique(unlist(stringDistanceDuplicates))),
-      stringDistanceDuplicates = stringDistanceDuplicates[which(stringDistance_hasDuplicates)],
-      stringDistance_duplicateTitles = stringDistance_duplicateTitles[which(stringDistance_hasDuplicates)],
-      stringDistance_originalTitles = stringDistance_originalTitles,
-      actualStringDistances = stringDistances_forFlagged[which(stringDistance_hasDuplicates)]
-    );
-  
-  if (returnRawStringDistances) {
+    
+    if (!silent) {
+      cat("Found ",
+          sum(grepl("strdist", res)),
+          " duplicates based on string distance.\n",
+          sep="");
+    }
+    
     attr(res, "duplicateInfo") <-
-      c(attr(res, "duplicateInfo"),
-        list(rawStringDistances = stringDistances));
+      list(
+        secondaryRowsWithDuplicates = which(stringDistance_hasDuplicates),
+        primaryDuplicateRows = sort(unique(unlist(stringDistanceDuplicates))),
+        stringDistanceDuplicates = stringDistanceDuplicates[which(stringDistance_hasDuplicates)],
+        stringDistance_duplicateTitles = stringDistance_duplicateTitles[which(stringDistance_hasDuplicates)],
+        stringDistance_originalTitles = stringDistance_originalTitles,
+        actualStringDistances = stringDistances_forFlagged[which(stringDistance_hasDuplicates)]
+      );
+    
+    if (returnRawStringDistances) {
+      attr(res, "duplicateInfo") <-
+        c(attr(res, "duplicateInfo"),
+          list(rawStringDistances = stringDistances));
+    }
+    
+    return(res);
+    
   }
-  
-  return(res);
   
 }
