@@ -55,7 +55,6 @@ rxs_parseEntities <- function(entities,
     } else {
       moduleBit <- "The ";
     }
-
     stop(moduleBit, "items with the following identifiers have a parent ",
          "(i.e., specify a container entity that should contain them) with an ",
          "identifier that cannot be found in the list of entity identifiers:\n\n",

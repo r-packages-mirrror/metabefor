@@ -19,7 +19,8 @@
 #' flattening of fields regardless of matching to other regular expressions.
 #' @param returnLongDf Whether to return a long ('tidy') data frame, with all
 #' values on a separate row, or a wide ('multivariate') data frame, where
-#' columns represent different variables.
+#' columns represent different variables. Setting this to `FALSE` is not yet
+#' supported.
 #' @param nullValue,naValue Values to return when encountering `NULL` or `NA`.
 #' @param warningValues Values to return warnings for.
 #' @param warningFunctions A list of functions to run on the values that can
@@ -54,7 +55,7 @@ get_singleValue_fromTree <- function(x,
     } else {
       sourceId <- NA;
     }
-    
+
     foundNode <- data.tree::FindNode(
         x,
         entityId
@@ -122,7 +123,7 @@ get_singleValue_fromTree <- function(x,
       }
       
       ### We found a node with this name, return its value
-      
+
       if (flattenTheVector) {
         
         ### Flatten vectors to strings with VecTxtQ
@@ -142,36 +143,85 @@ get_singleValue_fromTree <- function(x,
         }
 
       }
-      
+
       ### Start returning result
 
       if (returnDf && returnLongDf) {
-        
         ### Long ('tidy') data frame, with all values in one column
-        if (is.list(res)) {
+        
+        if (is.list(foundNode$value)) {
+          ### (we look at foundNode$value instead of res because res may
+          ###  have become a vector, even if foundNode$value is a list)
+          
+          ### List of entities in a clustering entity
+          resDf <-
+            rbind_df_list(
+              lapply(
+                res,
+                anything_to_tidyDf,
+                sourceId = sourceId,
+                entityId = entityId
+              )
+            );
+          
+          ### Set entity names, take potential vectors into account
+          resDf$entityId =
+            unname(
+              unlist(
+                mapply(
+                  rep,
+                  x = names(res),
+                  times = unlist(lapply(res, length)),
+                  SIMPLIFY = FALSE
+                )
+              )
+            );
+          
+          return(resDf);
+            
+        } else {
+          
+          ### Vector from a single entity
+          return(
+            anything_to_tidyDf(
+              res,
+              sourceId = sourceId,
+              entityId = entityId
+            )
+          );
           
         }
 
-        ### Long ('tidy') data frame, with all values in one column
-        return(
-          anything_to_tidyDf(
-            res,
-            sourceId = sourceId,
-            entityId = entityId
-          )
-        );
-        #return(data.frame(value = res));
-        
       } else if (returnDf) {
 
-        ### Wide dataframe, with one column for each entity
-        return(
-          do.call(
-            data.frame,
-            as.list(res)
-          )
-        );
-        
+        if (is.list(foundNode$value)) {
+          ### (we look at foundNode$value instead of res because res may
+          ###  have become a vector, even if foundNode$value is a list)
+          
+          if (is.list(res)) {
+            res <- as.data.frame(res);
+          } else {
+            ### If it's a character vector, we have to convert it to a list
+            ### first
+            res <- as.data.frame(as.list(res));
+          }
+
+          res <- cbind(data.frame(sourceId = rep(sourceId, nrow(res))),
+                       res);
+          
+          return(res);
+          
+        } else {
+          
+          ### Wide dataframe, with one column for each entity
+          res <-
+            data.frame(rep(sourceId, length(res)),
+                       res);
+          names(res) <- c('sourceId', entityId);
+          return(res);
+          
+        }
+
       } else {
         
         ### Don't return a data frame; just return 'raw'
@@ -283,13 +333,24 @@ get_singleValue_fromTree <- function(x,
               "in separate columns).\n\n",
               silent=silent);
           
+          ### I don't know yet whether this is necessary here; it's
+          ### included a few lines higher, 201-208, but not sure we
+          ### need it here, too.
+          
+          # if (is.list(res)) {
+          #   res <- as.data.frame(res);
+          # } else {
+          #   ### If it's a character vector, we have to convert it to a list
+          #   ### first
+          #   res <- as.data.frame(as.list(res));
+          # }
+          
           ### Wide dataframe, with one column for each entity
-          return(
-            do.call(
-              data.frame,
-              as.list(res)
-            )
-          );
+          res <-
+            data.frame(rep(sourceId, length(res)),
+                       res);
+          names(res) <- c('sourceId', entityId);
+          return(res);
           
         } else {
 
@@ -386,7 +447,8 @@ get_singleValue_fromTreeList <- function(x,
             pathString_regex_explode = pathString_regex_explode,
             fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten,
             silent = silent,
-            returnDf = returnDf
+            returnDf = returnDf,
+            returnLongDf = returnLongDf
           )
         );
       }

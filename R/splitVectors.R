@@ -4,8 +4,10 @@
 #' @param sep The separator to use
 #' @param fieldname_regex_alwaysFlatten A regular expression that, when it
 #' matches a field name, always causes that field's contents to be flattened.
+# #' @param retainList Whether to retain the list structure (otherwise, a vector
+# #' is returned);
 #'
-#' @return The list with the split vectors
+#' @return Either a vector, or a list with 'split' vectors
 #' @export
 #'
 #' @examples metabefor::splitVectors(
@@ -26,7 +28,25 @@
 #' );
 splitVectors <- function(x,
                          sep = "_",
-                         fieldname_regex_alwaysFlatten = NULL) {
+                         fieldname_regex_alwaysFlatten = NULL
+                         # ,
+                         # retainList = FALSE
+                         ) {
+  
+  # if (is.list(x) && retainList) {
+  #   res <-
+  #     lapply(
+  #       x,
+  #       splitVectors,
+  #       sep = sep,
+  #       fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten,
+  #       retainList = FALSE
+  #     );
+  #   if (!is.null(names(x))) {
+  #     names(res) <- names(x);
+  #   }
+  #   return(res);
+  # }
   
   if (!is.null(fieldname_regex_alwaysFlatten)) {
     vectorsToFlatten <-
@@ -36,7 +56,7 @@ splitVectors <- function(x,
   }
   
   res <- unlist(x);
-  
+
   newNames <- names(res);
 
   newerNames <-

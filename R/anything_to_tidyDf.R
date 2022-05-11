@@ -3,20 +3,21 @@ anything_to_tidyDf <- function(anything,
                                entityId) {
   
   if (is.vector(anything)) {
-    
+
     if (length(anything) == 1) {
       resDf <-
         data.frame(
-          sourceId = rep(sourceId, length(anything)),
-          entityId = entityId,
-          value = anything
+          sourceId = rep(unname(sourceId), length(anything)),
+          entityId = unname(entityId),
+          value = unname(anything)
         );
     } else {
+      
       resDf <-
         data.frame(
-          sourceId = rep(sourceId, length(anything)),
-          entityId = names(anything),
-          value = anything
+          sourceId = rep(unname(sourceId), length(anything)),
+          entityId = rep(unname(entityId), length(anything)),
+          value = unname(anything)
         );
     }
 

@@ -1,4 +1,8 @@
 #' Get a value list as data frame from an Rxs tree, list of trees, or full Rxs project
+#' 
+#' A value list is another name for the values of the entities within a clustering
+#' entity. This function retrieves all those values and returns them in a data
+#' frame.
 #'
 #' @param x The Rxs tree, list of trees, or full Rxs project
 #' @param requiredFields Fields that have to exist in the target entities
@@ -118,7 +122,7 @@ get_valueList_asDf_fromRxsTree <- function(x,
            length(res),
            " data frames with values into one data frame for this source...\n");
     }
-    
+
     res <- rbind_df_list(res);
     
     if (!silent) {

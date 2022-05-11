@@ -9,6 +9,7 @@
 #' more informative, and only used if not NULL.
 #' @param definitions The definitions, as a data frame
 #' @param rxsRootName The name of the root node of the Rxs tree
+#' @param silent Whether to be silent or chatty.
 #'
 #' @return An `rxsStructure` object
 #' @export

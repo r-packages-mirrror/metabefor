@@ -15,7 +15,7 @@ splitVectors(x, sep = "_", fieldname_regex_alwaysFlatten = NULL)
 matches a field name, always causes that field's contents to be flattened.}
 }
 \value{
-The list with the split vectors
+Either a vector, or a list with 'split' vectors
 }
 \description{
 In a list of vectors, split vectors to multiple list elements

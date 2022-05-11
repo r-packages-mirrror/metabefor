@@ -316,6 +316,15 @@ opts$defaults <-
     rockInterfacing_rxsSourceId = "rxsSourceId",
     rockInterfacing_rxsEntityId = "rxsEntityId",
     
+    ### Working with search results
+    
+    search_metadataRegex = "^(\\d\\d\\d\\d-\\d\\d-\\d\\d)_([[:alnum:]]+)_([[:alnum:]]+)(_.*)?\\.ris$",
+    search_originDir_col = "originDir",
+    search_originFile_col = "originFile",
+    search_originDatabase_col = "originDatabase",
+    search_originInterface_col = "originInterface",
+    search_originDate_col = "originDate",
+
     rxsReservedNames = c("title", "value"),
     
     diagrammerSanitization = list(c("\\\"", "`"),

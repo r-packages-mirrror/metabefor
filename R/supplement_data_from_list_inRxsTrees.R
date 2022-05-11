@@ -56,7 +56,7 @@ supplement_data_from_list_inRxsTrees <- function(x,
     
     if (!silent) {
       cat0("\n\nDone processing all ", length(x$rxsTrees),
-           "Rxs trees you passed.\n");
+           " Rxs trees you passed.\n");
     }
     
     return(invisible(x));

@@ -73,8 +73,7 @@ rxs_parseExtractionScripts <- function(path,
            "*should* normally be part of base R.");
     }
     
-    ### Then for all other languages in parallel; detect number of cores
-    ### and create a cluster
+    ### Detect number of cores and create a cluster
     nCores <- parallel::detectCores();
     
     ### Because the trick below doesn't seem to work
@@ -142,7 +141,7 @@ rxs_parseExtractionScripts <- function(path,
     
     cl <- parallel::makeCluster(nCores);
     
-    ### Load the limonaid package in each cluster
+    ### Load the metabefor package in each cluster
     parallel::clusterEvalQ(
       cl,
       library(metabefor)
@@ -154,7 +153,7 @@ rxs_parseExtractionScripts <- function(path,
         rxsObjectName = metabefor::opts$get("rxsObjectName"),
         uniqueSourceIdName = metabefor::opts$get("uniqueSourceIdName")
       );
-
+    
     ### Export these objects and the 'silent' setting
     parallel::clusterExport(
       cl,
@@ -168,7 +167,7 @@ rxs_parseExtractionScripts <- function(path,
     
     ### Perform the parallel computations
     parsedRxsFiles <-
-      parallel::parLapply(
+      parallel::parLapplyLB(
         cl,
         allScripts,
         metabefor::rxs_parseSingleExtractionScript,
