@@ -5,6 +5,8 @@
 #'
 #' @param entities The entity specification, as a data frame
 #' @param valueTemplates The value templates, as a data frame
+#' @param moduleName The name of the module; only used to make error messages
+#' more informative, and only used if not NULL.
 #' @param definitions The definitions, as a data frame
 #' @param rxsRootName The name of the root node of the Rxs tree
 #'
@@ -13,6 +15,7 @@
 rxs_parseSpecifications <- function(entities,
                                     valueTemplates,
                                     definitions = NULL,
+                                    moduleName = NULL,
                                     rxsRootName = metabefor::opts$get("rxsRootName"),
                                     silent = metabefor::opts$get("silent")) {
 
@@ -21,6 +24,7 @@ rxs_parseSpecifications <- function(entities,
   
   res <- list(parsedEntities = rxs_parseEntities(entities = entities,
                                                  rxsRootName = rxsRootName,
+                                                 moduleName = moduleName,
                                                  silent = silent),
               parsedValueTemplates = rxs_parseValueTemplates(valueTemplateDataframe=valueTemplates));
 

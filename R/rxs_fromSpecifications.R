@@ -169,8 +169,10 @@ rxs_fromSpecifications <- function(x = NULL,
                                       entities[[eC$entityRefCol]]);
   entities[[eC$valueTemplateCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
                                           entities[[eC$valueTemplateCol]]);
-  entities[[eC$moduleCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                   entities[[eC$moduleCol]]);
+  if (eC$moduleCol %in% names(entities)) {
+    entities[[eC$moduleCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
+                                     entities[[eC$moduleCol]]);
+  }
   valueTemplates[[valueTemplateCols$identifierCol]] <-
     gsub("[^a-zA-Z0-9_.]+", "",
          valueTemplates[[valueTemplateCols$identifierCol]]);
@@ -285,6 +287,7 @@ rxs_fromSpecifications <- function(x = NULL,
         entities = entities[entities[[eC$moduleCol]] == currentModule, ],
         valueTemplates = valueTemplates,
         definitions = definitions,
+        moduleName = currentModule,
         rxsRootName = rxsRootName,
         silent = silent
       );
