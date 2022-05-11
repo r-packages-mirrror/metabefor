@@ -52,8 +52,12 @@ rxs_parseEntities <- function(entities,
     
     if (!is.null(moduleName)) {
       moduleBit <- paste0("In module '", moduleName, "', the ");
+      endBit <- paste0(" Might it be in another module (or might that ",
+                       "parent not have a module specified in ",
+                       "the `module` column)?");
     } else {
       moduleBit <- "The ";
+      endBit <- "";
     }
     stop(moduleBit, "items with the following identifiers have a parent ",
          "(i.e., specify a container entity that should contain them) with an ",
@@ -66,7 +70,7 @@ rxs_parseEntities <- function(entities,
                        which(entities[[eC$identifierCol]] %in%
                                entities[[eC$identifierCol]][nonExistentParents])),
                 collapse=";\n"),
-         ")!");
+         ")!", endBit);
   }
 
   ### Convert to tree
