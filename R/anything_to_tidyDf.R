@@ -23,7 +23,7 @@ anything_to_tidyDf <- function(anything,
 
   } else if (is.data.frame(anything) &&
              (ncol(anything) == 3) &&
-             (names(anything) == c("sourceId", "entityId", "value"))) {
+             (all(names(anything) == c("sourceId", "entityId", "value")))) {
     
     resDf <- anything;
         
