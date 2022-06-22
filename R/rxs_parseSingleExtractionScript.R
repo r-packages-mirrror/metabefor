@@ -302,7 +302,9 @@ rxs_parseSingleExtractionScript <- function(filename,
   ###-------------------------------------------------------------------------
 
   ### If successful, store the result and delete object; otherwise set to NA
-  if (exists(rxsObjectName, envir=parsingEnv)) { #envir=globalenv())) {
+  
+  if (exists('parsingEnv') && ## If there was a purling problem, it doesn't
+      exists(rxsObjectName, envir=parsingEnv)) { #envir=globalenv())) {
     
     tmpRxsObject <- get(rxsObjectName, envir=parsingEnv); # envir=globalenv());
 
