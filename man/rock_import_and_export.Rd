@@ -17,6 +17,7 @@ rxs_import_from_rock(
   x,
   input = NULL,
   filenameRegex = NULL,
+  recursive = TRUE,
   rxsSourceId = metabefor::opts$get("rockInterfacing_rxsSourceId"),
   rxsEntityId = metabefor::opts$get("rockInterfacing_rxsEntityId")
 )
@@ -43,6 +44,8 @@ sources.}
 
 \item{filenameRegex}{Optionally, a regular expression: if not \code{NULL}, only
 files matching this regualr expression will be imported.}
+
+\item{recursive}{Whether to read directories recursively}
 }
 \value{
 The ROCK source as a character vector, invisibly, unless
