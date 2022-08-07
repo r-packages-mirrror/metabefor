@@ -25,14 +25,23 @@ rxs_import_from_rock <- function(x,
   );
   
   ###-----------------------------------------------------------------------------
-  ### Import source and prepare coding for import into Rxs tree
+  ### Import source(s) and prepare coding for import into Rxs tree
   ###-----------------------------------------------------------------------------
   
-  parsedSource <- rock::parse_sources(
-    path = input,
-    regex = filenameRegex,
-    recursive = recursive
-  );
+  if (dir.exists(input)) {
+    parsedSource <- rock::parse_sources(
+      path = input,
+      regex = filenameRegex,
+      recursive = recursive
+    );
+  } else if (file.exists(input)) {
+    parsedSource <- rock::parse_source(
+      file = input
+    );
+  } else {
+    stop("The `input` you specified ('", input, "') is neither",
+         "an existing directory nor an existing file.");
+  }
 
   ### Get all codeIds, all sourceIds and all entity Ids
   allCodeIds <- parsedSource$convenience$codings;
