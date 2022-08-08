@@ -1,8 +1,17 @@
 #' @export
 #' @param recursive Whether to read directories recursively
+#' @param newEntityIds,newEntityIdCodeFirst To determine how the new entity
+#' identifiers are composed, `newEntityIds` s used. This has to be a
+#' [base::sprintf] `fmt` string containing exactly two occurrences of "`%s`".
+#' If `newEntityIdCodeFirst` is `FALSE`, the first `%s` is replaced by the
+#' the original entity identifier (stored using the `rxsEntityId` class
+#' instance identifier in the ROCK format), and the second by the code. If it is
+#' `TRUE`, this order is reversed.
 #' @rdname rock_import_and_export
 rxs_import_from_rock <- function(x,
                                  input = NULL,
+                                 newEntityIds = "%s_%s",
+                                 newEntityIdCodeFirst = FALSE,
                                  filenameRegex = NULL,
                                  recursive = TRUE,
                                  rxsSourceId = metabefor::opts$get("rockInterfacing_rxsSourceId"),
@@ -62,15 +71,17 @@ rxs_import_from_rock <- function(x,
           lapply(
             allEntityIds,
             function(currentEntityId) {
-              return(
+              res <-
                 as.list(
                   parsedSource$mergedSourceDf[
                     parsedSource$mergedSourceDf[, 'rxsSourceId'] == currentSourceId &
                       parsedSource$mergedSourceDf[, 'rxsEntityId'] == currentEntityId,
                     allCodeIds
                   ]
-                )
-              );
+                );
+              ### Count all code occurrences
+              res <- lapply(res, sum);
+              return(res);
             }
           )
         );
@@ -94,7 +105,12 @@ rxs_import_from_rock <- function(x,
       for (currentCodeId in allCodeIds) {
         
         ### Compose new name --- NOTE: NEEDS TO BE DYNAMIC IN THE FUNCTION!!!
-        newName <- paste0(currentEntityId, "_", currentCodeId);
+        #newName <- paste0(currentEntityId, "_", currentCodeId);
+        if (newEntityIdCodeFirst) {
+          newName <- sprintf(newEntityIds, currentCodeId, currentEntityId);
+        } else {
+          newName <- sprintf(newEntityIds, currentEntityId, currentCodeId);
+        }
         
         ### Now we will add the codings as siblings
         targetEntityNode$AddSibling(

@@ -16,6 +16,8 @@ rxs_export_to_rock(
 rxs_import_from_rock(
   x,
   input = NULL,
+  newEntityIds = "\%s_\%s",
+  newEntityIdCodeFirst = FALSE,
   filenameRegex = NULL,
   recursive = TRUE,
   rxsSourceId = metabefor::opts$get("rockInterfacing_rxsSourceId"),
@@ -41,6 +43,14 @@ with one or more data fragments to code).}
 
 \item{input}{The filename or path with files from which to import the ROCK
 sources.}
+
+\item{newEntityIds, newEntityIdCodeFirst}{To determine how the new entity
+identifiers are composed, \code{newEntityIds} s used. This has to be a
+\link[base:sprintf]{base::sprintf} \code{fmt} string containing exactly two occurrences of "\verb{\%s}".
+If \code{newEntityIdCodeFirst} is \code{FALSE}, the first \verb{\%s} is replaced by the
+the original entity identifier (stored using the \code{rxsEntityId} class
+instance identifier in the ROCK format), and the second by the code. If it is
+\code{TRUE}, this order is reversed.}
 
 \item{filenameRegex}{Optionally, a regular expression: if not \code{NULL}, only
 files matching this regualr expression will be imported.}
