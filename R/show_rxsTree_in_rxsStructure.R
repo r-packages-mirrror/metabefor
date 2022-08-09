@@ -26,7 +26,23 @@ show_rxsTree_in_rxsStructure <- function(x,
          "parsed Rxs specifications as read with `rxs_fromSpecifications()`.",
          "Instead, you passed an object of class(es) ", vecTxtQ(class(x)), ".");
   }
-
+  
+  knitSingleTree <- function(extractionScriptTree,
+                             rxsTreeDiagram_simple) {
+    res <-
+      paste0(
+        "<pre>",
+        paste0(
+          capture.output(
+            print(extractionScriptTree)),
+          collapse="\n"
+        ),
+        "</pre>\n\n",
+        knitDiagram(rxsTreeDiagram_simple)
+      );
+    return(res);
+  }
+  
   if ("rxsStructure" %in% names(x)) {
     
     if (!is.null(output)) {
@@ -34,22 +50,6 @@ show_rxsTree_in_rxsStructure <- function(x,
         x$rxsTreeDiagram_simple,
         output
       );
-    }
-    
-    knitSingleTree <- function(extractionScriptTree,
-                               rxsTreeDiagram_simple) {
-      res <-
-        paste0(
-          "<pre>",
-          paste0(
-            capture.output(
-              print(extractionScriptTree)),
-            collapse="\n"
-          ),
-          "</pre>\n\n",
-          knitDiagram(rxsTreeDiagram_simple)
-        );
-      return(res);
     }
     
     if (isTRUE(getOption('knitr.in.progress'))) {
