@@ -29,24 +29,27 @@ show_rxsTree_in_rxsStructure <- function(x,
 
   if ("rxsStructure" %in% names(x)) {
     
-    
-    if (isTRUE(getOption('knitr.in.progress'))) {
-      print(x$rxsStructure$parsedEntities$extractionScriptTree);
-      print(knitr::knit_print(knitDiagram(x$rxsTreeDiagram_simple)));
-    } else {
-      print(x$rxsStructure$parsedEntities$extractionScriptTree);
-      print(DiagrammeR::render_graph(x$rxsTreeDiagram_simple));
-    }
-    
     if (!is.null(output)) {
       DiagrammeR::export_graph(
         x$rxsTreeDiagram_simple,
         output
       );
     }
-
-    return(invisible(x));
     
+    if (isTRUE(getOption('knitr.in.progress'))) {
+      res <-
+        paste0(
+          x$rxsStructure$parsedEntities$extractionScriptTree,
+          "\n\n",
+          knitDiagram(x$rxsTreeDiagram_simple)
+        );
+      return(knitr::asis_output(res));
+    } else {
+      print(x$rxsStructure$parsedEntities$extractionScriptTree);
+      print(DiagrammeR::render_graph(x$rxsTreeDiagram_simple));
+      return(invisible(x));
+    }
+
   } else if ("rxsStructures" %in% names(x)) {
     
     if (!is.null(output)) {
