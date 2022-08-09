@@ -109,6 +109,10 @@ show_rxsTree_in_rxsStructure <- function(x,
     }
 
     if (isTRUE(getOption('knitr.in.progress'))) {
+      
+      ### Escape backtick
+      res <- gsub("`", "\\`", res);
+      
       return(
         knitr::asis_output(
           res
@@ -119,8 +123,8 @@ show_rxsTree_in_rxsStructure <- function(x,
     }
     
   } else {
-    stop("In `x`, despite it having the correct class ('rxsStructure'), ",
-         "I cannot find the Rxs structure itself, which should be stored ",
+    stop("In `x`, despite it having the correct class, ",
+         "I cannot find the Rxs structure, which should be stored ",
          "with 'rxsStructure' or 'rxsStructures'. Instead, `x` contains ",
          "objects with names ", vecTxtQ(names(x)), ".");
   }
