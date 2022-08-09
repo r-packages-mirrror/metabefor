@@ -79,7 +79,7 @@ show_rxsTree_in_rxsStructure <- function(x,
       res <- "";
     }
     
-    for (currentModule in x$rxsStructures) {
+    for (currentModule in names(x$rxsStructures)) {
 
       if (isTRUE(getOption('knitr.in.progress'))) {
         res <- paste0(
