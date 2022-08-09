@@ -91,6 +91,7 @@ show_rxsTree_in_rxsStructure <- function(x,
           )
         );
       } else {
+        browser();
         metabefor::heading(currentModule, headingLevel = headingLevel);
         print(x$rxsStructures[[currentModule]]$parsedEntities$extractionScriptTree);
         print(DiagrammeR::render_graph(x$rxsTreeDiagrams_simple[[currentModule]]));
