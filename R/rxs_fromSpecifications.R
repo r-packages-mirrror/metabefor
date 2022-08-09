@@ -472,7 +472,7 @@ rxs_fromSpecifications <- function(x = NULL,
                     entityOverviews_list = entityOverview_list_modules,
                     entityOverviews_compact = entityOverview_compact_modules));
       
-      class(res) <- "rxsStructure";
+      class(res) <- "rxsStructures";
       
     } else {
       res <- rxsTemplate_modules;
