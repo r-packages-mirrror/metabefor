@@ -472,6 +472,8 @@ rxs_fromSpecifications <- function(x = NULL,
                     entityOverviews_list = entityOverview_list_modules,
                     entityOverviews_compact = entityOverview_compact_modules));
       
+      class(res) <- "rxsStructure";
+      
     } else {
       res <- rxsTemplate_modules;
     }
@@ -496,7 +498,7 @@ rxs_fromSpecifications <- function(x = NULL,
   }
   
   ###---------------------------------------------------------------------------
-  ### Potential write template and then return result
+  ### Potentially write template and then return result
   ###---------------------------------------------------------------------------
   
   if (workingModularly) {
