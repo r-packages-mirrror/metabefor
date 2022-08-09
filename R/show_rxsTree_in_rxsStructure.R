@@ -39,8 +39,13 @@ show_rxsTree_in_rxsStructure <- function(x,
     if (isTRUE(getOption('knitr.in.progress'))) {
       res <-
         paste0(
-          x$rxsStructure$parsedEntities$extractionScriptTree,
-          "\n\n",
+          "<pre>",
+          paste0(
+            capture.output(
+              print(x$rxsStructure$parsedEntities$extractionScriptTree)),
+            collapse="\n"
+          ),
+          "</pre>\n\n",
           knitDiagram(x$rxsTreeDiagram_simple)
         );
       return(knitr::asis_output(res));
