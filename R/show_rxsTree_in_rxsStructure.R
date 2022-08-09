@@ -82,6 +82,7 @@ show_rxsTree_in_rxsStructure <- function(x,
     for (currentModule in names(x$rxsStructures)) {
 
       if (isTRUE(getOption('knitr.in.progress'))) {
+        browser();
         res <- paste0(
           res,
           metabefor::heading(currentModule, headingLevel = headingLevel, cat=FALSE),
@@ -91,7 +92,6 @@ show_rxsTree_in_rxsStructure <- function(x,
           )
         );
       } else {
-        browser();
         metabefor::heading(currentModule, headingLevel = headingLevel);
         print(x$rxsStructures[[currentModule]]$parsedEntities$extractionScriptTree);
         print(DiagrammeR::render_graph(x$rxsTreeDiagrams_simple[[currentModule]]));
