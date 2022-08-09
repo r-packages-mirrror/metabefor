@@ -36,19 +36,31 @@ show_rxsTree_in_rxsStructure <- function(x,
       );
     }
     
-    if (isTRUE(getOption('knitr.in.progress'))) {
+    knitSingleTree <- function(extractionScriptTree,
+                               rxsTreeDiagram_simple) {
       res <-
         paste0(
           "<pre>",
           paste0(
             capture.output(
-              print(x$rxsStructure$parsedEntities$extractionScriptTree)),
+              print(extractionScriptTree)),
             collapse="\n"
           ),
           "</pre>\n\n",
-          knitDiagram(x$rxsTreeDiagram_simple)
+          knitDiagram(rxsTreeDiagram_simple)
         );
-      return(knitr::asis_output(res));
+      return(res);
+    }
+    
+    if (isTRUE(getOption('knitr.in.progress'))) {
+      return(
+        knitr::asis_output(
+          knitSingleTree(
+            x$rxsStructure$parsedEntities$extractionScriptTree,
+            x$rxsTreeDiagram_simple
+          )
+        )
+      );
     } else {
       print(x$rxsStructure$parsedEntities$extractionScriptTree);
       print(DiagrammeR::render_graph(x$rxsTreeDiagram_simple));
@@ -63,15 +75,24 @@ show_rxsTree_in_rxsStructure <- function(x,
       }
     }
     
+    if (isTRUE(getOption('knitr.in.progress'))) {
+      res <- "";
+    }
+    
     for (currentModule in x$rxsStructures) {
-      
-      metabefor::heading(currentModule, headingLevel = headingLevel);
-      
-      print(x$rxsStructures[[currentModule]]$parsedEntities$extractionScriptTree);
-      
+
       if (isTRUE(getOption('knitr.in.progress'))) {
-        knitr::knit_print(knitDiagram(x$rxsTreeDiagrams_simple[[currentModule]]));
+        res <- paste0(
+          res,
+          metabefor::heading(currentModule, headingLevel = headingLevel, cat=FALSE),
+          knitSingleTree(
+            x$rxsStructures[[currentModule]]$parsedEntities$extractionScriptTree,
+            x$rxsTreeDiagrams_simple[[currentModule]]
+          )
+        );
       } else {
+        metabefor::heading(currentModule, headingLevel = headingLevel);
+        print(x$rxsStructures[[currentModule]]$parsedEntities$extractionScriptTree);
         print(DiagrammeR::render_graph(x$rxsTreeDiagrams_simple[[currentModule]]));
       }
 
@@ -87,7 +108,15 @@ show_rxsTree_in_rxsStructure <- function(x,
       
     }
 
-    return(invisible(x));
+    if (isTRUE(getOption('knitr.in.progress'))) {
+      return(
+        knitr::asis_output(
+          res
+        )
+      );
+    } else {
+      return(invisible(x));
+    }
     
   } else {
     stop("In `x`, despite it having the correct class ('rxsStructure'), ",
