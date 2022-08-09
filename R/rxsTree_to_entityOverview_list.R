@@ -79,10 +79,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
                   "  \n**Value description**: ",
                   paste0(
                     trimws(
-                      rxs_fg_valueTemplateDescription(
-                        node,
-                        valueTemplates
-                      )
+                      node$valueTemplates
                     ),
                     collapse=" "
                   )

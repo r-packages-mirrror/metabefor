@@ -16,10 +16,10 @@
 #' @export
 #'
 #' @examples
-show_rxsStructure_showRxsTree <- function(x,
-                                          output = NULL,
-                                          outputModuleFilename = "extraction-tree--simple--%s.pdf",
-                                          headingLevel=3) {
+show_rxsTree_in_rxsStructure <- function(x,
+                                         output = NULL,
+                                         outputModuleFilename = "extraction-tree--simple--%s.pdf",
+                                         headingLevel=3) {
   
   if (!inherits(x, "rxsStructure")) {
     stop("As `x`, you have to pass an object with an Rxs structure, i.e., ",
@@ -30,7 +30,12 @@ show_rxsStructure_showRxsTree <- function(x,
   if ("rxsStructure" %in% names(x)) {
     
     print(x$rxsStructure$parsedEntities$extractionScriptTree);
-    print(DiagrammeR::render_graph(x$rxsTreeDiagram_simple));
+    
+    if (isTRUE(getOption('knitr.in.progress'))) {
+      print(metabefor::knitDiagram(x$rxsTreeDiagram_simple));
+    } else {
+      print(DiagrammeR::render_graph(x$rxsTreeDiagram_simple));
+    }
     
     if (!is.null(output)) {
       DiagrammeR::export_graph(
@@ -50,10 +55,17 @@ show_rxsStructure_showRxsTree <- function(x,
     }
     
     for (currentModule in x$rxsStructures) {
-      metabefor::heading(currentModule, headingLevel = headingLevel);
-      print(x$rxsStructures[[currentModule]]$parsedEntities$extractionScriptTree);
-      print(DiagrammeR::render_graph(x$rxsTreeDiagrams_simple[[currentModule]]));
       
+      metabefor::heading(currentModule, headingLevel = headingLevel);
+      
+      print(x$rxsStructures[[currentModule]]$parsedEntities$extractionScriptTree);
+      
+      if (isTRUE(getOption('knitr.in.progress'))) {
+        print(metabefor::knitDiagram(x$rxsTreeDiagrams_simple[[currentModule]]));
+      } else {
+        print(DiagrammeR::render_graph(x$rxsTreeDiagrams_simple[[currentModule]]));
+      }
+
       if (!is.null(output)) {
         DiagrammeR::export_graph(
           x$rxsTreeDiagram_simple,
