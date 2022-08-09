@@ -32,7 +32,7 @@ show_rxsTree_in_rxsStructure <- function(x,
     print(x$rxsStructure$parsedEntities$extractionScriptTree);
     
     if (isTRUE(getOption('knitr.in.progress'))) {
-      print(knitDiagram(x$rxsTreeDiagram_simple));
+      knitr::knit_print(knitDiagram(x$rxsTreeDiagram_simple));
     } else {
       print(DiagrammeR::render_graph(x$rxsTreeDiagram_simple));
     }
@@ -61,7 +61,7 @@ show_rxsTree_in_rxsStructure <- function(x,
       print(x$rxsStructures[[currentModule]]$parsedEntities$extractionScriptTree);
       
       if (isTRUE(getOption('knitr.in.progress'))) {
-        print(knitDiagram(x$rxsTreeDiagrams_simple[[currentModule]]));
+        knitr::knit_print(knitDiagram(x$rxsTreeDiagrams_simple[[currentModule]]));
       } else {
         print(DiagrammeR::render_graph(x$rxsTreeDiagrams_simple[[currentModule]]));
       }
