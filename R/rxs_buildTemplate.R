@@ -69,7 +69,7 @@ rxs_buildTemplate <- function(rxsStructure,
   ###---------------------------------------------------------------------------
   ### Script chunk
   ###---------------------------------------------------------------------------
-  
+
   scriptChunk <-
     rxs_fg_dispatcher(node = rxsStructure$parsedEntities$extractionScriptTree,
                       valueTemplates = rxsStructure$parsedValueTemplates,
