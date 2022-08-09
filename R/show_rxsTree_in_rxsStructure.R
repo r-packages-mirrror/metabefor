@@ -27,6 +27,10 @@ show_rxsTree_in_rxsStructure <- function(x,
          "Instead, you passed an object of class(es) ", vecTxtQ(class(x)), ".");
   }
   
+  print('is the browser ignored?');
+  
+  browser();
+  
   knitSingleTree <- function(extractionScriptTree,
                              rxsTreeDiagram_simple) {
     res <-
@@ -42,8 +46,6 @@ show_rxsTree_in_rxsStructure <- function(x,
       );
     return(res);
   }
-  
-  browser();
   
   if ("rxsStructure" %in% names(x)) {
     
