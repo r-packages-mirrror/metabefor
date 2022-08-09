@@ -12,7 +12,7 @@
 #' @param headingLevel The level of the heading to use is multiple modules
 #' were specified.
 #'
-#' @return Invisibly, x.
+#' @return Invisibly; or, when knitting, an object that knitr will print.
 #' @export
 #'
 #' @examples
@@ -26,14 +26,14 @@ show_rxsTree_in_rxsStructure <- function(x,
          "parsed Rxs specifications as read with `rxs_fromSpecifications()`.",
          "Instead, you passed an object of class(es) ", vecTxtQ(class(x)), ".");
   }
-  
+
   if ("rxsStructure" %in% names(x)) {
     
-    print(x$rxsStructure$parsedEntities$extractionScriptTree);
     
     if (isTRUE(getOption('knitr.in.progress'))) {
       knitr::knit_print(knitDiagram(x$rxsTreeDiagram_simple));
     } else {
+      print(x$rxsStructure$parsedEntities$extractionScriptTree);
       print(DiagrammeR::render_graph(x$rxsTreeDiagram_simple));
     }
     
