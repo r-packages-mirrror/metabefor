@@ -111,7 +111,7 @@ show_rxsTree_in_rxsStructure <- function(x,
     if (isTRUE(getOption('knitr.in.progress'))) {
       
       ### Escape backtick
-      res <- gsub("`", "\\`", res);
+      res <- gsub("`", "\\\\`[REPLACED]", res);
       
       return(
         knitr::asis_output(
