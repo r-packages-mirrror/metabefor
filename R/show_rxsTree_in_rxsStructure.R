@@ -21,7 +21,7 @@ show_rxsTree_in_rxsStructure <- function(x,
                                          outputModuleFilename = "extraction-tree--simple--%s.pdf",
                                          headingLevel=3) {
   
-  if (!inherits(x, "rxsStructure")) {
+  if (!(inherits(x, "rxsStructure") || inherits(x, "rxsStructures")) {
     stop("As `x`, you have to pass an object with an Rxs structure, i.e., ",
          "parsed Rxs specifications as read with `rxs_fromSpecifications()`.",
          "Instead, you passed an object of class(es) ", vecTxtQ(class(x)), ".");
