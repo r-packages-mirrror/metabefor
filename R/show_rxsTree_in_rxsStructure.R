@@ -43,6 +43,8 @@ show_rxsTree_in_rxsStructure <- function(x,
     return(res);
   }
   
+  browser();
+  
   if ("rxsStructure" %in% names(x)) {
     
     if (!is.null(output)) {
@@ -80,8 +82,6 @@ show_rxsTree_in_rxsStructure <- function(x,
     }
     
     for (currentModule in names(x$rxsStructures)) {
-
-      browser();
       
       if (isTRUE(getOption('knitr.in.progress'))) {
         res <- paste0(
