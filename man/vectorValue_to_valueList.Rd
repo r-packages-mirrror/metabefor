@@ -41,8 +41,6 @@ values with; names are values, values are labels.}
 in \code{allPossibleValues} that do not occur in the vector}
 }
 \value{
-
-
 The list
 }
 \description{

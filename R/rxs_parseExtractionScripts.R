@@ -56,6 +56,13 @@ rxs_parseExtractionScripts <- function(path,
 
   res$input$allScripts <- allScripts;
   
+  if (length(allScripts) == 0) {
+    stop("\nWhen looking for Rxs (R extraction script) files in path ",
+         path, " matching regular expression ", pattern,
+         " but excluding all files matching regular expression ",
+         exclude, ", I could not find a single file to process.");
+  }
+  
   res$log <- c(
     res$log,
     msg("\nStarting to process ", length(allScripts),
@@ -236,6 +243,10 @@ rxs_parseExtractionScripts <- function(path,
   ### Verification of raw trees
   ###-------------------------------------------------------------------------
   
+  if (length(res$rxsOutput) == 0) {
+    stop("I did not obtain any valid Rxs trees.");
+  }
+  
   validRawTrees <- unlist(lapply(res$rxsTrees_raw, inherits, "Node"));
   validRawTreeNames <- names(res$rxsTrees_raw[validRawTrees]);
   invalidRawTreeNames <- names(res$rxsTrees_raw[!validRawTrees]);
@@ -244,7 +255,7 @@ rxs_parseExtractionScripts <- function(path,
   res$convenience$validRawTrees <- validRawTrees;
   res$convenience$validRawTreeNames <- validRawTreeNames;
   res$convenience$invalidRawTreeNames <- invalidRawTreeNames;
-  
+
   if (sum(!validRawTrees) > 0) {
     warningMessage <-
       paste0("When reading the raw rxs trees, I read ", sum(!validRawTrees),
