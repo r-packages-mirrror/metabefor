@@ -24,7 +24,7 @@ be replaced with the module name.}
 were specified.}
 }
 \value{
-Invisibly, x.
+Invisibly; or, when knitting, an object that knitr will print.
 }
 \description{
 This function shows the Rxs structure that was imported from

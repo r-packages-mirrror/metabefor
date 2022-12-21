@@ -25,9 +25,6 @@ dedup_get_stringDistances(
 
 \item{silent}{Whether to be silent or chatty}
 }
-\value{
-
-}
 \description{
 Get string distances, optionally using multiple cores
 }
