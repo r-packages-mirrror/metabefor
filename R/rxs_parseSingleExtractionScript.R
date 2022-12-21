@@ -238,9 +238,11 @@ rxs_parseSingleExtractionScript <- function(filename,
     ### Create a fresh environment and store our activity as parsing
     ### multiple extraction files, preventing the calling to knitr.
     parsingEnv <- new.env();
+    
     base::assign('parsingMultipleRxsFiles', TRUE, envir=parsingEnv);
-    #base::assign('parsingMultipleRxsFiles', TRUE, envir=globalenv());
 
+    #base::assign('parsingMultipleRxsFiles', TRUE, envir=globalenv());
+    
     ### Run the other file with error handling
     rxsOutput <-
       # capture.output(tryCatch(sys.source(tempR, envir=globalenv()),
@@ -302,10 +304,9 @@ rxs_parseSingleExtractionScript <- function(filename,
   ###-------------------------------------------------------------------------
 
   ### If successful, store the result and delete object; otherwise set to NA
-  
   if (exists('parsingEnv') && ## If there was a purling problem, it doesn't
       exists(rxsObjectName, envir=parsingEnv)) { #envir=globalenv())) {
-    
+
     tmpRxsObject <- get(rxsObjectName, envir=parsingEnv); # envir=globalenv());
 
     res$rxsTrees_raw <-
