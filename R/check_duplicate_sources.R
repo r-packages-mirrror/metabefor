@@ -1,5 +1,8 @@
 #' Check for duplicate sources
 #' 
+#' This function checks, for two imported dataframes with sources, whether
+#' any of them are duplicates.
+#' 
 #' @param primarySources The primary dataframe with sources
 #' @param secondarySources The secondary dataframe with sources
 #' @param useStringDistances Whether to use string distances - note that
@@ -12,7 +15,7 @@
 #' matches (after 'zapping'). Pass `NULL` to not check any columns.
 #' @param matchStart,matchEnd Named vectors with columns and numbers of
 #' characters to check from the start and from the end. Because requiring full
-#' matched can be too conservative, you can also look at the first or last X
+#' matches can be too conservative, you can also look at the first or last X
 #' characters. Pass `NULL` to not check from the start and from the end, or
 #' pass named vectors where the names are the column names and the elements
 #' are the corresponding numbers of characters to look at for each column.
