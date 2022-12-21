@@ -4,13 +4,16 @@
 \alias{deinterlace_file}
 \title{Deinterlace a file}
 \usage{
-deinterlace_file(x)
+deinterlace_file(x, output = NULL)
 }
 \arguments{
-\item{x}{The file}
+\item{x}{A charactor vector or a file.}
+
+\item{output}{Optionally, a filename to write the results to.}
 }
 \value{
-The corrected character vector
+The corrected character vector; if \code{output} is not \code{NULL}, that
+vector is returned invisibly.
 }
 \description{
 This function removes either \emph{all} odd lines from a file, or \emph{all} even

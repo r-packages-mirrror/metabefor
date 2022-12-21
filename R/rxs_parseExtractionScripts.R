@@ -423,7 +423,7 @@ rxs_parseExtractionScripts <- function(path,
   res$log <- c(
     res$log,
     msg("\n\nFinished merging the Rxs trees. ",
-        "Starting superficial verification (i.e. without validation) of Rxs trees.\n",
+        "Starting superficial verification (i.e. without validation) of Rxs trees.",
         silent = silent
     )
   );
@@ -433,16 +433,85 @@ rxs_parseExtractionScripts <- function(path,
   ###-------------------------------------------------------------------------
 
   for (currentTree in names(res$rxsTrees)) {
-    if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
+    
+    msg("\n- Starting superficial processing of Rxs tree for source with ",
+        "unique source identifier '", currentTree, "'.",
+        silent = silent);
+    
+    uniqueChars <- unique(unlist(strsplit(currentTree, "")));
+      
+    if (nchar(currentTree) < 4) {
+      
+      message <- 
+        msg("\n  - -> !!! WARNING: this unique source identifier ('",
+            currentTree, "') has less than 4 characters - something ",
+            "probably went wrong !!! <-",
+            silent = silent);
+      
       res$log <- c(
         res$log,
-        msg("\nIn the Rxs tree for source identifier '", currentTree,
+        message
+      );
+      
+      if (silent) {
+        warning(message)
+      }
+      
+    } else if (length(uniqueChars) < 3) {
+
+      message <- 
+        msg("\n  - -> !!! WARNING: this unique source identifier ('",
+            currentTree,
+            "') has less than 3 different characters (it only has ",
+            vecTxtQ(uniqueChars), ") - ",
+            "are you sure it is correct? !!! <-",
+            silent = silent);
+      
+      res$log <- c(
+        res$log,
+        message
+      );
+      
+      if (silent) {
+        warning(message)
+      }
+      
+    }
+    
+    if (is.null(res$rxsTrees[[currentTree]])) {
+      
+      message <- 
+        msg("\n  - -> !!! WARNING: the Rxs tree for unique source identifier '",
+            currentTree, "' is NULL !!! <-",
+            silent = silent);
+      
+      res$log <- c(
+        res$log,
+        message
+      );
+      
+      if (silent) {
+        warning(message)
+      }
+      
+    } else if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
+      message <-
+        msg("\n  - In the Rxs tree for source identifier '", currentTree,
             "', not all node names (i.e. entity names) are unique!",
-            silent = silent)
+            silent = silent);
+      res$log <- c(
+        res$log,
+        message
       );
       if (silent) {
-        warning(msg);
+        warning(message)
       }
+    } else {
+      res$log <- c(
+        res$log,
+        msg("\n  - This Rxs tree passed superficial validation.",
+            silent = silent)
+      );
     }
   }
 

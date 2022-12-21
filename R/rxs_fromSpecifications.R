@@ -156,6 +156,21 @@ rxs_fromSpecifications <- function(x = NULL,
     silent = silent
   );
   
+  ### Check whether we have all crucial columns
+
+  mandatoryCols <-
+    c('titleCol', 'descriptionCol', 'identifierCol', 'valueTemplateCol', 'parentCol');
+  
+  existingCols <- eC[mandatoryCols][eC[mandatoryCols] %in% names(entities)];
+  missingCols <- setdiff(eC[mandatoryCols], existingCols);
+  
+  if (length(missingCols) > 0) {
+    stop("Not all mandatory columns exist in the entities worksheet I ",
+         "just imported. Specifically, I cannot find ", vecTxtQ(missingCols),
+         ".")
+  }
+  
+  
   ###---------------------------------------------------------------------------
   ### Sanitize identifiers
   ###---------------------------------------------------------------------------
@@ -457,6 +472,8 @@ rxs_fromSpecifications <- function(x = NULL,
                     entityOverviews_list = entityOverview_list_modules,
                     entityOverviews_compact = entityOverview_compact_modules));
       
+      class(res) <- "rxsStructures";
+      
     } else {
       res <- rxsTemplate_modules;
     }
@@ -481,7 +498,7 @@ rxs_fromSpecifications <- function(x = NULL,
   }
   
   ###---------------------------------------------------------------------------
-  ### Potential write template and then return result
+  ### Potentially write template and then return result
   ###---------------------------------------------------------------------------
   
   if (workingModularly) {
