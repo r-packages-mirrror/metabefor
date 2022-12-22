@@ -243,7 +243,7 @@ rxs_parseExtractionScripts <- function(path,
   ### Verification of raw trees
   ###-------------------------------------------------------------------------
   
-  if (length(res$rxsOutput) == 0) {
+  if (length(res$rxsTrees_raw) == 0) {
     stop("I did not obtain any valid Rxs trees.");
   }
   
