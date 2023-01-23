@@ -13,6 +13,14 @@
 #' which directories and files should be ignored.
 #' @param recursive Whether to recursively read subdirectories.
 #' @param perl Whether to use Perl regular expressions
+#' @param fieldsToCopy Fields to copy over to other fields (e.g. `L3` sometimes
+#' contains DOIs, instead of `DO`). This takes the form of a list of character
+#' vectors, with each vector's name being the new field name (to copy to), and
+#' each character vector listing the fields to copy (to that new field name).
+#' Set to `NULL` or pass an empty list to not copy anything over.
+#' @param copySep When copying fields over (see `fieldsToCopy`), the separator
+#' to use when the new field is not empty (in which case the contents to copy
+#' over will be appended).
 #' @param idFieldName New name to use for the `id` field (column), a reserved
 #' name in JabRef (if `NULL`, the field is not renamed).
 #' @param parallel Whether to use multiple cores for parallel processing.
@@ -34,6 +42,8 @@ import_search_results <- function(path,
                                   filesToIgnoreRegex = NULL,
                                   recursive = TRUE,
                                   perl = TRUE,
+                                  fieldsToCopy = list(doi = "L3"),
+                                  copySep = " || ",
                                   idFieldName = "original_id",
                                   parallel = FALSE,
                                   search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
@@ -181,7 +191,8 @@ import_search_results <- function(path,
 
   if (parallel) {
     
-  
+    stop("Parallel processing has not been implemented yet for importing ",
+         "search hits.");
   
   } else {
 
@@ -206,7 +217,22 @@ import_search_results <- function(path,
       );
 
     bibHitDf <- metabefor::rbind_df_list(searchHitDfs);
-    
+
+  }
+  
+  if (!is.null(fieldsToCopy) && (length(fieldsToCopy) > 0)) {
+    for (newField in names(fieldsToCopy)) {
+      if (length(fieldsToCopy[[newField]]) > 0) {
+        for (oldField in fieldsToCopy[[newField]]) {
+          bibHitDf[, newField] <-
+            ifelse(
+              is.na(bibHitDf[, newField]),
+              bibHitDf[, oldField],
+              paste0(bibHitDf[, newField], copySep, bibHitDf[, oldField])
+            );
+        }
+      }
+    }
   }
 
   # searchHitDfs <-
@@ -266,7 +292,9 @@ import_search_results <- function(path,
          searchHitDfs = searchHitDfs,
          bibHitDf = bibHitDf);
 
-  class(res) <- c("metabefor", "mbfSearch");
+  class(res$bibHitDf) <- c("metabefor", "mbfBibHitDf", class(res$bibHitDf));
+  
+  class(res) <- c("metabefor", "mbfSearch", class(res$bibHitDf));
   
   return(res);
   

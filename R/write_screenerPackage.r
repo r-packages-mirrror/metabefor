@@ -53,6 +53,17 @@ write_screenerPackage <- function(bibliographyDf,
          " screeners with identifiers ", vecTxtQ(screeners), ".");
   }
   
+  if (inherits(bibliographyDf, "mbfSearch")) {
+    bibliographyDf <- bibliographyDf$bibHitDf;
+  }
+
+  if (!inherits(bibliographyDf, "mbfBibHitDf")) {
+    warning("The `bibliographyDf` you passed does not have class ",
+            "`mbfBibHitDf` or `mbfSearch`. Proceeding, but note that ",
+            "this function was made for processing a bibliography data frame ",
+            "as produced by a call to metabefor::import_search_results().");
+  }
+  
   res<- list(input = c(list(call = sys.call()),
                        as.list(environment()),
                        list(sysCall = as.list(sys.call()))),
@@ -255,10 +266,10 @@ write_screenerPackage <- function(bibliographyDf,
     
     res$output$bibliographyDf[[currentScreener]] <-
       bibliographyDf;
-    
+
     ### Store bibliography
     synthesisr::write_refs(
-      bibliographyDf,
+      structure(bibliographyDf, class="data.frame"),
       file =
         file.path(
           res$intermediate$screenerDirs[[currentScreener]],
