@@ -53,7 +53,7 @@ rxs_import_from_rock <- function(x,
   }
 
   ### Get all codeIds, all sourceIds and all entity Ids
-  allCodeIds <- parsedSource$convenience$codings;
+  allCodeIds <- parsedSource$convenience$codingLeaves;
   allSourceIds <- unique(parsedSource$mergedSourceDf[, 'rxsSourceId']);
   allEntityIds <- unique(parsedSource$mergedSourceDf[, 'rxsEntityId']);
   
@@ -123,6 +123,25 @@ rxs_import_from_rock <- function(x,
       
     }
     
+  }
+  
+  if ("rockProducts" %in% names(x)) {
+    x$rockProducts <-
+      c(x$rockProducts,
+        structure(
+          list(
+            parsedSource
+          ),
+          names = input
+        ));
+  } else {
+    x$rockProducts <-
+      structure(
+        list(
+          parsedSource
+        ),
+        names = input
+      );
   }
   
   return(invisible(x));
