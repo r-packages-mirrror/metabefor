@@ -11,4 +11,5 @@ dedup_findDuplicatesInVector_trimmed <- function(x, start=0, end=0) {
   return(
     (!is.na(x)) & (duplicated(x))
   );
+  
 }

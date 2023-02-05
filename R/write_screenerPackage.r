@@ -12,8 +12,8 @@
 #' @param screenerFieldsPrefix,screenerFieldsSuffix The pre- and suffixes to
 #' pre- and append to the screener identifier in the field names in the
 #' bibliographic database
-#' @param prevRoundField A field containing information from previous screening
-#' rounds
+#' @param prevStageField A field containing information from previous screening
+#' stages
 #' @param duplicateField The field containing information about duplicates;
 #' if specified, information from this field is appended to whatever is already
 #' stored in the 
@@ -33,9 +33,9 @@
 write_screenerPackage <- function(bibliographyDf,
                                   outputPath,
                                   screeners = c("a", "b"),
-                                  screenerFieldsPrefix = "screener",
-                                  screenerFieldsSuffix = "status",
-                                  prevRoundField = NULL,
+                                  screenerFieldsPrefix = "screener_",
+                                  screenerFieldsSuffix = "_status",
+                                  prevStageField = NULL,
                                   duplicateField = NULL,
                                   initializeScreenerFields = TRUE,
                                   basename = "screening_",
@@ -92,21 +92,21 @@ write_screenerPackage <- function(bibliographyDf,
   ### Create initialization field for this round
   
   initializationFieldName <-
-    paste0(basename, "_init");
+    paste0(basename, "init");
 
   if (!(initializationFieldName %in% names(bibliographyDf))) {
     bibliographyDf[, initializationFieldName] <- "";
   }
 
   ### Check whether we have information from a previous round
-  if (!is.null(prevRoundField) && (prevRoundField %in% names(bibliographyDf))) {
+  if (!is.null(prevStageField) && (prevStageField %in% names(bibliographyDf))) {
     
     if (!silent) {
-      cat0("\nCopying info in previous round field `", prevRoundField,
-           "` (", length(unique(bibliographyDf[, prevRoundField])),
+      cat0("\nCopying info in previous stage field `", prevStageField,
+           "` (", length(unique(bibliographyDf[, prevStageField])),
            " distinct values (for ",
-           sum((!is.na(bibliographyDf[, prevRoundField])) &
-                 nchar(bibliographyDf[, prevRoundField]) > 0),
+           sum((!is.na(bibliographyDf[, prevStageField])) &
+                 nchar(bibliographyDf[, prevStageField]) > 0),
            " records) to initialization field `",
            initializationFieldName, "`.");
     }
@@ -115,14 +115,14 @@ write_screenerPackage <- function(bibliographyDf,
       ifelse(
         is.na(bibliographyDf[, initializationFieldName]) |
           nchar(bibliographyDf[, initializationFieldName]) == 0,
-        bibliographyDf[, prevRoundField],
+        bibliographyDf[, prevStageField],
         ifelse(
-          (!is.na(bibliographyDf[, prevRoundField])) &
-            nchar(bibliographyDf[, prevRoundField]) > 0,
+          (!is.na(bibliographyDf[, prevStageField])) &
+            nchar(bibliographyDf[, prevStageField]) > 0,
           paste0(
             bibliographyDf[, initializationFieldName],
             ">",
-            bibliographyDf[, prevRoundField]
+            bibliographyDf[, prevStageField]
           ),
           bibliographyDf[, initializationFieldName]
         )
@@ -131,7 +131,7 @@ write_screenerPackage <- function(bibliographyDf,
   } else {
     
     if (!silent) {
-      cat0("\nNo previous round field specified or it was not present in the ",
+      cat0("\nNo previous stage field specified or it was not present in the ",
            "data frame, so not copying its content to `",
            initializationFieldName, "`.");
     }
@@ -195,12 +195,18 @@ write_screenerPackage <- function(bibliographyDf,
     cat("\nStarting to process screener identifiers.\n");
   }
   
+  raw_bib_df <- bibliographyDf;
+  
   for (currentScreener in screeners) {
     
     if (!silent) {
       cat0("\nStarting to process screener identifier '",
            currentScreener, "'.");
     }
+    
+    ### Reset bibliographyDf to remove other screeener fields that
+    ### were just added
+    bibliographyDf <- raw_bib_df;
     
     currentScreenerField <-
       res$intermediate$screenerFields[[currentScreener]];

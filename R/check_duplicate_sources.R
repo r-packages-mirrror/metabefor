@@ -18,7 +18,8 @@
 #' matches can be too conservative, you can also look at the first or last X
 #' characters. Pass `NULL` to not check from the start and from the end, or
 #' pass named vectors where the names are the column names and the elements
-#' are the corresponding numbers of characters to look at for each column.
+#' are the corresponding numbers of characters to look at for each column. Note:
+#' if a column is also in `matchFully`, that takes precedence.
 #' @param forDeduplicationSuffix Suffix to add to optional deduplication columns
 #' @param returnRawStringDistances Whether to return the raw string distances
 #' or not (this can be _very_ large).
@@ -162,36 +163,11 @@ check_duplicate_sources <- function(primarySources,
         sum(res$doiMatch),
         " duplicates based on DOI.\n",
         silent = silent);
-
-    ###-------------------------------------------------------------------------
-    ### Start looking for full matches
-    ###-------------------------------------------------------------------------
-    
-    if (hasValidValue(matchFully)) {
-      for (currentCol in matchFully) {
-        
-        msg("Looking for full matches, processing column '",
-            currentCol,
-            "'.\n",
-            silent = silent);
-
-        res[, paste0("fullMatch_", currentCol)] <- 
-          dedup_findDuplicatesInVector_trimmed(
-            primarySources[, currentCol]
-          );
-
-        msg("Found ",
-            sum(res[, paste0("fullMatch_", currentCol)]),
-            " duplicates based on full string matching.\n",
-            silent = silent);
-        
-      }
-    }
     
     ###-------------------------------------------------------------------------
     ### Start looking for matches of first characters
     ###-------------------------------------------------------------------------
-    
+
     if (hasValidValue(matchStart)) {
       for (currentCol in names(matchStart)) {
         
@@ -211,7 +187,7 @@ check_duplicate_sources <- function(primarySources,
             " duplicates based on matching the first ",
             matchStart[currentCol], " characters.\n",
             silent = silent);
-        
+
       }
     }
     
@@ -237,6 +213,31 @@ check_duplicate_sources <- function(primarySources,
             sum(res[, paste0("endMatch_", currentCol)]),
             " duplicates based on matching the last ",
             matchEnd[currentCol], " characters.\n",
+            silent = silent);
+        
+      }
+    }
+    
+    ###-------------------------------------------------------------------------
+    ### Start looking for full matches
+    ###-------------------------------------------------------------------------
+    
+    if (hasValidValue(matchFully)) {
+      for (currentCol in matchFully) {
+        
+        msg("Looking for full matches, processing column '",
+            currentCol,
+            "'.\n",
+            silent = silent);
+        
+        res[, paste0("fullMatch_", currentCol)] <- 
+          dedup_findDuplicatesInVector_trimmed(
+            primarySources[, currentCol]
+          );
+        
+        msg("Found ",
+            sum(res[, paste0("fullMatch_", currentCol)]),
+            " duplicates based on full string matching.\n",
             silent = silent);
         
       }
@@ -488,7 +489,18 @@ check_duplicate_sources <- function(primarySources,
     }
 
   }
+  
+  ### Flag duplicates
+  duplicateColumns <-
+    res$doiMatch | 
+    apply(
+      res[, grep("^fullMatch_", names(res))],
+      1,
+      all
+    );
+  
+  attr(duplicateColumns, "duplicateInfo") <- res;
 
-  return(res);
+  return(duplicateColumns);
   
 }

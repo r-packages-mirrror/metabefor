@@ -294,7 +294,7 @@ import_search_results <- function(path,
 
   class(res$bibHitDf) <- c("metabefor", "mbfBibHitDf", class(res$bibHitDf));
   
-  class(res) <- c("metabefor", "mbfSearch", class(res$bibHitDf));
+  class(res) <- c("metabefor", "mbfSearch", class(res));
   
   return(res);
   
