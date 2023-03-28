@@ -19,9 +19,13 @@ rxs_fg_TitleDescription <- function(title,
   }
 
   if (!is.null(description)) {
+    description <-
+      rxs_fragmentPrep_strwrap_with_prefix(description,
+                                           width=lV$commentWidth,
+                                           prefix=lV$commentPrefix);
     res <- c(res,
              c(lV$commentPrefix,
-               strwrap(description, width=lV$commentWidth, prefix=lV$commentPrefix)));
+               description));
   }
 
   ### Construct the character vector to return
