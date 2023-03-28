@@ -14,6 +14,8 @@ rxs_validation <- function(rxsTree,
                            stopOnFailure = FALSE,
                            rxsStructure = NULL) {
   
+  warning('bla');
+  
   passedValidation <- function(...) {
     return(paste("V", paste0(..., sep="", collapse="")));
   }
@@ -172,6 +174,8 @@ rxs_validation <- function(rxsTree,
         
     } else if (is.expression(node$validation)) {
       
+      browser();
+      
       ###-----------------------------------------------------------------------
       ### Single entity with a set validation
       ###-----------------------------------------------------------------------
@@ -183,6 +187,10 @@ rxs_validation <- function(rxsTree,
       validationOutcome <- eval(node$validation);
       
       if (is.logical(validationOutcome) && validationOutcome) {
+        
+        if (node$name == "terminology") {
+          browser();
+        }
         
         validationMsg <-
           passedValidation(
