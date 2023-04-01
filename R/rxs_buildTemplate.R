@@ -211,7 +211,7 @@ rxs_buildTemplate <- function(rxsStructure,
   
   ### Include form specification chunk
   rxsTemplateSpecificationChunkInclusion <-
-    c(paste0("```{r ", rxsTemplateSpecificationChunkLabel, chunkOpts, "}"),
+    c(paste0("```{r ", rxsTemplateSpecificationChunkLabel, ", ", chunkOpts, "}"),
       "```");
 
   rxsTemplateSpecificationChunkSourceCode <- c(
