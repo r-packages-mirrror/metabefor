@@ -216,8 +216,8 @@ rxs_validation <- function(rxsTree,
             errorMsg <-
               rxsStructure$parsedValueTemplates[[valueTemplateName]]$error;
             if (is.null(errorMsg) ||
-                is.na(errorMsg) ||
-                (nchar(trimws(errorMsg)) == 0)) {
+                all(is.na(errorMsg)) ||
+                (all(nchar(trimws(errorMsg)) == 0))) {
               errorMsg <- "";
             } else {
               errorMsg <- gsub('NAME',
@@ -235,11 +235,12 @@ rxs_validation <- function(rxsTree,
           
         }
         
-        if (nchar(trimws(errorMsg)) > 0) {
+        if (any(nchar(trimws(errorMsg)) > 0)) {
           
           validationMsg <-
             failedValidation(
-              "Failed validation for entity '", node$name, "': ", errorMsg
+              "Failed validation for entity '", node$name, "': ",
+              paste0(errorMsg, collapse = " | ")
             );
           validationStatus <- FALSE;
           
