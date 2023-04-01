@@ -13,9 +13,7 @@
 rxs_validation <- function(rxsTree,
                            stopOnFailure = FALSE,
                            rxsStructure = NULL) {
-  
-  warning('bla');
-  
+
   passedValidation <- function(...) {
     return(paste("V", paste0(..., sep="", collapse="")));
   }
