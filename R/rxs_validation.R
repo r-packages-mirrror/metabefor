@@ -108,8 +108,8 @@ rxs_validation <- function(rxsTree,
                 errorMsg <-
                   rxsStructure$parsedValueTemplates[[valueTemplateName]]$error;
                 if (is.null(errorMsg) ||
-                    is.na(errorMsg) ||
-                    (nchar(trimws(errorMsg)) == 0)) {
+                    all(is.na(errorMsg)) ||
+                    (all(nchar(trimws(errorMsg)) == 0))) {
                   errorMsg <- "(no custom error message specified)";
                 } else {
                   errorMsg <- gsub('NAME',
@@ -118,8 +118,8 @@ rxs_validation <- function(rxsTree,
                 }
               }
             }
-            if (nchar(trimws(errorMsg)) > 0) {
-              errorMsg <- paste0(": ", errorMsg);
+            if (any(nchar(trimws(errorMsg)) > 0)) {
+              errorMsg <- paste0(": ", paste(errorMsg, collapse=" | "));
             }
             
             validationMsg <-
