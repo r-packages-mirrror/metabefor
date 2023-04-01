@@ -226,7 +226,7 @@ rxs_buildTemplate <- function(rxsStructure,
     "",
     "```"
   );
-  
+
   setRxsObjectClass <-
     paste0("class(", rxsObjectName, ") <- c('rxs', 'rxsObject', class(", rxsObjectName, "));");
   rxsMetadata <-
@@ -285,6 +285,8 @@ rxs_buildTemplate <- function(rxsStructure,
                     ""),
              showExtractedDataChunk,
              "",
+             rxsTemplateSpecificationChunkInclusion,
+             "",
              validationChunk,
              "",
              yamlHeader,
@@ -319,6 +321,8 @@ rxs_buildTemplate <- function(rxsStructure,
                     c(recursingEntitiesChunk, ""),
                     ""),
              showExtractedDataChunk,
+             "",
+             rxsTemplateSpecificationChunkInclusion,
              "",
              validationChunk,
              "",
