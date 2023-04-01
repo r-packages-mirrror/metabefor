@@ -154,7 +154,7 @@ rxs_buildTemplate <- function(rxsStructure,
   ### Actual setup chunk
   setupChunk <- c(paste0("```{r ", setupChunkLabel, ", include=FALSE, messages=FALSE}"),
                   "### First check for (and perhaps install) metabefor",
-                  "if (!('metabefor' %in% row.names(installed.packages()))) {",
+                  "if (!(requireNamespace('metabefor', quietly = TRUE))) {",
                   "  install.packages('metabefor', repos='http://cran.rstudio.com');",
                   "}",
                   #"",

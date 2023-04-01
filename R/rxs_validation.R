@@ -173,9 +173,7 @@ rxs_validation <- function(rxsTree,
       }
         
     } else if (is.expression(node$validation)) {
-      
-      browser();
-      
+
       ###-----------------------------------------------------------------------
       ### Single entity with a set validation
       ###-----------------------------------------------------------------------
@@ -187,11 +185,7 @@ rxs_validation <- function(rxsTree,
       validationOutcome <- eval(node$validation);
       
       if (is.logical(validationOutcome) && validationOutcome) {
-        
-        if (node$name == "terminology") {
-          browser();
-        }
-        
+
         validationMsg <-
           passedValidation(
             "Passed validation for entity '", node$name, "'!"
@@ -231,6 +225,14 @@ rxs_validation <- function(rxsTree,
                                errorMsg);
             }
           }
+        } else {
+          
+          errorMsg <-
+            paste0(
+              "No custom error message was set, but the value that failed ",
+              "the validation was '", VALUE, "'."
+            );
+          
         }
         
         if (nchar(trimws(errorMsg)) > 0) {
