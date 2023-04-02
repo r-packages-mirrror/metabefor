@@ -2,8 +2,9 @@
 #'
 #' @param rxsTree The Rxs tree.
 #' @param stopOnFailure Whether to throw an error when validation fails.
-#' @param rxsStructure Optionally, the `rxsStructure` as resulting from
-#' a call to [rxs_parseSpecifications()].
+#' @param rxsTemplateSpec Optionally, the rxs template specification as it is
+#' typically included in rxs templates.
+#' @param silent Whether to be silent or chatty.
 #'
 #' @return Invisibly, the Rxs tree (which was altered in place, consistent
 #' with the reference semantics employed by [data.tree::Node()] - so you can
@@ -12,13 +13,14 @@
 #' @export
 rxs_validation <- function(rxsTree,
                            stopOnFailure = FALSE,
-                           rxsStructure = NULL) {
+                           rxsTemplateSpec = NULL,
+                           silent = metabefor::opts$get("silent")) {
 
   passedValidation <- function(...) {
-    return(paste("V", paste0(..., sep="", collapse="")));
+    return(msg("\n", paste("V", paste0(..., sep="", collapse="")), silent=silent));
   }
   failedValidation <- function(...) {
-    return(paste("X", paste0(..., sep="", collapse="")));
+    return(msg("\n", paste("X", paste0(..., sep="", collapse="")), silent=silent));
   }
   
   eC <- metabefor::opts$get("entityColNames");
@@ -27,6 +29,22 @@ rxs_validation <- function(rxsTree,
     paste0("Validation run starting at ",
            format(Sys.time(),
                   "%Y-%m-%d at %H:%M:%S %Z (UTC%z)"));
+  
+  if (!is.null(rxsTemplateSpec)) {
+    rxsStructure <- list();
+    if ("entities" %in% names(rxsTemplateSpec)) {
+      rxsStructure$parsedEntities <-
+        rxs_parseEntities(
+          rxsTemplateSpec$entities
+        );
+    }
+    if ("valueTemplates" %in% names(rxsTemplateSpec)) {
+      rxsStructure$parsedValueTemplates <-
+        rxs_parseValueTemplates(
+          rxsTemplateSpec$valueTemplates
+        );
+    }
+  }
 
   if (!data.tree::AreNamesUnique(rxsTree)) {
     rxsTree$validationLog <-
@@ -125,7 +143,7 @@ rxs_validation <- function(rxsTree,
                 "Failed validation for clustered entity '",
                 valueName, "' (in clustering entity '",
                 node$name,
-                "')", errorMsg
+                "'): ", errorMsg
               );
             validationStatus <- FALSE;
             
@@ -143,7 +161,7 @@ rxs_validation <- function(rxsTree,
               passedValidation(
                 "Unexpected validation result for clustered entity '",
                 valueName, "' (in clustering entity '",
-                node$name, "':", validationOutcome
+                node$name, "': ", validationOutcome
               );
             validationStatus <- TRUE;
           }
@@ -152,7 +170,7 @@ rxs_validation <- function(rxsTree,
             passedValidation(
               "Passed validation for clustered entity '",
               valueName, "' (in clustering entity '",
-              node$name, "'!"
+              node$name, "')!"
             );
           validationStatus <- TRUE;
         }
@@ -183,7 +201,7 @@ rxs_validation <- function(rxsTree,
       validationOutcome <- eval(node$validation);
       
       if (is.logical(validationOutcome) && validationOutcome) {
-
+        
         validationMsg <-
           passedValidation(
             "Passed validation for entity '", node$name, "'!"
@@ -209,7 +227,7 @@ rxs_validation <- function(rxsTree,
                 node$name
               );
           }
-          if (is.null(relevantNode)) {
+          if (!is.null(relevantNode)) {
             valueTemplateName <- relevantNode[[eC$valueTemplateCol]];
             errorMsg <-
               rxsStructure$parsedValueTemplates[[valueTemplateName]]$error;
@@ -222,14 +240,14 @@ rxs_validation <- function(rxsTree,
                                node$name,
                                errorMsg);
             }
-          }
-        } else {
+          } else {
           
-          errorMsg <-
-            paste0(
-              "No custom error message was set, but the value that failed ",
-              "the validation was '", VALUE, "'."
-            );
+            errorMsg <-
+              paste0(
+                "No custom error message was set, but the value that failed ",
+                "the validation was '", VALUE, "'."
+              );
+          }
           
         }
         
@@ -302,9 +320,9 @@ rxs_validation <- function(rxsTree,
       }
       
     }
-
+    
   });
-  
+
   rxsTree$validationLog <-
     c(rxsTree$validationLog,
       paste0("Validation run ending at ",
