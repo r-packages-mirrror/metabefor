@@ -200,7 +200,7 @@ rxs_buildTemplate <- function(rxsStructure,
       "metabefor::heading('Validation results', headingLevel = 1);",
       paste0("metabefor::rxs_validation(\n  ", rxsObjectName,
              ",\n  stopOnFailure = ", errorOnFailingValidation,
-             ",\n  rxsStructure = rxsTemplateSpec);"),
+             ",\n  rxsTemplateSpec = rxsTemplateSpec);"),
       paste0("cat(paste0('- ', ", rxsObjectName, "$validationLog), sep='\\n');"),
       "```");
 
