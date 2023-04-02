@@ -17,10 +17,10 @@ rxs_validation <- function(rxsTree,
                            silent = metabefor::opts$get("silent")) {
 
   passedValidation <- function(...) {
-    return(msg("\n", paste("V", paste0(..., sep="", collapse="")), silent=silent));
+    return(msg("\n", paste("\U2705", paste0(..., sep="", collapse="")), silent=silent));
   }
   failedValidation <- function(...) {
-    return(msg("\n", paste("X", paste0(..., sep="", collapse="")), silent=silent));
+    return(msg("\n", paste("\U26D4", paste0(..., sep="", collapse="")), silent=silent));
   }
   
   eC <- metabefor::opts$get("entityColNames");
