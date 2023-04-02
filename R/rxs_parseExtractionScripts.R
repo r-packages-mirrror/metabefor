@@ -129,7 +129,9 @@ rxs_parseExtractionScripts <- function(path,
       p <- progress::progress_bar$new(
         total = length(allScripts),
         format = ":spin [:bar] :percent in :elapsedfull, :eta to go");
-    };
+    } else {
+      p <- NULL;
+    }
     
     parsedRxsFiles <-
       lapply(
