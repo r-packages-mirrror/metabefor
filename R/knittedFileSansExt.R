@@ -14,7 +14,8 @@ knittedFileSansExt <- function(x = NULL) {
     sub(
       "\\.Rxs\\.Rmd$",
       "",
-      x
+      x,
+      ignore.case = TRUE
     )
   );
 }
