@@ -224,18 +224,18 @@ import_search_results <- function(path,
     for (newField in names(fieldsToCopy)) {
       if (length(fieldsToCopy[[newField]]) > 0) {
         for (oldField in fieldsToCopy[[newField]]) {
-          if (!(newField %in% names(bibHitDf))) {
-            stop("New field '", newField, "' is not in bibHitDf!");
+          if (oldField %in% names(bibHitDf)) {
+            if (newField %in% names(bibHitDf)) {
+              bibHitDf[, newField] <-
+                ifelse(
+                  is.na(bibHitDf[, newField]),
+                  bibHitDf[, oldField],
+                  paste0(bibHitDf[, newField], copySep, bibHitDf[, oldField])
+                );
+            } else {
+              bibHitDf[, newField] <- bibHitDf[, oldField];
+            }
           }
-          if (!(oldField %in% names(bibHitDf))) {
-            stop("Old field '", oldField, "' is not in bibHitDf!");
-          }
-          bibHitDf[, newField] <-
-            ifelse(
-              is.na(bibHitDf[, newField]),
-              bibHitDf[, oldField],
-              paste0(bibHitDf[, newField], copySep, bibHitDf[, oldField])
-            );
         }
       }
     }
