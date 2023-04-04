@@ -68,7 +68,7 @@ rxs_validation <- function(rxsTree,
         entityPath = "metadata",
         
         validation = failedValidation(
-          "Failed validation: the source identifier you specified, ",
+          "Failed validation: the source identifier you specified, '",
           rxsObject$rxsMetadata$id, 
           "', does not validate - it does not match the predefined format!"
         ),
@@ -83,7 +83,7 @@ rxs_validation <- function(rxsTree,
         entityPath = "metadata",
         
         validation = passedValidation(
-          "Passed validation: the source identifier you specified, ",
+          "Passed validation: the source identifier you specified, '",
           rxsObject$rxsMetadata$id, 
           "', matches the predefined format!"
         ),
@@ -109,7 +109,7 @@ rxs_validation <- function(rxsTree,
         entityPath = "metadata",
         
         validation = failedValidation(
-          "Failed validation: the extractor identifier you specified, ",
+          "Failed validation: the extractor identifier you specified, '",
           rxsObject$rxsMetadata$id, 
           "', does not validate - it does not match the predefined format!"
         ),
@@ -124,7 +124,7 @@ rxs_validation <- function(rxsTree,
         entityPath = "metadata",
         
         validation = passedValidation(
-          "Passed validation: the extractor identifier you specified, ",
+          "Passed validation: the extractor identifier you specified, '",
           rxsObject$rxsMetadata$extractorId, 
           "', matches the predefined format!"
         ),
