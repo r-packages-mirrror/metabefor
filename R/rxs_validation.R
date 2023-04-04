@@ -82,7 +82,7 @@ rxs_validation <- function(rxsTree,
         entityId = "sourceId",
         entityPath = "metadata",
         
-        validation = failedValidation(
+        validation = passedValidation(
           "Passed validation: the source identifier you specified, ",
           rxsObject$rxsMetadata$id, 
           "', matches the predefined format!"
@@ -123,7 +123,7 @@ rxs_validation <- function(rxsTree,
         entityId = "extractorId",
         entityPath = "metadata",
         
-        validation = failedValidation(
+        validation = passedValidation(
           "Passed validation: the extractor identifier you specified, ",
           rxsObject$rxsMetadata$extractorId, 
           "', matches the predefined format!"
@@ -148,7 +148,8 @@ rxs_validation <- function(rxsTree,
       list(
         entityId = rxsTree$root$name,
         entityPath = rxsTree$root$name,
-        validation = "Failed validation: not all entity identifiers are unique!",
+        validation = failedValidation(
+          "Failed validation: not all entity identifiers are unique!"),
         validated = FALSE
       );
     
@@ -158,7 +159,8 @@ rxs_validation <- function(rxsTree,
       list(
         entityId = rxsTree$root$name,
         entityPath = rxsTree$root$name,
-        validation = "Passed validation: all entity identifiers are unique!",
+        validation = passedValidation(
+          "Passed validation: all entity identifiers are unique!"),
         validated = TRUE
       );
     
