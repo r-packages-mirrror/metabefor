@@ -2,6 +2,10 @@
 #'
 #' @param rxsTree The Rxs tree.
 #' @param stopOnFailure Whether to throw an error when validation fails.
+#' @param stopOnFailure_metadata Whether to throw an error when validation
+#' fails, but only if validation fails for the metadata.
+#' @param stopOnFailure_entities Whether to throw an error when validation
+#' fails, but only if validation fails for the entity values.
 #' @param rxsTemplateSpec Optionally, the rxs template specification as it is
 #' typically included in rxs templates.
 #' @param silent Whether to be silent or chatty.
@@ -13,6 +17,8 @@
 #' @export
 rxs_validation <- function(rxsTree,
                            stopOnFailure = FALSE,
+                           stopOnFailure_metadata = TRUE,
+                           stopOnFailure_entities = stopOnFailure,
                            rxsTemplateSpec = NULL,
                            silent = metabefor::opts$get("silent")) {
 
@@ -30,6 +36,8 @@ rxs_validation <- function(rxsTree,
            format(Sys.time(),
                   "%Y-%m-%d at %H:%M:%S %Z (UTC%z)"));
   
+  rxsTree$validationResults <- list();
+    
   if (!is.null(rxsTemplateSpec)) {
     rxsStructure <- list();
     if ("entities" %in% names(rxsTemplateSpec)) {
@@ -45,30 +53,154 @@ rxs_validation <- function(rxsTree,
         );
     }
   }
+  
+  ###---------------------------------------------------------------------------
+  ### Validate source identifier
+  ###---------------------------------------------------------------------------
+  
+  if (!(grepl("^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$",
+              rxsObject$rxsMetadata$id,
+              ignore.case=TRUE))) {
+    
+    rxsTree$validationResults$sourceIdValidation <-
+      list(
+        entityId = "sourceId",
+        entityPath = "metadata",
+        
+        validation = failedValidation(
+          "Failed validation: the source identifier you specified, ",
+          rxsObject$rxsMetadata$id, 
+          "', does not validate - it does not match the predefined format!"
+        ),
+        validated = FALSE
+      );
+    
+  } else {
+    
+    rxsTree$validationResults$sourceIdValidation <-
+      list(
+        entityId = "sourceId",
+        entityPath = "metadata",
+        
+        validation = failedValidation(
+          "Passed validation: the source identifier you specified, ",
+          rxsObject$rxsMetadata$id, 
+          "', matches the predefined format!"
+        ),
+        validated = TRUE
+      );
+    
+  }
+  
+  rxsTree$validationLog <-
+    c(rxsTree$validationLog,
+      rxsTree$validationResults$sourceIdValidation$validation
+    );
+  
+  ###---------------------------------------------------------------------------
+  ### Validate extractor identifier
+  ###---------------------------------------------------------------------------
+  
+  if (!(grepl("^[a-zA-Z][a-zA-Z0-9_]*$", rxsObject$rxsMetadata$extractorId, ignore.case=TRUE))) {
+    
+    rxsTree$validationResults$extractorIdValidation <-
+      list(
+        entityId = "extractorId",
+        entityPath = "metadata",
+        
+        validation = failedValidation(
+          "Failed validation: the extractor identifier you specified, ",
+          rxsObject$rxsMetadata$id, 
+          "', does not validate - it does not match the predefined format!"
+        ),
+        validated = FALSE
+      );
+    
+  } else {
+    
+    rxsTree$validationResults$extractorIdValidation <-
+      list(
+        entityId = "extractorId",
+        entityPath = "metadata",
+        
+        validation = failedValidation(
+          "Passed validation: the extractor identifier you specified, ",
+          rxsObject$rxsMetadata$extractorId, 
+          "', matches the predefined format!"
+        ),
+        validated = TRUE
+      );
+    
+  }
+  
+  rxsTree$validationLog <-
+    c(rxsTree$validationLog,
+      rxsTree$validationResults$extractorIdValidation$validation
+    );
+  
+  ###---------------------------------------------------------------------------
+  ### Validate entity identifier uniqueness
+  ###---------------------------------------------------------------------------
 
   if (!data.tree::AreNamesUnique(rxsTree)) {
-    rxsTree$validationLog <-
-      c(rxsTree$validationLog,
-        failedValidation(
-          "Failed validation: not all entity identifiers are unique!"
-        ));
-    rxsTree$validationResults <-
-      list(list(entityId = rxsTree$root$name,
-                entityPath = rxsTree$root$name,
-                validation = "All entity identifiers must be unique",
-                validated = FALSE));
+
+    rxsTree$validationResults$entityIdValidation <-
+      list(
+        entityId = rxsTree$root$name,
+        entityPath = rxsTree$root$name,
+        validation = "Failed validation: not all entity identifiers are unique!",
+        validated = FALSE
+      );
+    
   } else {
-    rxsTree$validationLog <-
-      c(rxsTree$validationLog,
-        passedValidation(
-          "Passed validation: all entity identifiers are unique!"
-        ));
-    rxsTree$validationResults <-
-      list(list(entityId = rxsTree$root$name,
-                entityPath = rxsTree$root$name,
-                validation = "All entity identifiers must be unique",
-                validated = TRUE));
+    
+    rxsTree$validationResults$entityIdValidation <-
+      list(
+        entityId = rxsTree$root$name,
+        entityPath = rxsTree$root$name,
+        validation = "Passed validation: all entity identifiers are unique!",
+        validated = TRUE
+      );
+    
   }
+
+  rxsTree$validationLog <-
+    c(rxsTree$validationLog,
+      rxsTree$validationResults$entityIdValidation$validation
+    );
+
+  if (stopOnFailure_metadata) {
+    tmpValidationMsg <- c();
+    if (!rxsTree$validationResults$sourceIdValidation$validated) {
+      tmpValidationMsg <-
+        c(tmpValidationMsg,
+          rxsTree$validationResults$sourceIdValidation$validation);          
+    }
+    if (!rxsTree$validationResults$extractorIdValidation$validated) {
+      tmpValidationMsg <-
+        c(tmpValidationMsg,
+          rxsTree$validationResults$extractorIdValidation$validation);          
+    }
+    if (!rxsTree$validationResults$entityIdValidation$validated) {
+      tmpValidationMsg <-
+        c(tmpValidationMsg,
+          rxsTree$validationResults$entityIdValidation$validation);          
+    }
+    if (length(tmpValidationMsg) > 0) {
+      stop(
+        metabefor::wrap_error(
+          paste(
+            tmpValidationMsg,
+            collapse = " Also, "
+          )
+        )
+      );
+    }
+  }
+
+###---------------------------------------------------------------------------
+### Validate values entered for each entity
+###---------------------------------------------------------------------------
 
   rxsTree$Do(function(node) {
 
@@ -329,7 +461,7 @@ rxs_validation <- function(rxsTree,
              format(Sys.time(),
                     "%Y-%m-%d at %H:%M:%S %Z (UTC%z)")));
 
-  if (stopOnFailure) {
+  if (stopOnFailure_entities) {
     
     failedValidations <- unlist(lapply(
       rxsTree$validationResults,
