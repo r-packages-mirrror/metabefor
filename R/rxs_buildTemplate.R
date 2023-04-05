@@ -1,6 +1,6 @@
 rxs_buildTemplate <- function(rxsStructure,
                               rxsSpecification,
-                              errorOnFailingValidation = errorOnFailingValidation,
+                              errorOnFailingValidation = FALSE,
                               yamlMetadata = NULL,
                               module = NULL,
                               silent = metabefor::opts$get("silent")) {

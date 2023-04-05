@@ -17,7 +17,7 @@
 #' @export
 rxs_validation <- function(rxsTree,
                            stopOnFailure = FALSE,
-                           stopOnFailure_metadata = TRUE,
+                           stopOnFailure_metadata = stopOnFailure,
                            stopOnFailure_entities = stopOnFailure,
                            rxsTemplateSpec = NULL,
                            silent = metabefor::opts$get("silent")) {
