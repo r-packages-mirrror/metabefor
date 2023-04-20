@@ -2,7 +2,7 @@ rxs_fg_list <- function(node,
                         valueTemplates,
                         silent=metabefor::opts$get("silent"),
                         overrideLevel = NULL,
-                        codingHelp = "<entityTitle>: <entityDescription> [Examples: <examples>] [Value description: <valueDescription>]",
+                        codingHelp = metabefor::opts$get("rxs_fg_list_codingHelp"),
                         codingHelpSep = "; ") {
   
   eC <- metabefor::opts$get("entityColNames");

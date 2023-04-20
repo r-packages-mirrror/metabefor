@@ -72,9 +72,21 @@ rxs_parseEntities <- function(entities,
                 collapse=";\n"),
          ")!", endBit);
   }
+  
+  duplicatedEntityRows <-
+    which(duplicated(dataFrameNetwork[[eC$identifierCol]]));
+  if (any(length(duplicatedEntityRows) > 0)) {
+    stop("There are duplicated entity identifiers! Specifically, ",
+         "on rows ", vecTxt(duplicatedEntityRows), ", there are duplicate ",
+         "occurrences of entity identifiers ",
+         vecTxtQ(dataFrameNetwork[duplicatedEntityRows, eC$identifierCol]),
+         ".");
+  }
 
-  ### Convert to tree
-  extractionScriptTree <- data.tree::FromDataFrameNetwork(dataFrameNetwork);
+  ### Convert to tree; NB; 2023-04-19: this may throw a
+  ### Error: C stack usage  15927584 is too close to the limit
+  extractionScriptTree <-
+    data.tree::FromDataFrameNetwork(dataFrameNetwork);
 
   ### Check for unique names
   if (!data.tree::AreNamesUnique(extractionScriptTree)) {

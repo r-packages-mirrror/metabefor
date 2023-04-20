@@ -245,7 +245,7 @@ rxs_fromSpecifications <- function(x = NULL,
   ###---------------------------------------------------------------------------
   ### Process entities and value templates into rxsStructure
   ###---------------------------------------------------------------------------
-
+  
   if (eC$moduleCol %in% names(entities)) {
     modules <- unique(entities[[eC$moduleCol]]);
     modules <- modules[!is.na(modules)];
@@ -339,6 +339,9 @@ rxs_fromSpecifications <- function(x = NULL,
       }
     }
     
+    ### 2024-04-19: This command can throw:
+    ### Error: C stack usage  15927584 is too close to the limit
+    
     rxsStructure <- rxs_parseSpecifications(
       entities = entities,
       valueTemplates = valueTemplates,
@@ -346,7 +349,7 @@ rxs_fromSpecifications <- function(x = NULL,
       rxsRootName = rxsRootName,
       silent = silent
     );
-  
+    
     rxsTemplate <- rxs_buildTemplate(
       rxsStructure = rxsStructure,
       rxsSpecification = res$rxsSpecification,
