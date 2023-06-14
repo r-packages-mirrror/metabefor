@@ -63,7 +63,7 @@ checkPkgs <- function(...,
       stop("Of package(s) ", vecTxtQ(x[res]),
            ", you need at least versions ", vecTxt(vrsn[res]),
            ", respectively. Install those with:\n\n",
-           "install.packages(c(", vecTxtQ(x[res]), "));\n");
+           "install.packages(c(", vecTxtQ(x[res], lastElements=0), "));\n");
     }
   }
   if (load) {
