@@ -4,15 +4,30 @@
 \alias{rxs_validation}
 \title{Validate an Rxs tree}
 \usage{
-rxs_validation(rxsTree, stopOnFailure = FALSE, rxsStructure = NULL)
+rxs_validation(
+  rxsTree,
+  stopOnFailure = FALSE,
+  stopOnFailure_metadata = stopOnFailure,
+  stopOnFailure_entities = stopOnFailure,
+  rxsTemplateSpec = NULL,
+  silent = metabefor::opts$get("silent")
+)
 }
 \arguments{
 \item{rxsTree}{The Rxs tree.}
 
 \item{stopOnFailure}{Whether to throw an error when validation fails.}
 
-\item{rxsStructure}{Optionally, the \code{rxsStructure} as resulting from
-a call to \code{\link[=rxs_parseSpecifications]{rxs_parseSpecifications()}}.}
+\item{stopOnFailure_metadata}{Whether to throw an error when validation
+fails, but only if validation fails for the metadata.}
+
+\item{stopOnFailure_entities}{Whether to throw an error when validation
+fails, but only if validation fails for the entity values.}
+
+\item{rxsTemplateSpec}{Optionally, the rxs template specification as it is
+typically included in rxs templates.}
+
+\item{silent}{Whether to be silent or chatty.}
 }
 \value{
 Invisibly, the Rxs tree (which was altered in place, consistent

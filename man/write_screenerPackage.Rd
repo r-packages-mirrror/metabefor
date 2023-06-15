@@ -8,9 +8,9 @@ write_screenerPackage(
   bibliographyDf,
   outputPath,
   screeners = c("a", "b"),
-  screenerFieldsPrefix = "screener",
-  screenerFieldsSuffix = "status",
-  prevRoundField = NULL,
+  screenerFieldsPrefix = "screener_",
+  screenerFieldsSuffix = "_status",
+  prevStageField = NULL,
   duplicateField = NULL,
   initializeScreenerFields = TRUE,
   basename = "screening_",
@@ -31,8 +31,8 @@ directory and filenames as well as fields in the bibliographic database.}
 pre- and append to the screener identifier in the field names in the
 bibliographic database}
 
-\item{prevRoundField}{A field containing information from previous screening
-rounds}
+\item{prevStageField}{A field containing information from previous screening
+stages}
 
 \item{duplicateField}{The field containing information about duplicates;
 if specified, information from this field is appended to whatever is already

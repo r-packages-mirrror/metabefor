@@ -16,7 +16,7 @@
 #' @examples heading("Hello ", "World", headingLevel=5);
 #' ### This produces: "\\n\\n##### Hello World\\n\\n"
 heading <- function(...,
-                    headingLevel = ufs::opts$get("defaultHeadingLevel"),
+                    headingLevel = metabefor::opts$get("defaultHeadingLevel"),
                     output = "markdown",
                     cat = TRUE) {
   text <- paste0(..., collapse="");

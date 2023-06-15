@@ -174,6 +174,8 @@ opts$defaults <-
     
     maxCores = NULL,
     
+    defaultHeadingLevel = 3,
+    
     ### For creating the Rxs template
     indentDefault = TRUE,
     indentSpaces = 2,

@@ -41,10 +41,11 @@ matches (after 'zapping'). Pass \code{NULL} to not check any columns.}
 
 \item{matchStart, matchEnd}{Named vectors with columns and numbers of
 characters to check from the start and from the end. Because requiring full
-matched can be too conservative, you can also look at the first or last X
+matches can be too conservative, you can also look at the first or last X
 characters. Pass \code{NULL} to not check from the start and from the end, or
 pass named vectors where the names are the column names and the elements
-are the corresponding numbers of characters to look at for each column.}
+are the corresponding numbers of characters to look at for each column. Note:
+if a column is also in \code{matchFully}, that takes precedence.}
 
 \item{forDeduplicationSuffix}{Suffix to add to optional deduplication columns}
 
@@ -59,5 +60,6 @@ an attribute called \code{duplicateInfo} that holds more detailed information
 and that can be accessed using the \code{\link[=attributes]{attributes()}} function.
 }
 \description{
-Check for duplicate sources
+This function checks, for two imported dataframes with sources, whether
+any of them are duplicates.
 }

@@ -12,6 +12,8 @@ import_search_results(
   filesToIgnoreRegex = NULL,
   recursive = TRUE,
   perl = TRUE,
+  fieldsToCopy = list(doi = "L3"),
+  copySep = " || ",
   idFieldName = "original_id",
   parallel = FALSE,
   search_metadataRegex = metabefor::opts$get("search_metadataRegex"),
@@ -31,6 +33,16 @@ which directories and files should be ignored.}
 \item{recursive}{Whether to recursively read subdirectories.}
 
 \item{perl}{Whether to use Perl regular expressions}
+
+\item{fieldsToCopy}{Fields to copy over to other fields (e.g. \code{L3} sometimes
+contains DOIs, instead of \code{DO}). This takes the form of a list of character
+vectors, with each vector's name being the new field name (to copy to), and
+each character vector listing the fields to copy (to that new field name).
+Set to \code{NULL} or pass an empty list to not copy anything over.}
+
+\item{copySep}{When copying fields over (see \code{fieldsToCopy}), the separator
+to use when the new field is not empty (in which case the contents to copy
+over will be appended).}
 
 \item{idFieldName}{New name to use for the \code{id} field (column), a reserved
 name in JabRef (if \code{NULL}, the field is not renamed).}

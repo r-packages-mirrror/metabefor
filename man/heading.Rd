@@ -6,7 +6,7 @@
 \usage{
 heading(
   ...,
-  headingLevel = ufs::opts$get("defaultHeadingLevel"),
+  headingLevel = metabefor::opts$get("defaultHeadingLevel"),
   output = "markdown",
   cat = TRUE
 )
