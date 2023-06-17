@@ -49,6 +49,8 @@ write_extractor_instructions <- function(x,
     #     )
     #   )
 
+    browser();
+    
     res <-
       c(
         "\n",
