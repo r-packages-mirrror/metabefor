@@ -18,10 +18,12 @@ knit_rxsTemplate <- function(x) {
     knitr::asis_output(
       paste0(
         "\n\n<pre><textarea rows='40' cols='124' style='font-family:monospace;font-size:11px;white-space:pre;'>",
-        unlist(x$rxsTemplate),
+        paste0(
+          unlist(x$rxsTemplate),
+          collapse = "\n"
+        ),
         "</textarea></pre>\n\n",
-        sep = "\n",
-        collapse = "\n"
+        sep = "\n"
       )
     )
   );
