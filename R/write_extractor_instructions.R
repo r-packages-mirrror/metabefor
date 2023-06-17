@@ -28,28 +28,35 @@ write_extractor_instructions <- function(x,
     
   } else if (inherits(x, "rxsStructure")) {
 
-    res <-
-      unlist(
-        apply(
-          x$rxsSpecification$instructionSheet,
-          1,
-          function(currentRow) {
-            return(
-              c(
-                metabefor::heading(
-                  currentRow[instructionsColNames$headingCol],
-                  headingLevel = headingLevel,
-                  cat = FALSE
-                ),
-                unname(currentRow[instructionsColNames$descriptionCol])
-              )
-            );
-          },
-          simplify = FALSE
-        )
-      )
+    # res <-
+    #   unlist(
+    #     apply(
+    #       x$rxsSpecification$instructionSheet,
+    #       1,
+    #       function(currentRow) {
+    #         return(
+    #           c(
+    #             metabefor::heading(
+    #               currentRow[instructionsColNames$headingCol],
+    #               headingLevel = headingLevel,
+    #               cat = FALSE
+    #             ),
+    #             unname(currentRow[instructionsColNames$descriptionCol])
+    #           )
+    #         );
+    #       },
+    #       simplify = FALSE
+    #     )
+    #   )
 
-    
+    res <-
+      c(
+        "\n",
+        rxsSpecObject$rxsInstructions,
+        rxsSpecObject$entityOverview_list,
+        "\n"
+      );
+
   } else {
     
     stop("You have to pass either an object of class `rxsStructure` or ",
