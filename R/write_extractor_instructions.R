@@ -55,7 +55,7 @@ write_extractor_instructions <- function(x,
       c(
         "\n",
         rxsSpecObject$rxsInstructions,
-        metabefor::heading("Entity overview", headingLevel),
+        "\n",
         rxsSpecObject$entityOverview_list,
         "\n"
       );
