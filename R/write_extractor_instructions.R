@@ -14,9 +14,7 @@ write_extractor_instructions <- function(x,
   
   instructionsColNames <- metabefor::opts$get("instructionsColNames");
   rxsSheetnames <- metabefor::opts$get("rxsSheetnames");
-  
-  browser();
-  
+
   if (inherits(x, "rxsStructures")) {
     
     moduleInstructions <-
