@@ -16,16 +16,18 @@ show_search_hits_with_dois <- function(x,
          "a call to metabefor::import_search_results().");
   }
   
+  tbl <- table(!is.na(searchResults$bibHitDf$doi));
+  
   if (output == "kable") {
     return(
       knitr::kable(
-        table(searchResults$bibHitDf$doi),
+        tbl,
         col.names = c("DOI present?", "Number of records")
       )
     );
   } else {
     return(
-      table(searchResults$bibHitDf$doi)
+      tbl
     )
   }
   
