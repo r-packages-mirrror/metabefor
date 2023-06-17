@@ -9,7 +9,7 @@
 #'
 #' @examples
 write_extractor_instructions <- function(x,
-                                         output = NULL,
+                                         output = "asis",
                                          headingLevel = metabefor::opts$get("defaultHeadingLevel")) {
   
   instructionsColNames <- metabefor::opts$get("instructionsColNames");
@@ -53,6 +53,7 @@ write_extractor_instructions <- function(x,
       c(
         "\n",
         rxsSpecObject$rxsInstructions,
+        metabefor::heading("Entity overview", headingLevel),
         rxsSpecObject$entityOverview_list,
         "\n"
       );
@@ -65,6 +66,14 @@ write_extractor_instructions <- function(x,
 
   }
   
-  return(res);
+  if (output == "asis") {
+    return(
+      knitr::asis_output(
+        res
+      )
+    );
+  } else {
+    return(res);
+  }
 
 }
