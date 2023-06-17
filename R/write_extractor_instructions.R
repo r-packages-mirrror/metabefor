@@ -52,12 +52,12 @@ write_extractor_instructions <- function(x,
     #   )
     
     res <-
-      c(
+      paste0(
         "\n",
         rxsSpecObject$rxsInstructions,
-        "\n",
         rxsSpecObject$entityOverview_list,
-        "\n"
+        "\n",
+        sep = "\n"
       );
 
   } else {
