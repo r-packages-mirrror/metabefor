@@ -33,9 +33,10 @@ extractor_instructions_from_sheet <- function(x,
           function(i) {
             return(
               paste0(
-                "\n\n",
-                repStr("#", headingLevel + 1), " ",
-                x[[instructionsCols$headingCol]][i], "\n\n",
+                heading(
+                  x[[instructionsCols$headingCol]][i],
+                  headingLevel = headingLevel + 1
+                ),
                 x[[instructionsCols$descriptionCol]][i]
               )
             );
