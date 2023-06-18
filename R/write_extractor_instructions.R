@@ -6,6 +6,7 @@
 #' ready to be included in a knitted file; `"raw"` for the raw results; or
 #' `"none"` to return the raw result invisibly.
 #' @param outputFile Optionally a file to write the extractor instructions to.
+#' @param title,author The title and author to use when exporting.
 #'
 #' @return
 #' @export
@@ -13,7 +14,9 @@
 #' @examples
 write_extractor_instructions <- function(x,
                                          output = "asis",
-                                         outputFile = NULL) {
+                                         outputFile = NULL,
+                                         title = "Extractor Instructions",
+                                         author = "") {
   
   instructionsColNames <- metabefor::opts$get("instructionsColNames");
   rxsSheetnames <- metabefor::opts$get("rxsSheetnames");
@@ -55,8 +58,8 @@ write_extractor_instructions <- function(x,
     res <-
       paste0(
         "\n",
-        rxsSpecObject$rxsInstructions,
-        rxsSpecObject$entityOverview_list,
+        x$rxsInstructions,
+        x$entityOverview_list,
         "\n",
         sep = "\n"
       );
@@ -70,10 +73,37 @@ write_extractor_instructions <- function(x,
   }
   
   if (!is.null(outputFile)) {
-    knitr::knit(
-      text = res,
-      output = outputFile
-    )
+    
+    if (!requireNamespace('rmarkdown', quietly=TRUE)) {
+      stop("You need to have 'rmarkdown' installed to export extractor instructions!");
+    }
+
+    paramsToPass <-
+      list(title = title,
+           author = author);
+    
+    if (dir.exists(dirname(outputFile))) {
+
+      rmarkdown::render(
+        input = system.file("templates",
+                            "_metabefor_extractor-instructions_full_template_for_pdf.Rmd",
+                            package = "metabefor"),
+        params = paramsToPass,
+        output_file = outputFile,
+        quiet = TRUE
+      );
+      
+      msg("Exported the extractor instructions to PDF file '",
+          file, "'.\n",
+          silent = silent);
+      
+    } else {
+      
+      stop("The path that you specified to save the file in ('",
+           dirname(outputFile), "') does not exist.");
+      
+    }
+
   }
   
   if (output == "asis") {

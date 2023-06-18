@@ -1,0 +1,34 @@
+---
+title: "`r params$title`"
+author: "`r params$author`"
+date: "`r format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 1
+params:
+  title: "Extractor Instructions"
+  author: ""
+---
+
+```{r, eval=TRUE, echo=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, comment="");
+
+if (!exists('headingLevel') || !is.numeric(headingLevel) || (length(headingLevel) != 1)) {
+  headingLevel <- 0;
+}
+
+```
+
+```{r, results='asis'}
+
+cat(x$rxsInstructions);
+
+```
+
+```{r, results='asis'}
+
+cat(x$entityOverview_list);
+
+```

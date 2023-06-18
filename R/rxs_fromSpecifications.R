@@ -198,26 +198,9 @@ rxs_fromSpecifications <- function(x = NULL,
   
   if (!is.null(instructionSheet)) {
     instructions <-
-      paste0(
-        "\n\n",
-        repStr("#", instructionHeadingLevel), " ",
-        " Extraction instructions\n\n",
-        paste0(
-          lapply(
-            1:nrow(instructionSheet),
-            function(i) {
-              return(
-                paste0(
-                  "\n\n",
-                  repStr("#", instructionHeadingLevel+1), " ",
-                  instructionSheet[[instructionsCols$headingCol]][i], "\n\n",
-                  instructionSheet[[instructionsCols$descriptionCol]][i]
-                )
-              );
-            }
-          ),
-          collapse = "\n\n"
-        )
+      extractor_instructions_from_sheet(
+        instructionSheet,
+        headingLevel = instructionHeadingLevel
       );
   } else {
     instructions <- "No extraction instructions specified.";
