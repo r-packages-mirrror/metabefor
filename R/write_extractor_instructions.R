@@ -7,6 +7,7 @@
 #' `"none"` to return the raw result invisibly.
 #' @param outputFile Optionally a file to write the extractor instructions to.
 #' @param title,author The title and author to use when exporting.
+#' @param silent Whether to be silent or chatty.
 #'
 #' @return
 #' @export
@@ -16,7 +17,8 @@ write_extractor_instructions <- function(x,
                                          output = "asis",
                                          outputFile = NULL,
                                          title = "Extractor Instructions",
-                                         author = "") {
+                                         author = "",
+                                         silent = TRUE) {
   
   instructionsColNames <- metabefor::opts$get("instructionsColNames");
   rxsSheetnames <- metabefor::opts$get("rxsSheetnames");
