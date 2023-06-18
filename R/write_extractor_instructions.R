@@ -94,7 +94,7 @@ write_extractor_instructions <- function(x,
       );
       
       msg("Exported the extractor instructions to PDF file '",
-          file, "'.\n",
+          outputFile, "'.\n",
           silent = silent);
       
     } else {
