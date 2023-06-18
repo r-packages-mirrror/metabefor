@@ -1,8 +1,11 @@
-#' Write the extractor instructions
+#' Show and/or write the extractor instructions
 #'
 #' @param x An rxsStructure object, as imported
 #' by metabefor::rxs_fromSpecifications().
-#' @param output The output file to write to.
+#' @param output The format of the object to return: `"asis"` to return content
+#' ready to be included in a knitted file; `"raw"` for the raw results; or
+#' `"none"` to return the raw result invisibly.
+#' @param outputFile Optionally a file to write the extractor instructions to.
 #'
 #' @return
 #' @export
@@ -10,7 +13,7 @@
 #' @examples
 write_extractor_instructions <- function(x,
                                          output = "asis",
-                                         headingLevel = metabefor::opts$get("defaultHeadingLevel")) {
+                                         outputFile = NULL) {
   
   instructionsColNames <- metabefor::opts$get("instructionsColNames");
   rxsSheetnames <- metabefor::opts$get("rxsSheetnames");
@@ -66,12 +69,21 @@ write_extractor_instructions <- function(x,
 
   }
   
+  if (!is.null(outputFile)) {
+    knitr::knit(
+      text = res,
+      output = outputFile
+    )
+  }
+  
   if (output == "asis") {
     return(
       knitr::asis_output(
         res
       )
     );
+  } else if (output == "none") {
+    return(invisible(res));
   } else {
     return(res);
   }
