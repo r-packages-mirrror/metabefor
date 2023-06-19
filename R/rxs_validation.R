@@ -379,6 +379,9 @@ rxs_validation <- function(rxsTree,
               errorMsg <- gsub('NAME',
                                node$name,
                                errorMsg);
+              errorMsg <- gsub('VALUE',
+                               paste0(VALUE, collape=" || "),
+                               errorMsg);
             }
           } else {
           
