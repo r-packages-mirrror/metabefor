@@ -34,7 +34,7 @@ write_extractor_instructions <- function(x,
         sep = "\n"
       );
     
-  } else if inherits(x, "rxsStructures")) {
+  } else if (inherits(x, "rxsStructures")) {
 
     res <-
       paste0(
