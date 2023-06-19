@@ -1,0 +1,30 @@
+---
+title: "Validation of extracted entities"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Validation of extracted entities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+rxsFile_with_errors <-
+  system.file(
+    "extdata",
+    "extraction-examples-with-errors",
+    "rxs_minimal_example_module2--erroneous_2.rxs.Rmd",
+    package = "metabefor"
+  );
+
+```
+
+The R chunk above locates an R Extraction Script file (Rxs file) that is included with the `{metabefor}` package and tht contains errors. This file is then included below.
+
+```{r, child=rxsFile_with_errors}
+```
