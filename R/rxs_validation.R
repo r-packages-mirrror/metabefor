@@ -269,7 +269,7 @@ rxs_validation <- function(rxsTree,
                                    valueName,
                                    errorMsg);
                   errorMsg <- gsub('VALUE',
-                                   paste0(VALUE, collapse=" || "),
+                                   vecTxtQ(VALUE),
                                    errorMsg);
                 }
               }
@@ -380,7 +380,7 @@ rxs_validation <- function(rxsTree,
                                node$name,
                                errorMsg);
               errorMsg <- gsub('VALUE',
-                               paste0(VALUE, collapse=" || "),
+                               vecTxtQ(VALUE),
                                errorMsg);
             }
           } else {
