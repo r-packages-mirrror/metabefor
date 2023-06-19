@@ -40,6 +40,7 @@ write_extractor_instructions <- function(x,
       paste0(
         "\n",
         x$rxsInstructions,
+        "\n\n",
         paste0(
           paste0(
             "**",
