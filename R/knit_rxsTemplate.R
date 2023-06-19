@@ -9,7 +9,24 @@
 #' @examples
 knit_rxsTemplate <- function(x) {
   
-  if (inherits(x, "rxsStructures")) {
+  if (inherits(x, "rxsStructure")) {
+    
+    return(
+      knitr::asis_output(
+        paste0(
+          "\n\n<pre><textarea rows='40' cols='124' style='font-family:monospace;font-size:11px;white-space:pre;'>",
+          paste0(
+            unlist(x$rxsTemplate),
+            collapse = "\n"
+          ),
+          "</textarea></pre>\n\n",
+          sep = "\n"
+        )
+      )
+    );
+    
+  } else if (inherits(x, "rxsStructures")) {
+    
     return(
       knitr::asis_output(
         unlist(
@@ -35,23 +52,11 @@ knit_rxsTemplate <- function(x) {
         )
       )
     );
-  } else if (!inherits(x, "rxsStructure")) {
+    
+  } else {
     stop("As `x`, pass an object of class `rxsStructure`, as produced by ",
          "a call to metabefor::rxs_fromSpecifications().");
   }
   
-  return(
-    knitr::asis_output(
-      paste0(
-        "\n\n<pre><textarea rows='40' cols='124' style='font-family:monospace;font-size:11px;white-space:pre;'>",
-        paste0(
-          unlist(x$rxsTemplate),
-          collapse = "\n"
-        ),
-        "</textarea></pre>\n\n",
-        sep = "\n"
-      )
-    )
-  );
   
 }
