@@ -260,10 +260,16 @@ rxs_validation <- function(rxsTree,
                 if (is.null(errorMsg) ||
                     all(is.na(errorMsg)) ||
                     (all(nchar(trimws(errorMsg)) == 0))) {
-                  errorMsg <- "(no custom error message specified)";
+                  errorMsg <-
+                    paste0("(no custom error message specified: ",
+                           "entity identifier = '", valueName,
+                           "', value = '", VALUE, "')");
                 } else {
                   errorMsg <- gsub('NAME',
                                    valueName,
+                                   errorMsg);
+                  errorMsg <- gsub('VALUE',
+                                   VALUE,
                                    errorMsg);
                 }
               }
