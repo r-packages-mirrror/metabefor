@@ -269,7 +269,7 @@ rxs_validation <- function(rxsTree,
                                    valueName,
                                    errorMsg);
                   errorMsg <- gsub('VALUE',
-                                   VALUE,
+                                   paste0(VALUE, collape=" || "),
                                    errorMsg);
                 }
               }
