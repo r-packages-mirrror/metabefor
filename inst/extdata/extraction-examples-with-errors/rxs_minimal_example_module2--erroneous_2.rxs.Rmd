@@ -489,7 +489,7 @@ rxsTemplateSpec <-
           "NAME is not a single whole number, but has value: VALUE", 
           "NAME is not one or more single whole numbers, but has value: VALUE", 
           "NAME is not one more years (i.e. four-digit numbers), but has value: VALUE", 
-          "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
+          "NAME is not a single character value (i.e. a 'string'), but has value: VALUE", "Error about NAME here.", "Error about NAME here.", 
           "Error about NAME here.", "Error about NAME here.", "For NAME, the value (a string, or character value) must be entered.", 
           "Enter a valid reference to another entity - or remove unused entities.", 
           "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
