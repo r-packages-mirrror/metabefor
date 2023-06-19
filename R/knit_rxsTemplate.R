@@ -37,6 +37,7 @@ knit_rxsTemplate <- function(x) {
                 return(
                   paste0(
                     metabefor::heading(
+                      "Module: ",
                       currentX_name
                     ),
                     "\n\n<pre><textarea rows='40' cols='124' style='font-family:monospace;font-size:11px;white-space:pre;'>",
