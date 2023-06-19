@@ -23,42 +23,7 @@ write_extractor_instructions <- function(x,
   instructionsColNames <- metabefor::opts$get("instructionsColNames");
   rxsSheetnames <- metabefor::opts$get("rxsSheetnames");
 
-  
-  browser();
-  
-  if (inherits(x, "rxsStructures")) {
-    
-    moduleInstructions <-
-      lapply(
-        x,
-        write_extractor_instructions,
-        output = NULL
-      );
-    
-    res <- unlist(moduleInstructions);
-    
-  } else if (inherits(x, "rxsStructure")) {
-
-    # res <-
-    #   unlist(
-    #     apply(
-    #       x$rxsSpecification$instructionSheet,
-    #       1,
-    #       function(currentRow) {
-    #         return(
-    #           c(
-    #             metabefor::heading(
-    #               currentRow[instructionsColNames$headingCol],
-    #               headingLevel = headingLevel,
-    #               cat = FALSE
-    #             ),
-    #             unname(currentRow[instructionsColNames$descriptionCol])
-    #           )
-    #         );
-    #       },
-    #       simplify = FALSE
-    #     )
-    #   )
+  if (inherits(x, "rxsStructure")) {
     
     res <-
       paste0(
@@ -68,6 +33,27 @@ write_extractor_instructions <- function(x,
         "\n",
         sep = "\n"
       );
+    
+  } else if inherits(x, "rxsStructures")) {
+
+    res <-
+      paste0(
+        "\n",
+        x$rxsInstructions,
+        paste0(
+          paste0(
+            "**",
+            names(x$entityOverviews_list),
+            "**\n",
+            x$entityOverviews_list
+          ),
+          collapse = "\n"
+        ),
+        "\n",
+        sep = "\n"
+      );
+    
+    
 
   } else {
     
