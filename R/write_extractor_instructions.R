@@ -43,7 +43,7 @@ write_extractor_instructions <- function(x,
         "\n\n",
         paste0(
           paste0(
-            "**",
+            "**Module: ",
             names(x$entityOverviews_list),
             "**\n",
             x$entityOverviews_list
