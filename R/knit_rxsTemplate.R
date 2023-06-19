@@ -29,26 +29,29 @@ knit_rxsTemplate <- function(x) {
     
     return(
       knitr::asis_output(
-        unlist(
-          lapply(
-            names(x$rxsTemplates),
-            function(currentX_name) {
-              return(
-                paste0(
-                  metabefor::heading(
-                    currentX_name
-                  ),
-                  "\n\n<pre><textarea rows='40' cols='124' style='font-family:monospace;font-size:11px;white-space:pre;'>",
+        paste0(
+          unlist(
+            lapply(
+              names(x$rxsTemplates),
+              function(currentX_name) {
+                return(
                   paste0(
-                    unlist(x$rxsTemplates[[currentX_name]]),
-                    collapse = "\n"
-                  ),
-                  "</textarea></pre>\n\n",
-                  sep = "\n"
-                )
-              );
-            }
-          )
+                    metabefor::heading(
+                      currentX_name
+                    ),
+                    "\n\n<pre><textarea rows='40' cols='124' style='font-family:monospace;font-size:11px;white-space:pre;'>",
+                    paste0(
+                      unlist(x$rxsTemplates[[currentX_name]]),
+                      collapse = "\n"
+                    ),
+                    "</textarea></pre>\n\n",
+                    sep = "\n"
+                  )
+                );
+              }
+            )
+          ),
+          collapse = "\n\n"
         )
       )
     );
