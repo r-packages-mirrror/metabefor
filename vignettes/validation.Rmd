@@ -9,11 +9,6 @@ vignette: >
 
 ```{r}
 
-knitr::opts_chunk$set(
-  collapse = FALSE,
-  comment = ""
-)
-
 rxsFile_with_errors <-
   system.file(
     "extdata",
