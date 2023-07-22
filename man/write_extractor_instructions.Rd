@@ -2,20 +2,31 @@
 % Please edit documentation in R/write_extractor_instructions.R
 \name{write_extractor_instructions}
 \alias{write_extractor_instructions}
-\title{Write the extractor instructions}
+\title{Show and/or write the extractor instructions}
 \usage{
 write_extractor_instructions(
   x,
-  output = NULL,
-  headingLevel = metabefor::opts$get("defaultHeadingLevel")
+  output = "asis",
+  outputFile = NULL,
+  title = "Extractor Instructions",
+  author = "",
+  silent = TRUE
 )
 }
 \arguments{
 \item{x}{An rxsStructure object, as imported
 by metabefor::rxs_fromSpecifications().}
 
-\item{output}{The output file to write to.}
+\item{output}{The format of the object to return: \code{"asis"} to return content
+ready to be included in a knitted file; \code{"raw"} for the raw results; or
+\code{"none"} to return the raw result invisibly.}
+
+\item{outputFile}{Optionally a file to write the extractor instructions to.}
+
+\item{title, author}{The title and author to use when exporting.}
+
+\item{silent}{Whether to be silent or chatty.}
 }
 \description{
-Write the extractor instructions
+Show and/or write the extractor instructions
 }
