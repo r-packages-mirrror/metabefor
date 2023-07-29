@@ -35,7 +35,8 @@ extractor_instructions_from_sheet <- function(x,
               paste0(
                 heading(
                   x[[instructionsCols$headingCol]][i],
-                  headingLevel = headingLevel + 1
+                  headingLevel = headingLevel + 1,
+                  cat = FALSE
                 ),
                 x[[instructionsCols$descriptionCol]][i]
               )
