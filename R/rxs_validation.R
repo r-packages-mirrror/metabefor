@@ -59,7 +59,7 @@ rxs_validation <- function(rxsTree,
   ###---------------------------------------------------------------------------
   
   if (!(grepl("^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$",
-              rxsObject$rxsMetadata$id,
+              rxsTree$rxsMetadata$id,
               ignore.case=TRUE))) {
     
     rxsTree$validationResults$sourceIdValidation <-
@@ -69,7 +69,7 @@ rxs_validation <- function(rxsTree,
         
         validation = failedValidation(
           "Failed validation: the source identifier you specified, '",
-          rxsObject$rxsMetadata$id, 
+          rxsTree$rxsMetadata$id, 
           "', does not validate - it does not match the predefined format!"
         ),
         validated = FALSE
@@ -84,7 +84,7 @@ rxs_validation <- function(rxsTree,
         
         validation = passedValidation(
           "Passed validation: the source identifier you specified, '",
-          rxsObject$rxsMetadata$id, 
+          rxsTree$rxsMetadata$id, 
           "', matches the predefined format!"
         ),
         validated = TRUE
@@ -101,7 +101,7 @@ rxs_validation <- function(rxsTree,
   ### Validate extractor identifier
   ###---------------------------------------------------------------------------
   
-  if (!(grepl("^[a-zA-Z][a-zA-Z0-9_]*$", rxsObject$rxsMetadata$extractorId, ignore.case=TRUE))) {
+  if (!(grepl("^[a-zA-Z][a-zA-Z0-9_]*$", rxsTree$rxsMetadata$extractorId, ignore.case=TRUE))) {
     
     rxsTree$validationResults$extractorIdValidation <-
       list(
@@ -110,7 +110,7 @@ rxs_validation <- function(rxsTree,
         
         validation = failedValidation(
           "Failed validation: the extractor identifier you specified, '",
-          rxsObject$rxsMetadata$id, 
+          rxsTree$rxsMetadata$id, 
           "', does not validate - it does not match the predefined format!"
         ),
         validated = FALSE
@@ -125,7 +125,7 @@ rxs_validation <- function(rxsTree,
         
         validation = passedValidation(
           "Passed validation: the extractor identifier you specified, '",
-          rxsObject$rxsMetadata$extractorId, 
+          rxsTree$rxsMetadata$extractorId, 
           "', matches the predefined format!"
         ),
         validated = TRUE
