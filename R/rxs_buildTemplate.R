@@ -35,22 +35,22 @@ rxs_buildTemplate <- function(rxsStructure,
   }
 
   ###---------------------------------------------------------------------------
-  ### Coalesce
+  ### Create texts object
   ###---------------------------------------------------------------------------
   
-  
-    
+  texts <- override(
+    default = metabefor::opts$get("texts"),
+    bespoke =
+      df_to_named_list(
+        rxsSpecification$texts,
+        nameCol = textsColNames$textIdCol,
+        otherCols = textsColNames$contentCol
+      )
+  );
+
   ###---------------------------------------------------------------------------
   ### Opening and closing remarks
   ###---------------------------------------------------------------------------
-  
-  # texts <- override(
-  #   default = metabefor::opts$get("texts"),
-  #   bespoke = 
-  # 
-  # textsColNames$contentCol
-  # 
-  # if ("openingRemarks" rxsSpecification$texts[[textsColNames$textIdCol]]
 
   openingBlock <-
     c(
