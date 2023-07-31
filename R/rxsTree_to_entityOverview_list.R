@@ -144,7 +144,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
         cat = FALSE
       ),
       extractionOverview_list_intro,
-      "\n\n",
+      "\n\n-----\n\n",
       paste0(
         unlist(
           entityOverview_list[!unlist(lapply(entityOverview_list, is.na))]
