@@ -12,14 +12,14 @@ vignette: >
 rxsFile_with_errors <-
   system.file(
     "extdata",
-    "extraction-examples-with-errors",
+    "rxs-with-errors",
     "rxs_minimal_example_module2--erroneous_2.rxs.Rmd",
     package = "metabefor"
   );
 
 ```
 
-The R chunk above locates an R Extraction Script file (Rxs file) that is included with the `{metabefor}` package and that contains errors. This file is then included below. To view the raw R Extraction Script, follow [this link](https://gitlab.com/r-packages/metabefor/-/blob/main/inst/extdata/extraction-examples-with-errors/rxs_minimal_example_module2--erroneous_2.rxs.Rmd).
+The R chunk above locates an R Extraction Script file (Rxs file) that is included with the `{metabefor}` package and that contains errors. This file is then included below. To view the raw R Extraction Script, follow [this link](https://gitlab.com/r-packages/metabefor/-/blob/main/inst/extdata/rxs-with-errors/rxs_minimal_example_module2--erroneous_2.rxs.Rmd).
 
 ```{r, child=rxsFile_with_errors}
 ```
