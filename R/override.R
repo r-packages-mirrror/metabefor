@@ -22,7 +22,7 @@ override <- function(default, bespoke) {
   res <- c(default, 
           setdiff(bespoke, default));
   
-  overrides <- intersect(bespoke, default);
+  overrides <- intersect(names(bespoke), names(default));
   
   res[overrides] <- bespoke[overrides];
   

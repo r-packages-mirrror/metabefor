@@ -17,12 +17,20 @@ df_to_named_list <- function(df,
                              nameCol = 1,
                              otherCols = 2:ncol(df)) {
 
+  if(!is.data.frame(df)) {
+    stop("As `df`, you have to pass a data frame!");
+  }
+  
+  if (!(all(c(nameCol, otherCols) %in% names(df)))) {
+    stop("Not all names specified in `nameCol` and `otherCols` exist in `df`!");
+  }
+
   if (length(otherCols) == 1) {
     res <- apply(df[, otherCols, drop=FALSE], 1, c, simplify = FALSE);
   } else {
     res <- apply(df[, otherCols, drop=FALSE], 1, list, simplify = FALSE);
   }
-  
+
   names(res) <- df[, nameCol];
   
   return(res);

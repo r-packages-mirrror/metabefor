@@ -188,7 +188,8 @@ opts$defaults <-
     rxsSheetnames = list(entities = 'entities',
                          valueTemplates = 'valueTemplates',
                          definitions = 'definitions',
-                         instructions = 'instructions'),
+                         instructions = 'instructions',
+                         texts = 'texts'),
     
     entityColNames = list(titleCol = "title",
                           descriptionCol = "description",

@@ -90,6 +90,7 @@ rxs_fromSpecifications <- function(x = NULL,
   valueTemplateCols <- metabefor::opts$get("valueTemplateColNames");
   instructionsCols <- metabefor::opts$get("instructionsColNames");
   definitionsCols <- metabefor::opts$get("definitionsColNames");
+  textsColNames <- metabefor::opts$get("textsColNames");
   
   indent <- metabefor::opts$get("indentDefault");
   indentSpaces <- metabefor::opts$get("indentSpaces");
@@ -149,6 +150,11 @@ rxs_fromSpecifications <- function(x = NULL,
   } else {
     instructionSheet <- NULL;
   }
+  if (!is.null(ws$texts) && (ws$texts %in% names(res))) {
+    textsSheet <- res[[ws$texts]];
+  } else {
+    textsSheet <- NULL;
+  }
   
   msg(
     "Successfully read the extraction script ",
@@ -207,6 +213,21 @@ rxs_fromSpecifications <- function(x = NULL,
   }
   
   ###---------------------------------------------------------------------------
+  ### Texts
+  ###---------------------------------------------------------------------------
+  
+  if (!is.null(textsSheet)) {
+    textsList <-
+      df_to_named_list(
+        textsSheet,
+        nameCol = textsColNames$textIdCol,
+        otherCols = textsColNames$contentCol
+      );
+  } else {
+    textsList <- NULL;
+  }
+
+  ###---------------------------------------------------------------------------
   ### Set up results object
   ###---------------------------------------------------------------------------
   
@@ -216,6 +237,8 @@ rxs_fromSpecifications <- function(x = NULL,
       valueTemplates = valueTemplates,
       definitions = definitions,
       instructionSheet = instructionSheet,
+      textsSheet = textsSheet,
+      textsList = textsList,
       errorOnFailingValidation = errorOnFailingValidation,
       rxsRootName = rxsRootName,
       yamlMetadata = yamlMetadata

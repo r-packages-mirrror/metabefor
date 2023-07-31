@@ -14,7 +14,6 @@ rxs_buildTemplate <- function(rxsStructure,
   extractorIdName <- metabefor::opts$get("extractorIdName");
   sourceIdValidation <- metabefor::opts$get("sourceIdValidation");
   extractorIdValidation <- metabefor::opts$get("extractorIdValidation");
-  textsColNames <- metabefor::opts$get("textsColNames");
   
   indent <- metabefor::opts$get("indentDefault");
   indentSpaces <- metabefor::opts$get("indentSpaces");
@@ -40,12 +39,7 @@ rxs_buildTemplate <- function(rxsStructure,
   
   texts <- override(
     default = metabefor::opts$get("texts"),
-    bespoke =
-      df_to_named_list(
-        rxsSpecification$texts,
-        nameCol = textsColNames$textIdCol,
-        otherCols = textsColNames$contentCol
-      )
+    bespoke = rxsSpecification$textsList
   );
 
   ###---------------------------------------------------------------------------
@@ -69,7 +63,7 @@ rxs_buildTemplate <- function(rxsStructure,
       htmlComment(" ", padding=" "),
       htmlComment()
     );
-  
+
   ###---------------------------------------------------------------------------
   ### Source and extractor identifier chunk
   ###---------------------------------------------------------------------------
