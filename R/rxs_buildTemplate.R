@@ -14,7 +14,7 @@ rxs_buildTemplate <- function(rxsStructure,
   extractorIdName <- metabefor::opts$get("extractorIdName");
   sourceIdValidation <- metabefor::opts$get("sourceIdValidation");
   extractorIdValidation <- metabefor::opts$get("extractorIdValidation");
-  texts <- metabefor::opts$get("texts");
+  textsColNames <- metabefor::opts$get("textsColNames");
   
   indent <- metabefor::opts$get("indentDefault");
   indentSpaces <- metabefor::opts$get("indentSpaces");
@@ -22,7 +22,7 @@ rxs_buildTemplate <- function(rxsStructure,
   commentCharacter <- metabefor::opts$get("commentCharacter");
   fillerCharacter <- metabefor::opts$get("fillerCharacter");
   repeatingSuffix <- metabefor::opts$get("repeatingSuffix");
-  
+
   if (!("rxsStructure" %IN% class(rxsStructure))) {
     stop("The class of the object provided as argument 'rxsStructure' is not ",
          "'rxsStructure' (but instead ", vecTxtQ(class(rxsStructure)), ").");
@@ -33,10 +33,24 @@ rxs_buildTemplate <- function(rxsStructure,
   if (rxsVersion < "0.3.0") {
     rxsObjectName <- rxsRootName;
   }
+
+  ###---------------------------------------------------------------------------
+  ### Coalesce
+  ###---------------------------------------------------------------------------
   
+  
+    
   ###---------------------------------------------------------------------------
   ### Opening and closing remarks
   ###---------------------------------------------------------------------------
+  
+  # texts <- override(
+  #   default = metabefor::opts$get("texts"),
+  #   bespoke = 
+  # 
+  # textsColNames$contentCol
+  # 
+  # if ("openingRemarks" rxsSpecification$texts[[textsColNames$textIdCol]]
 
   openingBlock <-
     c(
