@@ -52,6 +52,8 @@ rxs_validation <- function(rxsTree,
           rxsTemplateSpec$valueTemplates
         );
     }
+  } else {
+    rxsStructure <- NULL;
   }
   
   ###---------------------------------------------------------------------------
