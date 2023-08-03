@@ -8,7 +8,7 @@
 #' @return The resulting character vector
 #' @export
 #'
-#' @examples metabefor::zapNewLines(
+#' @examples metabefor::zapNewlines(
 #'   "So here we start,
 #' and here we end"
 #' );
