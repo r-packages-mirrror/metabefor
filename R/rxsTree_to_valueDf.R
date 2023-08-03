@@ -3,10 +3,12 @@
 #' The data frame has columns "`path`", "`entity`", and "`nodeValue`".
 #'
 #' @param rxsTree The Rxs tree
+#' @param zapNewlines Whether to call [zapNewlines()] on the values
 #'
 #' @return A data frame
 #' @export
-rxsTree_to_valueDf <- function(rxsTree) {
+rxsTree_to_valueDf <- function(rxsTree,
+                               zapNewlines = TRUE) {
   
   if ((!inherits(rxsTree, "rxsObject")) &&
       (!(inherits(rxsTree, "rxs") && inherits(rxsTree, "Node")))) {
@@ -49,6 +51,16 @@ rxsTree_to_valueDf <- function(rxsTree) {
                         flattenNodeValue(nodeValue),
                         stringsAsFactors = FALSE);
       names(res) <- c("path", "entity", "nodeValue");
+      
+      if (zapNewlines) {
+        res$nodeValue <-
+          unlist(
+            lapply(
+              res$nodeValue,
+              zapNewlines
+            )
+          );
+      }
       
       if (ncol(res) > 3) {
         warning("When converting a Rxs tree to a data frame, in ",

@@ -4,7 +4,7 @@
 \alias{df_to_named_list}
 \title{Convert a data frame into a named list}
 \usage{
-df_to_named_list(df, nameCol = 1, otherCols = 2:(ncol(fd) - 1))
+df_to_named_list(df, nameCol = 1, otherCols = 2:ncol(df))
 }
 \arguments{
 \item{df}{The data frame}
