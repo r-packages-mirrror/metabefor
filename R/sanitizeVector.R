@@ -3,7 +3,13 @@ sanitizeVector <- function(pattern, replacement, x, label) {
   sanitizedVector <- gsub(pattern, replacement, x);
   sanitizationComparison <-
     x != sanitizedVector;
-  if (all(sanitizationComparison)) {
+  
+  sanitizationComparisonNonMissings <-
+    sanitizationComparison[!is.na(sanitizationComparison)]
+  
+  if (length(sanitizationComparisonNonMissings) == 0) {
+    return(sanitizedVector);
+  } else if (all(sanitizationComparisonNonMissings)) {
     sanitizedValues <- !sanitizationComparison;
     warning("I checked and sanitized the ", label, ". ",
             "In this process, I made some changes, specifically, I changed ",
