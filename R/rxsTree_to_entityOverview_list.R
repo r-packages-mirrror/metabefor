@@ -71,7 +71,7 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
           res <-
             paste0(
               res,
-              "\n\n**Description:** ",
+              "\n\n",
               node$description,
               instructionsBit,
               "\n\n**Type:** ",
