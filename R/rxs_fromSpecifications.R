@@ -209,9 +209,11 @@ rxs_fromSpecifications <- function(x = NULL,
                    label = "entity value templates");
 
   if (eC$moduleCol %in% names(entities)) {
-    entities[[eC$moduleCol]] <-
-      sanitizeVector("[^a-zA-Z0-9_.]+", "", entities[[eC$moduleCol]],
-                     label = "module identifiers");
+    if (!all(is.na(entities[[eC$moduleCol]]))) {
+      entities[[eC$moduleCol]] <-
+        sanitizeVector("[^a-zA-Z0-9_.]+", "", entities[[eC$moduleCol]],
+                       label = "module identifiers");
+    }
   }
   
   valueTemplates[[valueTemplateCols$identifierCol]] <-
