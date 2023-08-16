@@ -98,3 +98,20 @@ This function processes an R extraction script template specification in
 a spreadsheet format and produce the corresponding R extraction script
 template file (an R Markdown file with the extension \code{.Rxs.Rmd})
 }
+\examples{
+### This can be run if you have an internet connection
+if (interactive()) {
+  gs_url <-
+    paste0("https://docs.google.com/spreadsheets/d/",
+           "1wM7HGrqVs-6KV0XeeyEeMIz-IRfF-llMXHJUD73N7Dk");
+  tmpPath <- tempfile(pattern="rxsDir");
+  mkdir(tmpPath);
+  rxsSpec <-
+    rxs_fromSpecifications(
+      x = gs_url,
+      outputPath = tmpPath,
+      outputFilenamePattern = "rxsSpec-\%s.rxs.rmd"
+    );
+  cat(tmpPath);
+}
+}

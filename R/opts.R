@@ -193,6 +193,7 @@ opts$defaults <-
     
     entityColNames = list(titleCol = "title",
                           descriptionCol = "description",
+                          instructionsCol = "instructions",
                           identifierCol = "identifier",
                           valueTemplateCol = "valueTemplate",
                           validValuesCol = "validValues",

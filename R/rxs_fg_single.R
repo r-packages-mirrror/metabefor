@@ -70,11 +70,19 @@ rxs_fg_single <- function(node,
                                 "[['value']] <-");
   }
   
-  titleDescription <-
-    rxs_fg_TitleDescription(title=node[[eC$titleCol]],
-                            description=node[[eC$descriptionCol]],
-                            level=level);
-
+  if (eC$instructionsCol %in% names(node)) {
+    titleDescription <-
+      rxs_fg_TitleDescription(title=node[[eC$titleCol]],
+                              description=node[[eC$descriptionCol]],
+                              instructions=node[[eC$instructionsCol]],
+                              level=level);
+  } else {
+    titleDescription <-
+      rxs_fg_TitleDescription(title=node[[eC$titleCol]],
+                              description=node[[eC$descriptionCol]],
+                              level=level);
+  }
+  
   valueAssignment <-
     rxs_fg_defaultValueAssignment(node=node,
                                   valueTemplates = valueTemplates,

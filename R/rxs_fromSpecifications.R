@@ -62,7 +62,21 @@
 #' 
 #' @export
 #'
-#' @examples
+#' @examples ### This can be run if you have an internet connection
+#' if (interactive()) {
+#'   gs_url <-
+#'     paste0("https://docs.google.com/spreadsheets/d/",
+#'            "1wM7HGrqVs-6KV0XeeyEeMIz-IRfF-llMXHJUD73N7Dk");
+#'   tmpPath <- tempfile(pattern="rxsDir");
+#'   dir.create(tmpPath);
+#'   rxsSpec <-
+#'     rxs_fromSpecifications(
+#'       x = gs_url,
+#'       outputPath = tmpPath,
+#'       outputFilenamePattern = "rxsSpec-%s.rxs.rmd"
+#'     );
+#'   cat(tmpPath);
+#' }
 rxs_fromSpecifications <- function(x = NULL,
                                    outputFile = NULL,
                                    outputPath = NULL,
@@ -181,22 +195,28 @@ rxs_fromSpecifications <- function(x = NULL,
   ### Sanitize identifiers
   ###---------------------------------------------------------------------------
   
-  ### Sanitize whitespace and unpermitted characters
-  entities[[eC$identifierCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                       entities[[eC$identifierCol]]);
-  entities[[eC$parentCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                   entities[[eC$parentCol]]);
-  entities[[eC$entityRefCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                      entities[[eC$entityRefCol]]);
-  entities[[eC$valueTemplateCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                          entities[[eC$valueTemplateCol]]);
+  entities[[eC$identifierCol]] <-
+    sanitizeVector("[^a-zA-Z0-9_.]+", "", entities[[eC$identifierCol]],
+                   label = "entity identifiers");
+  entities[[eC$parentCol]] <-
+    sanitizeVector("[^a-zA-Z0-9_.]+", "", entities[[eC$parentCol]],
+                   label = "entity parents");
+  entities[[eC$entityRefCol]] <-
+    sanitizeVector("[^a-zA-Z0-9_.]+", "", entities[[eC$entityRefCol]],
+                   label = "entity references");
+  entities[[eC$valueTemplateCol]] <-
+    sanitizeVector("[^a-zA-Z0-9_.]+", "", entities[[eC$valueTemplateCol]],
+                   label = "entity value templates");
+
   if (eC$moduleCol %in% names(entities)) {
-    entities[[eC$moduleCol]] <- gsub("[^a-zA-Z0-9_.]+", "",
-                                     entities[[eC$moduleCol]]);
+    entities[[eC$moduleCol]] <-
+      sanitizeVector("[^a-zA-Z0-9_.]+", "", entities[[eC$moduleCol]],
+                     label = "module identifiers");
   }
+  
   valueTemplates[[valueTemplateCols$identifierCol]] <-
-    gsub("[^a-zA-Z0-9_.]+", "",
-         valueTemplates[[valueTemplateCols$identifierCol]]);
+    sanitizeVector("[^a-zA-Z0-9_.]+", "", valueTemplates[[valueTemplateCols$identifierCol]],
+                   label = "value template identifiers");
   
   ###---------------------------------------------------------------------------
   ### Extraction instructions

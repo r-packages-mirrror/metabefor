@@ -17,7 +17,7 @@ Collapse a character vector into a single value, and replace newlines with
 spaces (and replace double spaces with single spaces).
 }
 \examples{
-metabefor::zapNewLines(
+metabefor::zapNewlines(
   "So here we start,
 and here we end"
 );

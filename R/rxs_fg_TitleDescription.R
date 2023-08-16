@@ -1,5 +1,6 @@
 rxs_fg_TitleDescription <- function(title,
                                     description,
+                                    instructions = NULL,
                                     level = 0) {
 
   lV <- rxs_fg_layoutVars(level = level);
@@ -27,9 +28,19 @@ rxs_fg_TitleDescription <- function(title,
              c(lV$commentPrefix,
                description));
   }
+  
+  if (!is.null(instructions)) {
+    instructions <-
+      rxs_fragmentPrep_strwrap_with_prefix(instructions,
+                                           width=lV$commentWidth,
+                                           prefix=lV$commentPrefix);
+    res <- c(res,
+             c(lV$commentPrefix,
+               instructions));
+  }
 
   ### Construct the character vector to return
-  if (!is.null(title) || !is.null(description)) {
+  if (!is.null(title) || !is.null(description) || !is.null(instructions)) {
     res <- c(res,
              lV$commentPrefix,
              lV$lineFiller);

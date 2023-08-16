@@ -4,10 +4,12 @@
 \alias{rxsTree_to_valueDf}
 \title{Create a long ('tidy') data frame with the full Rxs tree}
 \usage{
-rxsTree_to_valueDf(rxsTree)
+rxsTree_to_valueDf(rxsTree, zapNewlines = TRUE)
 }
 \arguments{
 \item{rxsTree}{The Rxs tree}
+
+\item{zapNewlines}{Whether to call \code{\link[=zapNewlines]{zapNewlines()}} on the values}
 }
 \value{
 A data frame
