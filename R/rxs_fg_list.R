@@ -74,10 +74,19 @@ rxs_fg_list <- function(node,
                                 "[['value']] <-");
   }
 
-  titleDescription <-
-    rxs_fg_TitleDescription(title=node[[eC$titleCol]],
-                            description=node[[eC$descriptionCol]],
-                            level=level);
+
+  if (eC$instructionsCol %in% names(node)) {
+    titleDescription <-
+      rxs_fg_TitleDescription(title=node[[eC$titleCol]],
+                              description=node[[eC$descriptionCol]],
+                              instructions=node[[eC$instructionsCol]],
+                              level=level);
+  } else {
+    titleDescription <-
+      rxs_fg_TitleDescription(title=node[[eC$titleCol]],
+                              description=node[[eC$descriptionCol]],
+                              level=level);
+  }
 
   listEntities <- node$Get(function(node) {
     valueAssignment <-
