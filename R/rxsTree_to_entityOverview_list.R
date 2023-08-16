@@ -60,10 +60,20 @@ rxsTree_to_entityOverview_list <- function(rxsTree,
             listFragment <- FALSE;
           }
 
+          if (!is.null(node$instructions)) {
+            instructionsBit <-
+              paste0("\n\n**Extraction instructions:** ",
+                     node$instructions);
+          } else {
+            instructionsBit <- NULL;
+          }
+          
           res <-
             paste0(
               res,
+              "\n\n**Description:** ",
               node$description,
+              instructionsBit,
               "\n\n**Type:** ",
               type,
               "  \n**Identifier:** `",
