@@ -234,7 +234,7 @@ opts$defaults <-
                        value = 'value'),
     
     rxs_fg_list_codingHelp =
-      "<entityTitle>: <entityDescription> [Examples: <examples>] [Value description: <valueDescription>]",
+      "<entityTitle>: <entityDescription> <entityInstructions> [Examples: <examples>] [Value description: <valueDescription>]",
     
     sourceIdDefaultValue = "\"\"",
     sourceIdTitle = " SET UNIQUE SOURCE IDENTIFIER ",

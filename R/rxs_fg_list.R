@@ -271,6 +271,10 @@ rxs_fg_list <- function(node,
 
     codingHelpStrings_entityDescriptions <-
       node$Get(eC$descriptionCol, filterFun = data.tree::isLeaf);
+    
+    codingHelpStrings_instructions <-
+      node$Get(eC$instructionsCol, filterFun = data.tree::isLeaf);
+    
     codingHelpStrings_entityTitles <-
       node$Get(eC$titleCol, filterFun = data.tree::isLeaf);
 
@@ -292,6 +296,7 @@ rxs_fg_list <- function(node,
                res <- gsub("<examples>", codingHelpStrings_examples[i], res);
                res <- gsub("<entityTitle>", codingHelpStrings_entityTitles[i], res);
                res <- gsub("<entityDescription>", codingHelpStrings_entityDescriptions[i], res);
+               res <- gsub("<entityInstructions>", codingHelpStrings_instructions[i], res);
                res <- gsub("<valueDescription>", codingHelpStrings_valueDescriptions[i], res);
                return(res);
              });
