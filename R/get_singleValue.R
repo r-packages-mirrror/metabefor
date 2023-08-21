@@ -84,7 +84,6 @@ get_singleValue_fromTree <- function(x,
       }
       
       ### Decide whether in the end we should flatten vectors
-      ### Decide whether in the end we should flatten vectors
       flattenTheVector <- flattenVectorsInDf;
       if (!silent) {
         cat0("flattenVectorsInDf is ", as.character(flattenVectorsInDf),
@@ -124,21 +123,39 @@ get_singleValue_fromTree <- function(x,
       
       ### We found a node with this name, return its value
 
+      if ("value" %in% (foundNode$attributes)) {
+        
+        foundValue <- foundNode$value;
+        
+      } else {
+
+        msg("\nFound a node with identier ('name') '", entityId,
+            "', and its path string ('",
+            foundNode$pathString, "') matched the ",
+            "specified pathString_regex_select ('", pathString_regex_select,
+            "'), but it did not contain a `value`; most likely, ",
+            "it is a container entity. Returning NULL.",
+            silent = silent);
+
+        return(NULL);
+
+      }
+
       if (flattenTheVector) {
         
         ### Flatten vectors to strings with VecTxtQ
-        res <- flattenNodeValues(foundNode$value);
+        res <- flattenNodeValues(foundValue);
         
       } else {
         
         if (returnLongDf) {
           ### Split vectors to different rows
-          res <- splitVectors(foundNode$value,
+          res <- splitVectors(foundValue,
                               fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
         } else {
           ### Pad all elements with length > 1 to the same
           ### length to allow conversion to data frame
-          res <- padVectors(foundNode$value,
+          res <- padVectors(foundValue,
                             fieldname_regex_alwaysFlatten = fieldname_regex_alwaysFlatten);
         }
 
@@ -149,7 +166,7 @@ get_singleValue_fromTree <- function(x,
       if (returnDf && returnLongDf) {
         ### Long ('tidy') data frame, with all values in one column
         
-        if (is.list(foundNode$value)) {
+        if (is.list(foundValue)) {
           ### (we look at foundNode$value instead of res because res may
           ###  have become a vector, even if foundNode$value is a list)
           
@@ -161,7 +178,8 @@ get_singleValue_fromTree <- function(x,
                 anything_to_tidyDf,
                 sourceId = sourceId,
                 entityId = entityId
-              )
+              ),
+              suppressNonDfError = TRUE
             );
           
           ### Set entity names, take potential vectors into account
@@ -214,11 +232,12 @@ get_singleValue_fromTree <- function(x,
         } else {
           
           ### Wide dataframe, with one column for each entity
-          res <-
+          resDf <-
             data.frame(rep(sourceId, length(res)),
                        res);
-          names(res) <- c('sourceId', entityId);
-          return(res);
+          
+          names(resDf) <- c('sourceId', entityId);
+          return(resDf);
           
         }
 
@@ -491,7 +510,8 @@ get_singleValue_fromTreeList <- function(x,
 
     return(
       metabefor::rbind_df_list(
-        res
+        res,
+        suppressNonDfError = TRUE
       )
     );
     
@@ -577,7 +597,10 @@ get_singleValue_fromTreeList <- function(x,
         );
   
       resDf <-
-        metabefor::rbind_df_list(resDfList);
+        metabefor::rbind_df_list(
+          resDfList,
+          suppressNonDfError = TRUE
+        );
   
       return(resDf);
     } else {
