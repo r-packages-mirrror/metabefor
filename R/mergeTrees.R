@@ -102,9 +102,11 @@ mergeTrees <- function(tree1,
                       tree1$name, "' and '", tree2$name, "') are single ",
                       "extracted entities. ",
                       "That suggest an error in the specification of ",
-                      "your modules, or an error made during extraction. I ",
-                      "cannot perform this merge.\n\nYou may want to check the ",
-                      "extraction scripts: '",
+                      "your modules, or an error made during extraction - ",
+                      "for example, it is possible that for one of these two ",
+                      "extraction scripts, the source identifier isn't correct. ",
+                      "I cannot perform this merge.\n\nYou may want to check ",
+                      "the extraction scripts: '",
                       filename1, "' and '", filename2, "'."));
     }
     
