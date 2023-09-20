@@ -405,6 +405,9 @@ rxs_parseExtractionScripts <- function(path,
                 mergeTrees(
                   tree1 = mergingResult,
                   tree2 = res$rxsTrees_raw[validRawTrees][[i]],
+                  sourceId = sourceId,
+                  filename1 = mergingResult$rxsMetadata$filename,
+                  filename2 = res$rxsTrees_raw[validRawTrees][[i]]$rxsMetadata$filename,
                   spaces = 6,
                   silent = silent
                 );

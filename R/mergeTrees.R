@@ -6,6 +6,8 @@
 #' attribute is a list, those lists are combined using [base::c()].
 #'
 #' @param tree1,tree2 The trees to merge.
+#' @param sourceId,filename1,filename2 The identifier of the source and the
+#' original file names of the extraction scripts.
 #' @param spaces The number of spaces to use in messages (if `silent = metabefor::opts$get("silent")`)
 #' @param silent Whether to be silent or chatty.
 #'
@@ -15,6 +17,9 @@
 #' @examples
 mergeTrees <- function(tree1, 
                        tree2,
+                       sourceId,
+                       filename1,
+                       filename2,
                        spaces = 2,
                        silent = metabefor::opts$get("silent")) {
 
@@ -24,41 +29,57 @@ mergeTrees <- function(tree1,
   nestedStart <- paste0("\n", repStr(" ", spaces+2), "- ");
   
   if (tree1$isLeaf && (!tree2$isLeaf)) {
-    stop(wrap_error("The first rxs tree (or 'node') I have to merge ('",
+    stop(wrap_error("When merging extraction scripts for a source with identifier (sourceId) '",
+                    sourceId,
+                    "', the first rxs tree (or 'node') I have to merge ('",
                     tree1$name, "') consists of a single entity; but the ",
                     "second rxs tree ('",
                     tree2$name, "') has children (i.e. is a container ",
                     "entity). That suggest an error in the specification of ",
                     "your modules, or an error made during extraction. I ",
-                    "cannot perform this merge."));
+                    "cannot perform this merge.\n\nYou may want to check the ",
+                    "extraction scripts: '",
+                    filename1, "' and '", filename2, "'."));
   } else if (!(tree1$isLeaf) && (tree2$isLeaf)) {
-    stop(wrap_error("The first rxs tree (or 'node') I have to merge, ('",
+    stop(wrap_error("When merging extraction scripts for a source with identifier (sourceId) '",
+                    sourceId, 
+                    "', the first rxs tree (or 'node') I have to merge, ('",
                     tree1$name, "'), has children (i.e. is a container ",
                     "entity); but the second rxs tree ('",
                     tree2$name, "') consists of a ",
                     "single entity. That suggest an error in the",
                     "specification of your modules, or an error made during",
-                    "extraction. I cannot perform this merge."));
+                    "extraction. I cannot perform this merge.\n\nYou may want to check the ",
+                    "extraction scripts: '",
+                    filename1, "' and '", filename2, "'."));
   } else if (tree1$isLeaf && tree2$isLeaf) {
     
     ### Neither has children, i.e. is a container entity
     
     if (is.list(tree1$value) && (!is.list(tree2$value))) {
-      stop(wrap_error("The first rxs tree (or 'node') I have to merge ('",
+      stop(wrap_error("When merging extraction scripts for a source with identifier (sourceId) '",
+                      sourceId,
+                      "', the first rxs tree (or 'node') I have to merge ('",
                       tree1$name, "') is a clustering entity ; but the ",
                       "second rxs tree ('",
                       tree2$name, "') is not (i.e. is a single extracted ",
                       "entity). That suggest an error in the specification of ",
                       "your modules, or an error made during extraction. I ",
-                      "cannot perform this merge."));
+                      "cannot perform this merge.\n\nYou may want to check the ",
+                      "extraction scripts: '",
+                      filename1, "' and '", filename2, "'."));
     } else if (!(is.list(tree1$value)) && is.list(tree2$value)) {
-      stop(wrap_error("The first rxs tree (or 'node') I have to merge ('",
+      stop(wrap_error("When merging extraction scripts for a source with identifier (sourceId) '",
+                      sourceId,
+                      "', the first rxs tree (or 'node') I have to merge ('",
                       tree1$name, "') is a single extracted ",
                       "entity; but the second rxs tree ('",
                       tree2$name, "') is not (i.e. is a clustering entity). ",
                       "That suggest an error in the specification of ",
                       "your modules, or an error made during extraction. I ",
-                      "cannot perform this merge."));
+                      "cannot perform this merge.\n\nYou may want to check the ",
+                      "extraction scripts: '",
+                      filename1, "' and '", filename2, "'."));
     } else if (is.list(tree1$value) && is.list(tree2$value)) {
       
       ### Both are clustering entities: merge the value lists
@@ -75,12 +96,16 @@ mergeTrees <- function(tree1,
       mergedTree$value <- c(tree1$value, tree2$value);
       
     } else {
-      stop(wrap_error("Both rxs trees (or 'nodes') I have to merge ('",
+      stop(wrap_error("When merging extraction scripts for a source with identifier (sourceId) '",
+                      sourceId,
+                      "', both rxs trees (or 'nodes') I have to merge ('",
                       tree1$name, "' and '", tree2$name, "') are single ",
                       "extracted entities. ",
                       "That suggest an error in the specification of ",
                       "your modules, or an error made during extraction. I ",
-                      "cannot perform this merge."));
+                      "cannot perform this merge.\n\nYou may want to check the ",
+                      "extraction scripts: '",
+                      filename1, "' and '", filename2, "'."));
     }
     
   } else {
@@ -134,6 +159,9 @@ mergeTrees <- function(tree1,
           metabefor::mergeTrees(
             tree1 = tree1_node[[currentName]],
             tree2 = tree2_node[[currentName]],
+            sourceId = sourceId,
+            filename1 = filename1,
+            filename2 = filename2,
             spaces = spaces + 2,
             silent = silent
           )
