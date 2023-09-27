@@ -158,7 +158,6 @@ import_search_results <- function(path,
         )
       ) > 0
     ];
-  names(searchHitFiles) <- searchHitDirs;
   
   if (length(unlist(searchHitFiles)) == 0) {
     stop("No files found that match your parameters!\n");
