@@ -69,19 +69,23 @@ get_multipleValues <- function(x,
         pathString_regex_select = ".*",
         silent = silent
       );
+    
     names(allValueList) <- entityIds;
     
     nrows <-
       unlist(lapply(allValueList, nrow));
     
+    entityIdsWithRows <-
+      names(nrows);
+    
     if (length(unique(nrows)) > 1) {
       stop("Not all results have the same number of rows - some sources ",
            "did not return a value it seems.");
     }
-
+    
     allValuesOnly <-
       lapply(
-        entityIds,
+        entityIdsWithRows,
         function(colName) {
           return(
             allValueList[[colName]][, colName, drop=FALSE]
@@ -89,7 +93,7 @@ get_multipleValues <- function(x,
         }
       );
     
-    sourceIds <- allValueList[[1]][, 1, drop=FALSE];
+    sourceIds <- allValueList[[entityIdsWithRows[1]]][, 1, drop=FALSE];
     
     doCallArgs <-
       c(list(sourceIds),

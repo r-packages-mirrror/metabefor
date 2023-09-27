@@ -60,25 +60,40 @@ rxs_export_to_rock <- function(x,
       "you passed an object with class(es) ", vecTxtQ(class(x)), "."
     ));
   }
-
-  df <- metabefor::get_singleValue(
-    x = x,
-    entityId = entityId,
-    returnDf = TRUE,
-    returnLongDf = TRUE
-  );
   
+  if (length(entityId) == 1) {
+    
+    df <- metabefor::get_singleValue(
+      x = x,
+      entityId = entityId,
+      returnDf = TRUE,
+      returnLongDf = TRUE
+    );
+    
+    cols_to_utterances <- "value";
+    
+  } else {
+    
+    df <- metabefor::get_multipleValues(
+      x = x,
+      entityIds = entityId
+    );
+    
+    cols_to_utterances <- entityId;
+    
+  }
+
   rxsSourceId <- metabefor::opts$get("rockInterfacing_rxsSourceId");
   rxsEntityId <- metabefor::opts$get("rockInterfacing_rxsEntityId");
   
   cols_to_iids <- c("sourceId", "entityId");
   names(cols_to_iids) <- c(rxsSourceId, rxsEntityId);
-  
+
   return(
     rock::convert_df_to_source(
       data = df,
       output = outputFile,
-      cols_to_utterances = "value",
+      cols_to_utterances = cols_to_utterances,
       cols_to_ciids = cols_to_iids
     )
   );
