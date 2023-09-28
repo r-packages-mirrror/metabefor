@@ -62,6 +62,9 @@ rxs_import_from_rock <- function(x,
   names(allSourceIds) <- allSourceIds;
   names(allEntityIds) <- allEntityIds;
   
+  allSourceIds <- allSourceIds[allSourceIds != "no_id"]
+  allEntityIds <- allEntityIds[allEntityIds != "no_id"]
+  
   ### Create conveniently organised object
   organisedCoding <-
     lapply(
@@ -95,7 +98,7 @@ rxs_import_from_rock <- function(x,
   for (currentSourceId in allSourceIds) {
     
     for (currentEntityId in allEntityIds) {
-      
+
       targetEntityNode <-
         data.tree::FindNode(
           x$rxsTrees[[currentSourceId]],
@@ -120,7 +123,7 @@ rxs_import_from_rock <- function(x,
         );
         
       }
-      
+
     }
     
   }
