@@ -4,10 +4,13 @@
 \alias{rbind_df_list}
 \title{Bind lots of dataframes together rowwise}
 \usage{
-rbind_df_list(x)
+rbind_df_list(x, suppressNonDfError = FALSE)
 }
 \arguments{
 \item{x}{A list of dataframes}
+
+\item{suppressNonDfError}{Whether to suppress the error when the object
+that is passed is not a data frame.}
 }
 \value{
 A dataframe
