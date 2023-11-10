@@ -69,7 +69,7 @@ get_multipleValues <- function(x,
         pathString_regex_select = ".*",
         silent = silent
       );
-    
+
     names(allValueList) <- entityIds;
     
     nrows <-
