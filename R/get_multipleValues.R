@@ -78,9 +78,10 @@ get_multipleValues <- function(x,
     entityIdsWithRows <-
       names(nrows);
     
-    if (length(unique(nrows)) > 1) {
-      stop("Not all results have the same number of rows - some sources ",
-           "did not return a value it seems.");
+    if (any(nrows == 0)) {
+      stop("One or more Rxs trees did not return any results (specifically, ",
+           vecTxtQ(entityIdsWithRows[which(nrows == 0)]), 
+           ").");
     }
     
     allValuesOnly <-
