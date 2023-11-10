@@ -82,8 +82,11 @@ get_multipleValues <- function(x,
       stop("One or more Rxs trees did not return any results (specifically, ",
            vecTxtQ(entityIdsWithRows[which(nrows == 0)]), 
            ").");
+    } else if (length(unique(nrows)) > 1) {
+      stop("Not all results have the same number of rows - some sources ",
+           "did not return a value it seems.");
     }
-    
+
     allValuesOnly <-
       lapply(
         entityIdsWithRows,
