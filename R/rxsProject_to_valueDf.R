@@ -10,7 +10,7 @@
 rxsProject_to_valueDf <- function(rxsObject,
                                   zapNewlines = TRUE) {
   
-  if (!inherits(rxsObject, "rxs_parsedExtractionScript")) {
+  if (!inherits(x, "rxs_parsedExtractionScripts")) {
     stop(wrap_error(
       "As `x`, you have to pass an object of parsed Rxs scripts ",
       "(with class 'rxs_parsedExtractionScript'), but instead, ",
