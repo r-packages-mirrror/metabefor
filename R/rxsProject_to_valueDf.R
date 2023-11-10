@@ -12,7 +12,8 @@ rxsProject_to_valueDf <- function(rxsObject,
   
   if (!inherits(rxsObject, "rxs_parsedExtractionScript")) {
     stop(wrap_error(
-      "As `x`, you have to pass an Rxs tree, but instead, ",
+      "As `x`, you have to pass an object of parsed Rxs scripts ",
+      "(with class 'rxs_parsedExtractionScript'), but instead, ",
       "you passed an object with class(es) ", vecTxtQ(class(rxsObject)), "."
     ));
   }
