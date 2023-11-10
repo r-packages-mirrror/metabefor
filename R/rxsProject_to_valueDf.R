@@ -10,11 +10,11 @@
 rxsProject_to_valueDf <- function(rxsObject,
                                   zapNewlines = TRUE) {
   
-  if ((!inherits(rxsTree, "rxsObject")) &&
-      (!(inherits(rxsTree, "rxs") && inherits(rxsTree, "Node")))) {
+  if ((!inherits(rxsObject, "rxsObject")) &&
+      (!(inherits(rxsObject, "rxs") && inherits(rxsObject, "Node")))) {
     stop(wrap_error(
       "As `x`, you have to pass an Rxs tree, but instead, ",
-      "you passed an object with class(es) ", vecTxtQ(class(rxsTree)), "."
+      "you passed an object with class(es) ", vecTxtQ(class(rxsObject)), "."
     ));
   }
   
