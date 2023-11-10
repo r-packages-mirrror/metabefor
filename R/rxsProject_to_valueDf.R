@@ -33,7 +33,8 @@ rxsProject_to_valueDf <- function(x,
           
           df <-
             cbind(
-              data.frame(sourceId = rep(currentSourceId, nrow(df)))
+              data.frame(sourceId = rep(currentSourceId, nrow(df))),
+              df
             );
           
           return(df);
