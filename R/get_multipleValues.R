@@ -83,8 +83,10 @@ get_multipleValues <- function(x,
            vecTxtQ(entityIdsWithRows[which(nrows == 0)]), 
            ").");
     } else if (length(unique(nrows)) > 1) {
-      stop("Not all results have the same number of rows - some sources ",
-           "did not return a value it seems.");
+      stop("Not all results have the same number of rows - this means you ",
+           "may have repeating entities (which means I cannot construct ",
+           "a 'wide' dataframe, where columns are entities), or some sources ",
+           "did not return a value.");
     }
 
     allValuesOnly <-
