@@ -105,7 +105,7 @@ if (interactive()) {
     paste0("https://docs.google.com/spreadsheets/d/",
            "1wM7HGrqVs-6KV0XeeyEeMIz-IRfF-llMXHJUD73N7Dk");
   tmpPath <- tempfile(pattern="rxsDir");
-  mkdir(tmpPath);
+  dir.create(tmpPath);
   rxsSpec <-
     rxs_fromSpecifications(
       x = gs_url,

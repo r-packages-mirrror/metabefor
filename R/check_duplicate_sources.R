@@ -4,7 +4,10 @@
 #' any of them are duplicates.
 #' 
 #' @param primarySources The primary dataframe with sources
-#' @param secondarySources The secondary dataframe with sources
+#' @param secondarySources The secondary dataframe with sources; if supplied
+#' (i.e. for a asymmetric duplicate search), the data frame against which the
+#' primary data frame is checked (i.e. the result specifies, for each entry in
+#' the primary sources, whether it also occurs in the secondary sources).
 #' @param useStringDistances Whether to use string distances - note that
 #' that can be very slow and take along time if you have thousands of sources.
 #' @param stringDistance The string distance for titles
@@ -276,7 +279,7 @@ check_duplicate_sources <- function(primarySources,
     
     ###-------------------------------------------------------------------------
     ###-------------------------------------------------------------------------
-    ### Primary *and* secondary sources
+    ### Primary *and* secondary sources (asymmetric search)
     ###-------------------------------------------------------------------------
     ###-------------------------------------------------------------------------
     
@@ -299,12 +302,12 @@ check_duplicate_sources <- function(primarySources,
 
     res$doiMatch <-
       dedup_matches_trimmed(
-        secondarySources[, doi_forDeduplicationCol],
-        primarySources[, doi_forDeduplicationCol],
+        needles = primarySources[, doi_forDeduplicationCol],
+        haystack = secondarySources[, doi_forDeduplicationCol]
       );
-    
+
     msg("Found ",
-        sum(res$doiMatch),
+        sum(res$doiMatch, na.rm=TRUE),
         " duplicates based on DOI.\n",
         silent = silent);
     
@@ -313,21 +316,25 @@ check_duplicate_sources <- function(primarySources,
     ###-------------------------------------------------------------------------
     
     if (hasValidValue(matchFully)) {
+
+      msg("Looking for matches based on full field contents.\n",
+          silent = silent);
+      
       for (currentCol in matchFully) {
         
-        msg("Looking for full matches, processing column '",
+        msg("  - Looking for full matches, processing column '",
             currentCol,
             "'.\n",
             silent = silent);
         
         res[, paste0("fullMatch_", currentCol)] <- 
           dedup_matches_trimmed(
-            secondarySources[, currentCol],
-            primarySources[, currentCol]
+            needles = primarySources[, currentCol],
+            haystack = secondarySources[, currentCol]
           );
         
-        msg("Found ",
-            sum(res[, paste0("fullMatch_", currentCol)]),
+        msg("    - Found ",
+            sum(res[, paste0("fullMatch_", currentCol)], na.rm=TRUE),
             " duplicates based on full string matching.\n",
             silent = silent);
         
@@ -339,23 +346,28 @@ check_duplicate_sources <- function(primarySources,
     ###-------------------------------------------------------------------------
     
     if (hasValidValue(matchStart)) {
+      
+      msg("Looking for matches based on the first characters.\n",
+          silent = silent);
+      
       for (currentCol in names(matchStart)) {
         
-        msg("Looking for matches , processing column '",
+        msg("  - Looking for matches, processing column '",
             currentCol,
             "'.\n",
             silent = silent);
-        
+
         res[, paste0("startMatch_", currentCol)] <- 
-          dedup_findDuplicatesInVector_trimmed(
-            secondarySources[, currentCol],
-            primarySources[, currentCol],
+          dedup_findDuplicatesInTwoVectors_trimmed(
+            x = primarySources[, currentCol],
+            y = secondarySources[, currentCol],
             start = matchStart[currentCol]
           );
         
-        msg("Found ",
+        msg("    - Found ",
             sum(res[, paste0("startMatch_", currentCol)]),
-            " duplicates based on matching the first ",
+            " entires in the primary sources that were also in ",
+            "the secondary sources based on matching the first ",
             matchStart[currentCol], " characters.\n",
             silent = silent);
         
@@ -367,21 +379,25 @@ check_duplicate_sources <- function(primarySources,
     ###-------------------------------------------------------------------------
     
     if (hasValidValue(matchEnd)) {
+      
+      msg("Looking for matches based on the last characters.\n",
+          silent = silent);
+      
       for (currentCol in names(matchEnd)) {
         
-        msg("Looking for matches , processing column '",
+        msg("  - Looking for matches, processing column '",
             currentCol,
             "'.\n",
             silent = silent);
         
         res[, paste0("endMatch_", currentCol)] <- 
-          dedup_findDuplicatesInVector_trimmed(
-            secondarySources[, currentCol],
-            primarySources[, currentCol],
+          dedup_findDuplicatesInTwoVectors_trimmed(
+            x = primarySources[, currentCol],
+            y = secondarySources[, currentCol],
             end = matchEnd[currentCol]
           );
         
-        msg("Found ",
+        msg("    - Found ",
             sum(res[, paste0("endMatch_", currentCol)]),
             " duplicates based on matching the last ",
             matchEnd[currentCol], " characters.\n",
@@ -491,16 +507,39 @@ check_duplicate_sources <- function(primarySources,
   }
   
   ### Flag duplicates
-  duplicateColumns <-
-    res$doiMatch | 
+  duplicateEntry <-
+    res$doiMatch;
+  
+  duplicateEntry <-
+    duplicateEntry | 
     apply(
       res[, grep("^fullMatch_", names(res))],
       1,
       all
     );
   
-  attr(duplicateColumns, "duplicateInfo") <- res;
+  duplicateEntry <-
+    duplicateEntry | 
+    apply(
+      res[, grep("^startMatch_", names(res))],
+      1,
+      all
+    );
+  
+  duplicateEntry <-
+    duplicateEntry | 
+    apply(
+      res[, grep("^endMatch_", names(res))],
+      1,
+      all
+    );
+  
+  msg("Done - found ", sum(duplicateEntry, na.rm=TRUE),
+      " duplicate entries.\n",
+      silent = silent);
+  
+  attr(duplicateEntry, "duplicateInfo") <- res;
 
-  return(duplicateColumns);
+  return(duplicateEntry);
   
 }

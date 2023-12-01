@@ -23,7 +23,10 @@ check_duplicate_sources(
 \arguments{
 \item{primarySources}{The primary dataframe with sources}
 
-\item{secondarySources}{The secondary dataframe with sources}
+\item{secondarySources}{The secondary dataframe with sources; if supplied
+(i.e. for a asymmetric duplicate search), the data frame against which the
+primary data frame is checked (i.e. the result specifies, for each entry in
+the primary sources, whether it also occurs in the secondary sources).}
 
 \item{useStringDistances}{Whether to use string distances - note that
 that can be very slow and take along time if you have thousands of sources.}

@@ -61,6 +61,9 @@ rxs_export_to_rock <- function(x,
     ));
   }
   
+  rxsSourceId <- metabefor::opts$get("rockInterfacing_rxsSourceId");
+  rxsEntityId <- metabefor::opts$get("rockInterfacing_rxsEntityId");
+  
   if (length(entityId) == 1) {
     
     df <- metabefor::get_singleValue(
@@ -70,7 +73,16 @@ rxs_export_to_rock <- function(x,
       returnLongDf = TRUE
     );
     
-    cols_to_utterances <- "value";
+    cols_to_iids <- c("sourceId", "entityId");
+    names(cols_to_iids) <- c(rxsSourceId, rxsEntityId);
+    
+    res <-
+      rock::convert_df_to_source(
+        data = df,
+        output = outputFile,
+        cols_to_utterances = "value",
+        cols_to_ciids = cols_to_iids
+      );
     
   } else {
     
@@ -79,22 +91,23 @@ rxs_export_to_rock <- function(x,
       entityIds = entityId
     );
     
-    cols_to_utterances <- entityId;
+    cols_to_iids <- c("sourceId");
+    names(cols_to_iids) <- c(rxsSourceId);
+    
+    res <-
+      rock::convert_df_to_source(
+        data = df,
+        output = outputFile,
+        cols_to_utterances = entityId,
+        utterance_classId = rxsEntityId,
+        cols_to_ciids = cols_to_iids
+      );
     
   }
-
-  rxsSourceId <- metabefor::opts$get("rockInterfacing_rxsSourceId");
-  rxsEntityId <- metabefor::opts$get("rockInterfacing_rxsEntityId");
   
-  cols_to_iids <- c("sourceId", "entityId");
-  names(cols_to_iids) <- c(rxsSourceId, rxsEntityId);
-
   return(
-    rock::convert_df_to_source(
-      data = df,
-      output = outputFile,
-      cols_to_utterances = cols_to_utterances,
-      cols_to_ciids = cols_to_iids
+    invisible(
+      res
     )
   );
 

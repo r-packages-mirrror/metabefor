@@ -4,10 +4,21 @@
 \alias{mergeTrees}
 \title{Merge two Rxs trees (\code{data.tree} nodes)}
 \usage{
-mergeTrees(tree1, tree2, spaces = 2, silent = metabefor::opts$get("silent"))
+mergeTrees(
+  tree1,
+  tree2,
+  sourceId,
+  filename1,
+  filename2,
+  spaces = 2,
+  silent = metabefor::opts$get("silent")
+)
 }
 \arguments{
 \item{tree1, tree2}{The trees to merge.}
+
+\item{sourceId, filename1, filename2}{The identifier of the source and the
+original file names of the extraction scripts.}
 
 \item{spaces}{The number of spaces to use in messages (if \code{silent = metabefor::opts$get("silent")})}
 
