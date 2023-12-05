@@ -33,7 +33,7 @@ flattenNodeValue <- function(singleValue) {
   }
   
   if (is.null(singleValue)) {
-    return(NULL);
+    return("NULL");
   } else if (all(is.na(singleValue))) {
     return(NA);
   } else if (length(singleValue) == 1) {

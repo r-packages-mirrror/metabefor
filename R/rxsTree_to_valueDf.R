@@ -19,6 +19,7 @@ rxsTree_to_valueDf <- function(rxsTree,
   }
   
   res <- rxsTree$Get(function(node) {
+
     nodeName <- node$name;
     nodeValue <- node$value;
     if (is.null(nodeValue)) {
@@ -29,7 +30,7 @@ rxsTree_to_valueDf <- function(rxsTree,
       
       ### Note - this will become problematic if the list contains
       ### more complicated values such as vectors or tables!!!
-      
+
       res <- data.frame(rep(pathString, length(nodeValue)),
                         names(nodeValue),
                         flattenNodeValues(nodeValue),
