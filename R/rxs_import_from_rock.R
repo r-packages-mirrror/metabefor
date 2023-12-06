@@ -183,7 +183,7 @@ rxs_import_from_rock <- function(x,
   
   msg(
     "\nFinished adding codings for ", length(allSourceIds),
-    " sources and ", allEntityIds, " entities.",
+    " sources and ", length(allEntityIds), " entities.",
     silent = silent
   );
   
