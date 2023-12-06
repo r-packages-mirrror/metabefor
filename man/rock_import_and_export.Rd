@@ -20,6 +20,7 @@ rxs_import_from_rock(
   newEntityIdCodeFirst = FALSE,
   filenameRegex = NULL,
   recursive = TRUE,
+  silent = metabefor::opts$get("silent"),
   rxsSourceId = metabefor::opts$get("rockInterfacing_rxsSourceId"),
   rxsEntityId = metabefor::opts$get("rockInterfacing_rxsEntityId")
 )
@@ -56,6 +57,8 @@ instance identifier in the ROCK format), and the second by the code. If it is
 files matching this regualr expression will be imported.}
 
 \item{recursive}{Whether to read directories recursively}
+
+\item{silent}{Whether to be chatty or silent.}
 }
 \value{
 The ROCK source as a character vector, invisibly, unless

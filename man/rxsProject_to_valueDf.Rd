@@ -4,12 +4,12 @@
 \alias{rxsProject_to_valueDf}
 \title{Create a long ('tidy') data frame with the full Rxs tree from each source}
 \usage{
-rxsProject_to_valueDf(rxsObject, zapNewlines = TRUE)
+rxsProject_to_valueDf(x, zapNewlines = TRUE)
 }
 \arguments{
-\item{zapNewlines}{Whether to call \code{\link[=zapNewlines]{zapNewlines()}} on the values}
+\item{x}{The Rxs object}
 
-\item{rxsTree}{The Rxs tree}
+\item{zapNewlines}{Whether to call \code{\link[=zapNewlines]{zapNewlines()}} on the values}
 }
 \value{
 A data frame

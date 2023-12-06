@@ -1,5 +1,6 @@
 #' @export
 #' @param recursive Whether to read directories recursively
+#' @param silent Whether to be chatty or silent.
 #' @param newEntityIds,newEntityIdCodeFirst To determine how the new entity
 #' identifiers are composed, `newEntityIds` s used. This has to be a
 #' [base::sprintf] `fmt` string containing exactly two occurrences of "`%s`".
@@ -14,6 +15,7 @@ rxs_import_from_rock <- function(x,
                                  newEntityIdCodeFirst = FALSE,
                                  filenameRegex = NULL,
                                  recursive = TRUE,
+                                 silent = metabefor::opts$get("silent"),
                                  rxsSourceId = metabefor::opts$get("rockInterfacing_rxsSourceId"),
                                  rxsEntityId = metabefor::opts$get("rockInterfacing_rxsEntityId")) {
 
@@ -41,11 +43,13 @@ rxs_import_from_rock <- function(x,
     parsedSource <- rock::parse_sources(
       path = input,
       regex = filenameRegex,
-      recursive = recursive
+      recursive = recursive,
+      silent = silent
     );
   } else if (file.exists(input)) {
     parsedSource <- rock::parse_source(
-      file = input
+      file = input,
+      silent = silent
     );
   } else {
     stop("The `input` you specified ('", input, "') is neither",
@@ -95,10 +99,28 @@ rxs_import_from_rock <- function(x,
   ### Add coding to Rxs tree
   ###-----------------------------------------------------------------------------
   
+  msg(
+    "\nStarting to add codings (i.e., code identifiers and 0/1 indicating ",
+    "whether those were applied) to the Rxs tree.",
+    silent = silent
+  );
+  
   for (currentSourceId in allSourceIds) {
+    
+    msg(
+      "\n  - Starting to process source with identifier '",
+      currentSourceId, "':",
+      silent = silent
+    );
     
     for (currentEntityId in allEntityIds) {
 
+      msg(
+        "\n    - Starting to process entity with identifier '",
+        currentEntityId, "':",
+        silent = silent
+      );
+      
       targetEntityNode <-
         data.tree::FindNode(
           x$rxsTrees[[currentSourceId]],
@@ -120,6 +142,12 @@ rxs_import_from_rock <- function(x,
           newName,
           value =
             organisedCoding[[currentSourceId]][[currentEntityId]][[currentCodeId]]
+        );
+        
+        msg(
+          "\n      - Added code with identifier '",
+          currentCodeId, "' as entity with identifier '", newName, "'.",
+          silent = silent
         );
         
       }
