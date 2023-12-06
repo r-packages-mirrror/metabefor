@@ -5,8 +5,6 @@
 #' @param entityIdsRegex A regular expression to match again entity identifiers
 #' to obtain the `entityIds`.
 #' @param lookInValueLists Whether to also look inside value lists
-#' @param truncateSourcesWithMissings Whether to throw an error when one or more
-#' sources doesn't have all entities, or remove that source.
 #' @param pathString_regex_select Regex that the target entities' path strings
 #' have to match (otherwise, the entity is excluded)
 #' @param silent Whether to be silent or chatty.
@@ -19,7 +17,6 @@ get_multipleValues <- function(x,
                                entityIds = NULL,
                                entityIdsRegex = NULL,
                                lookInValueLists = TRUE,
-                               truncateSourcesWithMissings = TRUE,
                                silent = metabefor::opts$get("silent")) {
   
   allEntityIds <-
@@ -87,14 +84,28 @@ get_multipleValues <- function(x,
            ").");
     } else if (length(unique(nrows)) > 1) {
       
-      if (truncateSourcesWithMissings) {
-        browser();
-      } else {
-        stop("Not all results have the same number of rows - this means you ",
-             "may have repeating entities (which means I cannot construct ",
-             "a 'wide' dataframe, where columns are entities), or some sources ",
-             "did not return a value.");
+      longList <- unique(
+        unlist(lapply(
+          allValueList,
+          function(x) {
+            return(x$sourceId);
+          })
+        ));
+      
+      resDf <-
+        data.frame(sourceId = longList, drop=FALSE);
+      
+      for (currentEntityId in names(allValueList)) {
+        resDf <- merge(resDf, allValueList[[currentEntityId]]);
       }
+      
+      return(resDf);
+
+      # stop("Not all results have the same number of rows - this means you ",
+      #      "may have repeating entities (which means I cannot construct ",
+      #      "a 'wide' dataframe, where columns are entities), or some sources ",
+      #      "did not return a value.");
+  
     }
 
     allValuesOnly <-
