@@ -79,9 +79,11 @@ get_multipleValues <- function(x,
       names(nrows);
     
     if (any(nrows == 0)) {
+      
       stop("One or more Rxs trees did not return any results (specifically, ",
            vecTxtQ(entityIdsWithRows[which(nrows == 0)]), 
            ").");
+      
     } else if (length(unique(nrows)) > 1) {
       
       longList <- unique(
