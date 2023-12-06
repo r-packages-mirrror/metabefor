@@ -109,6 +109,7 @@ get_multipleValues <- function(x,
           );
       }
       
+      
       return(resDf);
 
       # stop("Not all results have the same number of rows - this means you ",
