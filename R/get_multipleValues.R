@@ -95,7 +95,7 @@ get_multipleValues <- function(x,
         ));
       
       resDf <-
-        data.frame(sourceId = longList, drop=FALSE);
+        data.frame(sourceId = longList);
       
       for (currentEntityId in names(allValueList)) {
         resDf <- merge(resDf, allValueList[[currentEntityId]]);
