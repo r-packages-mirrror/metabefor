@@ -5,6 +5,8 @@
 #' @param entityIdsRegex A regular expression to match again entity identifiers
 #' to obtain the `entityIds`.
 #' @param lookInValueLists Whether to also look inside value lists
+#' @param merge_all When merging dataframes, if the number of rows is different,
+#' for each source, what to pass as the `all` parameter.
 #' @param pathString_regex_select Regex that the target entities' path strings
 #' have to match (otherwise, the entity is excluded)
 #' @param silent Whether to be silent or chatty.
@@ -17,6 +19,7 @@ get_multipleValues <- function(x,
                                entityIds = NULL,
                                entityIdsRegex = NULL,
                                lookInValueLists = TRUE,
+                               merge_all = TRUE,
                                silent = metabefor::opts$get("silent")) {
   
   allEntityIds <-
@@ -98,7 +101,12 @@ get_multipleValues <- function(x,
         data.frame(sourceId = longList);
       
       for (currentEntityId in names(allValueList)) {
-        resDf <- merge(resDf, allValueList[[currentEntityId]]);
+        resDf <-
+          merge(
+            resDf,
+            allValueList[[currentEntityId]],
+            all = merge_all
+          );
       }
       
       return(resDf);
