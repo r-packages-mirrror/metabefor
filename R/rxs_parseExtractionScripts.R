@@ -500,9 +500,17 @@ rxs_parseExtractionScripts <- function(path,
       }
       
     } else if (!data.tree::AreNamesUnique(res$rxsTrees[[currentTree]])) {
+      
+      allNames <- res$rxsTrees[[currentTree]]$Get("name");
+      
+      duplicateNames <-
+        unique(allNames[duplicated(allNames)]);
+      
       message <-
         msg("\n  - In the Rxs tree for source identifier '", currentTree,
-            "', not all node names (i.e. entity names) are unique!",
+            "', not all node names (i.e. entity identifiers) are unique! ",
+            "Specifically, the following entity identifiers ",
+            "occur more than once: ", vecTxtQ(duplicateNames), ".",
             silent = silent);
       res$log <- c(
         res$log,

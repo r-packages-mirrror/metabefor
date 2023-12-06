@@ -66,9 +66,15 @@ rxs_import_from_rock <- function(x,
   names(allSourceIds) <- allSourceIds;
   names(allEntityIds) <- allEntityIds;
   
-  allSourceIds <- allSourceIds[allSourceIds != "no_id"]
-  allEntityIds <- allEntityIds[allEntityIds != "no_id"]
-  
+  allSourceIds <- allSourceIds[allSourceIds != "no_id"];
+  allEntityIds <- allEntityIds[allEntityIds != "no_id"];
+
+  msg(
+    "\nStarting to add codings for ", length(allSourceIds),
+    " sources and ", allEntityIds, " entities.",
+    silent = silent
+  );
+
   ### Create conveniently organised object
   organisedCoding <-
     lapply(
@@ -174,6 +180,12 @@ rxs_import_from_rock <- function(x,
         names = input
       );
   }
+  
+  msg(
+    "\nFinished adding codings for ", length(allSourceIds),
+    " sources and ", allEntityIds, " entities.",
+    silent = silent
+  );
   
   return(invisible(x));
   
