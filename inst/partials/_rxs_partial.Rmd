@@ -36,7 +36,19 @@
   tryCatch(
     suppressWarnings(print(printableRxsTree)),
     error = function(e) {
-      message("When trying to print the Rxs tree, I encountered the following error: ", e$message);
+      
+      if (data.tree::AreNamesUnique(x)) {
+        message("When trying to print the Rxs tree, ",
+                "I encountered the following error: ",
+                e$message);
+      } else {
+        message("When trying to print the Rxs tree, ",
+                "I encountered the following error (probably because ",
+                "you have duplicate entity identifiers, which is not ",
+                "allowed!): ",
+                e$message);
+      }
+      
     }
   );
 
