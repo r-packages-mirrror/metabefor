@@ -33,7 +33,12 @@
 
   ### Suppress warnings until bug in data.tree is fixed, see:
   ### https://github.com/gluc/data.tree/issues/106
-  suppressWarnings(print(printableRxsTree));
+  tryCatch(
+    suppressWarnings(print(printableRxsTree)),
+    error = function(e) {
+      message("When trying to print the Rxs tree, I encountered the following error: ", e$message);
+    }
+  );
 
 ```
 
