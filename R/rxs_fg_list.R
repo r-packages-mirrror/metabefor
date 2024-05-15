@@ -88,9 +88,6 @@ rxs_fg_list <- function(node,
                               level=level);
   }
   
-  titleDescription <- gsub("\n", " ", titleDescription);
-  titleDescription <- gsub("\r", " ", titleDescription);
-  
   listEntities <- node$Get(function(node) {
     valueAssignment <-
       rxs_fg_defaultValueAssignment(node=node,
@@ -301,6 +298,11 @@ rxs_fg_list <- function(node,
                res <- gsub("<entityDescription>", codingHelpStrings_entityDescriptions[i], res);
                res <- gsub("<entityInstructions>", codingHelpStrings_instructions[i], res);
                res <- gsub("<valueDescription>", codingHelpStrings_valueDescriptions[i], res);
+               
+               ### Sanitize newlines
+               res <- gsub("\n", " ", res);
+               res <- gsub("\r", " ", res);
+               
                return(res);
              });
 
