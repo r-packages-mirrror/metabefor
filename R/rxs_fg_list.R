@@ -89,7 +89,8 @@ rxs_fg_list <- function(node,
   }
   
   titleDescription <- gsub("\n", " ", titleDescription);
-
+  titleDescription <- gsub("\r", " ", titleDescription);
+  
   listEntities <- node$Get(function(node) {
     valueAssignment <-
       rxs_fg_defaultValueAssignment(node=node,
