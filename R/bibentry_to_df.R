@@ -12,7 +12,9 @@
 #' @examples ### Use the base R bibentry
 #' metabefor::bibentry_to_df(citation());
 bibentry_to_df <- function(bibentry,
-                           authorCollapseFunc = metabefor::vecTxt) {
+                           authorCollapseFunc = metabefor::vecTxt,
+                           authorCollapseArgs = list(delimiter = " and ",
+                                                     lastDelimiter = NULL)) {
   
   if (!inherits(bibentry, "bibentry")) {
     stop("As `x`, you can only pass an object of class `bibentry`. ",
@@ -23,16 +25,38 @@ bibentry_to_df <- function(bibentry,
   if (length(bibentry) > 1) {
     res <- lapply(bibentry,
                   bibentry_to_df,
-                  authorCollapseFunc = authorCollapseFunc);
+                  authorCollapseFunc = authorCollapseFunc,
+                  authorCollapseArgs = authorCollapseArgs);
     return(
       metabefor::rbind_df_list(res)
     );
   }
   
+  authorsAsDf <- as.data.frame(bibentry[[1]]$author);
+  authorsAsVector <-
+    apply(
+      authorsAsDf,
+      1,
+      function(x) {
+        return(
+          paste0(
+            x['family'],
+            ", ",
+            x['given']
+          )
+        )
+      }
+    );
+  
   asList <-
     unclass(bibentry)[[1]];
   
-  asList$author <- authorCollapseFunc(asList$author);
+  asList$author <-
+    do.call(
+      authorCollapseFunc,
+      c(list(vector = authorsAsVector),
+        authorCollapseArgs)
+    );
 
   res <- data.frame(asList);
   

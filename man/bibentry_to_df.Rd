@@ -4,7 +4,11 @@
 \alias{bibentry_to_df}
 \title{Convert a bibentry (or more) to a data frame}
 \usage{
-bibentry_to_df(bibentry, authorCollapseFunc = metabefor::vecTxt)
+bibentry_to_df(
+  bibentry,
+  authorCollapseFunc = metabefor::vecTxt,
+  authorCollapseArgs = list(delimiter = " and ", lastDelimiter = NULL)
+)
 }
 \arguments{
 \item{bibentry}{The bibentry (or bibentries)}

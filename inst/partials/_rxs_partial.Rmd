@@ -33,7 +33,25 @@
 
   ### Suppress warnings until bug in data.tree is fixed, see:
   ### https://github.com/gluc/data.tree/issues/106
-  suppressWarnings(print(printableRxsTree));
+  tryCatch(
+    suppressWarnings(print(printableRxsTree)),
+    error = function(e) {
+      
+      if (data.tree::AreNamesUnique(x)) {
+        message("When trying to print the Rxs tree, ",
+                "I encountered the following error (have you ",
+                "first validated your Rxs object?): ",
+                e$message);
+      } else {
+        message("When trying to print the Rxs tree, ",
+                "I encountered the following error (Probably because ",
+                "you have duplicate entity identifiers, which is not ",
+                "allowed! Please validate your Rxs object.): ",
+                e$message);
+      }
+      
+    }
+  );
 
 ```
 

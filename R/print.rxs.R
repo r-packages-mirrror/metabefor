@@ -3,7 +3,6 @@
 #' @param x The Rxs tree
 #' @param rxsStructure Optionally, the rxs structure
 #' @param headingLevel The level of the top-most R Markdown heading
-#' @param printPlots Whether to print plots
 #' @param echoPartial Whether to echo (show) the R code chunks in the partial
 #' @param partialFile Optionally (and advanced) the path to a file with an
 #' R Markdown partial.
@@ -14,33 +13,6 @@
 #' @return The partial, or for the print function, the printed
 #' information (invisibly).
 #' 
-#' @rdname printrxs
-#' 
-#' @export
-rxs_partial <- function(x,
-                        rxsStructure=NULL,
-                        headingLevel = x$headingLevel,
-                        printPlots = TRUE,
-                        echoPartial = FALSE,
-                        partialFile = NULL,
-                        ...) {
-  
-  ### Get filename
-  if (!is.null(partialFile) && file.exists(partialFile)) {
-    rmdPartialFilename <-
-      partialFile;
-  } else {
-    rmdPartialFilename <-
-      system.file("partials", "_rxs_partial.Rmd", package="metabefor");
-  }
-  
-  rmdpartials::partial(rmdPartialFilename,
-                       ...);
-  
-}
-
-###-----------------------------------------------------------------------------
-
 #' @rdname printrxs
 #' @method knit_print rxs
 #' @importFrom knitr knit_print

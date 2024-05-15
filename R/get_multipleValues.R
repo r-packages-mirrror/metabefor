@@ -5,6 +5,8 @@
 #' @param entityIdsRegex A regular expression to match again entity identifiers
 #' to obtain the `entityIds`.
 #' @param lookInValueLists Whether to also look inside value lists
+#' @param merge_all When merging dataframes, if the number of rows is different,
+#' for each source, what to pass as the `all` parameter.
 #' @param pathString_regex_select Regex that the target entities' path strings
 #' have to match (otherwise, the entity is excluded)
 #' @param silent Whether to be silent or chatty.
@@ -17,6 +19,7 @@ get_multipleValues <- function(x,
                                entityIds = NULL,
                                entityIdsRegex = NULL,
                                lookInValueLists = TRUE,
+                               merge_all = TRUE,
                                silent = metabefor::opts$get("silent")) {
   
   allEntityIds <-
@@ -79,14 +82,41 @@ get_multipleValues <- function(x,
       names(nrows);
     
     if (any(nrows == 0)) {
+      
       stop("One or more Rxs trees did not return any results (specifically, ",
            vecTxtQ(entityIdsWithRows[which(nrows == 0)]), 
            ").");
+      
     } else if (length(unique(nrows)) > 1) {
-      stop("Not all results have the same number of rows - this means you ",
-           "may have repeating entities (which means I cannot construct ",
-           "a 'wide' dataframe, where columns are entities), or some sources ",
-           "did not return a value.");
+      
+      longList <- unique(
+        unlist(lapply(
+          allValueList,
+          function(x) {
+            return(x$sourceId);
+          })
+        ));
+      
+      resDf <-
+        data.frame(sourceId = longList);
+      
+      for (currentEntityId in names(allValueList)) {
+        resDf <-
+          merge(
+            resDf,
+            allValueList[[currentEntityId]],
+            all = merge_all
+          );
+      }
+      
+      
+      return(resDf);
+
+      # stop("Not all results have the same number of rows - this means you ",
+      #      "may have repeating entities (which means I cannot construct ",
+      #      "a 'wide' dataframe, where columns are entities), or some sources ",
+      #      "did not return a value.");
+  
     }
 
     allValuesOnly <-

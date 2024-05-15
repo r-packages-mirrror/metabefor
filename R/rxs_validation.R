@@ -201,7 +201,49 @@ rxs_validation <- function(rxsTree,
       );
     }
   }
+  
+  ###---------------------------------------------------------------------------
+  ### Validate that 'REPLACE_THIS' no longer occurs
+  ###---------------------------------------------------------------------------
+  
+  properEntityIdentifiers <-
+    rxsTree$Get(
+      "pathString",
+      filterFun =
+        function(node) return(node$name  == "REPLACE_THIS")
+    );
 
+  if (length(properEntityIdentifiers) > 0) {
+    
+    rxsTree$validationResults$entityIdSetValidation <-
+      list(
+        entityId = rxsTree$root$name,
+        entityPath = rxsTree$root$name,
+        validation = failedValidation(
+          "Failed validation: the following entity identifiers were not ",
+          "specified (and so remain set to \"REPLACE_THIS\"): ",
+          vecTxtQ(properEntityIdentifiers), "."),
+        validated = FALSE
+      );
+    
+  } else {
+    
+    rxsTree$validationResults$entityIdSetValidation <-
+      list(
+        entityId = rxsTree$root$name,
+        entityPath = rxsTree$root$name,
+        validation = passedValidation(
+          "Passed validation: all entity identifiers were specified!"),
+        validated = TRUE
+      );
+    
+  }
+  
+  rxsTree$validationLog <-
+    c(rxsTree$validationLog,
+      rxsTree$validationResults$entityIdSetValidation$validation
+    );
+  
 ###---------------------------------------------------------------------------
 ### Validate values entered for each entity
 ###---------------------------------------------------------------------------
