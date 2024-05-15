@@ -87,6 +87,8 @@ rxs_fg_list <- function(node,
                               description=node[[eC$descriptionCol]],
                               level=level);
   }
+  
+  titleDescription <- gsub("\n", " ", titleDescription);
 
   listEntities <- node$Get(function(node) {
     valueAssignment <-

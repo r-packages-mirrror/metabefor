@@ -21,7 +21,7 @@ rxs_validation <- function(rxsTree,
                            stopOnFailure_entities = stopOnFailure,
                            rxsTemplateSpec = NULL,
                            silent = metabefor::opts$get("silent")) {
-
+  
   passedValidation <- function(...) {
     return(msg("\n", paste("\U2705", paste0(..., sep="", collapse="")), silent=silent));
   }
@@ -143,7 +143,7 @@ rxs_validation <- function(rxsTree,
   ###---------------------------------------------------------------------------
   ### Validate entity identifier uniqueness
   ###---------------------------------------------------------------------------
-
+  
   if (!data.tree::AreNamesUnique(rxsTree)) {
 
     rxsTree$validationResults$entityIdValidation <-
@@ -205,7 +205,7 @@ rxs_validation <- function(rxsTree,
 ###---------------------------------------------------------------------------
 ### Validate values entered for each entity
 ###---------------------------------------------------------------------------
-
+  
   rxsTree$Do(function(node) {
 
     if (is.list(node$value)) {
