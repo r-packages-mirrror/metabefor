@@ -221,6 +221,43 @@ rxs_fromSpecifications <- function(x = NULL,
                    label = "value template identifiers");
   
   ###---------------------------------------------------------------------------
+  ### Checking the specifications
+  ###---------------------------------------------------------------------------
+  
+  containerEntities <-
+    unique(entities[[eC$parentCol]]);
+  containerEntities <-
+    containerEntities[
+      !is.na(containerEntities) & (nchar(containerEntities) > 1)
+    ];
+  
+  entitiesWithValueTemplates <-
+    entities[[eC$identifierCol]][
+      !is.na(entities[[eC$valueTemplateCol]]) & (nchar(entities[[eC$valueTemplateCol]]) > 1)
+    ];
+  entitiesWithValueTemplates <-
+    entitiesWithValueTemplates[
+      !is.na(entitiesWithValueTemplates) & (nchar(entitiesWithValueTemplates) > 1)
+    ];
+  
+  containerEntitiesWithValueTemplates <-
+    intersect(containerEntities, entitiesWithValueTemplates);
+  
+  if (length(containerEntitiesWithValueTemplates) > 0) {
+    stop("One or more entities have both a value template and children specified. ",
+         "When an entity has a value template, that means it's an entity the ",
+         "contents of which are something that's extracted from a source - you ",
+         "could call this a leaf entity, because it doesn't contain anything else - ",
+         "the tree ends there. Conversely, if an entity is specified by other ",
+         "entities as their parent, the entity is a container entity - it ",
+         "can't contain an extracted value, but instead contains one or more ",
+         "other entities.\n\nTherefore, an entity cannot both be listed as a ",
+         "parent entity and have a value template. The following entities ",
+         "have both a value template and 'child entities':\n\n  ",
+         vecTxtQ(containerEntitiesWithValueTemplates));
+  }
+
+  ###---------------------------------------------------------------------------
   ### Extraction instructions
   ###---------------------------------------------------------------------------
   
