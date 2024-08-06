@@ -23,10 +23,13 @@
 #'   ); 
 #'
 #' ### Parse the files
-#' rxsProject <-
-#'   rxs_parseExtractionScripts(
+#' example_rxsProject <-
+#'   metabefor::rxs_parseExtractionScripts(
 #'     rxsProject_path
 #'   );
+#'
+#' ### Show the imported project
+#' example_rxsProject;
 rxs_parseExtractionScripts <- function(path,
                                        pattern = "\\.[Rr]xs\\.[Rr]md$|\\.Rxs$",
                                        exclude = c("extractionScriptTemplate.[Rr]xs.[Rr]md",
@@ -553,3 +556,4 @@ rxs_parseExtractionScripts <- function(path,
   return(res);
 
 }
+

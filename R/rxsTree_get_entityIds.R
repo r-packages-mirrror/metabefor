@@ -8,9 +8,16 @@
 #' @return A vector with entity names.
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example Rxs project
+#' example_rxsProject <-
+#'   metabefor::example_rxsProject;
+#'
+#' metabefor::rxsProject_get_entityIds(
+#'   example_rxsProject
+#' );
 rxsTree_get_entityIds <- function(x,
                                   includeClusteredEntities = TRUE) {
+  
   if (inherits(x, "rxs_parsedExtractionScripts")) {
     
     entityIds <- 

@@ -54,8 +54,11 @@ rxsProject_path <-
   ); 
 
 ### Parse the files
-rxsProject <-
-  rxs_parseExtractionScripts(
+example_rxsProject <-
+  metabefor::rxs_parseExtractionScripts(
     rxsProject_path
   );
+
+### Show the imported project
+example_rxsProject;
 }

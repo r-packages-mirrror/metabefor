@@ -65,7 +65,6 @@ if (exists("updateEverything") && updateEverything) {
 ###-----------------------------------------------------------------------------
 ###-----------------------------------------------------------------------------
 
-
 #' Simple bibliographic exports from OpenAlex
 #'
 #' A number of simple small datasets with bibliographic information.
@@ -107,6 +106,38 @@ if (exists("updateEverything") && updateEverything) {
   
   usethis::use_data(openalex_example_1, overwrite=TRUE);
   usethis::use_data(openalex_example_2, overwrite=TRUE);
+  
+}
+
+###-----------------------------------------------------------------------------
+###-----------------------------------------------------------------------------
+###-----------------------------------------------------------------------------
+
+#' A minimal Rxs project with two sources extracted in three modules
+#'
+#' What it says on the tin.
+#'
+#' @format An Rxs project object (class ``)
+#'
+"example_rxsProject"
+
+if (exists("updateEverything") && updateEverything) {
+  
+  rxsProject_path <-
+    here::here("inst", "extdata", "extraction-examples");
+  # system.file(
+    #   "extdata",
+    #   "extraction-examples",
+    #   package = "metabefor"
+    # ); 
+  
+  ### Parse the files
+  example_rxsProject <-
+    metabefor::rxs_parseExtractionScripts(
+      rxsProject_path
+    );
+
+  usethis::use_data(example_rxsProject, overwrite=TRUE);
   
 }
 
