@@ -33,7 +33,17 @@
 #' and that can be accessed using the [attributes()] function.
 #' @export
 #'
-#' @examples
+#' @examples ### Load example datasets with sources
+#' sourcesExample1 <-
+#'   metabefor::openalex_example_1;
+#' sourcesExample2 <-
+#'   metabefor::openalex_example_2;
+#'
+#' ### Check duplicate sources
+#' metabefor::check_duplicate_sources(
+#'   sourcesExample1,
+#'   sourcesExample2
+#' );
 check_duplicate_sources <- function(primarySources,
                                     secondarySources = NULL,
                                     useStringDistances = FALSE,

@@ -1,0 +1,450 @@
+FN OpenAlex
+VR 1.0
+PT J
+AU Hannah Long
+   David French
+   Joanna Brooks
+AF Hannah Long
+   David French
+   Joanna Brooks
+TI Optimising the value of the critical appraisal skills programme (CASP) tool for quality appraisal in qualitative evidence synthesis
+SO Research Methods in Medicine & Health Sciences
+LA English
+DT Article
+C1 [Hannah Long] University of Manchester, GB
+   [Hannah Long] Manchester Academic Health Science Centre, GB
+   [David French] Manchester Academic Health Science Centre, GB
+   [David French] University of Manchester, GB
+   [Joanna Brooks] Manchester Academic Health Science Centre, GB
+   [Joanna Brooks] University of Manchester, GB
+C3 Manchester Academic Health Science Centre, GB; University of Manchester, GB
+RP Hannah Long (corresponding author), University of Manchester, GB
+RI Hannah Long/https://openalex.org/A5050739421, David French/https://openalex.org/A5033803383, Joanna Brooks/https://openalex.org/A5043015497
+OI Hannah Long/0000-0001-7306-8987, David French/0000-0002-7663-7804, Joanna Brooks/0000-0003-0220-9847
+FU 
+CT 447
+NR 47
+PU SAGE Publishing
+SN 2632-0843
+EI 2632-0843
+PD AUG
+PY 2020
+VL 1
+IS 1
+BP 31
+EP 42
+DI 10.1177/2632084320947559
+PG 12
+PM
+OA hybrid
+DA 2024-08-06
+PT U
+AU Tom Sensky
+   Stefan Büchi
+AF Tom Sensky
+   Stefan Büchi
+TI PRISM, a Novel Visual Metaphor Measuring Personally Salient Appraisals, Attitudes and Decision-Making: Qualitative Evidence Synthesis
+SO PLoS ONE
+LA English
+DT Review
+C1 [Tom Sensky] Centre for Mental Health, GB
+   [Tom Sensky] Imperial College London, GB
+   [Stefan Büchi]
+C3 Imperial College London, GB; Centre for Mental Health, GB
+RP Tom Sensky (corresponding author), Centre for Mental Health, GB
+RI Tom Sensky/https://openalex.org/A5027383080, Stefan Büchi/https://openalex.org/A5028936069
+OI Tom Sensky/0000-0001-8063-1889
+FU 
+CT 38
+NR 74
+PU Public Library of Science
+SN 1932-6203
+EI 1932-6203
+PD MAY
+PY 2016
+VL 11
+IS 5
+BP e0156284
+EP e0156284
+DI 10.1371/journal.pone.0156284
+PG 
+PM 27214024
+OA gold
+DA 2024-08-06
+PT U
+AU Pierre Pluye
+AF Pierre Pluye
+TI Mixed kinds of evidence: synthesis designs and critical appraisal for systematic mixed studies reviews including qualitative, quantitative and mixed methods studies
+SO Evidence-Based Medicine
+LA English
+DT Letter
+C1 [Pierre Pluye] McGill University, CA
+C3 McGill University, CA
+RP Pierre Pluye (corresponding author), McGill University, CA
+RI Pierre Pluye/https://openalex.org/A5054368056
+OI Pierre Pluye/0000-0003-4517-3653
+FU 
+CT 29
+NR 5
+PU BMJ
+SN 1356-5524
+EI 1356-5524
+PD JAN
+PY 2015
+VL 20
+IS 2
+BP 79
+EP 79
+DI 10.1136/ebmed-2014-110158
+PG 1
+PM 25633996
+OA hybrid
+DA 2024-08-06
+PT U
+AU Max Schlueter
+   Amélie Beaudet
+   Evan Davies
+   Binu Gurung
+   Andreas Karabis
+AF Max Schlueter
+   Amélie Beaudet
+   Evan Davies
+   Binu Gurung
+   Andreas Karabis
+TI Evidence synthesis in pulmonary arterial hypertension: a systematic review and critical appraisal
+SO BMC Pulmonary Medicine
+LA English
+DT Review
+C1 [Max Schlueter] IQVIA (United Kingdom), GB
+   [Amélie Beaudet] Actelion (Switzerland), CH
+   [Evan Davies] Actelion (Switzerland), CH
+   [Binu Gurung] IQVIA (United Kingdom), GB
+   [Andreas Karabis] IQVIA (United States), US
+C3 IQVIA (United States), US; Actelion (Switzerland), CH; IQVIA (United Kingdom), GB
+RI Max Schlueter/https://openalex.org/A5048332618, Amélie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, Amélie Beaudet/0000-0003-0535-672X
+FU Actelion Pharmaceuticals
+CT 5
+NR 84
+PU BioMed Central
+SN 1471-2466
+EI 1471-2466
+PD JUL
+PY 2020
+VL 20
+IS 1
+BP
+EP
+DI 10.1186/s12890-020-01241-4
+PG 
+PM 32723397
+OA gold
+DA 2024-08-06
+PT J
+AU Matthew F. Flynn
+AF Matthew F. Flynn
+TI Developing critical appraisal and evidence synthesis skills in future microbiologists
+SO FEMS Microbiology Letters
+LA English
+DT Article
+C1 [Matthew F. Flynn] NHS Greater Glasgow and Clyde, GB
+   [Matthew F. Flynn] University of Edinburgh, GB
+C3 NHS Greater Glasgow and Clyde, GB; University of Edinburgh, GB
+RP Matthew F. Flynn (corresponding author), NHS Greater Glasgow and Clyde, GB
+RI Matthew F. Flynn/https://openalex.org/A5053746294
+OI Matthew F. Flynn/0000-0002-0499-9777
+FU NHS Greater Glasgow and Clyde
+CT 4
+NR 14
+PU Oxford University Press
+SN 0378-1097
+EI 0378-1097
+PD SEP
+PY 2021
+VL 368
+IS 18
+BP
+EP
+DI 10.1093/femsle/fnab114
+PG 
+PM 34617570
+OA hybrid
+DA 2024-08-06
+PT U
+AU Sandra P. Small
+AF Sandra P. Small
+TI Reflections on critical appraisal of research for qualitative evidence synthesis
+SO JBI Evidence Synthesis
+LA English
+DT Editorial
+C1 [Sandra P. Small]
+C3 
+RP Sandra P. Small (corresponding author), None, None
+RI Sandra P. Small/https://openalex.org/A5087110922
+OI Sandra P. Small/0000-0001-5187-6764
+FU 
+CT 2
+NR 8
+PU Lippincott Williams & Wilkins
+SN 2689-8381
+EI 2689-8381
+PD JUN
+PY 2023
+VL 21
+IS 6
+BP 1064
+EP 1065
+DI 10.11124/jbies-23-00198
+PG 2
+PM 37282720
+OA bronze
+DA 2024-08-06
+PT U
+AU Paul Hunter
+AF Paul Hunter
+TI LibGuides: Systematic Reviews: Critical Appraisal & Evidence Synthesis
+SO
+LA English
+DT Libguides
+C1 [Paul Hunter]
+C3 
+RP Paul Hunter (corresponding author), None, None
+RI Paul Hunter/https://openalex.org/A5016040450
+OI Paul Hunter/0000-0001-7331-894X
+FU 
+CT 0
+NR 0
+PU
+SN
+EI
+PD DEC
+PY 2013
+VL
+IS
+BP
+EP
+DI 
+PG 
+PM
+OA closed
+DA 2024-08-06
+PT J
+AU Geoff K Frampton
+AF Geoff K Frampton
+TI Critical appraisal in environmental evidence synthesis: challenges and options
+SO
+LA English
+DT Article
+C1 [Geoff K Frampton]
+C3 
+RP Geoff K Frampton (corresponding author), None, None
+RI Geoff K Frampton/https://openalex.org/A5017626288
+OI Geoff K Frampton/0000-0003-2005-0497
+FU 
+CT 0
+NR 0
+PU
+SN
+EI
+PD APR
+PY 2018
+VL
+IS
+BP
+EP
+DI 
+PG 
+PM
+OA closed
+DA 2024-08-06
+PT J
+AU Leonie van Grootel
+   Karin Hannes
+   Penny Whiting
+   Kate Flemming
+AF Leonie van Grootel
+   Karin Hannes
+   Penny Whiting
+   Kate Flemming
+TI QUALQES: A quality appraisal tool for qualitative evidence synthesis
+SO
+LA English
+DT Article
+C1 [Leonie van Grootel]
+   [Karin Hannes] KU Leuven, BE
+   [Penny Whiting] University of Bristol, GB
+   [Kate Flemming] University of York, GB
+C3 University of York, GB; KU Leuven, BE; University of Bristol, GB
+RI Leonie van Grootel/https://openalex.org/A5040765245, Karin Hannes/https://openalex.org/A5041149067, Penny Whiting/https://openalex.org/A5077388783, Kate Flemming/https://openalex.org/A5049294000
+OI Leonie van Grootel/0000-0001-6675-9018, Karin Hannes/0000-0002-5011-3615, Penny Whiting/0000-0003-1138-5682, Kate Flemming/0000-0002-0795-8516
+FU 
+CT 0
+NR 0
+PU
+SN
+EI
+PD JAN
+PY 2021
+VL
+IS
+BP
+EP
+DI 
+PG 
+PM
+OA closed
+DA 2024-08-06
+PT U
+AU Alan Pearson
+   John Field
+   Zoe Jordan
+AF Alan Pearson
+   John Field
+   Zoe Jordan
+TI Evidence Synthesis: Critical Appraisal, Data Extraction and the Synthesis of Findings
+SO
+LA English
+DT Other
+C1 [Alan Pearson] University of Adelaide, AU
+   [John Field] James Cook University, AU
+   [Zoe Jordan]
+C3 University of Adelaide, AU; James Cook University, AU
+RI Alan Pearson/https://openalex.org/A5095795120, John Field/https://openalex.org/A5095793789, Zoe Jordan/https://openalex.org/A5102061201
+OI 
+FU 
+CT 0
+NR 2
+PU
+SN
+EI
+PD OCT
+PY 2006
+VL
+IS
+BP 72
+EP 98
+DI 10.1002/9781444316544.ch6
+PG 27
+PM
+OA closed
+DA 2024-08-06
+PT J
+AU Max Schlueter
+   Amélie Beaudet
+   Evan Davies
+   Binu Gurung
+   Andreas Karabis
+AF Max Schlueter
+   Amélie Beaudet
+   Evan Davies
+   Binu Gurung
+   Andreas Karabis
+TI PRS11 EVIDENCE SYNTHESIS IN PULMONARY ARTERIAL HYPERTENSION: A CRITICAL APPRAISAL
+SO Value in Health
+LA English
+DT Article
+C1 [Max Schlueter] IQVIA (United Kingdom), GB
+   [Amélie Beaudet] Actelion (Switzerland), CH
+   [Evan Davies] Actelion (Switzerland), CH
+   [Binu Gurung] IQVIA (United Kingdom), GB
+   [Andreas Karabis]
+C3 Actelion (Switzerland), CH; IQVIA (United Kingdom), GB
+RI Max Schlueter/https://openalex.org/A5048332618, Amélie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, Amélie Beaudet/0000-0003-0535-672X
+FU 
+CT 0
+NR 0
+PU Elsevier BV
+SN 1098-3015
+EI 1098-3015
+PD NOV
+PY 2019
+VL 22
+IS
+BP S874
+EP S874
+DI 10.1016/j.jval.2019.09.2502
+PG 
+PM
+OA bronze
+DA 2024-08-06
+PT J
+AU Ajima Olaghere
+   David B. Wilson
+   Catherine Kimbrell
+AF Ajima Olaghere
+   David B. Wilson
+   Catherine Kimbrell
+TI Inclusive critical appraisal of qualitative and quantitative findings in evidence synthesis
+SO Research Synthesis Methods
+LA English
+DT Article
+C1 [Ajima Olaghere] Temple University, US
+   [David B. Wilson] George Mason University, US
+   [Catherine Kimbrell] George Mason University, US
+C3 Temple University, US; George Mason University, US
+RP Ajima Olaghere (corresponding author), Temple University, US
+RI Ajima Olaghere/https://openalex.org/A5080381077, David B. Wilson/https://openalex.org/A5079556746, Catherine Kimbrell/https://openalex.org/A5004809697
+OI Ajima Olaghere/0000-0003-4547-187X, David B. Wilson/0000-0001-6461-3904, Catherine Kimbrell/0000-0002-1420-5184
+FU Office of Juvenile Justice and Delinquency Prevention [2014‐DC‐BX‐K001]
+CT 0
+NR 25
+PU Wiley
+SN 1759-2879
+EI 1759-2879
+PD JUL
+PY 2023
+VL 14
+IS 6
+BP 847
+EP 852
+DI 10.1002/jrsm.1659
+PG 6
+PM 37525470
+OA hybrid
+DA 2024-08-06
+PT U
+AU Max Schlueter
+   Amélie Beaudet
+   Evan Davies
+   Binu Gurung
+   Andreas Karabis
+AF Max Schlueter
+   Amélie Beaudet
+   Evan Davies
+   Binu Gurung
+   Andreas Karabis
+TI Additional file 1 of Evidence synthesis in pulmonary arterial hypertension: a systematic review and critical appraisal
+SO Figshare
+LA English
+DT Review
+C1 [Max Schlueter]
+   [Amélie Beaudet]
+   [Evan Davies]
+   [Binu Gurung]
+   [Andreas Karabis]
+C3 
+RI Max Schlueter/https://openalex.org/A5048332618, Amélie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, Amélie Beaudet/0000-0003-0535-672X
+FU 
+CT 0
+NR 0
+PU Figshare (United Kingdom)
+SN
+EI
+PD JAN
+PY 2020
+VL
+IS
+BP
+EP
+DI 10.6084/m9.figshare.12731548
+PG 
+PM
+OA gold
+DA 2024-08-06
+ER
+
+
+ER
+

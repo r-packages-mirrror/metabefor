@@ -9,6 +9,7 @@ get_multipleValues(
   entityIds = NULL,
   entityIdsRegex = NULL,
   lookInValueLists = TRUE,
+  merge_all = TRUE,
   silent = metabefor::opts$get("silent")
 )
 }
@@ -21,6 +22,9 @@ get_multipleValues(
 to obtain the \code{entityIds}.}
 
 \item{lookInValueLists}{Whether to also look inside value lists}
+
+\item{merge_all}{When merging dataframes, if the number of rows is different,
+for each source, what to pass as the \code{all} parameter.}
 
 \item{silent}{Whether to be silent or chatty.}
 

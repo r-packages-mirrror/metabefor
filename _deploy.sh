@@ -1,5 +1,5 @@
 ### In Plesk, execute with:
-### bash _deploy.sh >> deployment.log 2>&1
+### bash _deploy.sh >> _deployment.log 2>&1
 ### Cran job for executing every hour with logging
 ### @hourly bash ~/git_clone_hpss/deploy.sh >> ~/git_clone_hpss/deployment.log 2>&1
 ### https://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/

@@ -3,7 +3,7 @@ rxs_get_values <- function(rxs,
                            entityName = NULL,
                            withinEntity = NULL) {
 
-  if ("rxs_parsedExtractionScripts" %IN% class(rxs)) {
+  if (inherits(rxs, "rxs_parsedExtractionScripts")) {
     ### Processing multiple sources
 
     res <- lapply(names(rxs$rxsTrees), function(sourceId) {
@@ -36,7 +36,7 @@ rxs_get_values <- function(rxs,
 
     return(res);
 
-  } else if ("rxs" %IN% class(rxs)) {
+  } else if (inherits(rxs, "rxs")) {
     ### Processing one source
 
     if (is.null(entityName) && is.null(withinEntity)) {

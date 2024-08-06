@@ -66,3 +66,16 @@ and that can be accessed using the \code{\link[=attributes]{attributes()}} funct
 This function checks, for two imported dataframes with sources, whether
 any of them are duplicates.
 }
+\examples{
+### Load example datasets with sources
+sourcesExample1 <-
+  metabefor::openalex_example_1;
+sourcesExample2 <-
+  metabefor::openalex_example_2;
+
+### Check duplicate sources
+check_duplicate_sources(
+  openalex_example_1,
+  openalex_example_2
+);
+}

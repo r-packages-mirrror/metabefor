@@ -1,0 +1,690 @@
+FN OpenAlex
+VR 1.0
+PT J
+AU Chang Xu
+   Tianqi Yu
+   Luis Furuya‐Kanamori
+   Lifeng Lin
+   Liliane Zorzela
+   Xiaoqin Zhou
+   Hanming Dai
+   Yoon K. Loke
+   Sunita Vohra
+AF Chang Xu
+   Tianqi Yu
+   Luis Furuya‐Kanamori
+   Lifeng Lin
+   Liliane Zorzela
+   Xiaoqin Zhou
+   Hanming Dai
+   Yoon K. Loke
+   Sunita Vohra
+TI Validity of data extraction in evidence synthesis practice of adverse events: reproducibility study
+SO BMJ
+LA English
+DT Article
+C1 [Chang Xu] Anhui Medical University, CN
+   [Chang Xu] Ministry of Education of the People's Republic of China, CN
+   [Tianqi Yu] Sichuan University, CN
+   [Luis Furuya‐Kanamori] University of Queensland, AU
+   [Lifeng Lin] Florida State University, US
+   [Liliane Zorzela] University of Alberta, CA
+   [Xiaoqin Zhou] Sichuan University, CN
+   [Xiaoqin Zhou] West China Hospital of Sichuan University, CN
+   [Hanming Dai] Sichuan University, CN
+   [Hanming Dai] West China Hospital of Sichuan University, CN
+   [Yoon K. Loke] University of East Anglia, GB
+   [Sunita Vohra] University of Alberta, CA
+C3 Anhui Medical University, CN; Ministry of Education of the People's Republic of China, CN; Florida State University, US; University of East Anglia, GB; University of Queensland, AU; Sichuan University, CN; West China Hospital of Sichuan University, CN; University of Alberta, CA
+RI Chang Xu/https://openalex.org/A5090429810, Tianqi Yu/https://openalex.org/A5089134149, Luis Furuya‐Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Liliane Zorzela/https://openalex.org/A5010530556, Xiaoqin Zhou/https://openalex.org/A5008467620, Hanming Dai/https://openalex.org/A5014923027, Yoon K. Loke/https://openalex.org/A5072911500, Sunita Vohra/https://openalex.org/A5074659805
+OI Chang Xu/0000-0002-2627-1250, Tianqi Yu/0000-0002-6160-505X, Luis Furuya‐Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Liliane Zorzela/0000-0002-6598-1642, Xiaoqin Zhou/0000-0003-4375-9159, Yoon K. Loke/0000-0001-9109-2307, Sunita Vohra/0000-0002-6210-7933
+FU 
+CT 23
+NR 38
+PU
+SN 1756-1833
+EI 1756-1833
+PD MAY
+PY 2022
+VL
+IS
+BP e069155
+EP e069155
+DI 10.1136/bmj-2021-069155
+PG 
+PM 35537752
+OA hybrid
+DA 2024-08-06
+PT J
+AU Gerald Gartlehner
+   Leila C. Kahwati
+   Rainer Hilscher
+   Ian B. Thomas
+   Shannon Kugley
+   Karen Crotty
+   Meera Viswanathan
+   Barbara Nußbaumer-Streit
+   Graham Booth
+   Nathaniel Erskine
+   Amanda Konet
+   Rob Chew
+AF Gerald Gartlehner
+   Leila C. Kahwati
+   Rainer Hilscher
+   Ian B. Thomas
+   Shannon Kugley
+   Karen Crotty
+   Meera Viswanathan
+   Barbara Nußbaumer-Streit
+   Graham Booth
+   Nathaniel Erskine
+   Amanda Konet
+   Rob Chew
+TI Data extraction for evidence synthesis using a large language model: A proof‐of‐concept study
+SO Research Synthesis Methods
+LA English
+DT Article
+C1 [Gerald Gartlehner] RTI International, US
+   [Gerald Gartlehner] Universität für Weiterbildung Krems, AT
+   [Leila C. Kahwati] RTI International, US
+   [Rainer Hilscher] RTI International, US
+   [Ian B. Thomas] RTI International, US
+   [Shannon Kugley] RTI International, US
+   [Karen Crotty] RTI International, US
+   [Meera Viswanathan] RTI International, US
+   [Barbara Nußbaumer-Streit] Universität für Weiterbildung Krems, AT
+   [Graham Booth] RTI International, US
+   [Nathaniel Erskine] University of North Carolina at Chapel Hill, US
+   [Amanda Konet] RTI International, US
+   [Rob Chew] RTI International, US
+C3 RTI International, US; Universität für Weiterbildung Krems, AT; University of North Carolina at Chapel Hill, US
+RP Gerald Gartlehner (corresponding author), RTI International, US
+RI Gerald Gartlehner/https://openalex.org/A5013031059, Leila C. Kahwati/https://openalex.org/A5021630385, Rainer Hilscher/https://openalex.org/A5042088170, Ian B. Thomas/https://openalex.org/A5047858317, Shannon Kugley/https://openalex.org/A5006395550, Karen Crotty/https://openalex.org/A5080463323, Meera Viswanathan/https://openalex.org/A5078175691, Barbara Nußbaumer-Streit/https://openalex.org/A5031031174, Graham Booth/https://openalex.org/A5005728741, Nathaniel Erskine/https://openalex.org/A5039893367, Amanda Konet/https://openalex.org/A5014098617, Rob Chew/https://openalex.org/A5078399314
+OI Gerald Gartlehner/0000-0001-5531-3678, Leila C. Kahwati/0000-0001-6963-2848, Rainer Hilscher/0000-0002-5004-4584, Shannon Kugley/0000-0003-4574-7100, Karen Crotty/0000-0002-5633-5040, Barbara Nußbaumer-Streit/0000-0001-7622-843X, Graham Booth/0000-0001-8167-707X, Nathaniel Erskine/0000-0002-2113-859X, Amanda Konet/0000-0001-5295-6483, Rob Chew/0000-0002-6979-1766
+FU 
+CT 6
+NR 24
+PU Wiley
+SN 1759-2879
+EI 1759-2879
+PD MAR
+PY 2024
+VL 15
+IS 4
+BP 576
+EP 589
+DI 10.1002/jrsm.1710
+PG 14
+PM 38432227
+OA hybrid
+DA 2024-08-06
+PT U
+AU Yu‐Tian Xiao
+   Junting Cai
+   Guo‐Fu Li
+AF Yu‐Tian Xiao
+   Junting Cai
+   Guo‐Fu Li
+TI Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E–Mediated Food Allergy
+SO JAMA Pediatrics
+LA English
+DT Letter
+C1 [Yu‐Tian Xiao] Changhai Hospital, CN
+   [Yu‐Tian Xiao] Second Military Medical University, CN
+   [Junting Cai] Second Xiangya Hospital of Central South University, CN
+   [Junting Cai] Central South University, CN
+   [Guo‐Fu Li] China Pharmaceutical University, CN
+C3 Second Military Medical University, CN; China Pharmaceutical University, CN; Second Xiangya Hospital of Central South University, CN; Changhai Hospital, CN; Central South University, CN
+RI Yu‐Tian Xiao/https://openalex.org/A5072890380, Junting Cai/https://openalex.org/A5009509715, Guo‐Fu Li/https://openalex.org/A5014567045
+OI Yu‐Tian Xiao/0000-0002-3039-8342, Guo‐Fu Li/0000-0002-4628-9941
+FU 
+CT 1
+NR 4
+PU American Medical Association
+SN 2168-6203
+EI 2168-6203
+PD SEP
+PY 2023
+VL 177
+IS 9
+BP 983
+EP 983
+DI 10.1001/jamapediatrics.2023.2465
+PG 1
+PM 37486627
+OA closed
+DA 2024-08-06
+PT J
+AU Yi Zhu
+   Pengwei Ren
+   Suhail A.R. Doi
+   Luis Furuya‐Kanamori
+   Lifeng Lin
+   Xiaoqin Zhou
+   Fangbiao Tao
+   Chang Xu
+AF Yi Zhu
+   Pengwei Ren
+   Suhail A.R. Doi
+   Luis Furuya‐Kanamori
+   Lifeng Lin
+   Xiaoqin Zhou
+   Fangbiao Tao
+   Chang Xu
+TI Data extraction error in pharmaceutical versus non-pharmaceutical interventions for evidence synthesis: Study protocol for a crossover trial
+SO Contemporary Clinical Trials Communications
+LA English
+DT Article
+C1 [Yi Zhu] Anhui Medical University, CN
+   [Pengwei Ren] West China Hospital of Sichuan University, CN
+   [Pengwei Ren] Sichuan University, CN
+   [Suhail A.R. Doi] Qatar University, QA
+   [Luis Furuya‐Kanamori] University of Queensland, AU
+   [Lifeng Lin] University of Arizona, US
+   [Xiaoqin Zhou] Sichuan University, CN
+   [Fangbiao Tao] Anhui Medical University, CN
+   [Chang Xu] Anhui Medical University, CN
+C3 University of Arizona, US; Anhui Medical University, CN; Qatar University, QA; University of Queensland, AU; Sichuan University, CN; West China Hospital of Sichuan University, CN
+RP Chang Xu (corresponding author), Anhui Medical University, CN
+RI Yi Zhu/https://openalex.org/A5052189856, Pengwei Ren/https://openalex.org/A5049335651, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya‐Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Xiaoqin Zhou/https://openalex.org/A5008467620, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
+OI Yi Zhu/0000-0003-3751-012X, Pengwei Ren/0000-0001-9705-6470, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya‐Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Xiaoqin Zhou/0000-0003-4375-9159, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
+FU Qatar Foundation; National Natural Science Foundation of China [BSRA01-0406-210030]; Foundation for Innovative Research Groups of the National Natural Science Foundation of China [72204003]; Qatar National Research Fund
+CT 1
+NR 17
+PU Elsevier BV
+SN 2451-8654
+EI 2451-8654
+PD OCT
+PY 2023
+VL 35
+IS
+BP 101189
+EP 101189
+DI 10.1016/j.conctc.2023.101189
+PG 1
+PM 37520330
+OA gold
+DA 2024-08-06
+PT U
+AU Kerry Dhakal
+AF Kerry Dhakal
+TI LibGuides: Evidence Synthesis : Data Extraction
+SO
+LA English
+DT Libguides
+C1 [Kerry Dhakal]
+C3 
+RP Kerry Dhakal (corresponding author), None, None
+RI Kerry Dhakal/https://openalex.org/A5023703335
+OI Kerry Dhakal/0000-0001-7782-5922
+FU 
+CT 0
+NR 0
+PU
+SN
+EI
+PD JAN
+PY 2020
+VL
+IS
+BP
+EP
+DI 
+PG 
+PM
+OA closed
+DA 2024-08-06
+PT U
+AU Erin Eldermire
+AF Erin Eldermire
+TI LibGuides: A Guide to Evidence Synthesis: 10. Data Extraction
+SO
+LA English
+DT Libguides
+C1 [Erin Eldermire]
+C3 
+RP Erin Eldermire (corresponding author), None, None
+RI Erin Eldermire/https://openalex.org/A5037610204
+OI Erin Eldermire/0000-0001-5846-4041
+FU 
+CT 0
+NR 0
+PU
+SN
+EI
+PD FEB
+PY 2020
+VL
+IS
+BP
+EP
+DI 
+PG 
+PM
+OA closed
+DA 2024-08-06
+PT U
+AU Alan Pearson
+   John Field
+   Zoe Jordan
+AF Alan Pearson
+   John Field
+   Zoe Jordan
+TI Evidence Synthesis: Critical Appraisal, Data Extraction and the Synthesis of Findings
+SO
+LA English
+DT Other
+C1 [Alan Pearson] University of Adelaide, AU
+   [John Field] James Cook University, AU
+   [Zoe Jordan]
+C3 James Cook University, AU; University of Adelaide, AU
+RI Alan Pearson/https://openalex.org/A5095795120, John Field/https://openalex.org/A5095793789, Zoe Jordan/https://openalex.org/A5102061201
+OI 
+FU 
+CT 0
+NR 2
+PU
+SN
+EI
+PD OCT
+PY 2006
+VL
+IS
+BP 72
+EP 98
+DI 10.1002/9781444316544.ch6
+PG 27
+PM
+OA closed
+DA 2024-08-06
+PT J
+AU Amanda Konet
+   Ian B. Thomas
+   Gerald Gartlehner
+   Leila C. Kahwati
+   Rainer Hilscher
+   Shannon Kugley
+   Karen Crotty
+   Meera Viswanathan
+   Rob Chew
+AF Amanda Konet
+   Ian B. Thomas
+   Gerald Gartlehner
+   Leila C. Kahwati
+   Rainer Hilscher
+   Shannon Kugley
+   Karen Crotty
+   Meera Viswanathan
+   Rob Chew
+TI Performance of two large language models for data extraction in evidence synthesis
+SO Research Synthesis Methods
+LA English
+DT Article
+C1 [Amanda Konet] RTI International, US
+   [Ian B. Thomas] RTI International, US
+   [Gerald Gartlehner] Universität für Weiterbildung Krems, AT
+   [Gerald Gartlehner] RTI International, US
+   [Leila C. Kahwati] RTI International, US
+   [Rainer Hilscher] RTI International, US
+   [Shannon Kugley] RTI International, US
+   [Karen Crotty] RTI International, US
+   [Meera Viswanathan] RTI International, US
+   [Rob Chew] RTI International, US
+C3 RTI International, US; Universität für Weiterbildung Krems, AT
+RP Amanda Konet (corresponding author), RTI International, US
+RI Amanda Konet/https://openalex.org/A5014098617, Ian B. Thomas/https://openalex.org/A5047858317, Gerald Gartlehner/https://openalex.org/A5013031059, Leila C. Kahwati/https://openalex.org/A5021630385, Rainer Hilscher/https://openalex.org/A5042088170, Shannon Kugley/https://openalex.org/A5006395550, Karen Crotty/https://openalex.org/A5080463323, Meera Viswanathan/https://openalex.org/A5078175691, Rob Chew/https://openalex.org/A5078399314
+OI Amanda Konet/0000-0001-5295-6483, Gerald Gartlehner/0000-0001-5531-3678, Leila C. Kahwati/0000-0001-6963-2848, Rainer Hilscher/0000-0002-5004-4584, Shannon Kugley/0000-0003-4574-7100, Karen Crotty/0000-0002-5633-5040, Rob Chew/0000-0002-6979-1766
+FU RTI International
+CT 0
+NR 18
+PU Wiley
+SN 1759-2879
+EI 1759-2879
+PD JUN
+PY 2024
+VL
+IS
+BP
+EP
+DI 10.1002/jrsm.1732
+PG 
+PM 38895747
+OA closed
+DA 2024-08-06
+PT J
+AU Linh Hoang
+   Linh Cao
+   Yingjun Guan
+   Yi‐Yun Cheng
+   Jodi Schneider
+AF Linh Hoang
+   Linh Cao
+   Yingjun Guan
+   Yi‐Yun Cheng
+   Jodi Schneider
+TI Evaluating an automatic data extraction tool for evidence synthesis through real-life case studies
+SO
+LA English
+DT Article
+C1 [Linh Hoang]
+   [Linh Cao]
+   [Yingjun Guan]
+   [Yi‐Yun Cheng]
+   [Jodi Schneider]
+C3 
+RI Linh Hoang/https://openalex.org/A5062886171, Linh Cao/https://openalex.org/A5046313900, Yingjun Guan/https://openalex.org/A5081148033, Yi‐Yun Cheng/https://openalex.org/A5028389528, Jodi Schneider/https://openalex.org/A5001716299
+OI Linh Hoang/0000-0002-5565-1586, Yingjun Guan/0000-0003-1849-999X, Yi‐Yun Cheng/0000-0001-6123-7595, Jodi Schneider/0000-0002-5098-5667
+FU 
+CT 0
+NR 0
+PU
+SN
+EI
+PD JAN
+PY 2017
+VL
+IS
+BP
+EP
+DI 
+PG 
+PM
+OA closed
+DA 2024-08-06
+PT P
+AU Gerald Gartlehner
+   Leila C. Kahwati
+   Rainer Hilscher
+   Ian B. Thomas
+   Shannon Kugley
+   Karen Crotty
+   Meera Viswanathan
+   Barbara Nußbaumer-Streit
+   Gillian L. Booth
+   Nathaniel Erskine
+   Amanda Konet
+   Rusheng Chew
+AF Gerald Gartlehner
+   Leila C. Kahwati
+   Rainer Hilscher
+   Ian B. Thomas
+   Shannon Kugley
+   Karen Crotty
+   Meera Viswanathan
+   Barbara Nußbaumer-Streit
+   Gillian L. Booth
+   Nathaniel Erskine
+   Amanda Konet
+   Rusheng Chew
+TI Data Extraction for Evidence Synthesis Using a Large Language Model: A Proof-of-Concept Study
+SO medRxiv (Cold Spring Harbor Laboratory)
+LA English
+DT Preprint
+C1 [Gerald Gartlehner] RTI International, US
+   [Gerald Gartlehner] Universität für Weiterbildung Krems, AT
+   [Leila C. Kahwati] RTI International, US
+   [Rainer Hilscher] RTI International, US
+   [Ian B. Thomas] RTI International, US
+   [Shannon Kugley] RTI International, US
+   [Karen Crotty] RTI International, US
+   [Meera Viswanathan] RTI International, US
+   [Barbara Nußbaumer-Streit] Universität für Weiterbildung Krems, AT
+   [Gillian L. Booth] RTI International, US
+   [Nathaniel Erskine] University of North Carolina at Chapel Hill, US
+   [Amanda Konet] RTI International, US
+   [Rusheng Chew] RTI International, US
+C3 RTI International, US; Universität für Weiterbildung Krems, AT; University of North Carolina at Chapel Hill, US
+RP Gerald Gartlehner (corresponding author), RTI International, US
+RI Gerald Gartlehner/https://openalex.org/A5013031059, Leila C. Kahwati/https://openalex.org/A5021630385, Rainer Hilscher/https://openalex.org/A5042088170, Ian B. Thomas/https://openalex.org/A5047858317, Shannon Kugley/https://openalex.org/A5006395550, Karen Crotty/https://openalex.org/A5080463323, Meera Viswanathan/https://openalex.org/A5078175691, Barbara Nußbaumer-Streit/https://openalex.org/A5031031174, Gillian L. Booth/https://openalex.org/A5063504727, Nathaniel Erskine/https://openalex.org/A5039893367, Amanda Konet/https://openalex.org/A5014098617, Rusheng Chew/https://openalex.org/A5033447982
+OI Gerald Gartlehner/0000-0001-5531-3678, Leila C. Kahwati/0000-0001-6963-2848, Rainer Hilscher/0000-0002-5004-4584, Shannon Kugley/0000-0003-4574-7100, Karen Crotty/0000-0002-5633-5040, Barbara Nußbaumer-Streit/0000-0001-7622-843X, Gillian L. Booth/0000-0003-2769-6522, Nathaniel Erskine/0000-0002-2113-859X, Amanda Konet/0000-0001-5295-6483, Rusheng Chew/0000-0002-8992-4474
+FU 
+CT 0
+NR 19
+PU Cold Spring Harbor Laboratory
+SN
+EI
+PD OCT
+PY 2023
+VL
+IS
+BP
+EP
+DI 10.1101/2023.10.02.23296415
+PG 
+PM
+OA green
+DA 2024-08-06
+PT P
+AU Jiayi Liu
+   Long Ge
+   Honghao Lai
+   Weilong Zhao
+   Jiajie Huang
+   Dongzhou Xia
+   Hui Liu
+   Xufei Luo
+   Bingyi Wang
+   Bei Pan
+   Liangying Hou
+   Yaolong Chen
+AF Jiayi Liu
+   Long Ge
+   Honghao Lai
+   Weilong Zhao
+   Jiajie Huang
+   Dongzhou Xia
+   Hui Liu
+   Xufei Luo
+   Bingyi Wang
+   Bei Pan
+   Liangying Hou
+   Yaolong Chen
+TI AI-Driven Evidence Synthesis: Data Extraction of Randomized Controlled Trials with Large Language Models
+SO
+LA English
+DT Preprint
+C1 [Jiayi Liu]
+   [Long Ge]
+   [Honghao Lai]
+   [Weilong Zhao]
+   [Jiajie Huang]
+   [Dongzhou Xia]
+   [Hui Liu]
+   [Xufei Luo]
+   [Bingyi Wang]
+   [Bei Pan]
+   [Liangying Hou]
+   [Yaolong Chen]
+C3 
+RI Jiayi Liu/https://openalex.org/A5053211768, Long Ge/https://openalex.org/A5070239210, Honghao Lai/https://openalex.org/A5085639088, Weilong Zhao/https://openalex.org/A5101854159, Jiajie Huang/https://openalex.org/A5051242441, Dongzhou Xia/https://openalex.org/A5027652514, Hui Liu/https://openalex.org/A5018073436, Xufei Luo/https://openalex.org/A5057955540, Bingyi Wang/https://openalex.org/A5101463402, Bei Pan/https://openalex.org/A5044435329, Liangying Hou/https://openalex.org/A5085655972, Yaolong Chen/https://openalex.org/A5043818935
+OI Jiayi Liu/0000-0002-3355-9068, Long Ge/0000-0002-3555-1107, Honghao Lai/0000-0001-7913-6207, Weilong Zhao/0000-0001-8909-5322, Jiajie Huang/0000-0001-7458-0990, Dongzhou Xia/0000-0003-2104-9316, Hui Liu/0000-0003-4599-5702, Xufei Luo/0000-0003-0811-6326, Bingyi Wang/0000-0002-9401-9145, Bei Pan/0000-0002-0370-9571, Liangying Hou/0000-0002-9163-0475, Yaolong Chen/0000-0002-9841-5233
+FU 
+CT 0
+NR 29
+PU
+SN
+EI
+PD JAN
+PY 2024
+VL
+IS
+BP
+EP
+DI 10.2139/ssrn.4870368
+PG 
+PM
+OA closed
+DA 2024-08-06
+PT J
+AU Craig Whittington
+   K Hill
+   M Remy-Stockinger
+AF Craig Whittington
+   K Hill
+   M Remy-Stockinger
+TI GINDER (Guidelines International Network Data Extraction Resource) - a project to develop an international resource for evidence synthesis
+SO International Journal of Evidence-Based Healthcare
+LA English
+DT Article
+C1 [Craig Whittington]
+   [K Hill] National Stroke Foundation, AU
+   [M Remy-Stockinger]
+C3 National Stroke Foundation, AU
+RI Craig Whittington/https://openalex.org/A5075100629, K Hill/https://openalex.org/A5076114906, M Remy-Stockinger/https://openalex.org/A5009061971
+OI Craig Whittington/0000-0002-1950-0334
+FU 
+CT 0
+NR 0
+PU Lippincott Williams & Wilkins
+SN 1744-1595
+EI 1744-1595
+PD SEP
+PY 2011
+VL 9
+IS 3
+BP 299
+EP 299
+DI 10.1097/01258363-201109000-00039
+PG 1
+PM
+OA closed
+DA 2024-08-06
+PT U
+AU Roberta Scarpone
+   Parisut Kimkool
+   Robert Boyle
+AF Roberta Scarpone
+   Parisut Kimkool
+   Robert Boyle
+TI Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E–Mediated Food Allergy—Reply
+SO JAMA Pediatrics
+LA English
+DT Letter
+C1 [Roberta Scarpone] Imperial College London, GB
+   [Parisut Kimkool] Imperial College Healthcare NHS Trust, GB
+   [Robert Boyle] Imperial College London, GB
+C3 Imperial College London, GB; Imperial College Healthcare NHS Trust, GB
+RI Roberta Scarpone/https://openalex.org/A5033262112, Parisut Kimkool/https://openalex.org/A5053108593, Robert Boyle/https://openalex.org/A5022274311
+OI Roberta Scarpone/0000-0001-9959-1944, Parisut Kimkool/0000-0003-3128-2349, Robert Boyle/0000-0002-4913-7580
+FU 
+CT 0
+NR 5
+PU American Medical Association
+SN 2168-6203
+EI 2168-6203
+PD SEP
+PY 2023
+VL 177
+IS 9
+BP 984
+EP 984
+DI 10.1001/jamapediatrics.2023.2462
+PG 1
+PM 37486639
+OA closed
+DA 2024-08-06
+PT P
+AU Yi Zhu
+   Xi Yang
+   Suhail A.R. Doi
+   Luis Furuya‐Kanamori
+   Lifeng Lin
+   Zongshi Qin
+   Fangbiao Tao
+   Chang Xu
+AF Yi Zhu
+   Xi Yang
+   Suhail A.R. Doi
+   Luis Furuya‐Kanamori
+   Lifeng Lin
+   Zongshi Qin
+   Fangbiao Tao
+   Chang Xu
+TI Effects of double data extraction on errors in evidence synthesis: a crossover, multicenter, investigator-blinded, randomized controlled trial
+SO medRxiv (Cold Spring Harbor Laboratory)
+LA English
+DT Preprint
+C1 [Yi Zhu] Anhui Medical University, CN
+   [Xi Yang] Anhui Medical University, CN
+   [Suhail A.R. Doi] Qatar University, QA
+   [Luis Furuya‐Kanamori] University of Queensland, AU
+   [Lifeng Lin] University of Arizona, US
+   [Zongshi Qin] Peking University, CN
+   [Fangbiao Tao] Anhui Medical University, CN
+   [Chang Xu] Anhui Medical University, CN
+C3 University of Arizona, US; Anhui Medical University, CN; Peking University, CN; Qatar University, QA; University of Queensland, AU
+RP Chang Xu (corresponding author), Anhui Medical University, CN
+RI Yi Zhu/https://openalex.org/A5052189856, Xi Yang/https://openalex.org/A5100646465, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya‐Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Zongshi Qin/https://openalex.org/A5050087112, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
+OI Yi Zhu/0000-0003-3751-012X, Xi Yang/0000-0003-2382-0282, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya‐Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Zongshi Qin/0000-0001-5888-461X, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
+FU 
+CT 0
+NR 20
+PU Cold Spring Harbor Laboratory
+SN
+EI
+PD OCT
+PY 2023
+VL
+IS
+BP
+EP
+DI 10.1101/2023.10.16.23297056
+PG 
+PM
+OA green
+DA 2024-08-06
+PT P
+AU Yi Zhu
+   Pengwei Ren
+   Suhail A.R. Doi
+   Luis Furuya‐Kanamori
+   Lifeng Lin
+   Xiaoqin Zhou
+   Fangbiao Tao
+   Chang Xu
+AF Yi Zhu
+   Pengwei Ren
+   Suhail A.R. Doi
+   Luis Furuya‐Kanamori
+   Lifeng Lin
+   Xiaoqin Zhou
+   Fangbiao Tao
+   Chang Xu
+TI Data extraction error in pharmaceutical versus non-pharmaceutical interventions for evidence synthesis: Study protocol for a crossover trial
+SO medRxiv (Cold Spring Harbor Laboratory)
+LA English
+DT Preprint
+C1 [Yi Zhu] Anhui Medical University, CN
+   [Pengwei Ren] West China Hospital of Sichuan University, CN
+   [Pengwei Ren] Sichuan University, CN
+   [Suhail A.R. Doi] Qatar University, QA
+   [Luis Furuya‐Kanamori] University of Queensland, AU
+   [Lifeng Lin] University of Arizona, US
+   [Xiaoqin Zhou] Sichuan University, CN
+   [Fangbiao Tao] Anhui Medical University, CN
+   [Chang Xu] Anhui Medical University, CN
+C3 University of Arizona, US; Anhui Medical University, CN; Qatar University, QA; University of Queensland, AU; Sichuan University, CN; West China Hospital of Sichuan University, CN
+RI Yi Zhu/https://openalex.org/A5052189856, Pengwei Ren/https://openalex.org/A5049335651, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya‐Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Xiaoqin Zhou/https://openalex.org/A5008467620, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
+OI Yi Zhu/0000-0003-3751-012X, Pengwei Ren/0000-0001-9705-6470, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya‐Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Xiaoqin Zhou/0000-0003-4375-9159, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
+FU 
+CT 0
+NR 16
+PU Cold Spring Harbor Laboratory
+SN
+EI
+PD AUG
+PY 2022
+VL
+IS
+BP
+EP
+DI 10.1101/2022.08.27.22279301
+PG 
+PM
+OA green
+DA 2024-08-06
+ER
+
+
+ER
+

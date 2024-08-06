@@ -346,6 +346,11 @@ opts$defaults <-
     gSheetId_to_exportLink =
       "https://docs.google.com/spreadsheets/d/%s/export?format=xlsx",
     
+    ### Working with OpenAlex exports
+    openAlex_extract_csv_fields =
+      c("id", "doi", "title", "display_name", "publication_year", "publication_date",
+        "language", "type", "type_crossref", "authorships.raw_author_name"),
+    
     ### Used throughout for working with files
     encoding = "UTF-8",
     preventOverwriting = TRUE,

@@ -64,3 +64,52 @@ if (exists("updateEverything") && updateEverything) {
 ###-----------------------------------------------------------------------------
 ###-----------------------------------------------------------------------------
 ###-----------------------------------------------------------------------------
+
+
+#' Simple bibliographic exports from OpenAlex
+#'
+#' A number of simple small datasets with bibliographic information.
+#'
+#' These are the datasets obtained by searching,
+#' in works' titles, for respectively:
+#' 
+#' - `openalex_example_1`: 2024-08-06, `"evidence synthesis" AND "extraction"`,
+#' <https://openalex.org/works?filter=display_name.search%3A"evidence%20synthesis"%20AND%20"extraction">
+#' - `openalex_example_2`: 2024-08-06, `"evidence synthesis" AND "appraisal"`,
+#' <https://openalex.org/works?filter=display_name.search%3A"evidence%20synthesis"%20AND%20"appraisal">
+#'
+#' @rdname openalex_examples
+#' @aliases openalex_example_1 openalex_example_2
+#' @format A data frame
+#'
+"openalex_example_1"
+"openalex_example_2"
+
+if (exists("updateEverything") && updateEverything) {
+  
+  extDataDir <- here::here("inst", "extdata", "openalex-exports");
+  
+  openalex_example_1 <-
+    metabefor::import_openalex(
+      file.path(
+        extDataDir,
+        "example-1---CSV-format---works-2024-08-06T12-48-16.csv"
+      )
+    );
+  
+  openalex_example_2 <-
+    metabefor::import_openalex(
+      file.path(
+        extDataDir,
+        "example-2---CSV-format---works-2024-08-06T13-22-17.csv"
+      )
+    );
+  
+  usethis::use_data(openalex_example_1, overwrite=TRUE);
+  usethis::use_data(openalex_example_2, overwrite=TRUE);
+  
+}
+
+###-----------------------------------------------------------------------------
+###-----------------------------------------------------------------------------
+###-----------------------------------------------------------------------------
