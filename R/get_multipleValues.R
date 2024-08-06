@@ -38,7 +38,7 @@ get_multipleValues <- function(x,
         value = TRUE
       );
   }
-  
+
   nonExistentEntityIds <- entityIds[!(entityIds %in% allEntityIds)];
   
   if (length(nonExistentEntityIds) > 0) {

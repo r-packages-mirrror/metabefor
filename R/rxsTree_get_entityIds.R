@@ -9,9 +9,11 @@
 #' @export
 #'
 #' @examples
-rxsTree_get_entityIds <- function(x) {
+rxsTree_get_entityIds <- function(x,
+                                  includeClusteredEntities = TRUE) {
   if (inherits(x, "rxs_parsedExtractionScripts")) {
-    return(
+    
+    entityIds <- 
       unique(
         unname(
           unlist(
@@ -24,19 +26,78 @@ rxsTree_get_entityIds <- function(x) {
             )
           )
         )
-      )
-    );
+      );
+    
+    if (includeClusteredEntities) {
+      
+      clusteredIds <-
+        unique(
+          unname(
+            unlist(
+              lapply(
+                x$rxsTrees,
+                function(x) {
+                  return(x$Get(
+                    function(node) {
+                      if (!is.null(node$value) &&
+                          is.list(node$value)) {
+                        return(names(node$value));
+                      } else {
+                        return(NULL);
+                      }
+                    },
+                    filterFun = function(node) !data.tree::isRoot(node)));
+                }
+              )
+            )
+          )
+        );
+      
+      entityIds <-
+        c(entityIds,
+          clusteredIds);
+      
+    }
+    
   } else if (inherits(x, "rxs") && inherits(x, "rxsObject")) {
-    return(
+    
+    entityIds <- 
       unname(
         unlist(
           x$Get('name',
                 filterFun = function(node) !data.tree::isRoot(node))
         )
-      )
-    );
+      );
+    
+    if (includeClusteredEntities) {
+      
+      clusteredIds <- 
+        unname(
+          unlist(
+            x$Get(
+              function(node) {
+                if (!is.null(node$value) &&
+                    is.list(node$value)) {
+                  return(names(node$value));
+                } else {
+                  return(NULL);
+                }
+              },
+              filterFun = function(node) !data.tree::isRoot(node))
+          )
+        );
+      
+      entityIds <-
+        c(entityIds,
+          clusteredIds);
+      
+    }
+
   } else {
     stop("The object you passed is not an `rxsObject` - it has class(es) ",
          vecTxtQ(class(x)), ".");
   }
+  
+  return(entityIds);
+  
 }
