@@ -74,8 +74,11 @@ sourcesExample2 <-
   metabefor::openalex_example_2;
 
 ### Check duplicate sources
-check_duplicate_sources(
-  openalex_example_1,
-  openalex_example_2
-);
+dedupResults <-
+  metabefor::check_duplicate_sources(
+    sourcesExample1,
+    sourcesExample2
+  );
+
+table(dedupResults);
 }

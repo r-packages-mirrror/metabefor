@@ -40,10 +40,13 @@
 #'   metabefor::openalex_example_2;
 #'
 #' ### Check duplicate sources
-#' metabefor::check_duplicate_sources(
-#'   sourcesExample1,
-#'   sourcesExample2
-#' );
+#' dedupResults <-
+#'   metabefor::check_duplicate_sources(
+#'     sourcesExample1,
+#'     sourcesExample2
+#'   );
+#'
+#' table(dedupResults);
 check_duplicate_sources <- function(primarySources,
                                     secondarySources = NULL,
                                     useStringDistances = FALSE,
@@ -518,7 +521,11 @@ check_duplicate_sources <- function(primarySources,
   
   ### Flag duplicates
   duplicateEntry <-
-    res$doiMatch;
+    ifelse(is.na(res[, doi_forDeduplicationCol]) |
+             (nchar(res[, doi_forDeduplicationCol]) == 0),
+           FALSE,
+           res$doiMatch
+    );
   
   duplicateEntry <-
     duplicateEntry | 

@@ -4,7 +4,7 @@
 \alias{rxsTree_get_entityIds}
 \title{Get all identifiers of all entities in an Rxs tree or project}
 \usage{
-rxsTree_get_entityIds(x)
+rxsTree_get_entityIds(x, includeClusteredEntities = TRUE)
 }
 \arguments{
 \item{x}{The rxs tree object or project object.}

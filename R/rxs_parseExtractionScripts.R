@@ -13,6 +13,20 @@
 #'
 #' @return A list of parsed extraction scripts.
 #' @export
+#' 
+#' @examples ### Path with example Rxs files
+#' rxsProject_path <-
+#'   system.file(
+#'     "extdata",
+#'     "extraction-examples",
+#'     package = "metabefor"
+#'   ); 
+#'
+#' ### Parse the files
+#' rxsProject <-
+#'   rxs_parseExtractionScripts(
+#'     rxsProject_path
+#'   );
 rxs_parseExtractionScripts <- function(path,
                                        pattern = "\\.[Rr]xs\\.[Rr]md$|\\.Rxs$",
                                        exclude = c("extractionScriptTemplate.[Rr]xs.[Rr]md",

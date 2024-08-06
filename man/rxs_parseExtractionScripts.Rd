@@ -44,3 +44,18 @@ A list of parsed extraction scripts.
 \description{
 Read and parse the extraction scripts in a directory
 }
+\examples{
+### Path with example Rxs files
+rxsProject_path <-
+  system.file(
+    "extdata",
+    "extraction-examples",
+    package = "metabefor"
+  ); 
+
+### Parse the files
+rxsProject <-
+  rxs_parseExtractionScripts(
+    rxsProject_path
+  );
+}
