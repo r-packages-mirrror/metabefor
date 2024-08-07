@@ -4,6 +4,8 @@
 #' all nodes in the tree object or project.
 #'
 #' @param x The rxs tree object or project object.
+#' @param includeClusteredEntities Whether to also include clustered
+#' entities (entities in a `list()` value).
 #'
 #' @return A vector with entity names.
 #' @export
