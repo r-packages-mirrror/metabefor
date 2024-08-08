@@ -102,7 +102,7 @@ return a character value - if they do, that is shown as a warning or printed
 (depending on the value of \code{silent}).}
 }
 \value{
-A list or a dataframe (if \code{returnDf} is \code{TRUE})
+A list or a dataframe (if \code{returnDf} is \code{TRUE}).
 
 A list or a dataframe (if \code{returnDf} is \code{TRUE})
 }

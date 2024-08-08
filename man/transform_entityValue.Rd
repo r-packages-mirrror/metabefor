@@ -51,3 +51,30 @@ and passes those to function \code{fun}, passing the entity's value as the
 argument named in \code{entityValue_argName} and with \code{funArgs} as additional
 arguments.
 }
+\examples{
+### Load an example Rxs project
+data('example_rxsProject_1', package="metabefor");
+
+### Show the sample sizes
+metabefor::get_singleValue(
+  example_rxsProject_1,
+  "sampleSize"
+);
+
+### Double the sample sizes
+metabefor::transform_entityValue(
+  example_rxsProject_1,
+  function(x) {
+    return(x * 2);
+  },
+  entityId_regex = "sampleSize"
+);
+
+### Show transformed result
+
+### Show the sample sizes
+metabefor::get_singleValue(
+  example_rxsProject_1,
+  "sampleSize_trfmd"
+);
+}

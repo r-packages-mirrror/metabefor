@@ -28,12 +28,11 @@
 #' (depending on the value of `silent`).
 #' @param silent Whether to be silent or chatty.
 #'
-#' @return A list or a dataframe (if `returnDf` is `TRUE`)
+#' @return A list or a dataframe (if `returnDf` is `TRUE`).
 #'
 #' @export
 #' 
 #' @rdname get_singleValue
-#'
 get_singleValue_fromTree <- function(x,
                                      entityId,
                                      lookInValueLists = TRUE,

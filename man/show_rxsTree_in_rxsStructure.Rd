@@ -24,9 +24,20 @@ be replaced with the module name.}
 were specified.}
 }
 \value{
-Invisibly; or, when knitting, an object that knitr will print.
+The produced markdown; or, when knitting,
+an object that knitr will print.
 }
 \description{
 This function shows the Rxs structure that was imported from
 an Rxs specification
+}
+\examples{
+### Load an example Rxs project
+data('rxs_minimal_example_2', package="metabefor");
+
+### Show the basic Rxs tree that is specified
+### in the Rxs specification
+metabefor::show_rxsTree_in_rxsStructure(
+  rxs_minimal_example_2
+);
 }

@@ -28,7 +28,31 @@
 #' you can discard the result.
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example Rxs project
+#' data('example_rxsProject_1', package="metabefor");
+#' 
+#' ### Show the sample sizes
+#' metabefor::get_singleValue(
+#'   example_rxsProject_1,
+#'   "sampleSize"
+#' );
+#' 
+#' ### Double the sample sizes
+#' metabefor::transform_entityValue(
+#'   example_rxsProject_1,
+#'   function(x) {
+#'     return(x * 2);
+#'   },
+#'   entityId_regex = "sampleSize"
+#' );
+#' 
+#' ### Show transformed result
+#' 
+#' ### Show the sample sizes
+#' metabefor::get_singleValue(
+#'   example_rxsProject_1,
+#'   "sampleSize_trfmd"
+#' );
 transform_entityValue <- function(x,
                                   fun,
                                   entityValue_argName = "x",

@@ -5,7 +5,7 @@
 \name{rxsProject_matchingUniqueEntityIdentifiers}
 \alias{rxsProject_matchingUniqueEntityIdentifiers}
 \alias{rxsTree_matchingUniqueEntityIdentifiers}
-\title{Look for all entity identifiers that a given pattern}
+\title{Look for all entity identifiers that match a given pattern}
 \usage{
 rxsProject_matchingUniqueEntityIdentifiers(
   x,
@@ -47,5 +47,22 @@ the regular expression) should be excluded.}
 A character vector of identifiers
 }
 \description{
-Look for all entity identifiers that a given pattern
+This function returns all unique entity identifiers of \emph{extractable}
+entities that match a given regular expression. This means that identifiers
+of container entities or clustering entities are not returned!
+}
+\examples{
+### Load an example Rxs project
+data('example_rxsProject_1', package="metabefor");
+
+### Show all entity identifiers
+metabefor::rxsProject_get_entityIds(
+  example_rxsProject_1
+);
+
+### Get all unique identifiers matching "method"
+metabefor::rxsProject_matchingUniqueEntityIdentifiers(
+  example_rxsProject_1,
+  "od"
+);
 }

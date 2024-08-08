@@ -1,16 +1,16 @@
 #' @rdname supplement_data_from_list
 #' @export
-supplement_data_from_list_inRxsTrees <- function(x,
-                                                 sourceEntityNodeIdField_in_targetEntity,
-                                                 idField_in_targetEntityNode = NULL,
-                                                 idField_in_sourceEntityNode = NULL,
-                                                 fieldsToCopy_regex = NULL,
-                                                 sourcePathString_regex = NULL,
-                                                 targetPathString_regex = NULL,
-                                                 forceCopyingOfExistingValues = FALSE,
-                                                 prefix = "supplemented_",
-                                                 suffix = "",
-                                                 silent = metabefor::opts$get("silent")) {
+supplement_data_from_list_inRxsProject <- function(x,
+                                                   sourceEntityNodeIdField_in_targetEntity,
+                                                   idField_in_targetEntityNode = NULL,
+                                                   idField_in_sourceEntityNode = NULL,
+                                                   fieldsToCopy_regex = NULL,
+                                                   sourcePathString_regex = NULL,
+                                                   targetPathString_regex = NULL,
+                                                   forceCopyingOfExistingValues = FALSE,
+                                                   prefix = "supplemented_",
+                                                   suffix = "",
+                                                   silent = metabefor::opts$get("silent")) {
   
   if (is.null(x)) {
     if (!silent) {
@@ -39,7 +39,7 @@ supplement_data_from_list_inRxsTrees <- function(x,
         cat0("\n\nStarting to process Rxs tree ", i, "...\n");
       }
       
-      supplement_data_from_list_inRxsTrees(
+      supplement_data_from_list_inRxsProject(
         x = x$rxsTrees[[i]],
         sourceEntityNodeIdField_in_targetEntity = sourceEntityNodeIdField_in_targetEntity,
         idField_in_targetEntityNode = idField_in_targetEntityNode,

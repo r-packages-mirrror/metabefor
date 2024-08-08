@@ -1,5 +1,5 @@
 Package: metabefor
-Title: Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction for Systematic Reviews
+Title: Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Open (Systematic) Reviews
 Version: 0.3.0
 Authors@R: 
     person(given = "Gjalt-Jorn",

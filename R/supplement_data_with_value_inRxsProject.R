@@ -1,18 +1,18 @@
 #' @rdname supplement_data_with_value
 #' @export
-supplement_data_with_value_inRxsTrees <- function(x,
-                                                  sourceEntityNodeId,
-                                                  targetEntityNodeId = NULL,
-                                                  targetEntityNode_requiredField = NULL,
-                                                  forceCopyingOfExistingValues = FALSE,
-                                                  sourcePathString_regex = NULL,
-                                                  targetPathString_regex = NULL,
-                                                  targetNodeListCreation_prefix = "",
-                                                  targetNodeListCreation_suffix = "_value",
-                                                  prefix = "supplemented_",
-                                                  suffix = "",
-                                                  flattenVectors = FALSE,
-                                                  silent = metabefor::opts$get("silent")) {
+supplement_data_with_value_inRxsProject <- function(x,
+                                                    sourceEntityNodeId,
+                                                    targetEntityNodeId = NULL,
+                                                    targetEntityNode_requiredField = NULL,
+                                                    forceCopyingOfExistingValues = FALSE,
+                                                    sourcePathString_regex = NULL,
+                                                    targetPathString_regex = NULL,
+                                                    targetNodeListCreation_prefix = "",
+                                                    targetNodeListCreation_suffix = "_value",
+                                                    prefix = "supplemented_",
+                                                    suffix = "",
+                                                    flattenVectors = FALSE,
+                                                    silent = metabefor::opts$get("silent")) {
   
   if (is.null(x)) {
     if (!silent) {
@@ -41,7 +41,7 @@ supplement_data_with_value_inRxsTrees <- function(x,
         cat0("\n\nStarting to process Rxs tree ", i, "...\n");
       }
       
-      supplement_data_with_value_inRxsTrees(
+      supplement_data_with_value_inRxsProject(
         x = x$rxsTrees[[i]],
         sourceEntityNodeId = sourceEntityNodeId,
         targetEntityNodeId = targetEntityNodeId,

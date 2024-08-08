@@ -4,7 +4,7 @@
 #' from other entities specified in the target entity nodes. Both the
 #' target entity and the source entity have to be clustering entities.
 #' Use `supplement_data_from_list_inSingleNode()` for one entity node, and
-#' `supplement_data_from_list_inRxsTrees()` for all nodes containing the
+#' `supplement_data_from_list_inRxsProject()` for all nodes containing the
 #' field that identifies the node to copy the values from (i.e. as specified
 #' in `sourceEntityNodeIdField_in_targetEntity`).
 #'

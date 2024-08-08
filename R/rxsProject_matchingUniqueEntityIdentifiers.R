@@ -1,4 +1,8 @@
-#' Look for all entity identifiers that a given pattern
+#' Look for all entity identifiers that match a given pattern
+#' 
+#' This function returns all unique entity identifiers of *extractable*
+#' entities that match a given regular expression. This means that identifiers
+#' of container entities or clustering entities are not returned!
 #'
 #' @param x,rxsTree The full Rxs project (i.e. parsed extraction
 #' scripts) or one single Rxs tree.
@@ -15,7 +19,19 @@
 #' @rdname matchingUniqueEntityIdentifiers
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example Rxs project
+#' data('example_rxsProject_1', package="metabefor");
+#' 
+#' ### Show all entity identifiers
+#' metabefor::rxsProject_get_entityIds(
+#'   example_rxsProject_1
+#' );
+#' 
+#' ### Get all unique identifiers matching "method"
+#' metabefor::rxsProject_matchingUniqueEntityIdentifiers(
+#'   example_rxsProject_1,
+#'   "od"
+#' );
 rxsProject_matchingUniqueEntityIdentifiers <- function(x,
                                                        regex,
                                                        includeValueListsOfMatch = TRUE,
