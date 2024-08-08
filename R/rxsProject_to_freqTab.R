@@ -1,5 +1,14 @@
 #' @rdname freqTab_heatMaps
 #' @export
+#' @examples ### Load an example Rxs Project
+#' example_rxsProject_1 <- metabefor::example_rxsProject_1;
+#' 
+#' ### Create a crosstable with frequencies
+#' metabefor::rxsProject_to_freqTab(
+#'   example_rxsProject_1,
+#'   "sourceAuthors",
+#'   "publicationYear"
+#' );
 rxsProject_to_freqTab <- function(x,
                                   rowRegex,
                                   colRegex,

@@ -3,7 +3,7 @@
 #' These functions create a heatmap showing the frequencies with which
 #' specific possible entity values occur for the intersection of two entities -
 #' or they create the underlying frequency table for the set of sources or just
-#' one source. You usually only use `heatMap_from_rxs`, which takes the
+#' one source. You usually only use `heatMap_from_rxsProject`, which takes the
 #' object with Rxs trees and creates a heatmap.
 #' 
 #' The underlying frequency table is produced in a number of steps. First,
@@ -56,8 +56,6 @@
 #' @return A ggplot or a frequency table
 #' @rdname freqTab_heatMaps 
 #' @export
-#'
-#' @examples
 rxsTreeList_to_freqTab <- function(x,
                                    rowRegex,
                                    colRegex,

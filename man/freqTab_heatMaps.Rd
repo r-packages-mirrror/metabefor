@@ -183,7 +183,7 @@ A ggplot or a frequency table
 These functions create a heatmap showing the frequencies with which
 specific possible entity values occur for the intersection of two entities -
 or they create the underlying frequency table for the set of sources or just
-one source. You usually only use \code{heatMap_from_rxs}, which takes the
+one source. You usually only use \code{heatMap_from_rxsProject}, which takes the
 object with Rxs trees and creates a heatmap.
 }
 \details{
@@ -195,4 +195,26 @@ argument). Then, the \code{rowColMultiplicationFunction} is applied to the
 result to obtain the value for the cell. Finally, if \code{rxs_to_freqTab}
 is called, \code{aggregationFunction} is called on the frequency tables of the
 separate sources.
+}
+\examples{
+### Load an example Rxs Project
+example_rxsProject_1 <- metabefor::example_rxsProject_1;
+
+### Create a heatmap
+metabefor::heatMap_from_rxsProject(
+  example_rxsProject_1,
+  "sourceAuthors",
+  "publicationYear",
+  rowLab = "Author",
+  colLab = "Year"
+);
+### Load an example Rxs Project
+example_rxsProject_1 <- metabefor::example_rxsProject_1;
+
+### Create a crosstable with frequencies
+metabefor::rxsProject_to_freqTab(
+  example_rxsProject_1,
+  "sourceAuthors",
+  "publicationYear"
+);
 }

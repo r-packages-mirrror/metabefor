@@ -7,9 +7,25 @@
 knit_rxsTemplate(x)
 }
 \arguments{
-\item{x}{The object with the Rxs Specification as produced by a call to
+\item{x}{The object with the Rxs structure as produced by a call to
 \code{\link[=rxs_fromSpecifications]{rxs_fromSpecifications()}}.}
 }
+\value{
+A character vector with class "knit_asis".
+}
 \description{
-Knit the Rxs Template
+This function knits an Rxs template stored in a parsed Rxs specification,
+as produced by a call to \code{\link[=rxs_fromSpecifications]{rxs_fromSpecifications()}}, into an
+R Markdown (or Quarto) file.
+}
+\examples{
+### Load example Rxs structure
+data('rxs_minimal_example_2', package="metabefor");
+
+### Produce the Markdown
+knittableMarkdown <-
+  knit_rxsTemplate(rxs_minimal_example_2);
+
+### Show the beginning
+cat(substr(knittableMarkdown, 1, 2463));
 }

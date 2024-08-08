@@ -27,5 +27,7 @@ exampleDf <-
     example_rxsProject_1
   );
 
-### Look at a part of it
+### Show the result (which works because there are only two studies
+### and very few entities; normally not recommended)
+exampleDf
 }

@@ -424,7 +424,7 @@ read_spreadsheet <- function(x,
       msg("A file was downloaded, so just copying that file as local backup.\n",
           silent = silent);
 
-      file.copy(fileToRead, localBackup);
+      file.copy(fileToRead, localBackup, overwrite=TRUE);
 
     } else {
 

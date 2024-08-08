@@ -62,13 +62,15 @@
 #' 
 #' @export
 #'
-#' @examples ### This can be run if you have an internet connection
+#' @examples ### Create a temporary directory
+#' tmpPath <- tempfile(pattern="rxsDir");
+#' dir.create(tmpPath);
+#' 
+#' ### This can be run if you have an internet connection
 #' if (interactive()) {
 #'   gs_url <-
 #'     paste0("https://docs.google.com/spreadsheets/d/",
 #'            "1wM7HGrqVs-6KV0XeeyEeMIz-IRfF-llMXHJUD73N7Dk");
-#'   tmpPath <- tempfile(pattern="rxsDir");
-#'   dir.create(tmpPath);
 #'   rxsSpec <-
 #'     rxs_fromSpecifications(
 #'       x = gs_url,
@@ -77,6 +79,18 @@
 #'     );
 #'   cat(tmpPath);
 #' }
+#' 
+#' ### This can always be run, as it used a local file
+#' rxsSpecSpreadsheetPath <-
+#'   system.file(package="metabefor",
+#'               "extdata",
+#'               "Rxs_minimal_example_2.xlsx");
+#' rxsSpec_fromLocal <-
+#'     rxs_fromSpecifications(
+#'       x = rxsSpecSpreadsheetPath,
+#'       outputPath = tmpPath,
+#'       outputFilenamePattern = "rxsSpec-%s.rxs.rmd"
+#'     );
 rxs_fromSpecifications <- function(x = NULL,
                                    outputFile = NULL,
                                    outputPath = NULL,
@@ -149,7 +163,8 @@ rxs_fromSpecifications <- function(x = NULL,
   res <-
     metabefor::read_spreadsheet(
       x = x,
-      localBackup = localBackup
+      localBackup = localBackup,
+      silent = silent
     );
 
   entities <- res[[ws$entities]];
@@ -394,7 +409,7 @@ rxs_fromSpecifications <- function(x = NULL,
 
     if (!silent) {
       if (ignoreModules) {
-        msg("You set `ignoreModules` to FALSE - starting to parse the extraction script ",
+        msg("You set `ignoreModules` to TRUE - starting to parse the extraction script ",
             "specifications into a single extraction script template.\n",
             silent=silent);
       } else {
