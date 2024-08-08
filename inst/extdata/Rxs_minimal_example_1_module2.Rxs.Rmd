@@ -1,4 +1,4 @@
-```{r rxs-setup-chunk-0oaIqK, echo=FALSE, results='hide'}
+```{r rxs-setup-chunk-cF58PM, echo=FALSE, results='hide'}
 ```
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -142,7 +142,7 @@ currentEntity <- rxsObject;
       ### 8762
       ### 
       ########################################################################
-      currentEntity[['validation']] <- expression(is.na(VALUE) || (is.numeric(VALUE) && (VALUE%%1==0) && (length(VALUE) == 1)));
+      currentEntity[['validation']] <- expression((length(VALUE) == 1) && is.na(VALUE) || (is.numeric(VALUE) && (VALUE%%1==0)));
       currentEntity <- currentEntity$parent;
       ########################################################################
       #################################################### END: sampleSize ###
@@ -176,7 +176,7 @@ currentEntity <- rxsObject;
       ### "another example"
       ### 
       ########################################################################
-      currentEntity[['validation']] <- expression(is.na(VALUE) || (is.character(VALUE) && length(VALUE) == 1));
+      currentEntity[['validation']] <- expression((length(VALUE) == 1) && (is.character(VALUE)) || all(is.na(VALUE)));
       currentEntity <- currentEntity$parent;
       ########################################################################
       ############################################## END: samplingStrategy ###
@@ -218,10 +218,57 @@ currentEntity <- rxsObject;
     ### c("Qualitative", "Quantitative", "Mixed", "Review")
     ### 
     ##########################################################################
-    currentEntity[['validation']] <- expression(is.na(VALUE) || (VALUE %in% c("Qualitative", "Quantitative", "Mixed", "Review")));
+    currentEntity[['validation']] <- expression(all(is.na(VALUE)) || (VALUE %in% c("Qualitative", "Quantitative", "Mixed", "Review")));
     currentEntity <- currentEntity$parent;
     ##########################################################################
     ########################################################## END: method ###
+    ##########################################################################
+  
+  
+    ##########################################################################
+    ##################################################### START: variables ###
+    ##########################################################################
+    currentEntity <- currentEntity$AddChild('variables');
+    ##########################################################################
+    ### 
+    ### VARIABLES
+    ### 
+    ### The variables in this study
+    ### 
+    ##########################################################################
+        
+    
+      ########################################################################
+      ######################################## START: variable (REPEATING) ###
+      ########################################################################
+      currentEntity <- currentEntity$AddChild('variable__1__');
+      currentEntity[['value']] <-
+      ########################################################################
+      ### 
+      ### VARIABLE
+      ### 
+      ### The description of one variable in this study
+      ### 
+      ########################################################################
+          
+          list(variableIdentifier = NA,  ### NA
+               measurementLevel = NA);   ### NA
+          
+      ########################################################################
+      currentEntity[['validation']] <- list(`variableIdentifier` = expression(grepl("[a-zA-Z][a-zA-Z0-9_]*", VALUE)),
+                                            `measurementLevel` = expression(all(is.na(VALUE)) || (VALUE %in% c("Nominal", "Ordinal", "Continuous"))));
+      currentEntity$name <- metabefor::nodeName(currentEntity$value[['variableIdentifier']], "variable__1__");
+      currentEntity <- currentEntity$parent;
+      ########################################################################
+      ########################################## END: variable (REPEATING) ###
+      ########################################################################
+    
+        
+    ##########################################################################
+    ##########################################################################
+    currentEntity <- currentEntity$parent;
+    ##########################################################################
+    ####################################################### END: variables ###
     ##########################################################################
   
       
@@ -264,32 +311,27 @@ rxsObject$rxsMetadata <- list(rxsVersion='0.3.0', moduleId=NULL, id=uniqueSource
 
 
 
-```{r rxs-metadata-and-validation-chunk, echo=FALSE}
-if (!(grepl("^[a-zA-Z0-9]{3,}$|^qurid_[a-zA-Z0-9]+$", rxsObject$rxsMetadata$id, ignore.case=TRUE))) {
-  stop(metabefor::wrap_error("The source identifier you specified, '", rxsObject$rxsMetadata$id, 
-       "', does not validate (i.e., it does not match the predefined format)!"));
-}
-if (!(grepl("^[a-zA-Z][a-zA-Z0-9_]*$", rxsObject$rxsMetadata$extractorId, ignore.case=TRUE))) {
-  stop(metabefor::wrap_error("The extractor identifier you specified, '", rxsObject$rxsMetadata$extractorId, 
-       "', does not validate (i.e., it does not match the predefined format)!"));
-}
+
+
+```{r rxs-template-specification-chunk-wfjxOV, echo=FALSE, results='hide'}
 ```
 
-
-```{r rxs-show-extracted-data-chunk-jyGM15}
-metabefor::rxs_partial(rxsObject);
-```
-
-```{r rxs-validation-chunk-9xrcTg, results='asis'}
+```{r rxs-validation-chunk-yvHsac, results='asis'}
 metabefor::heading('Validation results', headingLevel = 1);
-metabefor::rxs_validation(rxsObject);
-cat(paste0('- ', rxsObject$validationLog), sep='
-');
+metabefor::rxs_validation(
+  rxsObject,
+  stopOnFailure = FALSE,
+  rxsTemplateSpec = rxsTemplateSpec);
+cat(paste0('- ', rxsObject$validationLog), sep='\n');
 ```
 
-```{r rxs-setup-chunk-0oaIqK, include=FALSE, messages=FALSE}
+```{r rxs-show-extracted-data-chunk-j9RGbo}
+if ((!(exists('parsingMultipleRxsFiles'))) || (!parsingMultipleRxsFiles)) {  metabefor::rxs_partial(rxsObject); }
+```
+
+```{r rxs-setup-chunk-cF58PM, include=FALSE, messages=FALSE}
 ### First check for (and perhaps install) metabefor
-if (!('metabefor' %in% row.names(installed.packages()))) {
+if (!(requireNamespace('metabefor', quietly = TRUE))) {
   install.packages('metabefor', repos='http://cran.rstudio.com');
 }
 
@@ -304,7 +346,7 @@ author: "`r paste0('Extractor: ', extractorIdentifier)`"
 date: "`r format(Sys.time(), '%Y-%m-%d at %H:%M:%S %Z (UTC%z)')`"
 output:
   html_document:
-    self-contained: yes
+    embed-resources: true
     toc: false
 params:
   rxsVersion: "0.3.0"
@@ -317,99 +359,99 @@ editor_options:
 
 <!-- Here, the original Rxs template specification is included. ~~~~~~~~~~~-->
 
-```{r rxs-template-specification-chunk-9hA4Ja, echo=FALSE}
+```{r rxs-template-specification-chunk-wfjxOV, echo=FALSE}
 
 rxsTemplateSpec <- 
   list(entities = structure(list(title = c("General", "Year", "Authors", 
   "Title", "Methods", "Sample", "Sample size", "Sampling Strategy", 
-  "Method", "Methods", "Variables", "Variable", "Variable Identifier", 
-  "Measurement Level", "Results", "Associations", "Association", 
-  "Association Identifier", "Variable Identifier vor variable 1", 
-  "Variable Identifier vor variable 2", "Pearson's r", "Student's t"
-  ), description = c("General information", "Year (or years) the source was published", 
-  "The authors of this source", "The title of this source", "Description of the methods used by the study", 
+  "Method", "Variables", "Variable", "Variable Identifier", "Measurement Level", 
+  "Results", "Associations", "Association", "Association Identifier", 
+  "Variable Identifier for variable 1", "Variable Identifier for variable 2", 
+  "Pearson's r", "Student's t"), description = c("General information", 
+  "Year (or years) the source was published", "The authors of this source", 
+  "The title of this source", "Description of the methods used by the study", 
   "Information about the sample", "Total number of human participants in the study (note: the actual sample size may be larger if multiple observations are collected per participant)", 
   "The procedure used to obtain the sample", "The method a study used", 
-  "Description of the methods used by the study", "The variables in this study", 
-  "The description of one variable in this study", "The unique identifier for this variable", 
-  "The measurement level of this variable", "The results reported in this study", 
-  "Associations that are extracted from this study", "One single association", 
-  "A unique identifier for this association", "The identifier of the one variable (specified in the methods section) that this association relates to", 
+  "The variables in this study", "The description of one variable in this study", 
+  "The unique identifier for this variable", "The measurement level of this variable", 
+  "The results reported in this study", "Associations that are extracted from this study", 
+  "One single association", "A unique identifier for this association", 
+  "The identifier of the one variable (specified in the methods section) that this association relates to", 
   "The identifier of the other variable (specified in the methods section) that this association relates to", 
   "The Pearson correlation coefficient for this association (if both variables are continuous)", 
   "The Student's t value for this association (if one of the two variables is dichotomous)"
   ), identifier = c("general", "publicationYear", "sourceAuthors", 
   "sourceTitle", "methods", "sample", "sampleSize", "samplingStrategy", 
-  "method", "methods", "variables", "variable", "variableIdentifier", 
-  "measurementLevel", "results", "associations", "association", 
-  "associationIdentifier", "varId1", "varId2", "r", "t"), valueTemplate = c(NA, 
-  "integer.length4.multi", "string.mandatory", "string.mandatory", 
-  NA, NA, "integer", "string", "categorical", NA, NA, NA, "string.identifier", 
-  "categorical", NA, NA, NA, "string.identifier", "string.entityRef.mandatory", 
-  "string.entityRef.mandatory", "numeric", "numeric"), validValues = c(NA, 
-  NA, NA, NA, NA, NA, NA, NA, "\"Qualitative\" || \"Quantitative\" || \"Mixed\" || \"Review\"", 
-  NA, NA, NA, NA, "\"Nominal\" || \"Ordinal\" || \"Continuous\"", 
-  NA, NA, NA, NA, NA, NA, NA, NA), default = c(NA_character_, NA_character_, 
-  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
-  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
-  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
-  NA_character_, NA_character_, NA_character_, NA_character_, NA_character_
-  ), examples = c(NA_character_, NA_character_, NA_character_, 
+  "method", "variables", "variable", "variableIdentifier", "measurementLevel", 
+  "results", "associations", "association", "associationIdentifier", 
+  "varId1", "varId2", "r", "t"), valueTemplate = c(NA, "integer.length4.multi", 
+  "string.mandatory", "string.mandatory", NA, NA, "integer", "string", 
+  "categorical", NA, NA, "string.identifier", "categorical", NA, 
+  NA, NA, "string.identifier", "string.entityRef.mandatory", "string.entityRef.mandatory", 
+  "numeric", "numeric"), validValues = c(NA, NA, NA, NA, NA, NA, 
+  NA, NA, "\"Qualitative\" || \"Quantitative\" || \"Mixed\" || \"Review\"", 
+  NA, NA, NA, "\"Nominal\" || \"Ordinal\" || \"Continuous\"", NA, 
+  NA, NA, NA, NA, NA, NA, NA), default = c(NA_character_, NA_character_, 
   NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
   NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
   NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
   NA_character_, NA_character_, NA_character_, NA_character_), 
-      parent = c(NA, "general", "general", "general", NA, "methods", 
-      "sample", "sample", "methods", NA, "methods", "variables", 
-      "variable", "variable", NA, "results", "associations", "association", 
-      "association", "association", "association", "association"
-      ), module = c("module1", "module1", "module1", "module1", 
-      "module2", "module2", "module2", "module2", "module2", "module3", 
+      examples = c(NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_), parent = c(NA, "general", 
+      "general", "general", NA, "methods", "sample", "sample", 
+      "methods", "methods", "variables", "variable", "variable", 
+      NA, "results", "associations", "association", "association", 
+      "association", "association", "association"), module = c("module1", 
+      "module1", "module1", "module1", "module2", "module2", "module2", 
+      "module2", "module2", "module2", "module2", "module2", "module2", 
       "module3", "module3", "module3", "module3", "module3", "module3", 
-      "module3", "module3", "module3", "module3", "module3", "module3"
-      ), entityRef = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 
-      NA, NA, NA, NA, NA, NA, NA, NA, "variableIdentifier", "variableIdentifier", 
-      NA, NA), fieldRef = c(NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_), owner = c(NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_), list = c(NA, NA, NA, NA, NA, NA, NA, NA, 
-      NA, NA, NA, "TRUE", NA, NA, NA, NA, "TRUE", NA, NA, NA, NA, 
-      NA), collapsing = c(NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_), repeating = c(NA, 
-      NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "TRUE", NA, NA, NA, 
-      NA, "TRUE", NA, NA, NA, NA, NA), recurring = c(NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_, NA_character_, NA_character_, NA_character_, 
-      NA_character_), recursing = c(NA_character_, NA_character_, 
+      "module3", "module3"), entityRef = c(NA, NA, NA, NA, NA, 
+      NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "variableIdentifier", 
+      "variableIdentifier", NA, NA), fieldRef = c(NA_character_, 
       NA_character_, NA_character_, NA_character_, NA_character_, 
       NA_character_, NA_character_, NA_character_, NA_character_, 
       NA_character_, NA_character_, NA_character_, NA_character_, 
       NA_character_, NA_character_, NA_character_, NA_character_, 
       NA_character_, NA_character_, NA_character_, NA_character_
-      ), identifying = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 
-      NA, NA, "TRUE", NA, NA, NA, NA, "TRUE", NA, NA, NA, NA)), row.names = c(NA, 
-  -22L), class = "data.frame"), valueTemplates = structure(list(
-      identifier = c("numeric", "numeric.multi", "integer", "integer.multi", 
-      "integer.length4.multi", "string", "string.multi", "countrycode", 
-      "categorical", "generalPresence", "string.mandatory", "string.entityRef.mandatory", 
-      "string.entityRef.optional", "string.fieldRef.optional", 
-      "matrix.crosstab", "string.identifier"), description = c("Any valid number", 
-      "A vector of valid numbers", "Any valid whole number", "A vector of integers (i.e. one or more whole numbers)", 
+      ), owner = c(NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_), list = c(NA, NA, NA, NA, NA, 
+      NA, NA, NA, NA, NA, "TRUE", NA, NA, NA, NA, "TRUE", NA, NA, 
+      NA, NA, NA), collapsing = c(NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_), repeating = c(NA, 
+      NA, NA, NA, NA, NA, NA, NA, NA, NA, "TRUE", NA, NA, NA, NA, 
+      "TRUE", NA, NA, NA, NA, NA), recurring = c(NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_
+      ), recursing = c(NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_, NA_character_, NA_character_, 
+      NA_character_, NA_character_), identifying = c(NA, NA, NA, 
+      NA, NA, NA, NA, NA, NA, NA, NA, "TRUE", NA, NA, NA, NA, "TRUE", 
+      NA, NA, NA, NA)), row.names = c(NA, -21L), class = "data.frame"), 
+      valueTemplates = structure(list(identifier = c("numeric", 
+      "numeric.multi", "integer", "integer.multi", "integer.length4.multi", 
+      "string", "string.multi", "countrycode", "categorical", "generalPresence", 
+      "string.mandatory", "string.entityRef.mandatory", "string.entityRef.optional", 
+      "string.fieldRef.optional", "matrix.crosstab", "string.identifier"
+      ), description = c("Any valid number", "A vector of valid numbers", 
+      "Any valid whole number", "A vector of integers (i.e. one or more whole numbers)", 
       "A numeric vector of years", "A single character value", 
       "A character vector (i.e. one or more strings)", "A character vector of the ISO 3166-1 alpha-2 country code(s)", 
       "A string that has to exactly match one of the values specified in the \"values\" column of the Coding sheet", 
@@ -423,41 +465,62 @@ rxsTemplateSpec <-
       NA, NA, NA, NA, NA, NA), default = c("NA", "NA", "NA", "NA", 
       "NA", "\"\"", "\"\"", "NA", "NA", "NA", "\"Enter name here (mandatory)\"", 
       "\"enter <<entityRef>> here\"", "NA", "NA", "NA", "NA"), 
-      examples = c("2.3 || 643.2", "c(23.43, 62) || 52.2 || c(76, 12.56, 42)", 
-      "30 || 8762", "c(23, 62) || 52 || c(76, 12, 42)", "2001 || c(2001, 2002)", 
-      "\"example\" || \"another example\"", "c(\"first value\", \"second value\")", 
-      "\"NL\" || c(\"NL\", \"BE\")", "<<validValues>>", "<<validValues>>", 
-      "\"example\" || \"another example\"", "<no example>", "<no example>", 
-      "<no example>", "rawTable(10, 5, 15, 10) || rawTable(31, 87, 21, 54, 25, 32, ncol=3)", 
-      "\"example1\" || \"another_identifier_example\" || \"finalExample\""
-      ), validation = c("is.na(VALUE) || (is.numeric(VALUE) && (length(VALUE) == 1))", 
-      "is.na(VALUE) || (is.numeric(VALUE))", "is.na(VALUE) || (is.numeric(VALUE) && (VALUE%%1==0) && (length(VALUE) == 1))", 
-      "is.na(VALUE) || (is.numeric(VALUE) && all(VALUE%%1==0))", 
-      "is.na(VALUE) || (is.numeric(VALUE) && all(nchar(VALUE)==4))", 
-      "is.na(VALUE) || (is.character(VALUE) && length(VALUE) == 1)", 
-      "is.na(VALUE) || (is.character(VALUE))", "is.na(VALUE) || (VALUE %in% countryCodeList())", 
-      "is.na(VALUE) || (VALUE %in% <<validValues>>)", "is.na(VALUE) || (VALUE %in% <<validValues>>)", 
-      "!is.na(VALUE) && !is.null(VALUE) && (nchar(VALUE) > 0)", 
-      "rxs_findEntity(node, \"<<entityRef>>\", VALUE)", "is.na(VALUE) || (!is.na(VALUE) && rxs_findEntity(node, \"<<entityRef>>\", VALUE))", 
-      "is.na(VALUE) || (!is.na(VALUE) && rxs_findFieldInEntity(node, \"<<fieldRef>>\", VALUE))", 
-      "is.na(VALUE) || (class(VALUE) == \"matrix\")", "grepl(\"[a-zA-Z][a-zA-Z0-9_]*\", VALUE)"
-      ), error = c("NAME is not numeric, or contains more than one value.", 
-      "NAME is not a numeric vector.", "Error about NAME here.", 
-      "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
-      "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
-      "Error about NAME here.", "This string (character value) must be entered.", 
-      "Enter a valid reference to another entity - or remove unused entities.", 
-      "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
-      "The identifier provided as NAME contains invalid characters (i.e. something that is not a-z, A-Z, 0-9, or _) or does not start with a letter."
-      )), row.names = c(NA, -16L), class = "data.frame"), definitions = structure(list(
-      term = "Example Term", definition = "Example definition of the term."), row.names = c(NA, 
-  -1L), class = "data.frame"), instructionSheet = structure(list(
-      heading = c("Introduction", "More instructions", "Opening Remarks", 
-      "Closing Remarks"), description = c("These instructions are for extractors using the minimal rxs example.", 
-      "Normally, these instructions should be comprehensive enough to allow people to extract data reasonably accurately. The instructions with the heading \"Opening Remarks\" and \"Closing Remarks\" are added in every rxs file.", 
-      "Welcome to the R Extraction Script (.rxs.Rmd file) for this source!\n\nYou can now start extracting. If you haven't yet studied the extractor instructions, please do so first. If you're all set, good luck!", 
-      "Well done! You are now done extracting this source. Great job!!!\r\n\r\nNow, please knit the R Extraction Script into an HTML file and carefully check whether you entered everything correctly, since it will cost much less time to correct any errors, now that you still have this source in your mind, than later on when you'll have to dive into it all over."
-      )), row.names = c(NA, -4L), class = "data.frame"), rxsRootName = "source", 
+          examples = c("2.3 || 643.2", "c(23.43, 62) || 52.2 || c(76, 12.56, 42)", 
+          "30 || 8762", "c(23, 62) || 52 || c(76, 12, 42)", "2001 || c(2001, 2002)", 
+          "\"example\" || \"another example\"", "c(\"first value\", \"second value\")", 
+          "\"NL\" || c(\"NL\", \"BE\")", "<<validValues>>", "<<validValues>>", 
+          "\"example\" || \"another example\"", "<no example>", 
+          "<no example>", "<no example>", "rawTable(10, 5, 15, 10) || rawTable(31, 87, 21, 54, 25, 32, ncol=3)", 
+          "\"example1\" || \"another_identifier_example\" || \"finalExample\""
+          ), validation = c("(length(VALUE) == 1) && is.na(VALUE) || (is.numeric(VALUE))", 
+          "all(is.na(VALUE)) || (is.numeric(VALUE))", "(length(VALUE) == 1) && is.na(VALUE) || (is.numeric(VALUE) && (VALUE%%1==0))", 
+          "all(is.na(VALUE)) || (is.numeric(VALUE) && all(VALUE%%1==0))", 
+          "is.na(VALUE) || (is.numeric(VALUE) && all(nchar(VALUE)==4))", 
+          "(length(VALUE) == 1) && (is.character(VALUE)) || all(is.na(VALUE))", 
+          "all(is.na(VALUE)) || (is.character(VALUE))", "all(is.na(VALUE)) || (VALUE %in% countryCodeList())", 
+          "all(is.na(VALUE)) || (VALUE %in% <<validValues>>)", 
+          "all(is.na(VALUE)) || (VALUE %in% <<validValues>>)", 
+          "!is.na(VALUE) && !is.null(VALUE) && (nchar(VALUE) > 0)", 
+          "rxs_findEntity(node, \"<<entityRef>>\", VALUE)", "is.na(VALUE) || (!is.na(VALUE) && rxs_findEntity(node, \"<<entityRef>>\", VALUE))", 
+          "is.na(VALUE) || (!is.na(VALUE) && rxs_findFieldInEntity(node, \"<<fieldRef>>\", VALUE))", 
+          "is.na(VALUE) || (class(VALUE) == \"matrix\")", "grepl(\"[a-zA-Z][a-zA-Z0-9_]*\", VALUE)"
+          ), error = c("NAME is not numeric, or contains more than one value, but has value: VALUE", 
+          "NAME is not a numeric vector, but has value: VALUE", 
+          "NAME is not a single whole number, but has value: VALUE", 
+          "NAME is not one or more single whole numbers, but has value: VALUE", 
+          "NAME is not one more years (i.e. four-digit numbers), but has value: VALUE", 
+          "NAME is not a single character value (i.e. a 'text string'), but has value: VALUE", 
+          "NAME is not one or more character values (i.e. 'text strings'), but has value: VALUE", 
+          "NAME is not a two-letter ISO 3166-1 alpha-2 country code, but has value: VALUE", 
+          "Error about NAME here.", "Error about NAME here.", "For NAME, the value (a string, or character value) must be entered.", 
+          "Enter a valid reference to another entity - or remove unused entities.", 
+          "Error about NAME here.", "Error about NAME here.", "Error about NAME here.", 
+          "The identifier provided as NAME contains invalid characters (i.e. something that is not a-z, A-Z, 0-9, or _) or does not start with a letter; the value is VALUE"
+          )), row.names = c(NA, -16L), class = "data.frame"), definitions = structure(list(
+          term = "Example Term", definition = "Example definition of the term."), row.names = c(NA, 
+      -1L), class = "data.frame"), instructionSheet = structure(list(
+          heading = c("Introduction", "More instructions", "This is a heading", 
+          "One more heading", "Instructions in the Rxs file", "Opening Remarks", 
+          "Closing Remarks"), description = c("These instructions are for extractors using the minimal rxs example.", 
+          "Normally, these instructions should be comprehensive enough to allow people to extract data reasonably accurately.", 
+          "You can add as many rows of instructions as you want. These are included in the extractor instructions. In fact, you *should* add as many rows as you want.", 
+          "When writing the instructions, keep in mind that these instructions and the entities' descriptions should together allow accurate replication of the extraction. This means that another researcher, unfamiliar with your project team and who has not attended any of your project's meetings (i.e. somebody who does not necessarily share your implicit assumptions and tacit knowledge), equiped with these instructions, should extract the same information as you will.", 
+          "The instructions with the heading \"Opening Remarks\" and \"Closing Remarks\" are added in every rxs file.", 
+          "Welcome to the R Extraction Script (.rxs.Rmd file) for this source!\n\nYou can now start extracting. If you haven't yet studied the extractor instructions, please do so first. If you're all set, good luck!", 
+          "Well done! You are now done extracting this source. Great job!!!\r\n\r\nNow, please knit the R Extraction Script into an HTML file and carefully check whether you entered everything correctly, since it will cost much less time to correct any errors, now that you still have this source in your mind, than later on when you'll have to dive into it all over."
+          )), row.names = c(NA, -7L), class = "data.frame"), textsSheet = structure(list(
+          textIdentifier = c("openingRemarks", "closingRemarks", 
+          "extractionOverview_list_intro", "extractionOverview_compact_intro"
+          ), content = c("Welcome to the R Extraction Script (.rxs.Rmd file) for this source!\n\nYou can now start extracting. If you haven't yet studied the extractor instructions, please do so first. If you're all set, good luck!", 
+          "Well done! You are now done extracting this source. Great job!!!\r\n\r\nNow, please knit the R Extraction Script into an HTML file and carefully check whether you entered everything correctly, since it will cost much less time to correct any errors, now that you still have this source in your mind, than later on when you'll have to dive into it all over.", 
+          "This is an overview of the entities to extract, their titles and descriptions, and other details that will become part of the extraction script template that will be used for the actual extraction.", 
+          "This is an overview of the entities to extract, their titles and descriptions, and other details that will become part of the extraction script template that will be used for the actual extraction."
+          )), row.names = c(NA, -4L), class = "data.frame"), textsList = list(
+          openingRemarks = c(content = "Welcome to the R Extraction Script (.rxs.Rmd file) for this source!\n\nYou can now start extracting. If you haven't yet studied the extractor instructions, please do so first. If you're all set, good luck!"), 
+          closingRemarks = c(content = "Well done! You are now done extracting this source. Great job!!!\r\n\r\nNow, please knit the R Extraction Script into an HTML file and carefully check whether you entered everything correctly, since it will cost much less time to correct any errors, now that you still have this source in your mind, than later on when you'll have to dive into it all over."), 
+          extractionOverview_list_intro = c(content = "This is an overview of the entities to extract, their titles and descriptions, and other details that will become part of the extraction script template that will be used for the actual extraction."), 
+          extractionOverview_compact_intro = c(content = "This is an overview of the entities to extract, their titles and descriptions, and other details that will become part of the extraction script template that will be used for the actual extraction.")), 
+      errorOnFailingValidation = FALSE, rxsRootName = "source", 
       yamlMetadata = NULL)
 
 ```

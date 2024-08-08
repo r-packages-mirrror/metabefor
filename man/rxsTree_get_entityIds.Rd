@@ -12,6 +12,9 @@ rxsTree_get_entityIds(x, includeClusteredEntities = TRUE)
 }
 \arguments{
 \item{x}{The rxs tree object or project object.}
+
+\item{includeClusteredEntities}{Whether to also include clustered
+entities (entities in a \code{list()} value).}
 }
 \value{
 A vector with entity names.

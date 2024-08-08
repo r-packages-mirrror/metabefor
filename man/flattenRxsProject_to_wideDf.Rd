@@ -17,3 +17,15 @@ A data frame
 \description{
 Flatten all sources' Rxs trees to a wide data frame (somewhat brutally)
 }
+\examples{
+### Load example project
+example_rxsProject_1 <- metabefor::example_rxsProject_1;
+
+### Flatten it
+exampleDf <-
+  flattenRxsProject_to_wideDf(
+    example_rxsProject_1
+  );
+
+### Look at a part of it
+}
