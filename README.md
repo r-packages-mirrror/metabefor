@@ -26,7 +26,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/metabefor?color=brightg
 <!-- badges: end -->
 
 The pkgdown website for this project is located at
-<https://r-packages.gitlab.io/metabefor>.
+<https://metabefor.opens.science>.
 
 <!--------------------------------------------->
 <!-- Start of a custom bit for every package -->

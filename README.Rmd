@@ -47,7 +47,7 @@ cranTotal_badge <-
   paste0("https://cranlogs.r-pkg.org/badges/grand-total/", packagename, "?color=brightgreen");
 
 pkgdown_url <-
-  paste0("https://r-packages.gitlab.io/", packagename);
+  paste0("https://", packagename, ".opens.science");
 
 ```
 
