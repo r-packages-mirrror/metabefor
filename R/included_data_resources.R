@@ -195,7 +195,7 @@ if (exists("updateEverything") && updateEverything) {
 #' for `"evidence synthesis" AND "appraisal"`, in PsycINFO and in MedLine.
 #'
 #' @rdname ebsco_example_1
-#' @format A {metabefor} imported search hits object
+#' @format A `metabefor` imported search hits object
 #'
 "ebsco_example_1"
 
