@@ -18,6 +18,12 @@
 #' vectors, with each vector's name being the new field name (to copy to), and
 #' each character vector listing the fields to copy (to that new field name).
 #' Set to `NULL` or pass an empty list to not copy anything over.
+#' @param preparatoryReplacements Specify any replacements to be made in the
+#' file(s) to import, as a named character vector, where each element's *name*
+#' is the replacement, and the corresponding value is a Perl regular expression
+#' which will (case insensitively) be searched in the file (e.g. to replace
+#' all RIS tags `T1` with `TI`, pass `c("TI" = "^T1")` as value
+#' of `preparatoryReplacements`).
 #' @param copySep When copying fields over (see `fieldsToCopy`), the separator
 #' to use when the new field is not empty (in which case the contents to copy
 #' over will be appended).
@@ -86,7 +92,10 @@ import_search_results <- function(path,
                                   filesToIgnoreRegex = NULL,
                                   recursive = TRUE,
                                   perl = TRUE,
-                                  fieldsToCopy = list(doi = c("L3", "DO")),
+                                  fieldsToCopy = list(doi = c("L3", "DO"),
+                                                      title = "T1"),
+                                  preparatoryReplacements = NULL,
+                                  synthesisr_tag_naming = "best_guess",
                                   copySep = " || ",
                                   idFieldName = "original_id",
                                   parallel = FALSE,
@@ -246,17 +255,52 @@ import_search_results <- function(path,
         function(dir_and_file) {
           msg("  - ",
               silent = silent);
-          res <-
-            synthesisr::read_refs(
-              filename = file.path(path, dir_and_file[1], dir_and_file[2]),
-              verbose = !silent
-            );
+          
+          if (is.null(preparatoryReplacements)) {
+            
+            res <-
+              synthesisr::read_refs(
+                filename = file.path(path, dir_and_file[1], dir_and_file[2]),
+                tag_naming = synthesisr_tag_naming,
+                verbose = !silent
+              );
+            
+          } else {
+            
+            tmpFile <- tempfile(fileext = ".ris");
+            tmpChar <- readLines(file.path(path, dir_and_file[1], dir_and_file[2]));
+            
+            for (i in seq_along(preparatoryReplacements)) {
+              
+              tmpChar <-
+                gsub(preparatoryReplacements[i],
+                     names(preparatoryReplacements)[i],
+                     tmpChar,
+                     perl = TRUE,
+                     ignore.case = TRUE);
+              
+            }
+            
+            writeLines(tmpChar, tmpFile);
+
+            res <-
+              synthesisr::read_refs(
+                filename = tmpFile,
+                tag_naming = synthesisr_tag_naming,
+                verbose = !silent
+              );
+            
+          }
+          
           res[, search_originFile_col] <- dir_and_file[2];
           res[, search_originDir_col] <- dir_and_file[1];
+          
           msg("  - Imported ", nrow(res),
               " records and ", ncol(res), " fields.\n",
               silent = silent);
+          
           return(res);
+          
         }
       );
 

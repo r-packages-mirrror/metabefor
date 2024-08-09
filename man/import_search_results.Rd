@@ -12,7 +12,9 @@ import_search_results(
   filesToIgnoreRegex = NULL,
   recursive = TRUE,
   perl = TRUE,
-  fieldsToCopy = list(doi = c("L3", "DO")),
+  fieldsToCopy = list(doi = c("L3", "DO"), title = "T1"),
+  preparatoryReplacements = NULL,
+  synthesisr_tag_naming = "best_guess",
   copySep = " || ",
   idFieldName = "original_id",
   parallel = FALSE,
@@ -39,6 +41,13 @@ contains DOIs, instead of \code{DO}). This takes the form of a list of character
 vectors, with each vector's name being the new field name (to copy to), and
 each character vector listing the fields to copy (to that new field name).
 Set to \code{NULL} or pass an empty list to not copy anything over.}
+
+\item{preparatoryReplacements}{Specify any replacements to be made in the
+file(s) to import, as a named character vector, where each element's \emph{name}
+is the replacement, and the corresponding value is a Perl regular expression
+which will (case insensitively) be searched in the file (e.g. to replace
+all RIS tags \code{T1} with \code{TI}, pass \code{c("TI" = "^T1")} as value
+of \code{preparatoryReplacements}).}
 
 \item{copySep}{When copying fields over (see \code{fieldsToCopy}), the separator
 to use when the new field is not empty (in which case the contents to copy

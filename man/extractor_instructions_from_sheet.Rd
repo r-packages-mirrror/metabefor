@@ -23,7 +23,7 @@ as provided in an Rxs Specification.
 }
 \examples{
 ### Load an example rxs specification
-rxs_minimal_example_2 <- metabefor::rxs_minimal_example_2;
+data("rxs_minimal_example_2", package="metabefor");
 
 ### Produce the instructions in Markdown format
 extractorInstructions <-

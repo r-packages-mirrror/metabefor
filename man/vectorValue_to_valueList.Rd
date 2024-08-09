@@ -69,4 +69,9 @@ rxsTree_vectorValue_to_valueList(
 ### Verify that this happened
 example_rxsProject_1$rxsTrees$qurid_7h50rzmz$methods$sample$sampleSize$value;
 
+### Example for one vector
+metabefor::vectorValue_to_valueList(
+  c('red', 'brown')
+);
+
 }

@@ -5,7 +5,7 @@
 \alias{supplement_data_from_list_inRxsProject}
 \alias{supplement_data_from_list_inSingleNode}
 \alias{supplement_data_from_lists}
-\title{Supplement a target entitity node with clustered entity values from another entity node}
+\title{Supplement a target entity node with clustered entity values from another entity node}
 \usage{
 supplement_data_from_list_inRxsProject(
   x,

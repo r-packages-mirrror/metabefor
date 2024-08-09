@@ -184,3 +184,48 @@ if (exists("updateEverything") && updateEverything) {
 ###-----------------------------------------------------------------------------
 ###-----------------------------------------------------------------------------
 ###-----------------------------------------------------------------------------
+
+
+#' Simple bibliographic exports from Ebsco
+#'
+#' A number of simple small datasets with bibliographic information.
+#'
+#' These are the datasets obtained by searching in works' titles, at
+#' 2024-08-09, for `"evidence synthesis" AND "extraction"` and
+#' for `"evidence synthesis" AND "appraisal"`, in PsycINFO and in MedLine.
+#'
+#' @rdname ebsco_example_1
+#' @format A {metabefor} imported search hits object
+#'
+"ebsco_example_1"
+
+if (exists("updateEverything") && updateEverything) {
+
+  ### Path to extra files in {metabefor} package
+  metabefor_files_path <-
+    system.file(
+      "extdata",
+      package = "metabefor"
+    ); 
+  
+  ### Path with Esbco exports
+  EbscoExport_path <-
+    file.path(
+      metabefor_files_path,
+      "ebsco-exports"
+    ); 
+  
+  ebsco_example_1 <-
+    metabefor::import_search_results(
+      EbscoExport_path,
+      preparatoryReplacements = c("TI" = "^T1")
+    );
+
+  usethis::use_data(ebsco_example_1, overwrite=TRUE);
+
+}
+
+###-----------------------------------------------------------------------------
+###-----------------------------------------------------------------------------
+###-----------------------------------------------------------------------------
+

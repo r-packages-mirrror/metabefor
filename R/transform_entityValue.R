@@ -1,10 +1,10 @@
 #' Perform a transformation selectively
 #' 
-#' This function takes a full Rxs project object (as produced
-#' by [metabefor::rxs_parseExtractionScripts()]) and processes all Rxs
-#' trees, looking for entities that match the `entityId_regex`
+#' [metabefor::transform_entityValue()] takes a full Rxs project object (as
+#' produced by [metabefor::rxs_parseExtractionScripts()]) and processes all
+#' Rxs trees, looking for entities that match the `entityId_regex`
 #' regular expression (for information about what clustering entities are,
-#' see <https://r-packages.gitlab.io/metabefor/articles/definitions.html>)
+#' see <https://sysrevving.com/glossary.html>)
 #' and passes those to function `fun`, passing the entity's value as the
 #' argument named in `entityValue_argName` and with `funArgs` as additional
 #' arguments.

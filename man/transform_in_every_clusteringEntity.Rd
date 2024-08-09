@@ -8,7 +8,7 @@ transform_in_every_clusteringEntity(
   x,
   newEntityName,
   fun,
-  funArgs,
+  funArgs = NULL,
   entityId_regex = NULL,
   requiredField_regex = NULL
 )
@@ -42,15 +42,40 @@ will be changed in place given \code{data.tree}'s pass-by-reference logic; so
 you can discard the result.
 }
 \description{
-This function takes a full Rxs project object (as produced
+\code{\link[=transform_in_every_clusteringEntity]{transform_in_every_clusteringEntity()}} takes a full
+Rxs project object (as produced
 by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}) and processes all Rxs
 trees, looking for clustering entities that match the \code{entityId_regex}
 regular expression (for information about what clustering entities are,
-see \url{https://r-packages.gitlab.io/metabefor/articles/definitions.html})
+see \url{https://sysrevving.com/glossary.html})
 and/or that contain a field matching the \code{requiredField_regex} regular
 expression, and passes those to function \code{fun} with \code{funArgs} as
 arguments. For \code{funArgs}, you can pass entity identifiers of clustered
 entities contained in the clustering entity. These are then assigned the
 corresponding name before \code{fun} is called using \code{do.call}. This allows
 you to select values and rename them to match the function arguments.
+}
+\examples{
+### Load an example Rxs project
+data('example_rxsProject_1', package="metabefor");
+
+### Look at contents of a clustering entity holding
+### information about an association between variables with
+### identifiers 'chalk' and 'witches'
+example_rxsProject_1$rxsTrees$qurid_7h50rzpq$associations$chalk_and_witches$value;
+
+### Multiply the value of entity with identifier
+### 'r' with 2 in all clustering entities
+metabefor::transform_in_every_clusteringEntity(
+  example_rxsProject_1,
+  newEntityName = "double_the_r",
+  fun = function(x) {
+    return(x * 2);
+  },
+  funArgs = c(x = "r"),
+  requiredField_regex = "^r$"
+);
+
+### See the added entity
+example_rxsProject_1$rxsTrees$qurid_7h50rzpq$associations$chalk_and_witches$value;
 }

@@ -11,7 +11,11 @@
 #' @return The list
 #' @export
 #'
-#' @examples
+#' @examples ### Example for one vector
+#' metabefor::vectorValue_to_valueList(
+#'   c('red', 'brown')
+#' );
+#' 
 vectorValue_to_valueList <- function(value,
                                      allPossibleValues = NULL,
                                      labels = NULL,

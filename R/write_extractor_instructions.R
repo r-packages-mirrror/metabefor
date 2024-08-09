@@ -9,7 +9,7 @@
 #' @param title,author The title and author to use when exporting.
 #' @param silent Whether to be silent or chatty.
 #'
-#' @return
+#' @return A character vector with the extractor instructions in Markdown
 #' @export
 #'
 #' @examples ### Load an example rxs specification
@@ -24,10 +24,10 @@
 #'   );
 #'
 #' ### Show the beginning
-#' cat(substr(extractorInstructions, 1, 100));
+#' cat(substr(extractorInstructions, 1, 265));
 #' 
-#' ### Show the middle
-#' cat(substr(extractorInstructions, 1000, 1100))
+#' ### Show a fragment with instructions about one entity
+#' cat(substr(extractorInstructions, 2070, 2790));
 write_extractor_instructions <- function(x,
                                          output = "asis",
                                          outputFile = NULL,

@@ -5,9 +5,11 @@
 #' the value stored for that entity must be a single value); and the target
 #' entity *must* be a clustering entity (i.e. the value stored for that entity
 #' must be a list of values for clustered entities).
-#' Whereas for `supplement_data_with_value_inSingleNode()`, you have to specify
+#' Whereas for [metabefor::supplement_data_with_value_inSingleNode()],
+#' you have to specify
 #' the entity identifier for the entity you want to supplement, for
-#' `supplement_data_with_value_inRxsProject()`, use `targetPathString_regex` to
+#' [metabefor::supplement_data_with_value_inRxsProject()],
+#' use `targetPathString_regex` to
 #' specify which entities you would like to supplement (i.e. copy the relevant
 #' value to). Of course, this can also be an entity identifier if you only want
 #' to copy to a single entity but in all Rxs trees in an object with parsed
@@ -37,8 +39,6 @@
 #' is altered in place, and so the returned object can be discarded.
 #' @rdname supplement_data_with_value
 #' @export
-#'
-#' @examples
 supplement_data_with_value_inSingleNode <- function(rxsTree,
                                                     targetEntityNodeId,
                                                     sourceEntityNodeId,
