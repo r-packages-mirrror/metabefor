@@ -72,10 +72,10 @@ if (exists("updateEverything") && updateEverything) {
 #' These are the datasets obtained by searching,
 #' in works' titles, for respectively:
 #' 
-#' - `openalex_example_1`: 2024-08-06, `"evidence synthesis" AND "extraction"`,
-#' <https://openalex.org/works?filter=display_name.search%3A"evidence%20synthesis"%20AND%20"extraction">
-#' - `openalex_example_2`: 2024-08-06, `"evidence synthesis" AND "appraisal"`,
-#' <https://openalex.org/works?filter=display_name.search%3A"evidence%20synthesis"%20AND%20"appraisal">
+#' - `openalex_example_1`: 2024-08-09, `"evidence synthesis" AND "extraction"`,
+#' <https://openalex.org/works?filter=display_name.search%3A%22evidence%20synthesis%22%20AND%20%22extraction%22,type%3A%21types%2Fdataset%7Ctypes%2Flibguides%7Ctypes%2Fsupplementary-materials>
+#' - `openalex_example_2`: 2024-08-09, `"evidence synthesis" AND "appraisal"`,
+#' <https://openalex.org/works?filter=display_name.search%3A%22evidence%20synthesis%22%20AND%20%22appraisal%22,type%3A%21types%2Fdataset%7Ctypes%2Flibguides%7Ctypes%2Fsupplementary-materials>
 #'
 #' @rdname openalex_examples
 #' @aliases openalex_example_1 openalex_example_2
@@ -92,7 +92,7 @@ if (exists("updateEverything") && updateEverything) {
     metabefor::import_openalex(
       file.path(
         extDataDir,
-        "example-1---CSV-format---works-2024-08-06T12-48-16.csv"
+        "example-1---OpenAlex---CSV-format.csv"
       )
     );
   
@@ -100,7 +100,7 @@ if (exists("updateEverything") && updateEverything) {
     metabefor::import_openalex(
       file.path(
         extDataDir,
-        "example-2---CSV-format---works-2024-08-06T13-22-17.csv"
+        "example-2---OpenAlex---CSV-format.csv"
       )
     );
   

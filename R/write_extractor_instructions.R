@@ -12,7 +12,22 @@
 #' @return
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example rxs specification
+#' data("rxs_minimal_example_2", package="metabefor");
+#' 
+#' ### "Write" the extractor instructions but store
+#' ### them in a character vector instead of writing
+#' ### them to a file
+#' extractorInstructions <-
+#'   metabefor::write_extractor_instructions(
+#'     rxs_minimal_example_2
+#'   );
+#'
+#' ### Show the beginning
+#' cat(substr(extractorInstructions, 1, 100));
+#' 
+#' ### Show the middle
+#' cat(substr(extractorInstructions, 1000, 1100))
 write_extractor_instructions <- function(x,
                                          output = "asis",
                                          outputFile = NULL,

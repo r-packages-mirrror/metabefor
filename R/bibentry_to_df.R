@@ -82,13 +82,16 @@ bibentry_to_df <- function(bibentry,
   
 }
 
+#' Convert [utils::person()] object to a data frame
+#' 
+#' This function takes a [utils::person()] object and converts it to a data frame.
+#' 
 #' @param x The [utils::person()] object
 #' @param ... Any additional argument to pass to [base::data.frame()].
 #'
 #' @export
 #' @return A data frame with one row for each person.
 #' 
-#' @rdname exclusion_criteria
 #' @method as.data.frame person
 as.data.frame.person <- function(x, ...) {
   

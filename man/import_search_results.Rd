@@ -12,7 +12,7 @@ import_search_results(
   filesToIgnoreRegex = NULL,
   recursive = TRUE,
   perl = TRUE,
-  fieldsToCopy = list(doi = "L3"),
+  fieldsToCopy = list(doi = c("L3", "DO")),
   copySep = " || ",
   idFieldName = "original_id",
   parallel = FALSE,
@@ -52,7 +52,10 @@ name in JabRef (if \code{NULL}, the field is not renamed).}
 \item{search_metadataRegex}{A regular expression to match against the
 filenames. If it matches, metadata will be extracted in three capturing
 groups, in the order date (using ISO standard 8601 format, i.e. 2022-03-05),
-interface, and database.}
+interface, and database, separated by underscores (\verb{_}), with an optional
+fourth element, again separated with an underscore, that can be used to
+specify which query was run (in case multiple queries are used in the same
+database / interface combination and on the same date).}
 
 \item{silent}{Whether to be silent or chatty.}
 }
@@ -66,4 +69,48 @@ processes the hits in a set of subdirectories in a directory, specifying
 the original file, directory, and, if the files were names using a
 convention, date, database, and interface (see the \code{search_metadataRegex}
 argument).
+}
+\examples{
+### Path to extra files in {metabefor} package
+metabefor_files_path <-
+  system.file(
+    "extdata",
+    package = "metabefor"
+  ); 
+
+### Path with OpenAlex exports
+OpenAlexExport_path <-
+  file.path(
+    metabefor_files_path,
+    "openalex-exports"
+  ); 
+
+bibHits_OpenAlex <-
+  metabefor::import_search_results(
+    OpenAlexExport_path
+  );
+
+### Look at the first five titles
+bibHits_OpenAlex$bibHitDf$title[1:5]
+
+### Another example, using the filenames to
+### provide metadata about the date, database,
+### interface, and query specification
+
+### Path with Esbco exports
+EbscoExport_path <-
+  file.path(
+    metabefor_files_path,
+    "ebsco-exports"
+  ); 
+  
+bibHits_Ebsco <-
+  metabefor::import_search_results(
+    EbscoExport_path
+  );
+  
+### Show the databases
+metabefor::show_search_hits_by_database(
+  bibHits_Ebsco
+);
 }

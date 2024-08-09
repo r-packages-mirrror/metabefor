@@ -1,4 +1,4 @@
-#' Supplement a target entitity node with clustered entity values from another entity node
+#' Supplement a target entity node with clustered entity values from another entity node
 #' 
 #' These function supplement a entity nodes with clustered entity values
 #' from other entities specified in the target entity nodes. Both the

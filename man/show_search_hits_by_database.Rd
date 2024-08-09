@@ -12,6 +12,34 @@ show_search_hits_by_database(x, output = "kable")
 
 \item{output}{Output format: \code{"kable"} or \code{"table"}.}
 }
+\value{
+A character vector with the table with search results in Markdown
+}
 \description{
 Show the search hits by database
+}
+\examples{
+### Path to extra files in {metabefor} package
+metabefor_files_path <-
+  system.file(
+    "extdata",
+    package = "metabefor"
+  ); 
+
+### Example path with search hits
+EbscoExport_path <-
+  file.path(
+    metabefor_files_path,
+    "ebsco-exports"
+  ); 
+  
+bibHits_Ebsco <-
+  metabefor::import_search_results(
+    EbscoExport_path
+  );
+  
+### Show the databases
+metabefor::show_search_hits_by_database(
+  bibHits_Ebsco
+);
 }

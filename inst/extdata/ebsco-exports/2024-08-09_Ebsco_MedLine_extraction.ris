@@ -1,0 +1,210 @@
+TY  - JOUR
+AU  - Gartlehner, Gerald
+AU  - Kahwati, Leila
+AU  - Hilscher, Rainer
+AU  - Thomas, Ian
+AU  - Kugley, Shannon
+AU  - Crotty, Karen
+AU  - Viswanathan, Meera
+AU  - Nussbaumer-Streit, Barbara
+AU  - Booth, Graham
+AU  - Erskine, Nathaniel
+AU  - Konet, Amanda
+AU  - Chew, Robert
+AN  - 38432227
+ID  - 38432227
+T1  - Data extraction for evidence synthesis using a large language model: A proof-of-concept study.
+JO  - Research synthesis methods
+JF  - Research synthesis methods
+JA  - Res Synth Methods
+Y1  - 2024/07//
+VL  - 15
+IS  - 4
+SP  - 576
+EP  - 589
+CY  - England
+PB  - Wiley Blackwell
+SN  - 1759-2887
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.; Department for Evidence-based Medicine and Evaluation, Danube University Krems, Krems, Austria.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Department for Evidence-based Medicine and Evaluation, Danube University Krems, Krems, Austria.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Preventive Medicine Residency Program, Department of Family Medicine, School of Medicine, University of North Carolina at Chapel Hill, Chapel Hill, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+N1  - Accession Number: 38432227. Language: English. Date Revised: 20240715. Date Created: 20240303. Date Completed: 20240711. Update Code: 20240715. Publication Type: Journal Article. Journal ID: 101543738. Publication Model: Print-Electronic. Cited Medium: Internet. NLM ISO Abbr: Res Synth Methods. Linked References: Institute of Medicine. Finding What Works in Health Care: Standards for Systematic Reviews. National Academies Press; 2011.; Higgins J, Thomas J, Chandler J, et al. Cochrane Handbook For Systematic Reviews of Interventions Version 6.4 (updated August 2023). Cochrane; 2023. Available from: www.training.cochrane.org/handbook Accessed September 27, 2023.; Nussbaumer‐Streit B, Ellen M, Klerings I, et al. Resource use during systematic review production varies widely: a scoping review. J Clin Epidemiol. 2021;139:287‐296.; Li T, Saldanha IJ, Jap J, et al. A randomized trial provided new evidence on the accuracy and efficiency of traditional vs. electronically annotated abstraction approaches in systematic reviews. J Clin Epidemiol. 2019;115:77‐89.; Mathes T, Klassen P, Pieper D. Frequency of data extraction errors and methods to increase data extraction quality: a methodological review. BMC Med Res Methodol. 2017;17(1):152.; Jonnalagadda SR, Goyal P, Huffman MD. Automating data extraction in systematic reviews: a systematic review. Syst Rev. 2015;4:78.; Marshall IJ, Wallace BC. Toward systematic review automation: a practical guide to using machine learning tools in research synthesis. Syst Rev. 2019;8:1‐10.; Blaizot A, Veettil SK, Saidoung P, et al. Using artificial intelligence methods for systematic review in health sciences: a systematic review. Res Synth Methods. 2022;13(3):353‐362.; Schmidt L, Finnerty Mutlu AN, Elmore R, Olorisade BK, Thomas J, Higgins JPT. Data extraction methods for systematic review (semi)automation: update of a living systematic review. F1000Res. 2021;10:401.; Bonin F, Gleize M, Hou Y, et al., eds. Knowledge extraction and prediction from behavior science randomized controlled trials: a case study in smoking cessation. AMIA Annual Symposium Proceedings. American Medical Informatics Association; 2020:253.; OpenAI R. GPT‐4 Technical Report. arXiv, 2303‐08774 2023.; Anthropic. Claude 2. Available from: https://www.anthropic.com/index/claude-2 Accessed September 27, 2023.; Vaswani A, Shazeer N, Parmar N, et al. Attention is all you need. Advances in Neural Information Processing Systems. Curran Associates; 2017:30. Available from: https://www.proceedings.com/39083.html.; Liu P, Yuan W, Fu J, Jiang Z, Hayashi H, Neubig G. Pre‐train, prompt, and predict: a systematic survey of prompting methods in natural language processing. ACM Comput Surv. 2023;55(9):1‐35.; Brown T, Mann B, Ryder N, et al. Language models are few‐shot learners. Advances in Neural Information Processing Systems. Vol 33. Curran Associates; 2020:1877‐1901. Available from: https://www.proceedings.com/59066.html.; Wei J, Bosma M, Zhao VY, et al. Finetuned language models are zero‐shot learners. arXiv preprint arXiv:210901652 2021.; Ouyang L, Wu J, Jiang X, et al. Training language models to follow instructions with human feedback. Advances in Neural Information Processing Systems. Vol 35. Curran Associates; 2022:27730‐27744. Available from: https://www.proceedings.com/68431.html.; Liang P, Bommasani R, Lee T, et al. Holistic evaluation of language models. arXiv Preprint arXiv:221109110 2022.; Zheng L, Chiang W‐L, Sheng Y, et al. Judging LLM‐as‐a‐judge with MT‐bench and Chatbot arena. arXiv Preprint arXiv:230605685 2023.; Chen H, Jiao F, Li X, et al. ChatGPT's one‐year anniversary: are open‐source large language models catching up? arXiv Preprint arXiv:231116989. 2023.; Blauvelt A, Papp K, Gottlieb A, et al. A head‐to‐head comparison of ixekizumab vs. guselkumab in patients with moderate‐to‐severe plaque psoriasis: 12‐week efficacy, safety and speed of response from a randomized, double‐blinded trial. Br J Dermatol. 2020;182(6):1348‐1358.; Lebwohl M, Blauvelt A, Paul C, et al. Certolizumab pegol for the treatment of chronic plaque psoriasis: results through 48 weeks of a phase 3, multicenter, randomized, double‐blind, etanercept‐ and placebo‐controlled study (CIMPACT). J Am Acad Dermatol. 2018;79(2):266‐276.e5.; Reich K, Pinter A, Lacour JP, et al. Comparison of ixekizumab with ustekinumab in moderate‐to‐severe psoriasis: 24‐week results from IXORA‐S, a phase III study. Br J Dermatol. 2017;177(4):1014‐1023.; Papp KA, Merola JF, Gottlieb AB, et al. Dual neutralization of both interleukin 17A and interleukin 17F with bimekizumab in patients with psoriasis: results from BE ABLE 1, a 12‐week randomized, double‐blinded, placebo‐controlled phase 2b trial. J Am Acad Dermatol. 2018;79(2):277‐286.e10.; Reich K, Armstrong AW, Foley P, et al. Efficacy and safety of guselkumab, an anti‐interleukin‐23 monoclonal antibody, compared with adalimumab for the treatment of patients with moderate to severe psoriasis with randomized withdrawal and retreatment: results from the phase III, double‐blind, placebo‐ and active comparator‐controlled VOYAGE 2 trial. J Am Acad Dermatol. 2017;76(3):418‐431.; Warren RB, Blauvelt A, Poulin Y, et al. Efficacy and safety of risankizumab vs. secukinumab in patients with moderate‐to‐severe plaque psoriasis (IMMerge): results from a phase III, randomized, open‐label, efficacy‐assessor‐blinded clinical trial. Br J Dermatol. 2021;184(1):50‐59.; Glatt S, Helmer E, Haier B, et al. First‐in‐human randomized study of bimekizumab, a humanized monoclonal antibody and selective dual inhibitor of IL‐17A and IL‐17F, in mild psoriasis. Br J Clin Pharmacol. 2017;83(5):991‐1001.; Bagel J, Nia J, Hashim PW, et al. Secukinumab is superior to ustekinumab in clearing skin in patients with moderate to severe plaque psoriasis (16‐week CLARITY results). Dermatol Ther. 2018;8(4):571‐579.; Thaci D, Blauvelt A, Reich K, et al. Secukinumab is superior to ustekinumab in clearing skin of subjects with moderate to severe plaque psoriasis: CLEAR, a randomized controlled trial. J Am Acad Dermatol. 2015;73(3):400‐409.; Reich K, Gooderham M, Green L, et al. The efficacy and safety of apremilast, etanercept and placebo in patients with moderate‐to‐severe plaque psoriasis: 52‐week results from a phase IIIb, randomized, placebo‐controlled trial (LIBERATE). J Eur Acad Dermatol Venereol. 2017;31(3):507‐517.; Trikalinos TA, Balion CM. Chapter 9: options for summarizing medical test performance in the absence of a "gold standard". J Gen Intern Med. 2012;27(Suppl 1):S67‐S75.; Restificar A, Ananiadou S, eds. Inferring appropriate eligibility criteria in clinical trial protocols without labeled data. Proceedings of the ACM Sixth International Workshop on Data and Text Mining in Biomedical Informatics. Association for Computer Machinery (ACM); 2012.. Linking ISSN: 17592879. Subset: MEDLINE; Grant Information: RTI International Innovation Office Date of Electronic Publication: 2024 Mar 03. Current Imprints: Publication: <Mar. 2014-> : Chichester : Wiley Blackwell; Original Imprints: Publication: Malden, MA : John Wiley & Sons, 2010-
+AB  - Data extraction is a crucial, yet labor-intensive and error-prone part of evidence synthesis. To date, efforts to harness machine learning for enhancing efficiency of the data extraction process have fallen short of achieving sufficient accuracy and usability. With the release of large language models (LLMs), new possibilities have emerged to increase efficiency and accuracy of data extraction for evidence synthesis. The objective of this proof-of-concept study was to assess the performance of an LLM (Claude 2) in extracting data elements from published studies, compared with human data extraction as employed in systematic reviews. Our analysis utilized a convenience sample of 10 English-language, open-access publications of randomized controlled trials included in a single systematic review. We selected 16 distinct types of data, posing varying degrees of difficulty (160 data elements across 10 studies). We used the browser version of Claude 2 to upload the portable document format of each publication and then prompted the model for each data element. Across 160 data elements, Claude 2 demonstrated an overall accuracy of 96.3% with a high test-retest reliability (replication 1: 96.9%; replication 2: 95.0% accuracy). Overall, Claude 2 made 6 errors on 160 data items. The most common errors (n = 4) were missed data items. Importantly, Claude 2's ease of use was high; it required no technical expertise or labeled training data for effective operation (i.e., zero-shot learning). Based on findings of our proof-of-concept study, leveraging LLMs has the potential to substantially enhance the efficiency and accuracy of data extraction for evidence syntheses. (© 2024 The Authors. Research Synthesis Methods published by John Wiley & Sons Ltd.)
+KW  - Proof of Concept Study*
+KW  - Machine Learning*
+KW  - Humans
+KW  - Reproducibility of Results
+KW  - Systematic Reviews as Topic
+KW  - Randomized Controlled Trials as Topic
+KW  - Algorithms
+KW  - Information Storage and Retrieval/methods
+KW  - Language
+KW  - Software
+KW  - Natural Language Processing
+KW  - Research Design
+KW  - accuracy
+KW  - artificial intelligence
+KW  - data extraction
+KW  - evidence synthesis
+KW  - large language models
+KW  - proof of concept
+DO  - 10.1002/jrsm.1710
+UR  - https://login.ezproxy.elib10.ub.unimaas.nl/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=cmedm&AN=38432227&site=ehost-live&scope=site
+DP  - EBSCOhost
+DB  - cmedm
+ER  - 
+
+TY  - JOUR
+AU  - Konet, Amanda
+AU  - Thomas, Ian
+AU  - Gartlehner, Gerald
+AU  - Kahwati, Leila
+AU  - Hilscher, Rainer
+AU  - Kugley, Shannon
+AU  - Crotty, Karen
+AU  - Viswanathan, Meera
+AU  - Chew, Robert
+AN  - 38895747
+ID  - 38895747
+T1  - Performance of two large language models for data extraction in evidence synthesis.
+JO  - Research synthesis methods
+JF  - Research synthesis methods
+JA  - Res Synth Methods
+Y1  - 2024/06/19/
+CY  - England
+PB  - Wiley Blackwell
+SN  - 1759-2887
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.; Department for Evidence-based Medicine and Evaluation, Danube University Krems, Krems, Austria.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+AD  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA.
+N1  - Accession Number: 38895747. Language: English. Date Revised: 20240619. Date Created: 20240619. Update Code: 20240619. Publication Type: Journal Article. Journal ID: 101543738. Publication Model: Print-Electronic. Cited Medium: Internet. NLM ISO Abbr: Res Synth Methods. Linked References: Nussbaumer‐Streit B, Ellen M, Klerings I, et al. Resource use during systematic review production varies widely: a scoping review. J Clin Epidemiol. 2021;139:287‐296. https://www.jclinepi.com/article/S0895-4356(21)00171-2/pdf.; Higgins J, Thomas J, Chandler J, et al. Cochrane handbook for systematic reviews of interventions version 6.4 (updated August 2023). 2023 Cochrane. www.training.cochrane.org/handbook.; Li T, Saldanha IJ, Jap J, et al. A randomized trial provided new evidence on the accuracy and efficiency of traditional vs. electronically annotated abstraction approaches in systematic reviews. J Clin Epidemiol. 2019;115:77‐89. doi:10.1016/j.jclinepi.2019.07.005.; Mathes T, Klassen P, Pieper D. Frequency of data extraction errors and methods to increase data extraction quality: a methodological review. BMC Med Res Methodol. 2017;17(1):152. doi:10.1186/s12874‐017‐0431‐4.; Schmidt L, Olorisade BK, McGuinness LA, Thomas J, Higgins JPT. Data extraction methods for systematic review (semi)automation: a living systematic review. F1000Res. 2021;10(401). doi:10.12688/f1000research.51117.1.; Jonnalagadda SR, Goyal P, Huffman MD. Automating data extraction in systematic reviews: a systematic review. Syst Rev. 2015;4:78. doi:10.1186/s13643‐015‐0066‐7.; OpenAI R. GPT‐4 technical report. arXiv, 2303‐08774. 2023.; Claude 2. https://www.anthropic.com/index/claude-2.; Gartlehner G, Kahwati L, Hilscher R, et al. Data extraction for evidence synthesis using a large language model: a proof‐of‐concept study. Res Synth Methods. 2024. doi:10.1002/jrsm.1710.; Kartchner D, Ramalingam S, Al‐Hussaini I, Kronick O, Mitchell CS. Zero‐shot information extraction for clinical meta‐analysis using large language models. In: The 22nd Workshop on Biomedical Natural Language Processing and BioNLP Shared Tasks. Association for Computational Linguistics; 2023:396‐405. doi:10.18653/v1/2023.bionlp‐1.37.; Schopow N, Osterhoff G, Baur D. Applications of the natural language processing tool ChatGPT in clinical practice: comparative study and augmented systematic review. JMIR Med Inform. 2023;11:e48933. doi:10.2196/48933.; Alshami A, Elsayed M, Ali E, Eltoukhy AEE, Zayed T. Harnessing the power of ChatGPT for automating systematic review process: methodology, case study, limitations, and future directions. Systems. 2023;11(7):351 https://www.mdpi.com/2079-8954/11/7/351.; Zhuanlan S, Ruilin Z, Suhail AD, et al. How good are large language models for automated data extraction from randomized trials? medRxiv. 2024. doi:10.1101/2024.02.20.24303083.; Mahuli SA, Rai A, Mahuli AV, Kumar A. Application ChatGPT in conducting systematic reviews and meta‐analyses. Br Dent J. 2023;235(2):90‐92. doi:10.1038/s41415‐023‐6132‐y.; Anthropic. Model Card and Evaluations for Claude Models. 2023 https://www-files.anthropic.com/production/images/Model-Card-Claude-2.pdf.; AskYourPDF. https://askyourpdf.com/.; Blauvelt A, Papp K, Gottlieb A, et al. A head‐to‐head comparison of ixekizumab vs. guselkumab in patients with moderate‐to‐severe plaque psoriasis: 12‐week efficacy, safety and speed of response from a randomized, double‐blinded trial. Br J Dermatol. 2020;182(6):1348‐1358. doi:10.1111/bjd.18851.; Lebwohl M, Blauvelt A, Paul C, et al. Certolizumab pegol for the treatment of chronic plaque psoriasis: results through 48 weeks of a phase 3, multicenter, randomized, double‐blind, etanercept‐ and placebo‐controlled study (CIMPACT). J Am Acad Dermatol. 2018;79(2):266‐276.e265. doi:10.1016/j.jaad.2018.04.013.; Reich K, Pinter A, Lacour JP, et al. Comparison of ixekizumab with ustekinumab in moderate‐to‐severe psoriasis: 24‐week results from IXORA‐S, a phase III study. Br J Dermatol. 2017;177(4):1014‐1023. doi:10.1111/bjd.15666.; Papp KA, Merola JF, Gottlieb AB, et al. Dual neutralization of both interleukin 17A and interleukin 17F with bimekizumab in patients with psoriasis: results from BE ABLE 1, a 12‐week randomized, double‐blinded, placebo‐controlled phase 2b trial. J Am Acad Dermatol. 2018;79(2):277‐286.e210. doi:10.1016/j.jaad.2018.03.037.; Reich K, Armstrong AW, Foley P, et al. Efficacy and safety of guselkumab, an anti‐interleukin‐23 monoclonal antibody, compared with adalimumab for the treatment of patients with moderate to severe psoriasis with randomized withdrawal and retreatment: results from the phase III, double‐blind, placebo‐ and active comparator‐controlled VOYAGE 2 trial. J Am Acad Dermatol. 2017;76(3):418‐431. doi:10.1016/j.jaad.2016.11.042.; Warren RB, Blauvelt A, Poulin Y, et al. Efficacy and safety of risankizumab vs. secukinumab in patients with moderate‐to‐severe plaque psoriasis (IMMerge): results from a phase III, randomized, open‐label, efficacy‐assessor‐blinded clinical trial. Br J Dermatol. 2021;184(1):50‐59. doi:10.1111/bjd.19341.; Glatt S, Helmer E, Haier B, et al. First‐in‐human randomized study of bimekizumab, a humanized monoclonal antibody and selective dual inhibitor of IL‐17A and IL‐17F, in mild psoriasis. Br J Clin Pharmacol. 2017;83(5):991‐1001. doi:10.1111/bcp.13185.; Bagel J, Nia J, Hashim PW, et al. Secukinumab is superior to Ustekinumab in clearing skin in patients with moderate to severe plaque psoriasis (16‐week CLARITY results). Dermatol Ther (Heidelb). 2018;8(4):571‐579. doi:10.1007/s13555‐018‐0265‐y.; Thaci D, Blauvelt A, Reich K, et al. Secukinumab is superior to ustekinumab in clearing skin of subjects with moderate to severe plaque psoriasis: CLEAR, a randomized controlled trial. J Am Acad Dermatol. 2015;73(3):400‐409. doi:10.1016/j.jaad.2015.05.013.; Reich K, Gooderham M, Green L, et al. The efficacy and safety of apremilast, etanercept and placebo in patients with moderate‐to‐severe plaque psoriasis: 52‐week results from a phase IIIb, randomized, placebo‐controlled trial (LIBERATE). J Eur Acad Dermatol Venereol. 2017;31(3):507‐517. doi:10.1111/jdv.14015.; Bang Y, Cahyawijaya S, Lee N, et al. A multitask, multilingual, multimodal evaluation of ChatGpt on reasoning, hallucination, and interactivity. arXiv Preprint arXiv:230204023. 2023.; Khraisha Q, Put S, Kappenberg J, Warraitch A, Hadfield K. Can large language models replace humans in the systematic review process? Evaluating GPT‐4's efficacy in screening and extracting data from peer‐reviewed and grey literature in multiple languages. arXiv Preprint arXiv:231017526. 2023.. Linking ISSN: 17592879. Subset: MEDLINE; Grant Information: RTI International Date of Electronic Publication: 2024 Jun 19. Current Imprints: Publication: <Mar. 2014-> : Chichester : Wiley Blackwell; Original Imprints: Publication: Malden, MA : John Wiley & Sons, 2010-
+AB  - Accurate data extraction is a key component of evidence synthesis and critical to valid results. The advent of publicly available large language models (LLMs) has generated interest in these tools for evidence synthesis and created uncertainty about the choice of LLM. We compare the performance of two widely available LLMs (Claude 2 and GPT-4) for extracting pre-specified data elements from 10 published articles included in a previously completed systematic review. We use prompts and full study PDFs to compare the outputs from the browser versions of Claude 2 and GPT-4. GPT-4 required use of a third-party plugin to upload and parse PDFs. Accuracy was high for Claude 2 (96.3%). The accuracy of GPT-4 with the plug-in was lower (68.8%); however, most of the errors were due to the plug-in. Both LLMs correctly recognized when prespecified data elements were missing from the source PDF and generated correct information for data elements that were not reported explicitly in the articles. A secondary analysis demonstrated that, when provided selected text from the PDFs, Claude 2 and GPT-4 accurately extracted 98.7% and 100% of the data elements, respectively. Limitations include the narrow scope of the study PDFs used, that prompt development was completed using only Claude 2, and that we cannot guarantee the open-source articles were not used to train the LLMs. This study highlights the potential for LLMs to revolutionize data extraction but underscores the importance of accurate PDF parsing. For now, it remains essential for a human investigator to validate LLM extractions. (© 2024 John Wiley & Sons Ltd.)
+KW  - accuracy
+KW  - artificial intelligence
+KW  - data extraction
+KW  - evidence synthesis
+KW  - large language models
+DO  - 10.1002/jrsm.1732
+UR  - https://login.ezproxy.elib10.ub.unimaas.nl/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=cmedm&AN=38895747&site=ehost-live&scope=site
+DP  - EBSCOhost
+DB  - cmedm
+ER  - 
+
+TY  - JOUR
+AU  - Scarpone, Roberta
+AU  - Kimkool, Parisut
+AU  - Boyle, Robert J
+AN  - 37486639
+ID  - 37486639
+T1  - Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E-Mediated Food Allergy-Reply.
+JO  - JAMA pediatrics
+JF  - JAMA pediatrics
+JA  - JAMA Pediatr
+Y1  - 2023/09/01/
+VL  - 177
+IS  - 9
+SP  - 984
+CY  - United States
+PB  - American Medical Association
+SN  - 2168-6211
+AD  - School of Public Health, Imperial College London, London, United Kingdom.
+AD  - Imperial College Healthcare NHS Trust, London, United Kingdom.
+AD  - National Heart and Lung Institute, Imperial College London, London, United Kingdom.
+N1  - Accession Number: 37486639. Language: English. Date Revised: 20231003. Date Created: 20230724. Date Completed: 20230906. Update Code: 20240628. Publication Type: Letter, Comment. Journal ID: 101589544. Publication Model: Print. Cited Medium: Internet. NLM ISO Abbr: JAMA Pediatr. Comment: Comment on: JAMA Pediatr. 2023 May 1;177(5):489-497. (PMID: 36972063). Comment on: JAMA Pediatr. 2023 Sep 1;177(9):983. (PMID: 37486627). Linking ISSN: 21686203. Subset: MEDLINE; Date of Electronic Publication: 20230901. ; Original Imprints: Publication: Chicago, IL : American Medical Association, [2013]-
+KW  - Immunoglobulin E*
+KW  - Food Hypersensitivity*
+KW  - Humans
+KW  - Allergens
+DO  - 10.1001/jamapediatrics.2023.2462
+UR  - https://login.ezproxy.elib10.ub.unimaas.nl/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=cmedm&AN=37486639&site=ehost-live&scope=site
+DP  - EBSCOhost
+DB  - cmedm
+ER  - 
+
+TY  - JOUR
+AU  - Xiao, Yu-Tian
+AU  - Cai, Jingda
+AU  - Li, Guo-Fu
+AN  - 37486627
+ID  - 37486627
+T1  - Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E-Mediated Food Allergy.
+JO  - JAMA pediatrics
+JF  - JAMA pediatrics
+JA  - JAMA Pediatr
+Y1  - 2023/09/01/
+VL  - 177
+IS  - 9
+SP  - 983
+CY  - United States
+PB  - American Medical Association
+SN  - 2168-6211
+AD  - Department of Urology, Shanghai Changhai Hospital, Shanghai, China.
+AD  - Department of Psychiatry, National Clinical Research Center for Mental Disorders and National Center for Mental Disorders, The Second Xiangya Hospital of Central South University, Changsha, Hunan, China.
+AD  - School of Basic Medicine and Clinical Pharmacy, China Pharmaceutical University, Nanjing, Jiangsu, China.
+N1  - Accession Number: 37486627. Language: English. Date Revised: 20231003. Date Created: 20230724. Date Completed: 20230906. Update Code: 20240628. Publication Type: Letter, Comment. Journal ID: 101589544. Publication Model: Print. Cited Medium: Internet. NLM ISO Abbr: JAMA Pediatr. Comment: Comment on: JAMA Pediatr. 2023 May 1;177(5):489-497. (PMID: 36972063). Comment in: JAMA Pediatr. 2023 Sep 1;177(9):984. (PMID: 37486639). Linking ISSN: 21686203. Subset: MEDLINE; Date of Electronic Publication: 20230901. ; Original Imprints: Publication: Chicago, IL : American Medical Association, [2013]-
+KW  - Immunoglobulin E*
+KW  - Food Hypersensitivity*
+KW  - Humans
+KW  - Allergens
+DO  - 10.1001/jamapediatrics.2023.2465
+UR  - https://login.ezproxy.elib10.ub.unimaas.nl/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=cmedm&AN=37486627&site=ehost-live&scope=site
+DP  - EBSCOhost
+DB  - cmedm
+ER  - 
+
+TY  - JOUR
+AU  - Zhu, Yi
+AU  - Ren, Pengwei
+AU  - Doi, Suhail A R
+AU  - Furuya-Kanamori, Luis
+AU  - Lin, Lifeng
+AU  - Zhou, Xiaoqin
+AU  - Tao, Fangbiao
+AU  - Xu, Chang
+AN  - 37520330
+ID  - 37520330
+T1  - Data extraction error in pharmaceutical versus non-pharmaceutical interventions for evidence synthesis: Study protocol for a crossover trial.
+JO  - Contemporary clinical trials communications
+JF  - Contemporary clinical trials communications
+JA  - Contemp Clin Trials Commun
+Y1  - 2023/07/20/
+VL  - 35
+SP  - 101189
+CY  - Netherlands
+PB  - Elsevier B.V
+SN  - 2451-8654
+AD  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), No. 81 Meishan Road, Hefei, Anhui, China.; Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China.; Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, No. 81 Meishan Road, Hefei, Anhui, China.
+AD  - Department of Clinical Research Center for Respiratory Diseases, West China Hospital, Sichuan University, Chengdu, Sichuan, China.
+AD  - Department of Population Medicine, College of Medicine, QU Health, Qatar University, Doha, Qatar.
+AD  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland, Brisbane, Australia.
+AD  - Department of Epidemiology and Biostatistics, University of Arizona, Tucson, AZ, USA.
+AD  - Department of Clinical Research Management, West China Hospital, Sichuan University, China.
+AD  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), No. 81 Meishan Road, Hefei, Anhui, China.; Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China.; Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, No. 81 Meishan Road, Hefei, Anhui, China.
+AD  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), No. 81 Meishan Road, Hefei, Anhui, China.; Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China.; Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, No. 81 Meishan Road, Hefei, Anhui, China.
+N1  - Accession Number: 37520330. Language: English. Date Revised: 20230801. Date Created: 20230731. Update Code: 20230802. Publication Type: Journal Article. Journal ID: 101671157. Publication Model: Electronic-eCollection; eCollection. Cited Medium: Internet. NLM ISO Abbr: Contemp Clin Trials Commun. PubMed Central ID: PMC10374854. Linked References: J Clin Epidemiol. 2006 Jul;59(7):697-703. (PMID: 16765272); Res Synth Methods. 2023 Mar;14(2):173-179. (PMID: 36054082); Stat Med. 2012 Oct 30;31(24):2904-36. (PMID: 22714646); BMJ. 2022 May 10;377:e069155. (PMID: 35537752); BMJ. 2017 Sep 21;358:j4008. (PMID: 28935701); Sleep Med Rev. 2022 Dec;66:101708. (PMID: 36335883); Ann Intern Med. 2013 Feb 5;158(3):200-7. (PMID: 23295957); BMJ. 2019 Jul 31;366:l4378. (PMID: 31366597); J Clin Epidemiol. 2019 Nov;115:77-89. (PMID: 31302205); Milbank Q. 2016 Sep;94(3):485-514. (PMID: 27620683); Int Stat Rev. 2017 Aug;85(2):185-203. (PMID: 29307954); JAMA. 2007 Jul 25;298(4):430-7. (PMID: 17652297); BMC Med Res Methodol. 2017 Nov 28;17(1):152. (PMID: 29179685); J Clin Epidemiol. 2005 Jul;58(7):741-2. (PMID: 15939227); Lancet. 2017 Jul 22;390(10092):415-423. (PMID: 28215660); J Eval Clin Pract. 2021 Oct;27(5):1123-1133. (PMID: 33955120). Linking ISSN: 24518654. Subset: PubMed not MEDLINE; Date of Electronic Publication: 2023 Jul 20. ; Original Imprints: Publication: [Amsterdam] : Elsevier B.V. [2015]-
+AB  - Background: Data extraction is the foundation for research synthesis evidence, while data extraction errors frequently occur in the literature. An interesting phenomenon was observed that data extraction error tend to be more common in trials of pharmaceutical interventions compared to non-pharmaceutical ones. The elucidation of which would have implications for guidelines, practice, and policy.; Methods and Analyses: We propose a crossover, multicenter, investigator-blinded trial to elucidate the potential variants on the data extraction error rates. Eligible 90 participants would be 2nd year or above post-graduate students (e.g., masters, doctoral program). Participants will be randomized to one of the two groups to complete pre-defined data extraction tasks: 1) group A will contain 10 randomized controlled trials (RCTs) of pharmaceutical interventions; 2) group B will contain 10 RCTs of non-pharmaceutical interventions. Participants who finish the data extraction would then be assigned to the alternative group for another round of data extraction after a 30 min washout period. Finally, those participants assigned to A or B group will be further 1:1 randomly matched based on a random-sequenced number for the double-checking process on the extracted data. The primary outcome will be the data extract error rates of the pharmaceutical intervention group and non-pharmaceutical group, before the double-checking process, in terms of the cell level, study level, and participant level. The secondary outcome will be the data error rates of the pharmaceutical intervention group and non-pharmaceutical group after the double-checking process, again, in terms of the cell level, study level, and participant level. A generalized linear mixed effects model (based on the above three levels) will be used to estimate the potential differences in the error rates, with a log link function for binomial data. Subgroup analyses will account for the experience of individuals on systematic reviews and the time used for the data extraction.; Discussion: This trial will provide useful evidence for further systematic review of data extraction practices, improved data extraction strategies, and better guidelines.; Trial Registration: Chinese Clinical Trial Register Center (Identifier: ChiCTR2200062206).; Competing Interests: The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper. (© 2023 The Authors. Published by Elsevier Inc.)
+KW  - Data extraction error
+KW  - Non-pharmaceutical intervention
+KW  - Pharmaceutical intervention
+KW  - Protocol
+KW  - Randomized controlled trial
+DO  - 10.1016/j.conctc.2023.101189
+UR  - https://login.ezproxy.elib10.ub.unimaas.nl/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=cmedm&AN=37520330&site=ehost-live&scope=site
+DP  - EBSCOhost
+DB  - cmedm
+ER  - 

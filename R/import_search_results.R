@@ -27,14 +27,58 @@
 #' @param search_metadataRegex A regular expression to match against the
 #' filenames. If it matches, metadata will be extracted in three capturing
 #' groups, in the order date (using ISO standard 8601 format, i.e. 2022-03-05),
-#' interface, and database.
+#' interface, and database, separated by underscores (`_`), with an optional
+#' fourth element, again separated with an underscore, that can be used to
+#' specify which query was run (in case multiple queries are used in the same
+#' database / interface combination and on the same date).
 #' @param silent Whether to be silent or chatty.
 #'
 #' @return An object with all the imported information, including, most
 #' importantly, the data frame `bibHitDf` with all results.
 #' @export
 #'
-#' @examples
+#' @examples ### Path to extra files in {metabefor} package
+#' metabefor_files_path <-
+#'   system.file(
+#'     "extdata",
+#'     package = "metabefor"
+#'   ); 
+#' 
+#' ### Path with OpenAlex exports
+#' OpenAlexExport_path <-
+#'   file.path(
+#'     metabefor_files_path,
+#'     "openalex-exports"
+#'   ); 
+#' 
+#' bibHits_OpenAlex <-
+#'   metabefor::import_search_results(
+#'     OpenAlexExport_path
+#'   );
+#'
+#' ### Look at the first five titles
+#' bibHits_OpenAlex$bibHitDf$title[1:5]
+#' 
+#' ### Another example, using the filenames to
+#' ### provide metadata about the date, database,
+#' ### interface, and query specification
+#' 
+#' ### Path with Esbco exports
+#' EbscoExport_path <-
+#'   file.path(
+#'     metabefor_files_path,
+#'     "ebsco-exports"
+#'   ); 
+#'   
+#' bibHits_Ebsco <-
+#'   metabefor::import_search_results(
+#'     EbscoExport_path
+#'   );
+#'   
+#' ### Show the databases
+#' metabefor::show_search_hits_by_database(
+#'   bibHits_Ebsco
+#' );
 import_search_results <- function(path,
                                   dirRegex = ".*",
                                   fileRegex = "\\.ris$",
@@ -42,7 +86,7 @@ import_search_results <- function(path,
                                   filesToIgnoreRegex = NULL,
                                   recursive = TRUE,
                                   perl = TRUE,
-                                  fieldsToCopy = list(doi = "L3"),
+                                  fieldsToCopy = list(doi = c("L3", "DO")),
                                   copySep = " || ",
                                   idFieldName = "original_id",
                                   parallel = FALSE,
@@ -60,6 +104,7 @@ import_search_results <- function(path,
   search_originDate_col <- metabefor::opts$get("search_originDate_col");
   search_originInterface_col <- metabefor::opts$get("search_originInterface_col");
   search_originDatabase_col <- metabefor::opts$get("search_originDatabase_col");
+  search_originQuerySpec_col <- metabefor::opts$get("search_originQuerySpec_col");
 
   ### Get all subdirectories; search hits are placed in alphabetically
   ### ordered subdirectories.
@@ -220,6 +265,7 @@ import_search_results <- function(path,
   }
   
   if ((!is.null(fieldsToCopy)) && (length(fieldsToCopy) > 0)) {
+
     for (newField in names(fieldsToCopy)) {
       if (length(fieldsToCopy[[newField]]) > 0) {
         for (oldField in fieldsToCopy[[newField]]) {
@@ -227,7 +273,7 @@ import_search_results <- function(path,
             if (newField %in% names(bibHitDf)) {
               bibHitDf[, newField] <-
                 ifelse(
-                  is.na(bibHitDf[, newField]),
+                  is.na(bibHitDf[, newField]) | (nchar(trimws(bibHitDf[, newField])) == 0),
                   bibHitDf[, oldField],
                   paste0(bibHitDf[, newField], copySep, bibHitDf[, oldField])
                 );
@@ -274,11 +320,30 @@ import_search_results <- function(path,
   justFileNames <- bibHitDf[, search_originFile_col];
   
   bibHitDf[, search_originDate_col] <-
-    gsub(search_metadataRegex, "\\1", justFileNames);
+    gsub(search_metadataRegex, "\\1", justFileNames,
+         ignore.case = TRUE, perl = TRUE);
   bibHitDf[, search_originInterface_col] <-
-    gsub(search_metadataRegex, "\\2", justFileNames);
+    gsub(search_metadataRegex, "\\2", justFileNames,
+         ignore.case = TRUE, perl = TRUE);
   bibHitDf[, search_originDatabase_col] <-
-    gsub(search_metadataRegex, "\\3", justFileNames);
+    gsub(search_metadataRegex, "\\3", justFileNames,
+         ignore.case = TRUE, perl = TRUE);
+  bibHitDf[, search_originQuerySpec_col] <-
+    gsub(search_metadataRegex, "\\4", justFileNames,
+         ignore.case = TRUE, perl = TRUE);
+  
+  if (all(bibHitDf[, search_originDate_col] == justFileNames)) {
+    bibHitDf[, search_originDate_col] <- NULL;
+  }
+  if (all(bibHitDf[, search_originInterface_col] == justFileNames)) {
+    bibHitDf[, search_originInterface_col] <- NULL;
+  }
+  if (all(bibHitDf[, search_originDatabase_col] == justFileNames)) {
+    bibHitDf[, search_originDatabase_col] <- NULL;
+  }
+  if (all(bibHitDf[, search_originQuerySpec_col] == justFileNames)) {
+    bibHitDf[, search_originQuerySpec_col] <- NULL;
+  }
   
   if (!is.null(idFieldName)) {
     names(bibHitDf)[grepl("^[iI][dD]$", names(bibHitDf))] <-

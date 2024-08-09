@@ -1,0 +1,404 @@
+TY  - JOUR
+TI  - Validity of data extraction in evidence synthesis practice of adverse events: reproducibility study
+PY  - 2022
+SN  - 1756-1833
+T2  - BMJ
+DO  - 10.1136/bmj-2021-069155
+UR  - https://doi.org/10.1136/bmj-2021-069155
+DA  - 2022-05-10
+AU  - Xu, Chang
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
+C1  - Key Laboratory of Population Health Across-life Cycle, Ministry of Education of the People’s Republic of China, Anhui Medical University, Anhui, China
+C1  - School of Public Health, Anhui Medical University, Anhui, China
+AU  - Yu, Tianqi
+C1  - Chinese Evidence-based Medicine Centre, West China Hospital, Sichuan University, Chengdu, China
+AU  - Furuya‐Kanamori, Luis
+C1  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland, Brisbane, QLD, Australia
+AU  - Lin, Lifeng
+C1  - Department of Statistics, Florida State University, Tallahassee, FL, USA
+AU  - Zorzela, Liliane
+C1  - Department of Pediatrics, Faculty of Medicine and Dentistry, University of Alberta, Edmonton, Alberta, AB, Canada
+AU  - Zhou, Xiaoqin
+C1  - Mental Health Centre, West China Hospital of Sichuan University, Chengdu, China
+AU  - Dai, Hanming
+C1  - Mental Health Centre, West China Hospital of Sichuan University, Chengdu, China
+AU  - Loke, Yoon
+C1  - Norwich Medical School, University of East Anglia, Norwich, UK
+AU  - Vohra, Sunita
+C1  - Department of Pediatrics, Faculty of Medicine and Dentistry, University of Alberta, Edmonton, Alberta, AB, Canada
+C1  - Departments of Psychiatry, Faculty of Medicine and Dentistry, University of Alberta, Edmonton, Alberta, AB, Canada
+LA  - en
+KW  - Evidence Synthesis
+KW  - Multiple Testing
+KW  - Research Methodology
+KW  - Meta-Analysis
+KW  - Diagnostic Accuracy
+SP  - e069155
+EP  - e069155
+AB  - Abstract Objectives To investigate the validity of data extraction in systematic reviews of adverse events, the effect of data extraction errors on the results, and to develop a classification framework for data extraction errors to support further methodological research. Design Reproducibility study. Data sources PubMed was searched for eligible systematic reviews published between 1 January 2015 and 1 January 2020. Metadata from the randomised controlled trials were extracted from the systematic reviews by four authors. The original data sources (eg, full text and ClinicalTrials.gov) were then referred to by the same authors to reproduce the data used in these meta-analyses. Eligibility criteria for selecting studies Systematic reviews were included when based on randomised controlled trials for healthcare interventions that reported safety as the exclusive outcome, with at least one pair meta-analysis that included five or more randomised controlled trials and with a 2×2 table of data for event counts and sample sizes in intervention and control arms available for each trial in the meta-analysis. Main outcome measures The primary outcome was data extraction errors summarised at three levels: study level, meta-analysis level, and systematic review level. The potential effect of such errors on the results was further investigated. Results 201 systematic reviews and 829 pairwise meta-analyses involving 10 386 randomised controlled trials were included. Data extraction could not be reproduced in 1762 (17.0%) of 10 386 trials. In 554 (66.8%) of 829 meta-analyses, at least one randomised controlled trial had data extraction errors; 171 (85.1%) of 201 systematic reviews had at least one meta-analysis with data extraction errors. The most common types of data extraction errors were numerical errors (49.2%, 867/1762) and ambiguous errors (29.9%, 526/1762), mainly caused by ambiguous definitions of the outcomes. These categories were followed by three others: zero assumption errors, misidentification, and mismatching errors. The impact of these errors were analysed on 288 meta-analyses. Data extraction errors led to 10 (3.5%) of 288 meta-analyses changing the direction of the effect and 19 (6.6%) of 288 meta-analyses changing the significance of the P value. Meta-analyses that had two or more different types of errors were more susceptible to these changes than those with only one type of error (for moderate changes, 11 (28.2%) of 39 v 26 (10.4%) 249, P=0.002; for large changes, 5 (12.8%) of 39 v 8 (3.2%) of 249, P=0.01). Conclusion Systematic reviews of adverse events potentially have serious issues in terms of the reproducibility of the data extraction, and these errors can mislead the conclusions. Implementation guidelines are urgently required to help authors of future systematic reviews improve the validity of data extraction.
+ER  -
+TY  - JOUR
+TI  - Data extraction for evidence synthesis using a large language model: A proof‐of‐concept study
+PY  - 2024
+PB  - Wiley
+SN  - 1759-2879
+T2  - Research Synthesis Methods
+DO  - 10.1002/jrsm.1710
+UR  - https://doi.org/10.1002/jrsm.1710
+DA  - 2024-03-03
+AU  - Gartlehner, Gerald
+C1  - Department for Evidence‐based Medicine and Evaluation Danube University Krems  Krems Austria
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Kahwati, Leila
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Hilscher, Rainer
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Thomas, Ian
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Kugley, Shannon
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Crotty, Karen
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Viswanathan, Meera
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Nußbaumer-Streit, Barbara
+C1  - Department for Evidence‐based Medicine and Evaluation Danube University Krems  Krems Austria
+AU  - Booth, Graham
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Erskine, Nathaniel
+C1  - Preventive Medicine Residency Program, Department of Family Medicine, School of Medicine University of North Carolina at Chapel Hill  Chapel Hill North Carolina USA
+AU  - Konet, Amanda
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+AU  - Chew, Rob
+C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
+LA  - en
+KW  - Data extraction
+KW  - Replication (statistics)
+KW  - Upload
+KW  - Evidence Synthesis
+KW  - Research Methodology
+KW  - Reliability Analysis
+KW  - Natural Language Processing
+KW  - Data Integration
+VL  - 15
+IS  - 4
+SP  - 576
+EP  - 589
+AB  - Abstract Data extraction is a crucial, yet labor‐intensive and error‐prone part of evidence synthesis. To date, efforts to harness machine learning for enhancing efficiency of the data extraction process have fallen short of achieving sufficient accuracy and usability. With the release of large language models (LLMs), new possibilities have emerged to increase efficiency and accuracy of data extraction for evidence synthesis. The objective of this proof‐of‐concept study was to assess the performance of an LLM (Claude 2) in extracting data elements from published studies, compared with human data extraction as employed in systematic reviews. Our analysis utilized a convenience sample of 10 English‐language, open‐access publications of randomized controlled trials included in a single systematic review. We selected 16 distinct types of data, posing varying degrees of difficulty (160 data elements across 10 studies). We used the browser version of Claude 2 to upload the portable document format of each publication and then prompted the model for each data element. Across 160 data elements, Claude 2 demonstrated an overall accuracy of 96.3% with a high test–retest reliability (replication 1: 96.9%; replication 2: 95.0% accuracy). Overall, Claude 2 made 6 errors on 160 data items. The most common errors ( n = 4) were missed data items. Importantly, Claude 2's ease of use was high; it required no technical expertise or labeled training data for effective operation (i.e., zero‐shot learning). Based on findings of our proof‐of‐concept study, leveraging LLMs has the potential to substantially enhance the efficiency and accuracy of data extraction for evidence syntheses.
+ER  -
+TY  - LETTER
+TI  - Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E–Mediated Food Allergy
+PY  - 2023
+PB  - American Medical Association
+SN  - 2168-6203
+T2  - JAMA Pediatrics
+DO  - 10.1001/jamapediatrics.2023.2465
+UR  - https://doi.org/10.1001/jamapediatrics.2023.2465
+DA  - 2023-09-01
+AU  - Xiao, Yu‐Tian
+C1  - Department of Urology, Shanghai Changhai Hospital, Shanghai, China
+AU  - Cai, Junting
+C1  - Department of Psychiatry, National Clinical Research Center for Mental Disorders and National Center for Mental Disorders, The Second Xiangya Hospital of Central South University, Changsha, Hunan, China
+AU  - Li, Guo‐Fu
+C1  - School of Basic Medicine and Clinical Pharmacy, China Pharmaceutical University, Nanjing, Jiangsu, China
+LA  - en
+KW  - Food Allergy
+VL  - 177
+IS  - 9
+SP  - 983
+EP  - 983
+ER  -
+TY  - JOUR
+TI  - Data extraction error in pharmaceutical versus non-pharmaceutical interventions for evidence synthesis: Study protocol for a crossover trial
+PY  - 2023
+PB  - Elsevier BV
+SN  - 2451-8654
+T2  - Contemporary Clinical Trials Communications
+DO  - 10.1016/j.conctc.2023.101189
+UR  - https://doi.org/10.1016/j.conctc.2023.101189
+DA  - 2023-10-01
+AU  - Zhu, Yi
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, No. 81 Meishan Road, Hefei, Anhui, China
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), No. 81 Meishan Road, Hefei, Anhui, China
+AU  - Ren, Pengwei
+C1  - Department of Clinical Research Center for Respiratory Diseases, West China Hospital, Sichuan University, Chengdu, Sichuan, China
+AU  - Doi, Suhail
+C1  - Department of Population Medicine, College of Medicine, QU Health, Qatar University, Doha, Qatar
+AU  - Furuya‐Kanamori, Luis
+C1  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland, Brisbane, Australia
+AU  - Lin, Lifeng
+C1  - Department of Epidemiology and Biostatistics, University of Arizona, Tucson, AZ, USA
+AU  - Zhou, Xiaoqin
+C1  - Department of Clinical Research Management, West China Hospital, Sichuan University, China
+AU  - Tao, Fangbiao
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, No. 81 Meishan Road, Hefei, Anhui, China
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), No. 81 Meishan Road, Hefei, Anhui, China
+AU  - Xu, Chang
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, No. 81 Meishan Road, Hefei, Anhui, China
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), No. 81 Meishan Road, Hefei, Anhui, China
+LA  - en
+KW  - Evidence Synthesis
+KW  - Multiple Testing
+KW  - Diagnostic Accuracy
+VL  - 35
+SP  - 101189
+EP  - 101189
+AB  - Data extraction is the foundation for research synthesis evidence, while data extraction errors frequently occur in the literature. An interesting phenomenon was observed that data extraction error tend to be more common in trials of pharmaceutical interventions compared to non-pharmaceutical ones. The elucidation of which would have implications for guidelines, practice, and policy.We propose a crossover, multicenter, investigator-blinded trial to elucidate the potential variants on the data extraction error rates. Eligible 90 participants would be 2nd year or above post-graduate students (e.g., masters, doctoral program). Participants will be randomized to one of the two groups to complete pre-defined data extraction tasks: 1) group A will contain 10 randomized controlled trials (RCTs) of pharmaceutical interventions; 2) group B will contain 10 RCTs of non-pharmaceutical interventions. Participants who finish the data extraction would then be assigned to the alternative group for another round of data extraction after a 30 min washout period. Finally, those participants assigned to A or B group will be further 1:1 randomly matched based on a random-sequenced number for the double-checking process on the extracted data. The primary outcome will be the data extract error rates of the pharmaceutical intervention group and non-pharmaceutical group, before the double-checking process, in terms of the cell level, study level, and participant level. The secondary outcome will be the data error rates of the pharmaceutical intervention group and non-pharmaceutical group after the double-checking process, again, in terms of the cell level, study level, and participant level. A generalized linear mixed effects model (based on the above three levels) will be used to estimate the potential differences in the error rates, with a log link function for binomial data. Subgroup analyses will account for the experience of individuals on systematic reviews and the time used for the data extraction.This trial will provide useful evidence for further systematic review of data extraction practices, improved data extraction strategies, and better guidelines.Chinese Clinical Trial Register Center (Identifier: ChiCTR2200062206).
+ER  -
+TY  - GEN
+TI  - Evidence Synthesis: Critical Appraisal, Data Extraction and the Synthesis of Findings
+PY  - 2006
+DO  - 10.1002/9781444316544.ch6
+UR  - https://doi.org/10.1002/9781444316544.ch6
+DA  - 2006-10-27
+AU  - Pearson, Alan
+C1  - the University of Adelaide, Australia
+AU  - Field, John
+C1  - James Cook University in Queensland, Australia
+AU  - Jordan, Zoe
+C1  - Joanna Briggs Institute, USA
+LA  - en
+KW  - Participatory Evaluation
+KW  - Theory-Based Evaluation
+SP  - 72
+EP  - 98
+ER  -
+TY  - JOUR
+TI  - Performance of two large language models for data extraction in evidence synthesis
+PY  - 2024
+PB  - Wiley
+SN  - 1759-2879
+T2  - Research Synthesis Methods
+DO  - 10.1002/jrsm.1732
+UR  - https://doi.org/10.1002/jrsm.1732
+DA  - 2024-06-19
+AU  - Konet, Amanda
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+AU  - Thomas, Ian
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+AU  - Gartlehner, Gerald
+C1  - Department for Evidence-based Medicine and Evaluation, Danube University Krems, Krems, Austria
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+AU  - Kahwati, Leila
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+AU  - Hilscher, Rainer
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+AU  - Kugley, Shannon
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+AU  - Crotty, Karen
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+AU  - Viswanathan, Meera
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+AU  - Chew, Rob
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, North Carolina, USA
+LA  - en
+KW  - Information Retrieval
+ER  -
+TY  - JOUR
+TI  - Evaluating an automatic data extraction tool for evidence synthesis through real-life case studies
+PY  - 2017
+DA  - 2017-01-01
+AU  - Hoang, Linh
+AU  - Cao, Linh
+AU  - Guan, Yingjun
+AU  - Cheng, Yi‐Yun
+AU  - Schneider, Jodi
+LA  - en
+KW  - Decision Support Systems
+KW  - Data Cleaning
+KW  - Predictive Analytics
+KW  - Schema Matching
+KW  - Knowledge Representation
+ER  -
+TY  - JOUR
+TI  - Data Extraction for Evidence Synthesis Using a Large Language Model: A Proof-of-Concept Study
+PY  - 2023
+PB  - Cold Spring Harbor Laboratory
+T2  - medRxiv (Cold Spring Harbor Laboratory)
+DO  - 10.1101/2023.10.02.23296415
+UR  - https://doi.org/10.1101/2023.10.02.23296415
+DA  - 2023-10-03
+AU  - Gartlehner, Gerald
+C1  - Department for Evidence-based Medicine and Evaluation, Danube University Krems, Krems, Austria
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Kahwati, Leila
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Hilscher, Rainer
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Thomas, Ian
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Kugley, Shannon
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Crotty, Karen
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Viswanathan, Meera
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Nußbaumer-Streit, Barbara
+C1  - Department for Evidence-based Medicine and Evaluation, Danube University Krems, Krems, Austria
+AU  - Booth, Gillian
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Erskine, Nathaniel
+C1  - Preventive Medicine Residency Program, Department of Family Medicine, School of Medicine, University of North Carolina at Chapel Hill, Chapel Hill, USA
+AU  - Konet, Amanda
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+AU  - Chew, Rusheng
+C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
+LA  - en
+KW  - Data extraction
+KW  - Replication (statistics)
+KW  - Evidence Synthesis
+KW  - Upload
+KW  - Natural Language Processing
+KW  - Research Methodology
+KW  - Text Mining
+KW  - Data Integration
+KW  - Proof of concept
+AB  - Abstract Data extraction is a crucial, yet labor-intensive and error-prone part of evidence synthesis. To date, efforts to harness machine learning for enhancing efficiency of the data extraction process have fallen short of achieving sufficient accuracy and usability. With the advent of Large Language Models (LLMs), new possibilities have emerged to increase efficiency and accuracy of data extraction for evidence synthesis. The objective of this proof-of-concept study was to assess the performance of an LLM (Claude 2) in extracting data elements from published studies, compared with human data extraction as employed in systematic reviews. Our analysis utilized a convenience sample of 10 English-language, open-access publications of randomized controlled trials included in a single systematic review. We selected 16 distinct types of data, posing varying degrees of difficulty (160 data elements across 10 studies). We used the browser version of Claude 2 to upload the portable document format of each publication and then prompted the model for each data element. Across 160 data elements, Claude 2 demonstrated an overall accuracy of 96.3% with a high test-retest reliability (replication 1: 96.9%; replication 2: 95.0% accuracy). Overall, Claude 2 made 6 errors on 160 data items. The most common errors (n=4) were missed data items. Importantly, Claude 2’s ease of use was high; it required no technical expertise or training data for effective operation. Based on findings of our proof-of-concept study, leveraging LLMs has the potential to substantially enhance the efficiency and accuracy of data extraction for evidence syntheses.
+ER  -
+TY  - JOUR
+TI  - AI-Driven Evidence Synthesis: Data Extraction of Randomized Controlled Trials with Large Language Models
+PY  - 2024
+DO  - 10.2139/ssrn.4870368
+UR  - https://doi.org/10.2139/ssrn.4870368
+DA  - 2024-01-01
+AU  - Liu, Jiayi
+AU  - Ge, Long
+AU  - Lai, Honghao
+AU  - Zhao, Weilong
+AU  - Huang, Jiajie
+AU  - Xia, Dongzhou
+AU  - Liu, Hui
+AU  - Luo, Xufei
+AU  - Wang, Bingyi
+AU  - Pan, Bei
+AU  - Hou, Liangying
+AU  - Chen, Yaolong
+LA  - en
+KW  - Evidence Synthesis
+KW  - Natural Language Processing
+KW  - Temporal Data Analysis
+KW  - Predictive Modeling
+KW  - Text Mining
+ER  -
+TY  - JOUR
+TI  - GINDER (Guidelines International Network Data Extraction Resource) - a project to develop an international resource for evidence synthesis
+PY  - 2011
+PB  - Lippincott Williams & Wilkins
+SN  - 1744-1595
+T2  - International Journal of Evidence-Based Healthcare
+DO  - 10.1097/01258363-201109000-00039
+UR  - https://doi.org/10.1097/01258363-201109000-00039
+DA  - 2011-09-01
+AU  - Whittington, Craig
+AU  - Hill, K
+C1  - National Stroke Foundation Australia
+AU  - Remy-Stockinger, M
+C1  - Guidelines International Network
+LA  - en
+KW  - Health Education
+VL  - 9
+IS  - 3
+SP  - 299
+EP  - 299
+ER  -
+TY  - LETTER
+TI  - Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E–Mediated Food Allergy—Reply
+PY  - 2023
+PB  - American Medical Association
+SN  - 2168-6203
+T2  - JAMA Pediatrics
+DO  - 10.1001/jamapediatrics.2023.2462
+UR  - https://doi.org/10.1001/jamapediatrics.2023.2462
+DA  - 2023-09-01
+AU  - Scarpone, Roberta
+C1  - School of Public Health, Imperial College London, London, United Kingdom
+AU  - Kimkool, Parisut
+C1  - Imperial College Healthcare NHS Trust, London, United Kingdom
+AU  - Boyle, Robert
+C1  - National Heart and Lung Institute, Imperial College London, London, United Kingdom
+LA  - en
+KW  - Food Allergy
+VL  - 177
+IS  - 9
+SP  - 984
+EP  - 984
+ER  -
+TY  - JOUR
+TI  - Effects of double data extraction on errors in evidence synthesis: a crossover, multicenter, investigator-blinded, randomized controlled trial
+PY  - 2023
+PB  - Cold Spring Harbor Laboratory
+T2  - medRxiv (Cold Spring Harbor Laboratory)
+DO  - 10.1101/2023.10.16.23297056
+UR  - https://doi.org/10.1101/2023.10.16.23297056
+DA  - 2023-10-16
+AU  - Zhu, Yi
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, Hefei, Anhui, China
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), Hefei, Anhui, China
+AU  - Yang, Xi
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, Hefei, Anhui, China
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), Hefei, Anhui, China
+AU  - Doi, Suhail
+C1  - Department of Population Medicine, College of Medicine, QU Health, Qatar University, Doha, Qatar
+AU  - Furuya‐Kanamori, Luis
+C1  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland, Brisbane, Australia
+AU  - Lin, Lifeng
+C1  - Department of Epidemiology and Biostatistics, University of Arizona, Tucson, AZ, USA
+AU  - Qin, Zongshi
+C1  - Peking University Clinical Research Center, Peking University, Beijing, China
+AU  - Tao, Fangbiao
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University, Hefei, Anhui, China
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), Hefei, Anhui, China
+AU  - Xu, Chang
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), Hefei, Anhui, China
+LA  - en
+KW  - Evidence Synthesis
+KW  - Multiple Testing
+KW  - Diagnostic Accuracy
+AB  - Abstract Objectives The objective was to investigate the role of duet extraction in reducing data errors in evidence synthesis for pharmaceutical and non-pharmaceutical interventions. Design Randomized controlled trial. Setting University teaching center and hospital evidence-based medicine center. Participants Eligible 100 participants were 2 nd year or above post-graduate students (e.g., masters, doctoral program), who were randomly (1:1) assigned for data extraction tasks of either 10 RCTs of pharmaceutical interventions or 10 of non-pharmaceutical interventions, followed by a cross-over pattern and a further double-checking process. Intervention The intervention of this trial was double-checking process for data extraction. Primary and secondary outcome measures The primary outcome was the error rates for RCTs in the pharmaceutical versus non-pharmaceutical intervention group, in terms of both study level and cell level (2 by 2 table). The secondary outcome was the absolute difference in the error rates before and after the double-checking process for both the pharmaceutical and non-pharmaceutical intervention groups, again, in terms of both study level and cell level (2 by 2 table). Results The error rates in RCTs of pharmaceutical and non-pharmaceutical groups were 64.65% and 59.90%, with an absolute difference of 4.75% and an odds ratio (OR) of 1.29 (95%CI: 1.06 to 1.57, P = 0.01) when measured at the study level. After double-checking, the error rates decreased to 44.88% and 39.54%, and the difference between the two groups remained at 5.34%, with the OR of 1.27 (95%CI: 1.1 to 1.46; P &lt; 0.01). Similar results were observed when measured at the cell level. Conclusion Double-checking reduced data extraction errors, but the error rate still remained high after the process. Further evidence synthesis research may consider to use triple data extraction to minimize potential errors. Trial registration number Chinese Clinical Trial Registry Center (Identifier: ChiCTR2200062206) Strengths and limitations of the study This is the third randomized trial focusing on data extraction strategies and the first one in the Asia-Pacific region. This is the first randomized trial that compares error rates of data extraction in trials of pharmaceutical interventions and non-pharmaceutical interventions. We validated the effectiveness of dual data extraction while also identifying its limitations, providing valuable evidence for future data extraction strategies. To ensure the feasibility of the trial, we restricted subjects to 2 nd post-graduate students or above, which may affects the representativeness of the sample. The readability of the chosen randomized controlled trials for pharmaceutical and non-pharmaceutical interventions may vary, potentially resulting in selection bias that can distort the outcomes.
+ER  -
+TY  - JOUR
+TI  - Data extraction error in pharmaceutical versus non-pharmaceutical interventions for evidence synthesis: Study protocol for a crossover trial
+PY  - 2022
+PB  - Cold Spring Harbor Laboratory
+T2  - medRxiv (Cold Spring Harbor Laboratory)
+DO  - 10.1101/2022.08.27.22279301
+UR  - https://doi.org/10.1101/2022.08.27.22279301
+DA  - 2022-08-30
+AU  - Zhu, Yi
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University)
+AU  - Ren, Pengwei
+C1  - Department of Clinical Research Center for Respiratory Diseases, West China Hospital, Sichuan University
+AU  - Doi, Suhail
+C1  - Department of Population Medicine, College of Medicine, QU Health, Qatar University
+AU  - Furuya‐Kanamori, Luis
+C1  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland
+AU  - Lin, Lifeng
+C1  - Department of Epidemiology and Biostatistics, University of Arizona
+AU  - Zhou, Xiaoqin
+C1  - Department of Clinical Research Management, West China Hospital, Sichuan University
+AU  - Tao, Fangbiao
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University)
+AU  - Xu, Chang
+C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University
+C1  - Department of Maternal, Child and Adolescent Health, School of Public Health, Anhui Medical University
+C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University)
+LA  - en
+KW  - Data extraction
+KW  - Evidence Synthesis
+KW  - Crossover study
+KW  - Research Participation
+KW  - Diagnostic Accuracy
+KW  - Vulnerability in Research
+AB  - Abstract Background Data extraction is the foundation for research synthesis evidence, and it is often time- and labor-consuming, and prone to errors. Whilst data extraction errors frequently occur in the literature, an interesting phenomenon was observed that data extraction error tend to be more common in trials of pharmaceutical interventions compared to non-pharmaceutical ones. This phenomenon has not been verified by high-quality evidence, the elucidation of which would have implications for guidelines, practice, and policy. Methods and analyses We propose a crossover, multicenter, investigator-blinded, trial to elucidate the potential variants on the data extraction error rates of meta-analyses with pharmaceutical against non-pharmaceutical interventions. Eligible 90 participants would be 2 nd year or above post-graduate students (e.g., masters, doctoral program). Participants will be randomized to one of the two groups to complete pre-defined data extraction tasks: 1) group A will contain 10 randomized controlled trials (RCTs) of pharmaceutical interventions; 2) group B will contain 10 RCTs of non-pharmaceutical interventions. Participants would then be assigned to the alternative group for another round of data extraction, after a 30 mins washout period. Finally, those participants assigned to A or B group will be further 1:1 randomly matched based on a random-sequenced number, for the double-checking process on the extracted data. The primary outcome will be the data extract error rates of pharmaceutical intervention group and non-pharmaceutical group, before the double-checking process, in terms of the cell level, study level, and participant level. The secondary outcome will be the data error error rates of pharmaceutical intervention group and non-pharmaceutical group, after the double-checking process, again, in terms of the cell level, study level, and participant level. Generalized linear mixed effects model (based on the above three levels) will be used to estimate the potential differences in the error rates, with a log link function for binomial data. Subgroup analyses will account for the following factors i.e., the experience of individuals on systematic reviews, and the time used for the data extraction. Ethics and dissemination This study has been approved by the institutional review board of Anhui Medical University (No.83220405). Findings of the study will be presented at international scientific meetings, and publish in peer-reviewed academic journal. Trial registration Chinese Clinical Trial Register Center (Identifier: ChiCTR2200062206). Strengths and limitations of the study This will be the first trial to compare data extraction error rates in pharmaceutical intervention and non-pharmaceutical intervention studies for research synthesis. This will be the third randomized trial on the strategy of data extraction in the world and the first in the Asia-Pacific region. The use of a crossover design provides a valid way to reduce the potential impact of heterogeneous contexts of the studies and thus is expected to provide robust evidence to support better evidence synthesis practice. We will restrict the participants to 2 nd year post-graduate students or above to ensure the feasibility of the trial; this restriction will no doubt impact the representativeness of the samples. A group of useful strategies (eg. use U disk and isolate signal etc.) should be taken to minimize the impact of the possible sharing of the completed extraction table among the participants.
+ER  -
