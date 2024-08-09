@@ -11,8 +11,6 @@ extractor_instructions_from_sheet(x, headingLevel = 3)
 specification (as produced by a call to \code{\link[=rxs_fromSpecifications]{rxs_fromSpecifications()}}).}
 
 \item{headingLevel}{The top-most heading level to use}
-
-\item{...}{Any additional arguments (ignored)}
 }
 \value{
 The formatted extractor instructions

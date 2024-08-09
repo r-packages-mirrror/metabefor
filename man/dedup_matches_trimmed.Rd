@@ -26,6 +26,6 @@ Return for needles whether they occur in the haystack, trimmed if desired
 \examples{
 dedup_matches_trimmed(
   c('a', 'b', 'c'),
-  c('c', 'd');
+  c('c', 'd')
 );
 }

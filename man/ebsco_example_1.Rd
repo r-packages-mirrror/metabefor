@@ -5,7 +5,7 @@
 \alias{ebsco_example_1}
 \title{Simple bibliographic exports from Ebsco}
 \format{
-A {metabefor} imported search hits object
+A \code{metabefor} imported search hits object
 }
 \usage{
 ebsco_example_1

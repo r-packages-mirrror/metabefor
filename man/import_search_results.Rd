@@ -49,6 +49,9 @@ which will (case insensitively) be searched in the file (e.g. to replace
 all RIS tags \code{T1} with \code{TI}, pass \code{c("TI" = "^T1")} as value
 of \code{preparatoryReplacements}).}
 
+\item{synthesisr_tag_naming}{The value to pass to
+the \code{synthesisr::read_refs()} function as argument \code{tag_naming}.}
+
 \item{copySep}{When copying fields over (see \code{fieldsToCopy}), the separator
 to use when the new field is not empty (in which case the contents to copy
 over will be appended).}

@@ -27,9 +27,6 @@ to obtain the \code{entityIds}.}
 for each source, what to pass as the \code{all} parameter.}
 
 \item{silent}{Whether to be silent or chatty.}
-
-\item{pathString_regex_select}{Regex that the target entities' path strings
-have to match (otherwise, the entity is excluded)}
 }
 \value{
 A dataframe
