@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # install.packages('pkgnet');
 
 packagename <- 'metabefor';
-packageSubtitle <- "Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Systematic Reviews";
+packageSubtitle <- "Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Open (Systematic) Reviews";
 
 gitLab_ci_badge <-
   paste0("https://gitlab.com/r-packages/", packagename, "/badges/main/pipeline.svg");
