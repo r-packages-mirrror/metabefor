@@ -5,6 +5,7 @@
 #' @param bibentry The bibentry (or bibentries)
 #' @param authorCollapseFunc The function to use to collapse the vector of
 #' author names into one value.
+#' @param authorCollapseArgs Argyments to pass to `authorCollapseFunc()`.
 #'
 #' @return A data frame
 #' @export

@@ -6,7 +6,6 @@
 #' @param x The spreadsheet with extractor instructions; or an rxs
 #' specification (as produced by a call to [rxs_fromSpecifications()]).
 #' @param headingLevel The top-most heading level to use
-#' @param ... Any additional arguments (ignored)
 #'
 #' @return The formatted extractor instructions
 #' @export
