@@ -24,6 +24,8 @@
 #' which will (case insensitively) be searched in the file (e.g. to replace
 #' all RIS tags `T1` with `TI`, pass `c("TI" = "^T1")` as value
 #' of `preparatoryReplacements`).
+#' @param synthesisr_tag_naming The value to pass to
+#' the `synthesisr::read_refs()` function as argument `tag_naming`.
 #' @param copySep When copying fields over (see `fieldsToCopy`), the separator
 #' to use when the new field is not empty (in which case the contents to copy
 #' over will be appended).

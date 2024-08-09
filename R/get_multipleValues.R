@@ -7,8 +7,8 @@
 #' @param lookInValueLists Whether to also look inside value lists
 #' @param merge_all When merging dataframes, if the number of rows is different,
 #' for each source, what to pass as the `all` parameter.
-#' @param pathString_regex_select Regex that the target entities' path strings
-#' have to match (otherwise, the entity is excluded)
+# #' @param pathString_regex_select Regex that the target entities' path strings
+# #' have to match (otherwise, the entity is excluded)
 #' @param silent Whether to be silent or chatty.
 #'
 #' @return A dataframe
