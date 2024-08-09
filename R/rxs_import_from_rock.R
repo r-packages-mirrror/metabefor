@@ -31,7 +31,7 @@ rxs_import_from_rock <- function(x,
   rock::opts$set(
     idRegexes = c(
       rock::opts$defaults$idRegexes,
-      setNames(
+      stats::setNames(
         c(paste0("\\[\\[", rxsSourceId, "[=:]([a-zA-Z0-9_]+)\\]\\]"),
           paste0("\\[\\[", rxsEntityId, "[=:]([a-zA-Z0-9_]+)\\]\\]")),
         nm = c(rxsSourceId, rxsEntityId)

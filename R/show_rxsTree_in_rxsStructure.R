@@ -41,7 +41,7 @@ show_rxsTree_in_rxsStructure <- function(x,
       paste0(
         "<pre>",
         paste0(
-          capture.output(
+          utils::capture.output(
             print(extractionScriptTree)),
           collapse="\n"
         ),

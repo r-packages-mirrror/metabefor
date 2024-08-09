@@ -9,9 +9,9 @@
 print.rxsStructure <- function(x, ...) {
   
   cat("\nThis Rxs specification contains ",
-      nrow(rxs_minimal_example_2$rxsSpecification$entities),
+      nrow(x$rxsSpecification$entities),
       " entities, with the following identifiers:\n\n",
-      metabefor::vecTxtQ(rxs_minimal_example_2$rxsSpecification$entities$identifier),
+      metabefor::vecTxtQ(x$rxsSpecification$entities$identifier),
       ".",
       sep = "");
   

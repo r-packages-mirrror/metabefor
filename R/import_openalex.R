@@ -41,7 +41,7 @@ import_openalex <- function(file,
   
   if (grepl("csv", fileExtension, ignore.case = TRUE)) {
     
-    importedDf <- read.csv(file);
+    importedDf <- utils::read.csv(file);
     
     res <- importedDf[, fields];
     
