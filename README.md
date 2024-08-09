@@ -3,7 +3,7 @@
 
 # <img src='man/figures/logo.png' align="right" height="138" /> metabefor 📦
 
-## Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Systematic Reviews
+## Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Open (Systematic) Reviews
 
 <!-- badges: start -->
 

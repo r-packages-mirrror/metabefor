@@ -76,6 +76,7 @@ check_duplicate_sources <- function(primarySources,
   
   ### For convenience
   doi_forDeduplicationCol <- paste0(doiCol, forDeduplicationSuffix);
+  title_forDeduplicationCol <- paste0("title", forDeduplicationSuffix);
   
   ### Columns to look at
   
@@ -465,7 +466,7 @@ check_duplicate_sources <- function(primarySources,
         lapply(
           stringDistanceDuplicates,
           function(i) {
-            return(primarySources[i, titleCol]);
+            return(primarySources[i, "title"]);
           }
         );
       
@@ -474,7 +475,7 @@ check_duplicate_sources <- function(primarySources,
           lapply(
             which(stringDistance_hasDuplicates),
             function(i) {
-              return(primarySources[i, titleCol]);
+              return(primarySources[i, "title"]);
             }
           );
       } else {
@@ -482,7 +483,7 @@ check_duplicate_sources <- function(primarySources,
           lapply(
             which(stringDistance_hasDuplicates),
             function(i) {
-              return(secondarySources[i, titleCol]);
+              return(secondarySources[i, "title"]);
             }
           );
       }
