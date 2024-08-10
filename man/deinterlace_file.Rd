@@ -22,10 +22,12 @@ lines. This can be useful when moving a file between operating systems
 }
 \examples{
 metabefor::deinterlace_file(
-  "first line",
-  "",
-  "second (real) line",
-  "",
-  "third line"
+  (
+    "first line",
+    "",
+    "second (real) line",
+    "",
+    "third line"
+  )
 );
 }

@@ -13,11 +13,13 @@
 #' @export
 #'
 #' @examples metabefor::deinterlace_file(
-#'   "first line",
-#'   "",
-#'   "second (real) line",
-#'   "",
-#'   "third line"
+#'   (
+#'     "first line",
+#'     "",
+#'     "second (real) line",
+#'     "",
+#'     "third line"
+#'   )
 #' );
 deinterlace_file <- function(x,
                              output = NULL) {
