@@ -22,7 +22,7 @@ lines. This can be useful when moving a file between operating systems
 }
 \examples{
 metabefor::deinterlace_file(
-  (
+  c(
     "first line",
     "",
     "second (real) line",
