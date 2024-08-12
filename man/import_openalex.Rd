@@ -4,10 +4,10 @@
 \alias{import_openalex}
 \title{Import an OpenAlex CSV export}
 \usage{
-import_openalex(file, extraFields = NULL)
+import_openalex(filename, extraFields = NULL)
 }
 \arguments{
-\item{file}{The file to import}
+\item{filename}{The file to import}
 
 \item{extraFields}{Extra fields to store in the resulting dataframe, used
 when exporting from CSV}
@@ -23,7 +23,7 @@ openAlex_CSV <-
   system.file(
     "extdata",
     "openalex-exports",
-    "example-1---CSV-format---works-2024-08-06T12-48-16.csv",
+    "example-1---OpenAlex---CSV-format.csv",
     package = "metabefor"
   );
 
