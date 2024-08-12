@@ -3,7 +3,7 @@ VR 1.0
 PT J
 AU Chang Xu
    Tianqi Yu
-   Luis Furuya‐Kanamori
+   Luis Furuya-Kanamori
    Lifeng Lin
    Liliane Zorzela
    Xiaoqin Zhou
@@ -12,7 +12,7 @@ AU Chang Xu
    Sunita Vohra
 AF Chang Xu
    Tianqi Yu
-   Luis Furuya‐Kanamori
+   Luis Furuya-Kanamori
    Lifeng Lin
    Liliane Zorzela
    Xiaoqin Zhou
@@ -26,7 +26,7 @@ DT Article
 C1 [Chang Xu] Anhui Medical University, CN
    [Chang Xu] Ministry of Education of the People's Republic of China, CN
    [Tianqi Yu] Sichuan University, CN
-   [Luis Furuya‐Kanamori] University of Queensland, AU
+   [Luis Furuya-Kanamori] University of Queensland, AU
    [Lifeng Lin] Florida State University, US
    [Liliane Zorzela] University of Alberta, CA
    [Xiaoqin Zhou] Sichuan University, CN
@@ -36,8 +36,8 @@ C1 [Chang Xu] Anhui Medical University, CN
    [Yoon K. Loke] University of East Anglia, GB
    [Sunita Vohra] University of Alberta, CA
 C3 University of Queensland, AU; University of Alberta, CA; Anhui Medical University, CN; West China Hospital of Sichuan University, CN; University of East Anglia, GB; Sichuan University, CN; Ministry of Education of the People's Republic of China, CN; Florida State University, US
-RI Chang Xu/https://openalex.org/A5090429810, Tianqi Yu/https://openalex.org/A5089134149, Luis Furuya‐Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Liliane Zorzela/https://openalex.org/A5010530556, Xiaoqin Zhou/https://openalex.org/A5008467620, Hanming Dai/https://openalex.org/A5014923027, Yoon K. Loke/https://openalex.org/A5072911500, Sunita Vohra/https://openalex.org/A5074659805
-OI Chang Xu/0000-0002-2627-1250, Tianqi Yu/0000-0002-6160-505X, Luis Furuya‐Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Liliane Zorzela/0000-0002-6598-1642, Xiaoqin Zhou/0000-0003-4375-9159, Yoon K. Loke/0000-0001-9109-2307, Sunita Vohra/0000-0002-6210-7933
+RI Chang Xu/https://openalex.org/A5090429810, Tianqi Yu/https://openalex.org/A5089134149, Luis Furuya-Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Liliane Zorzela/https://openalex.org/A5010530556, Xiaoqin Zhou/https://openalex.org/A5008467620, Hanming Dai/https://openalex.org/A5014923027, Yoon K. Loke/https://openalex.org/A5072911500, Sunita Vohra/https://openalex.org/A5074659805
+OI Chang Xu/0000-0002-2627-1250, Tianqi Yu/0000-0002-6160-505X, Luis Furuya-Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Liliane Zorzela/0000-0002-6598-1642, Xiaoqin Zhou/0000-0003-4375-9159, Yoon K. Loke/0000-0001-9109-2307, Sunita Vohra/0000-0002-6210-7933
 FU 
 CT 23
 NR 38
@@ -63,7 +63,7 @@ AU Gerald Gartlehner
    Shannon Kugley
    Karen Crotty
    Meera Viswanathan
-   Barbara Nußbaumer-Streit
+   Barbara Nu�baumer-Streit
    Graham Booth
    Nathaniel Erskine
    Amanda Konet
@@ -75,32 +75,32 @@ AF Gerald Gartlehner
    Shannon Kugley
    Karen Crotty
    Meera Viswanathan
-   Barbara Nußbaumer-Streit
+   Barbara Nu�baumer-Streit
    Graham Booth
    Nathaniel Erskine
    Amanda Konet
    Rob Chew
-TI Data extraction for evidence synthesis using a large language model: A proof‐of‐concept study
+TI Data extraction for evidence synthesis using a large language model: A proof-of-concept study
 SO Research Synthesis Methods
 LA English
 DT Article
 C1 [Gerald Gartlehner] RTI International, US
-   [Gerald Gartlehner] Universität für Weiterbildung Krems, AT
+   [Gerald Gartlehner] Universit�t f�r Weiterbildung Krems, AT
    [Leila C. Kahwati] RTI International, US
    [Rainer Hilscher] RTI International, US
    [Ian B. Thomas] RTI International, US
    [Shannon Kugley] RTI International, US
    [Karen Crotty] RTI International, US
    [Meera Viswanathan] RTI International, US
-   [Barbara Nußbaumer-Streit] Universität für Weiterbildung Krems, AT
+   [Barbara Nu�baumer-Streit] Universit�t f�r Weiterbildung Krems, AT
    [Graham Booth] RTI International, US
    [Nathaniel Erskine] University of North Carolina at Chapel Hill, US
    [Amanda Konet] RTI International, US
    [Rob Chew] RTI International, US
-C3 Universität für Weiterbildung Krems, AT; University of North Carolina at Chapel Hill, US; RTI International, US
+C3 Universit�t f�r Weiterbildung Krems, AT; University of North Carolina at Chapel Hill, US; RTI International, US
 RP Gerald Gartlehner (corresponding author), RTI International, US
-RI Gerald Gartlehner/https://openalex.org/A5013031059, Leila C. Kahwati/https://openalex.org/A5021630385, Rainer Hilscher/https://openalex.org/A5042088170, Ian B. Thomas/https://openalex.org/A5047858317, Shannon Kugley/https://openalex.org/A5006395550, Karen Crotty/https://openalex.org/A5080463323, Meera Viswanathan/https://openalex.org/A5078175691, Barbara Nußbaumer-Streit/https://openalex.org/A5031031174, Graham Booth/https://openalex.org/A5005728741, Nathaniel Erskine/https://openalex.org/A5039893367, Amanda Konet/https://openalex.org/A5014098617, Rob Chew/https://openalex.org/A5078399314
-OI Gerald Gartlehner/0000-0001-5531-3678, Leila C. Kahwati/0000-0001-6963-2848, Rainer Hilscher/0000-0002-5004-4584, Shannon Kugley/0000-0003-4574-7100, Karen Crotty/0000-0002-5633-5040, Barbara Nußbaumer-Streit/0000-0001-7622-843X, Graham Booth/0000-0001-8167-707X, Nathaniel Erskine/0000-0002-2113-859X, Amanda Konet/0000-0001-5295-6483, Rob Chew/0000-0002-6979-1766
+RI Gerald Gartlehner/https://openalex.org/A5013031059, Leila C. Kahwati/https://openalex.org/A5021630385, Rainer Hilscher/https://openalex.org/A5042088170, Ian B. Thomas/https://openalex.org/A5047858317, Shannon Kugley/https://openalex.org/A5006395550, Karen Crotty/https://openalex.org/A5080463323, Meera Viswanathan/https://openalex.org/A5078175691, Barbara Nu�baumer-Streit/https://openalex.org/A5031031174, Graham Booth/https://openalex.org/A5005728741, Nathaniel Erskine/https://openalex.org/A5039893367, Amanda Konet/https://openalex.org/A5014098617, Rob Chew/https://openalex.org/A5078399314
+OI Gerald Gartlehner/0000-0001-5531-3678, Leila C. Kahwati/0000-0001-6963-2848, Rainer Hilscher/0000-0002-5004-4584, Shannon Kugley/0000-0003-4574-7100, Karen Crotty/0000-0002-5633-5040, Barbara Nu�baumer-Streit/0000-0001-7622-843X, Graham Booth/0000-0001-8167-707X, Nathaniel Erskine/0000-0002-2113-859X, Amanda Konet/0000-0001-5295-6483, Rob Chew/0000-0002-6979-1766
 FU 
 CT 6
 NR 24
@@ -119,24 +119,24 @@ PM 38432227
 OA hybrid
 DA 2024-08-09
 PT U
-AU Yu‐Tian Xiao
+AU Yu-Tian Xiao
    Junting Cai
-   Guo‐Fu Li
-AF Yu‐Tian Xiao
+   Guo-Fu Li
+AF Yu-Tian Xiao
    Junting Cai
-   Guo‐Fu Li
-TI Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E–Mediated Food Allergy
+   Guo-Fu Li
+TI Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E-Mediated Food Allergy
 SO JAMA Pediatrics
 LA English
 DT Letter
-C1 [Yu‐Tian Xiao] Changhai Hospital, CN
-   [Yu‐Tian Xiao] Second Military Medical University, CN
+C1 [Yu-Tian Xiao] Changhai Hospital, CN
+   [Yu-Tian Xiao] Second Military Medical University, CN
    [Junting Cai] Second Xiangya Hospital of Central South University, CN
    [Junting Cai] Central South University, CN
-   [Guo‐Fu Li] China Pharmaceutical University, CN
+   [Guo-Fu Li] China Pharmaceutical University, CN
 C3 Changhai Hospital, CN; Central South University, CN; China Pharmaceutical University, CN; Second Military Medical University, CN; Second Xiangya Hospital of Central South University, CN
-RI Yu‐Tian Xiao/https://openalex.org/A5072890380, Junting Cai/https://openalex.org/A5009509715, Guo‐Fu Li/https://openalex.org/A5014567045
-OI Yu‐Tian Xiao/0000-0002-3039-8342, Guo‐Fu Li/0000-0002-4628-9941
+RI Yu-Tian Xiao/https://openalex.org/A5072890380, Junting Cai/https://openalex.org/A5009509715, Guo-Fu Li/https://openalex.org/A5014567045
+OI Yu-Tian Xiao/0000-0002-3039-8342, Guo-Fu Li/0000-0002-4628-9941
 FU 
 CT 1
 NR 4
@@ -158,7 +158,7 @@ PT J
 AU Yi Zhu
    Pengwei Ren
    Suhail A.R. Doi
-   Luis Furuya‐Kanamori
+   Luis Furuya-Kanamori
    Lifeng Lin
    Xiaoqin Zhou
    Fangbiao Tao
@@ -166,7 +166,7 @@ AU Yi Zhu
 AF Yi Zhu
    Pengwei Ren
    Suhail A.R. Doi
-   Luis Furuya‐Kanamori
+   Luis Furuya-Kanamori
    Lifeng Lin
    Xiaoqin Zhou
    Fangbiao Tao
@@ -179,15 +179,15 @@ C1 [Yi Zhu] Anhui Medical University, CN
    [Pengwei Ren] West China Hospital of Sichuan University, CN
    [Pengwei Ren] Sichuan University, CN
    [Suhail A.R. Doi] Qatar University, QA
-   [Luis Furuya‐Kanamori] University of Queensland, AU
+   [Luis Furuya-Kanamori] University of Queensland, AU
    [Lifeng Lin] University of Arizona, US
    [Xiaoqin Zhou] Sichuan University, CN
    [Fangbiao Tao] Anhui Medical University, CN
    [Chang Xu] Anhui Medical University, CN
 C3 University of Queensland, AU; Qatar University, QA; Anhui Medical University, CN; West China Hospital of Sichuan University, CN; University of Arizona, US; Sichuan University, CN
 RP Chang Xu (corresponding author), Anhui Medical University, CN
-RI Yi Zhu/https://openalex.org/A5052189856, Pengwei Ren/https://openalex.org/A5049335651, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya‐Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Xiaoqin Zhou/https://openalex.org/A5008467620, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
-OI Yi Zhu/0000-0003-3751-012X, Pengwei Ren/0000-0001-9705-6470, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya‐Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Xiaoqin Zhou/0000-0003-4375-9159, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
+RI Yi Zhu/https://openalex.org/A5052189856, Pengwei Ren/https://openalex.org/A5049335651, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya-Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Xiaoqin Zhou/https://openalex.org/A5008467620, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
+OI Yi Zhu/0000-0003-3751-012X, Pengwei Ren/0000-0001-9705-6470, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya-Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Xiaoqin Zhou/0000-0003-4375-9159, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
 FU Qatar Foundation; National Natural Science Foundation of China [BSRA01-0406-210030]; Foundation for Innovative Research Groups of the National Natural Science Foundation of China [72204003]; Qatar National Research Fund
 CT 1
 NR 17
@@ -264,7 +264,7 @@ LA English
 DT Article
 C1 [Amanda Konet] RTI International, US
    [Ian B. Thomas] RTI International, US
-   [Gerald Gartlehner] Universität für Weiterbildung Krems, AT
+   [Gerald Gartlehner] Universit�t f�r Weiterbildung Krems, AT
    [Gerald Gartlehner] RTI International, US
    [Leila C. Kahwati] RTI International, US
    [Rainer Hilscher] RTI International, US
@@ -272,7 +272,7 @@ C1 [Amanda Konet] RTI International, US
    [Karen Crotty] RTI International, US
    [Meera Viswanathan] RTI International, US
    [Rob Chew] RTI International, US
-C3 Universität für Weiterbildung Krems, AT; RTI International, US
+C3 Universit�t f�r Weiterbildung Krems, AT; RTI International, US
 RP Amanda Konet (corresponding author), RTI International, US
 RI Amanda Konet/https://openalex.org/A5014098617, Ian B. Thomas/https://openalex.org/A5047858317, Gerald Gartlehner/https://openalex.org/A5013031059, Leila C. Kahwati/https://openalex.org/A5021630385, Rainer Hilscher/https://openalex.org/A5042088170, Shannon Kugley/https://openalex.org/A5006395550, Karen Crotty/https://openalex.org/A5080463323, Meera Viswanathan/https://openalex.org/A5078175691, Rob Chew/https://openalex.org/A5078399314
 OI Amanda Konet/0000-0001-5295-6483, Gerald Gartlehner/0000-0001-5531-3678, Leila C. Kahwati/0000-0001-6963-2848, Rainer Hilscher/0000-0002-5004-4584, Shannon Kugley/0000-0003-4574-7100, Karen Crotty/0000-0002-5633-5040, Rob Chew/0000-0002-6979-1766
@@ -297,12 +297,12 @@ PT J
 AU Linh Hoang
    Linh Cao
    Yingjun Guan
-   Yi‐Yun Cheng
+   Yi-Yun Cheng
    Jodi Schneider
 AF Linh Hoang
    Linh Cao
    Yingjun Guan
-   Yi‐Yun Cheng
+   Yi-Yun Cheng
    Jodi Schneider
 TI Evaluating an automatic data extraction tool for evidence synthesis through real-life case studies
 SO
@@ -311,11 +311,11 @@ DT Article
 C1 [Linh Hoang]
    [Linh Cao]
    [Yingjun Guan]
-   [Yi‐Yun Cheng]
+   [Yi-Yun Cheng]
    [Jodi Schneider]
 C3 
-RI Linh Hoang/https://openalex.org/A5062886171, Linh Cao/https://openalex.org/A5046313900, Yingjun Guan/https://openalex.org/A5081148033, Yi‐Yun Cheng/https://openalex.org/A5028389528, Jodi Schneider/https://openalex.org/A5001716299
-OI Linh Hoang/0000-0002-5565-1586, Yingjun Guan/0000-0003-1849-999X, Yi‐Yun Cheng/0000-0001-6123-7595, Jodi Schneider/0000-0002-5098-5667
+RI Linh Hoang/https://openalex.org/A5062886171, Linh Cao/https://openalex.org/A5046313900, Yingjun Guan/https://openalex.org/A5081148033, Yi-Yun Cheng/https://openalex.org/A5028389528, Jodi Schneider/https://openalex.org/A5001716299
+OI Linh Hoang/0000-0002-5565-1586, Yingjun Guan/0000-0003-1849-999X, Yi-Yun Cheng/0000-0001-6123-7595, Jodi Schneider/0000-0002-5098-5667
 FU 
 CT 0
 NR 0
@@ -341,7 +341,7 @@ AU Gerald Gartlehner
    Shannon Kugley
    Karen Crotty
    Meera Viswanathan
-   Barbara Nußbaumer-Streit
+   Barbara Nu�baumer-Streit
    Gillian L. Booth
    Nathaniel Erskine
    Amanda Konet
@@ -353,7 +353,7 @@ AF Gerald Gartlehner
    Shannon Kugley
    Karen Crotty
    Meera Viswanathan
-   Barbara Nußbaumer-Streit
+   Barbara Nu�baumer-Streit
    Gillian L. Booth
    Nathaniel Erskine
    Amanda Konet
@@ -363,22 +363,22 @@ SO medRxiv (Cold Spring Harbor Laboratory)
 LA English
 DT Preprint
 C1 [Gerald Gartlehner] RTI International, US
-   [Gerald Gartlehner] Universität für Weiterbildung Krems, AT
+   [Gerald Gartlehner] Universit�t f�r Weiterbildung Krems, AT
    [Leila C. Kahwati] RTI International, US
    [Rainer Hilscher] RTI International, US
    [Ian B. Thomas] RTI International, US
    [Shannon Kugley] RTI International, US
    [Karen Crotty] RTI International, US
    [Meera Viswanathan] RTI International, US
-   [Barbara Nußbaumer-Streit] Universität für Weiterbildung Krems, AT
+   [Barbara Nu�baumer-Streit] Universit�t f�r Weiterbildung Krems, AT
    [Gillian L. Booth] RTI International, US
    [Nathaniel Erskine] University of North Carolina at Chapel Hill, US
    [Amanda Konet] RTI International, US
    [Rusheng Chew] RTI International, US
-C3 Universität für Weiterbildung Krems, AT; University of North Carolina at Chapel Hill, US; RTI International, US
+C3 Universit�t f�r Weiterbildung Krems, AT; University of North Carolina at Chapel Hill, US; RTI International, US
 RP Gerald Gartlehner (corresponding author), RTI International, US
-RI Gerald Gartlehner/https://openalex.org/A5013031059, Leila C. Kahwati/https://openalex.org/A5021630385, Rainer Hilscher/https://openalex.org/A5042088170, Ian B. Thomas/https://openalex.org/A5047858317, Shannon Kugley/https://openalex.org/A5006395550, Karen Crotty/https://openalex.org/A5080463323, Meera Viswanathan/https://openalex.org/A5078175691, Barbara Nußbaumer-Streit/https://openalex.org/A5031031174, Gillian L. Booth/https://openalex.org/A5063504727, Nathaniel Erskine/https://openalex.org/A5039893367, Amanda Konet/https://openalex.org/A5014098617, Rusheng Chew/https://openalex.org/A5033447982
-OI Gerald Gartlehner/0000-0001-5531-3678, Leila C. Kahwati/0000-0001-6963-2848, Rainer Hilscher/0000-0002-5004-4584, Shannon Kugley/0000-0003-4574-7100, Karen Crotty/0000-0002-5633-5040, Barbara Nußbaumer-Streit/0000-0001-7622-843X, Gillian L. Booth/0000-0003-2769-6522, Nathaniel Erskine/0000-0002-2113-859X, Amanda Konet/0000-0001-5295-6483, Rusheng Chew/0000-0002-8992-4474
+RI Gerald Gartlehner/https://openalex.org/A5013031059, Leila C. Kahwati/https://openalex.org/A5021630385, Rainer Hilscher/https://openalex.org/A5042088170, Ian B. Thomas/https://openalex.org/A5047858317, Shannon Kugley/https://openalex.org/A5006395550, Karen Crotty/https://openalex.org/A5080463323, Meera Viswanathan/https://openalex.org/A5078175691, Barbara Nu�baumer-Streit/https://openalex.org/A5031031174, Gillian L. Booth/https://openalex.org/A5063504727, Nathaniel Erskine/https://openalex.org/A5039893367, Amanda Konet/https://openalex.org/A5014098617, Rusheng Chew/https://openalex.org/A5033447982
+OI Gerald Gartlehner/0000-0001-5531-3678, Leila C. Kahwati/0000-0001-6963-2848, Rainer Hilscher/0000-0002-5004-4584, Shannon Kugley/0000-0003-4574-7100, Karen Crotty/0000-0002-5633-5040, Barbara Nu�baumer-Streit/0000-0001-7622-843X, Gillian L. Booth/0000-0003-2769-6522, Nathaniel Erskine/0000-0002-2113-859X, Amanda Konet/0000-0001-5295-6483, Rusheng Chew/0000-0002-8992-4474
 FU 
 CT 0
 NR 19
@@ -498,7 +498,7 @@ AU Roberta Scarpone
 AF Roberta Scarpone
    Parisut Kimkool
    Robert Boyle
-TI Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E–Mediated Food Allergy—Reply
+TI Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E-Mediated Food Allergy�Reply
 SO JAMA Pediatrics
 LA English
 DT Letter
@@ -529,7 +529,7 @@ PT P
 AU Yi Zhu
    Xi Yang
    Suhail A.R. Doi
-   Luis Furuya‐Kanamori
+   Luis Furuya-Kanamori
    Lifeng Lin
    Zongshi Qin
    Fangbiao Tao
@@ -537,7 +537,7 @@ AU Yi Zhu
 AF Yi Zhu
    Xi Yang
    Suhail A.R. Doi
-   Luis Furuya‐Kanamori
+   Luis Furuya-Kanamori
    Lifeng Lin
    Zongshi Qin
    Fangbiao Tao
@@ -549,15 +549,15 @@ DT Preprint
 C1 [Yi Zhu] Anhui Medical University, CN
    [Xi Yang] Anhui Medical University, CN
    [Suhail A.R. Doi] Qatar University, QA
-   [Luis Furuya‐Kanamori] University of Queensland, AU
+   [Luis Furuya-Kanamori] University of Queensland, AU
    [Lifeng Lin] University of Arizona, US
    [Zongshi Qin] Peking University, CN
    [Fangbiao Tao] Anhui Medical University, CN
    [Chang Xu] Anhui Medical University, CN
 C3 University of Queensland, AU; Qatar University, QA; Anhui Medical University, CN; University of Arizona, US; Peking University, CN
 RP Chang Xu (corresponding author), Anhui Medical University, CN
-RI Yi Zhu/https://openalex.org/A5052189856, Xi Yang/https://openalex.org/A5100646465, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya‐Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Zongshi Qin/https://openalex.org/A5050087112, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
-OI Yi Zhu/0000-0003-3751-012X, Xi Yang/0000-0003-2382-0282, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya‐Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Zongshi Qin/0000-0001-5888-461X, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
+RI Yi Zhu/https://openalex.org/A5052189856, Xi Yang/https://openalex.org/A5100646465, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya-Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Zongshi Qin/https://openalex.org/A5050087112, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
+OI Yi Zhu/0000-0003-3751-012X, Xi Yang/0000-0003-2382-0282, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya-Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Zongshi Qin/0000-0001-5888-461X, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
 FU 
 CT 0
 NR 20
@@ -579,7 +579,7 @@ PT P
 AU Yi Zhu
    Pengwei Ren
    Suhail A.R. Doi
-   Luis Furuya‐Kanamori
+   Luis Furuya-Kanamori
    Lifeng Lin
    Xiaoqin Zhou
    Fangbiao Tao
@@ -587,7 +587,7 @@ AU Yi Zhu
 AF Yi Zhu
    Pengwei Ren
    Suhail A.R. Doi
-   Luis Furuya‐Kanamori
+   Luis Furuya-Kanamori
    Lifeng Lin
    Xiaoqin Zhou
    Fangbiao Tao
@@ -600,14 +600,14 @@ C1 [Yi Zhu] Anhui Medical University, CN
    [Pengwei Ren] West China Hospital of Sichuan University, CN
    [Pengwei Ren] Sichuan University, CN
    [Suhail A.R. Doi] Qatar University, QA
-   [Luis Furuya‐Kanamori] University of Queensland, AU
+   [Luis Furuya-Kanamori] University of Queensland, AU
    [Lifeng Lin] University of Arizona, US
    [Xiaoqin Zhou] Sichuan University, CN
    [Fangbiao Tao] Anhui Medical University, CN
    [Chang Xu] Anhui Medical University, CN
 C3 University of Queensland, AU; Qatar University, QA; Anhui Medical University, CN; West China Hospital of Sichuan University, CN; University of Arizona, US; Sichuan University, CN
-RI Yi Zhu/https://openalex.org/A5052189856, Pengwei Ren/https://openalex.org/A5049335651, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya‐Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Xiaoqin Zhou/https://openalex.org/A5008467620, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
-OI Yi Zhu/0000-0003-3751-012X, Pengwei Ren/0000-0001-9705-6470, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya‐Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Xiaoqin Zhou/0000-0003-4375-9159, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
+RI Yi Zhu/https://openalex.org/A5052189856, Pengwei Ren/https://openalex.org/A5049335651, Suhail A.R. Doi/https://openalex.org/A5068382557, Luis Furuya-Kanamori/https://openalex.org/A5084504465, Lifeng Lin/https://openalex.org/A5086774720, Xiaoqin Zhou/https://openalex.org/A5008467620, Fangbiao Tao/https://openalex.org/A5010865043, Chang Xu/https://openalex.org/A5090429810
+OI Yi Zhu/0000-0003-3751-012X, Pengwei Ren/0000-0001-9705-6470, Suhail A.R. Doi/0000-0002-2630-2125, Luis Furuya-Kanamori/0000-0002-4337-9757, Lifeng Lin/0000-0002-3562-9816, Xiaoqin Zhou/0000-0003-4375-9159, Fangbiao Tao/0000-0003-4807-9670, Chang Xu/0000-0002-2627-1250
 FU 
 CT 0
 NR 16

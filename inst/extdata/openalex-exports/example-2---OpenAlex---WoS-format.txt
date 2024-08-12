@@ -40,19 +40,19 @@ OA hybrid
 DA 2024-08-09
 PT U
 AU Tom Sensky
-   Stefan B√ºchi
+   Stefan B¸chi
 AF Tom Sensky
-   Stefan B√ºchi
+   Stefan B¸chi
 TI PRISM, a Novel Visual Metaphor Measuring Personally Salient Appraisals, Attitudes and Decision-Making: Qualitative Evidence Synthesis
 SO PLoS ONE
 LA English
 DT Review
 C1 [Tom Sensky] Centre for Mental Health, GB
    [Tom Sensky] Imperial College London, GB
-   [Stefan B√ºchi]
+   [Stefan B¸chi]
 C3 Imperial College London, GB; Centre for Mental Health, GB
 RP Tom Sensky (corresponding author), Centre for Mental Health, GB
-RI Tom Sensky/https://openalex.org/A5027383080, Stefan B√ºchi/https://openalex.org/A5028936069
+RI Tom Sensky/https://openalex.org/A5027383080, Stefan B¸chi/https://openalex.org/A5028936069
 OI Tom Sensky/0000-0001-8063-1889
 FU 
 CT 39
@@ -102,12 +102,12 @@ OA hybrid
 DA 2024-08-09
 PT U
 AU Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
 AF Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
@@ -116,13 +116,13 @@ SO BMC Pulmonary Medicine
 LA English
 DT Review
 C1 [Max Schlueter] IQVIA (United Kingdom), GB
-   [Am√©lie Beaudet] Actelion (Switzerland), CH
+   [AmÈlie Beaudet] Actelion (Switzerland), CH
    [Evan Davies] Actelion (Switzerland), CH
    [Binu Gurung] IQVIA (United Kingdom), GB
    [Andreas Karabis] IQVIA (United States), US
 C3 IQVIA (United Kingdom), GB; Actelion (Switzerland), CH; IQVIA (United States), US
-RI Max Schlueter/https://openalex.org/A5048332618, Am√©lie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
-OI Max Schlueter/0000-0003-1772-1421, Am√©lie Beaudet/0000-0003-0535-672X
+RI Max Schlueter/https://openalex.org/A5048332618, AmÈlie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, AmÈlie Beaudet/0000-0003-0535-672X
 FU Actelion Pharmaceuticals
 CT 5
 NR 84
@@ -301,12 +301,12 @@ OA closed
 DA 2024-08-09
 PT J
 AU Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
 AF Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
@@ -315,13 +315,13 @@ SO Value in Health
 LA English
 DT Article
 C1 [Max Schlueter] IQVIA (United Kingdom), GB
-   [Am√©lie Beaudet] Actelion (Switzerland), CH
+   [AmÈlie Beaudet] Actelion (Switzerland), CH
    [Evan Davies] Actelion (Switzerland), CH
    [Binu Gurung] IQVIA (United Kingdom), GB
    [Andreas Karabis]
 C3 IQVIA (United Kingdom), GB; Actelion (Switzerland), CH
-RI Max Schlueter/https://openalex.org/A5048332618, Am√©lie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
-OI Max Schlueter/0000-0003-1772-1421, Am√©lie Beaudet/0000-0003-0535-672X
+RI Max Schlueter/https://openalex.org/A5048332618, AmÈlie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, AmÈlie Beaudet/0000-0003-0535-672X
 FU 
 CT 0
 NR 0
@@ -357,7 +357,7 @@ C3 George Mason University, US; Temple University, US
 RP Ajima Olaghere (corresponding author), Temple University, US
 RI Ajima Olaghere/https://openalex.org/A5080381077, David B. Wilson/https://openalex.org/A5079556746, Catherine Kimbrell/https://openalex.org/A5004809697
 OI Ajima Olaghere/0000-0003-4547-187X, David B. Wilson/0000-0001-6461-3904, Catherine Kimbrell/0000-0002-1420-5184
-FU Office of Juvenile Justice and Delinquency Prevention [2014‚ÄêDC‚ÄêBX‚ÄêK001]
+FU Office of Juvenile Justice and Delinquency Prevention [2014-DC-BX-K001]
 CT 0
 NR 25
 PU Wiley
@@ -376,12 +376,12 @@ OA hybrid
 DA 2024-08-09
 PT U
 AU Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
 AF Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
@@ -390,13 +390,13 @@ SO Figshare
 LA English
 DT Review
 C1 [Max Schlueter]
-   [Am√©lie Beaudet]
+   [AmÈlie Beaudet]
    [Evan Davies]
    [Binu Gurung]
    [Andreas Karabis]
 C3 
-RI Max Schlueter/https://openalex.org/A5048332618, Am√©lie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
-OI Max Schlueter/0000-0003-1772-1421, Am√©lie Beaudet/0000-0003-0535-672X
+RI Max Schlueter/https://openalex.org/A5048332618, AmÈlie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, AmÈlie Beaudet/0000-0003-0535-672X
 FU 
 CT 0
 NR 0

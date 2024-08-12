@@ -1,4 +1,4 @@
-```{r rxs-setup-chunk-sU7PrF, echo=FALSE, results='hide'}
+```{r rxs-setup-chunk-Z3tLuH, echo=FALSE, results='hide'}
 ```
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -243,10 +243,10 @@ rxsObject$rxsMetadata <- list(rxsVersion='0.3.0', moduleId=NULL, id=uniqueSource
 
 
 
-```{r rxs-template-specification-chunk-WjhZ90, echo=FALSE, results='hide'}
+```{r rxs-template-specification-chunk-aTjmIg, echo=FALSE, results='hide'}
 ```
 
-```{r rxs-validation-chunk-b8kKim, results='asis'}
+```{r rxs-validation-chunk-VJjRUL, results='asis'}
 metabefor::heading('Validation results', headingLevel = 1);
 metabefor::rxs_validation(
   rxsObject,
@@ -255,11 +255,11 @@ metabefor::rxs_validation(
 cat(paste0('- ', rxsObject$validationLog), sep='\n');
 ```
 
-```{r rxs-show-extracted-data-chunk-tlxU1B}
+```{r rxs-show-extracted-data-chunk-qGtvba}
 if ((!(exists('parsingMultipleRxsFiles'))) || (!parsingMultipleRxsFiles)) {  metabefor::rxs_partial(rxsObject); }
 ```
 
-```{r rxs-setup-chunk-sU7PrF, include=FALSE, messages=FALSE}
+```{r rxs-setup-chunk-Z3tLuH, include=FALSE, messages=FALSE}
 ### First check for (and perhaps install) metabefor
 if (!(requireNamespace('metabefor', quietly = TRUE))) {
   install.packages('metabefor', repos='http://cran.rstudio.com');
@@ -289,7 +289,7 @@ editor_options:
 
 <!-- Here, the original Rxs template specification is included. ~~~~~~~~~~~-->
 
-```{r rxs-template-specification-chunk-WjhZ90, echo=FALSE}
+```{r rxs-template-specification-chunk-aTjmIg, echo=FALSE}
 
 rxsTemplateSpec <- 
   list(entities = structure(list(title = c("General", "Year", "Authors", 

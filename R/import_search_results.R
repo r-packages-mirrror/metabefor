@@ -273,7 +273,7 @@ import_search_results <- function(path,
             tmpChar <- readLines(file.path(path, dir_and_file[1], dir_and_file[2]));
             
             for (i in seq_along(preparatoryReplacements)) {
-              
+
               tmpChar <-
                 gsub(preparatoryReplacements[i],
                      names(preparatoryReplacements)[i],

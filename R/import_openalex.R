@@ -47,7 +47,15 @@ import_openalex <- function(filename,
     res <- importedDf[, fields];
     
     res$author <- res$authorships.raw_author_name;
-    res$author <- gsub("\\|", " and ", res$author);
+
+    res$author <- 
+      tryCatch(
+        gsub("\\|", " and ", res$author),
+        error = function(e) {
+          stop("I ran into an error processing this file; it may contain ",
+               "problems in its encoding. Try to re-encode it as UTF-8.");
+        }
+      );
     
     res$year <- res$publication_year;
     

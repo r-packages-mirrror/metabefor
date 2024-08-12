@@ -8,11 +8,11 @@ UR  - https://doi.org/10.1136/bmj-2021-069155
 DA  - 2022-05-10
 AU  - Xu, Chang
 C1  - Anhui Provincial Key Laboratory of Population Health and Aristogenics, Anhui Medical University, Anhui, China
-C1  - Key Laboratory of Population Health Across-life Cycle, Ministry of Education of the People’s Republic of China, Anhui Medical University, Anhui, China
+C1  - Key Laboratory of Population Health Across-life Cycle, Ministry of Education of the People's Republic of China, Anhui Medical University, Anhui, China
 C1  - School of Public Health, Anhui Medical University, Anhui, China
 AU  - Yu, Tianqi
 C1  - Chinese Evidence-based Medicine Centre, West China Hospital, Sichuan University, Chengdu, China
-AU  - Furuya‐Kanamori, Luis
+AU  - Furuya-Kanamori, Luis
 C1  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland, Brisbane, QLD, Australia
 AU  - Lin, Lifeng
 C1  - Department of Statistics, Florida State University, Tallahassee, FL, USA
@@ -35,10 +35,10 @@ KW  - Meta-Analysis
 KW  - Diagnostic Accuracy
 SP  - e069155
 EP  - e069155
-AB  - Abstract Objectives To investigate the validity of data extraction in systematic reviews of adverse events, the effect of data extraction errors on the results, and to develop a classification framework for data extraction errors to support further methodological research. Design Reproducibility study. Data sources PubMed was searched for eligible systematic reviews published between 1 January 2015 and 1 January 2020. Metadata from the randomised controlled trials were extracted from the systematic reviews by four authors. The original data sources (eg, full text and ClinicalTrials.gov) were then referred to by the same authors to reproduce the data used in these meta-analyses. Eligibility criteria for selecting studies Systematic reviews were included when based on randomised controlled trials for healthcare interventions that reported safety as the exclusive outcome, with at least one pair meta-analysis that included five or more randomised controlled trials and with a 2×2 table of data for event counts and sample sizes in intervention and control arms available for each trial in the meta-analysis. Main outcome measures The primary outcome was data extraction errors summarised at three levels: study level, meta-analysis level, and systematic review level. The potential effect of such errors on the results was further investigated. Results 201 systematic reviews and 829 pairwise meta-analyses involving 10 386 randomised controlled trials were included. Data extraction could not be reproduced in 1762 (17.0%) of 10 386 trials. In 554 (66.8%) of 829 meta-analyses, at least one randomised controlled trial had data extraction errors; 171 (85.1%) of 201 systematic reviews had at least one meta-analysis with data extraction errors. The most common types of data extraction errors were numerical errors (49.2%, 867/1762) and ambiguous errors (29.9%, 526/1762), mainly caused by ambiguous definitions of the outcomes. These categories were followed by three others: zero assumption errors, misidentification, and mismatching errors. The impact of these errors were analysed on 288 meta-analyses. Data extraction errors led to 10 (3.5%) of 288 meta-analyses changing the direction of the effect and 19 (6.6%) of 288 meta-analyses changing the significance of the P value. Meta-analyses that had two or more different types of errors were more susceptible to these changes than those with only one type of error (for moderate changes, 11 (28.2%) of 39 v 26 (10.4%) 249, P=0.002; for large changes, 5 (12.8%) of 39 v 8 (3.2%) of 249, P=0.01). Conclusion Systematic reviews of adverse events potentially have serious issues in terms of the reproducibility of the data extraction, and these errors can mislead the conclusions. Implementation guidelines are urgently required to help authors of future systematic reviews improve the validity of data extraction.
+AB  - Abstract Objectives To investigate the validity of data extraction in systematic reviews of adverse events, the effect of data extraction errors on the results, and to develop a classification framework for data extraction errors to support further methodological research. Design Reproducibility study. Data sources PubMed was searched for eligible systematic reviews published between 1 January 2015 and 1 January 2020. Metadata from the randomised controlled trials were extracted from the systematic reviews by four authors. The original data sources (eg, full text and ClinicalTrials.gov) were then referred to by the same authors to reproduce the data used in these meta-analyses. Eligibility criteria for selecting studies Systematic reviews were included when based on randomised controlled trials for healthcare interventions that reported safety as the exclusive outcome, with at least one pair meta-analysis that included five or more randomised controlled trials and with a 2�2 table of data for event counts and sample sizes in intervention and control arms available for each trial in the meta-analysis. Main outcome measures The primary outcome was data extraction errors summarised at three levels: study level, meta-analysis level, and systematic review level. The potential effect of such errors on the results was further investigated. Results 201 systematic reviews and 829 pairwise meta-analyses involving 10 386 randomised controlled trials were included. Data extraction could not be reproduced in 1762 (17.0%) of 10 386 trials. In 554 (66.8%) of 829 meta-analyses, at least one randomised controlled trial had data extraction errors; 171 (85.1%) of 201 systematic reviews had at least one meta-analysis with data extraction errors. The most common types of data extraction errors were numerical errors (49.2%, 867/1762) and ambiguous errors (29.9%, 526/1762), mainly caused by ambiguous definitions of the outcomes. These categories were followed by three others: zero assumption errors, misidentification, and mismatching errors. The impact of these errors were analysed on 288 meta-analyses. Data extraction errors led to 10 (3.5%) of 288 meta-analyses changing the direction of the effect and 19 (6.6%) of 288 meta-analyses changing the significance of the P value. Meta-analyses that had two or more different types of errors were more susceptible to these changes than those with only one type of error (for moderate changes, 11 (28.2%) of 39 v 26 (10.4%) 249, P=0.002; for large changes, 5 (12.8%) of 39 v 8 (3.2%) of 249, P=0.01). Conclusion Systematic reviews of adverse events potentially have serious issues in terms of the reproducibility of the data extraction, and these errors can mislead the conclusions. Implementation guidelines are urgently required to help authors of future systematic reviews improve the validity of data extraction.
 ER  -
 TY  - JOUR
-TI  - Data extraction for evidence synthesis using a large language model: A proof‐of‐concept study
+TI  - Data extraction for evidence synthesis using a large language model: A proof-of-concept study
 PY  - 2024
 PB  - Wiley
 SN  - 1759-2879
@@ -47,7 +47,7 @@ DO  - 10.1002/jrsm.1710
 UR  - https://doi.org/10.1002/jrsm.1710
 DA  - 2024-03-03
 AU  - Gartlehner, Gerald
-C1  - Department for Evidence‐based Medicine and Evaluation Danube University Krems  Krems Austria
+C1  - Department for Evidence-based Medicine and Evaluation Danube University Krems  Krems Austria
 C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
 AU  - Kahwati, Leila
 C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
@@ -61,8 +61,8 @@ AU  - Crotty, Karen
 C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
 AU  - Viswanathan, Meera
 C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
-AU  - Nußbaumer-Streit, Barbara
-C1  - Department for Evidence‐based Medicine and Evaluation Danube University Krems  Krems Austria
+AU  - Nu�baumer-Streit, Barbara
+C1  - Department for Evidence-based Medicine and Evaluation Danube University Krems  Krems Austria
 AU  - Booth, Graham
 C1  - Social, Statistical, and Environmental Sciences, RTI International  Research Triangle Park North Carolina USA
 AU  - Erskine, Nathaniel
@@ -84,10 +84,10 @@ VL  - 15
 IS  - 4
 SP  - 576
 EP  - 589
-AB  - Abstract Data extraction is a crucial, yet labor‐intensive and error‐prone part of evidence synthesis. To date, efforts to harness machine learning for enhancing efficiency of the data extraction process have fallen short of achieving sufficient accuracy and usability. With the release of large language models (LLMs), new possibilities have emerged to increase efficiency and accuracy of data extraction for evidence synthesis. The objective of this proof‐of‐concept study was to assess the performance of an LLM (Claude 2) in extracting data elements from published studies, compared with human data extraction as employed in systematic reviews. Our analysis utilized a convenience sample of 10 English‐language, open‐access publications of randomized controlled trials included in a single systematic review. We selected 16 distinct types of data, posing varying degrees of difficulty (160 data elements across 10 studies). We used the browser version of Claude 2 to upload the portable document format of each publication and then prompted the model for each data element. Across 160 data elements, Claude 2 demonstrated an overall accuracy of 96.3% with a high test–retest reliability (replication 1: 96.9%; replication 2: 95.0% accuracy). Overall, Claude 2 made 6 errors on 160 data items. The most common errors ( n = 4) were missed data items. Importantly, Claude 2's ease of use was high; it required no technical expertise or labeled training data for effective operation (i.e., zero‐shot learning). Based on findings of our proof‐of‐concept study, leveraging LLMs has the potential to substantially enhance the efficiency and accuracy of data extraction for evidence syntheses.
+AB  - Abstract Data extraction is a crucial, yet labor-intensive and error-prone part of evidence synthesis. To date, efforts to harness machine learning for enhancing efficiency of the data extraction process have fallen short of achieving sufficient accuracy and usability. With the release of large language models (LLMs), new possibilities have emerged to increase efficiency and accuracy of data extraction for evidence synthesis. The objective of this proof-of-concept study was to assess the performance of an LLM (Claude 2) in extracting data elements from published studies, compared with human data extraction as employed in systematic reviews. Our analysis utilized a convenience sample of 10 English-language, open-access publications of randomized controlled trials included in a single systematic review. We selected 16 distinct types of data, posing varying degrees of difficulty (160 data elements across 10 studies). We used the browser version of Claude 2 to upload the portable document format of each publication and then prompted the model for each data element. Across 160 data elements, Claude 2 demonstrated an overall accuracy of 96.3% with a high test-retest reliability (replication 1: 96.9%; replication 2: 95.0% accuracy). Overall, Claude 2 made 6 errors on 160 data items. The most common errors ( n = 4) were missed data items. Importantly, Claude 2's ease of use was high; it required no technical expertise or labeled training data for effective operation (i.e., zero-shot learning). Based on findings of our proof-of-concept study, leveraging LLMs has the potential to substantially enhance the efficiency and accuracy of data extraction for evidence syntheses.
 ER  -
 TY  - LETTER
-TI  - Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E–Mediated Food Allergy
+TI  - Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E-Mediated Food Allergy
 PY  - 2023
 PB  - American Medical Association
 SN  - 2168-6203
@@ -95,11 +95,11 @@ T2  - JAMA Pediatrics
 DO  - 10.1001/jamapediatrics.2023.2465
 UR  - https://doi.org/10.1001/jamapediatrics.2023.2465
 DA  - 2023-09-01
-AU  - Xiao, Yu‐Tian
+AU  - Xiao, Yu-Tian
 C1  - Department of Urology, Shanghai Changhai Hospital, Shanghai, China
 AU  - Cai, Junting
 C1  - Department of Psychiatry, National Clinical Research Center for Mental Disorders and National Center for Mental Disorders, The Second Xiangya Hospital of Central South University, Changsha, Hunan, China
-AU  - Li, Guo‐Fu
+AU  - Li, Guo-Fu
 C1  - School of Basic Medicine and Clinical Pharmacy, China Pharmaceutical University, Nanjing, Jiangsu, China
 LA  - en
 KW  - Food Allergy
@@ -125,7 +125,7 @@ AU  - Ren, Pengwei
 C1  - Department of Clinical Research Center for Respiratory Diseases, West China Hospital, Sichuan University, Chengdu, Sichuan, China
 AU  - Doi, Suhail
 C1  - Department of Population Medicine, College of Medicine, QU Health, Qatar University, Doha, Qatar
-AU  - Furuya‐Kanamori, Luis
+AU  - Furuya-Kanamori, Luis
 C1  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland, Brisbane, Australia
 AU  - Lin, Lifeng
 C1  - Department of Epidemiology and Biostatistics, University of Arizona, Tucson, AZ, USA
@@ -204,7 +204,7 @@ DA  - 2017-01-01
 AU  - Hoang, Linh
 AU  - Cao, Linh
 AU  - Guan, Yingjun
-AU  - Cheng, Yi‐Yun
+AU  - Cheng, Yi-Yun
 AU  - Schneider, Jodi
 LA  - en
 KW  - Decision Support Systems
@@ -236,7 +236,7 @@ AU  - Crotty, Karen
 C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
 AU  - Viswanathan, Meera
 C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
-AU  - Nußbaumer-Streit, Barbara
+AU  - Nu�baumer-Streit, Barbara
 C1  - Department for Evidence-based Medicine and Evaluation, Danube University Krems, Krems, Austria
 AU  - Booth, Gillian
 C1  - Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, USA
@@ -256,7 +256,7 @@ KW  - Research Methodology
 KW  - Text Mining
 KW  - Data Integration
 KW  - Proof of concept
-AB  - Abstract Data extraction is a crucial, yet labor-intensive and error-prone part of evidence synthesis. To date, efforts to harness machine learning for enhancing efficiency of the data extraction process have fallen short of achieving sufficient accuracy and usability. With the advent of Large Language Models (LLMs), new possibilities have emerged to increase efficiency and accuracy of data extraction for evidence synthesis. The objective of this proof-of-concept study was to assess the performance of an LLM (Claude 2) in extracting data elements from published studies, compared with human data extraction as employed in systematic reviews. Our analysis utilized a convenience sample of 10 English-language, open-access publications of randomized controlled trials included in a single systematic review. We selected 16 distinct types of data, posing varying degrees of difficulty (160 data elements across 10 studies). We used the browser version of Claude 2 to upload the portable document format of each publication and then prompted the model for each data element. Across 160 data elements, Claude 2 demonstrated an overall accuracy of 96.3% with a high test-retest reliability (replication 1: 96.9%; replication 2: 95.0% accuracy). Overall, Claude 2 made 6 errors on 160 data items. The most common errors (n=4) were missed data items. Importantly, Claude 2’s ease of use was high; it required no technical expertise or training data for effective operation. Based on findings of our proof-of-concept study, leveraging LLMs has the potential to substantially enhance the efficiency and accuracy of data extraction for evidence syntheses.
+AB  - Abstract Data extraction is a crucial, yet labor-intensive and error-prone part of evidence synthesis. To date, efforts to harness machine learning for enhancing efficiency of the data extraction process have fallen short of achieving sufficient accuracy and usability. With the advent of Large Language Models (LLMs), new possibilities have emerged to increase efficiency and accuracy of data extraction for evidence synthesis. The objective of this proof-of-concept study was to assess the performance of an LLM (Claude 2) in extracting data elements from published studies, compared with human data extraction as employed in systematic reviews. Our analysis utilized a convenience sample of 10 English-language, open-access publications of randomized controlled trials included in a single systematic review. We selected 16 distinct types of data, posing varying degrees of difficulty (160 data elements across 10 studies). We used the browser version of Claude 2 to upload the portable document format of each publication and then prompted the model for each data element. Across 160 data elements, Claude 2 demonstrated an overall accuracy of 96.3% with a high test-retest reliability (replication 1: 96.9%; replication 2: 95.0% accuracy). Overall, Claude 2 made 6 errors on 160 data items. The most common errors (n=4) were missed data items. Importantly, Claude 2's ease of use was high; it required no technical expertise or training data for effective operation. Based on findings of our proof-of-concept study, leveraging LLMs has the potential to substantially enhance the efficiency and accuracy of data extraction for evidence syntheses.
 ER  -
 TY  - JOUR
 TI  - AI-Driven Evidence Synthesis: Data Extraction of Randomized Controlled Trials with Large Language Models
@@ -305,7 +305,7 @@ SP  - 299
 EP  - 299
 ER  -
 TY  - LETTER
-TI  - Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E–Mediated Food Allergy—Reply
+TI  - Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E-Mediated Food Allergy�Reply
 PY  - 2023
 PB  - American Medical Association
 SN  - 2168-6203
@@ -344,7 +344,7 @@ C1  - Department of Maternal, Child and Adolescent Health, School of Public Heal
 C1  - MOE Key Laboratory of Population Health Across Life Cycle (Anhui Medical University), Hefei, Anhui, China
 AU  - Doi, Suhail
 C1  - Department of Population Medicine, College of Medicine, QU Health, Qatar University, Doha, Qatar
-AU  - Furuya‐Kanamori, Luis
+AU  - Furuya-Kanamori, Luis
 C1  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland, Brisbane, Australia
 AU  - Lin, Lifeng
 C1  - Department of Epidemiology and Biostatistics, University of Arizona, Tucson, AZ, USA
@@ -379,7 +379,7 @@ AU  - Ren, Pengwei
 C1  - Department of Clinical Research Center for Respiratory Diseases, West China Hospital, Sichuan University
 AU  - Doi, Suhail
 C1  - Department of Population Medicine, College of Medicine, QU Health, Qatar University
-AU  - Furuya‐Kanamori, Luis
+AU  - Furuya-Kanamori, Luis
 C1  - UQ Centre for Clinical Research, Faculty of Medicine, University of Queensland
 AU  - Lin, Lifeng
 C1  - Department of Epidemiology and Biostatistics, University of Arizona
