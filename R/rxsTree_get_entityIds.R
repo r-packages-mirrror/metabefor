@@ -11,8 +11,7 @@
 #' @export
 #'
 #' @examples ### Load an example Rxs project
-#' example_rxsProject <-
-#'   metabefor::example_rxsProject;
+#' data("example_rxsProject", package="metabefor");
 #'
 #' metabefor::rxsProject_get_entityIds(
 #'   example_rxsProject
