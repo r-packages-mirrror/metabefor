@@ -25,9 +25,9 @@ all nodes in the tree object or project.
 }
 \examples{
 ### Load an example Rxs project
-data("example_rxsProject", package="metabefor");
+data("example_rxsProject_1", package="metabefor");
 
 metabefor::rxsProject_get_entityIds(
-  example_rxsProject
+  example_rxsProject_1
 );
 }
