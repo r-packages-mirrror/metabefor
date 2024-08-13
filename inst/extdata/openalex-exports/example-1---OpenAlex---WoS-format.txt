@@ -498,7 +498,7 @@ AU Roberta Scarpone
 AF Roberta Scarpone
    Parisut Kimkool
    Robert Boyle
-TI Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E-Mediated Food Allergy—Reply
+TI Data Extraction and Handling Issues on Evidence Synthesis of Risk of Immunoglobulin E-Mediated Food Allergy - Reply
 SO JAMA Pediatrics
 LA English
 DT Letter
