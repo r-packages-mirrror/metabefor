@@ -1,11 +1,12 @@
 Package: metabefor
-Title: Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Open (Systematic) Reviews
-Version: 0.3.0
+Title: Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction for Open (Systematic) Reviews
+Version: 0.3.3
 Authors@R: 
     person(given = "Gjalt-Jorn",
            family = "Peters",
            role = c("aut", "cre"),
-           email = "gjalt-jorn@behaviorchange.eu")
+           email = "metabefor@opens.science",
+           comment = c(ORCID = "0000-0002-0336-9589"))
 Description: In systematic reviews, extracting data from primary
              sources is a crucial step with a high potential for
              introduction of biases. This package facilitates
@@ -14,7 +15,7 @@ Description: In systematic reviews, extracting data from primary
              addition, they are modular and extensible, lending
              themselves well to living reviews where insights as
              to optimal extraction evolve over time. By being R
-             Markdown script files, they are optimally transparant,
+             Markdown script files, they are optimally transparent,
              and their structure was designed to also be accessible
              to readers without R. Finally, each extraction script
              contains the original specification, enabling

@@ -71,10 +71,10 @@ the manual as included with the package. From within R, each function’s
 manual page can be displayed by prepending the function name with a
 question mark (e.g. `?metabefor::rxs_fromSpecifications`. Alternatively,
 the index of functions is available at the `metabefor` PkgDown site
-<http://r-packages.gitlab.io/metabefor>.
+<https://metabefor.opens.science>.
 
 Finally, in any case you may want to keep the glossary of terms ready.
-This is located at <https://sysrevving.com/glossary>.
+This is located at <https://sysrevving.com/glossary.html>.
 
 <!--------------------------------------------->
 <!--  End of a custom bit for every package  -->

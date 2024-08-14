@@ -92,9 +92,7 @@ bibentry_to_df <- function(bibentry,
 #'
 #' @export
 #' @return A data frame with one row for each person.
-#' 
-#' @method as.data.frame person
-as.data.frame.person <- function(x, ...) {
+mbf_as.data.frame.person <- function(x, ...) {
   
   if (!inherits(x, "person")) {
     stop("As `x`, you can only pass an object of class `person`. ",
