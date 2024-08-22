@@ -28,6 +28,7 @@ rxs_parseValueTemplates <- function(valueTemplateDataframe) {
   return(res);
 }
 
+#' @export
 print.parsedValueTemplates <- function(x, ...) {
   class(x) <- class(x)[-1];
   print(x, ...);

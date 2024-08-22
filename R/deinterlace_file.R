@@ -13,16 +13,18 @@
 #' @export
 #'
 #' @examples metabefor::deinterlace_file(
-#'   "first line",
-#'   "",
-#'   "second (real) line",
-#'   "",
-#'   "third line"
+#'   c(
+#'     "first line",
+#'     "",
+#'     "second (real) line",
+#'     "",
+#'     "third line"
+#'   )
 #' );
 deinterlace_file <- function(x,
                              output = NULL) {
   
-  if (file.exists(x)) {
+  if (file.exists(x[1])) {
     ### Read file
     contents <- readLines(x);
   } else if (length(x) > 1) {

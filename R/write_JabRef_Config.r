@@ -34,7 +34,29 @@
 #' 
 #' @export
 #'
-#' @examples
+#' @examples ### Get the path to a temporary directory
+#' tempPath <- tempdir();
+#' 
+#' ### Write screener packages
+#' metabefor::write_JabRef_Config(
+#'   tempPath,
+#'   screeners = "A"
+#' );
+#' 
+#' ### Load written file
+#' jabRefConfig <-
+#'   readLines(
+#'     file.path(
+#'       tempPath,
+#'       "jabref.xml"
+#'     )
+#'   );
+#' 
+#' ### Show beginning of file
+#' cat(jabRefConfig[1:10], sep="\n");
+#' 
+#' ### Show bit in the middle with specific screening info
+#' cat(jabRefConfig[39:41], sep="\n");
 write_JabRef_Config <- function(outputPath,
                                 screeners = c("a", "b"),
                                 screenerFieldsPrefix = "screener",

@@ -5,7 +5,7 @@
 #' trees, looking for the values stored in the entity with the specified
 #' identifier (this cannot be a clustering entity or a clustered entity;
 #' see the definitions at
-#' <https://r-packages.gitlab.io/metabefor/articles/definitions.html>),
+#' <https://sysrevving.com/glossary.html>),
 #' compiling a list of all occurring values, and then adds new entities
 #' for each occurring value, with new values (by default, `0` and `1`)
 #' indicating whether that value occurred in the original vector for a

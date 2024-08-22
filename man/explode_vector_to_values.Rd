@@ -38,7 +38,7 @@ by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}) and 
 trees, looking for the values stored in the entity with the specified
 identifier (this cannot be a clustering entity or a clustered entity;
 see the definitions at
-\url{https://r-packages.gitlab.io/metabefor/articles/definitions.html}),
+\url{https://sysrevving.com/glossary.html}),
 compiling a list of all occurring values, and then adds new entities
 for each occurring value, with new values (by default, \code{0} and \code{1})
 indicating whether that value occurred in the original vector for a

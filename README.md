@@ -3,7 +3,7 @@
 
 # <img src='man/figures/logo.png' align="right" height="138" /> metabefor 📦
 
-## Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Systematic Reviews
+## Modular, Extensible, Transparent, Accessible, Bootstrapped Extraction For Open (Systematic) Reviews
 
 <!-- badges: start -->
 
@@ -26,7 +26,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/metabefor?color=brightg
 <!-- badges: end -->
 
 The pkgdown website for this project is located at
-<https://r-packages.gitlab.io/metabefor>.
+<https://metabefor.opens.science>.
 
 <!--------------------------------------------->
 <!-- Start of a custom bit for every package -->
@@ -71,10 +71,10 @@ the manual as included with the package. From within R, each function’s
 manual page can be displayed by prepending the function name with a
 question mark (e.g. `?metabefor::rxs_fromSpecifications`. Alternatively,
 the index of functions is available at the `metabefor` PkgDown site
-<http://r-packages.gitlab.io/metabefor>.
+<https://metabefor.opens.science>.
 
 Finally, in any case you may want to keep the glossary of terms ready.
-This is located at <https://sysrevving.com/glossary>.
+This is located at <https://sysrevving.com/glossary.html>.
 
 <!--------------------------------------------->
 <!--  End of a custom bit for every package  -->

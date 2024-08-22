@@ -8,8 +8,6 @@
 #' @rdname freqTab_heatMaps
 #' 
 #' @export
-#'
-#' @examples
 heatMap_from_freqTab <- function(freqTab,
                                  rowOrder = rownames(freqTab),
                                  colOrder = colnames(freqTab),

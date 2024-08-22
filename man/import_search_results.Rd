@@ -12,7 +12,9 @@ import_search_results(
   filesToIgnoreRegex = NULL,
   recursive = TRUE,
   perl = TRUE,
-  fieldsToCopy = list(doi = "L3"),
+  fieldsToCopy = list(doi = c("L3", "DO"), title = "T1"),
+  preparatoryReplacements = NULL,
+  synthesisr_tag_naming = "best_guess",
   copySep = " || ",
   idFieldName = "original_id",
   parallel = FALSE,
@@ -40,6 +42,16 @@ vectors, with each vector's name being the new field name (to copy to), and
 each character vector listing the fields to copy (to that new field name).
 Set to \code{NULL} or pass an empty list to not copy anything over.}
 
+\item{preparatoryReplacements}{Specify any replacements to be made in the
+file(s) to import, as a named character vector, where each element's \emph{name}
+is the replacement, and the corresponding value is a Perl regular expression
+which will (case insensitively) be searched in the file (e.g. to replace
+all RIS tags \code{T1} with \code{TI}, pass \code{c("TI" = "^T1")} as value
+of \code{preparatoryReplacements}).}
+
+\item{synthesisr_tag_naming}{The value to pass to
+the \code{synthesisr::read_refs()} function as argument \code{tag_naming}.}
+
 \item{copySep}{When copying fields over (see \code{fieldsToCopy}), the separator
 to use when the new field is not empty (in which case the contents to copy
 over will be appended).}
@@ -52,7 +64,10 @@ name in JabRef (if \code{NULL}, the field is not renamed).}
 \item{search_metadataRegex}{A regular expression to match against the
 filenames. If it matches, metadata will be extracted in three capturing
 groups, in the order date (using ISO standard 8601 format, i.e. 2022-03-05),
-interface, and database.}
+interface, and database, separated by underscores (\verb{_}), with an optional
+fourth element, again separated with an underscore, that can be used to
+specify which query was run (in case multiple queries are used in the same
+database / interface combination and on the same date).}
 
 \item{silent}{Whether to be silent or chatty.}
 }
@@ -66,4 +81,48 @@ processes the hits in a set of subdirectories in a directory, specifying
 the original file, directory, and, if the files were names using a
 convention, date, database, and interface (see the \code{search_metadataRegex}
 argument).
+}
+\examples{
+### Path to extra files in {metabefor} package
+metabefor_files_path <-
+  system.file(
+    "extdata",
+    package = "metabefor"
+  ); 
+
+### Path with OpenAlex exports
+OpenAlexExport_path <-
+  file.path(
+    metabefor_files_path,
+    "openalex-exports"
+  ); 
+
+bibHits_OpenAlex <-
+  metabefor::import_search_results(
+    OpenAlexExport_path
+  );
+
+### Look at the first five titles
+bibHits_OpenAlex$bibHitDf$title[1:5]
+
+### Another example, using the filenames to
+### provide metadata about the date, database,
+### interface, and query specification
+
+### Path with Esbco exports
+EbscoExport_path <-
+  file.path(
+    metabefor_files_path,
+    "ebsco-exports"
+  ); 
+  
+bibHits_Ebsco <-
+  metabefor::import_search_results(
+    EbscoExport_path
+  );
+  
+### Show the databases
+metabefor::show_search_hits_by_database(
+  bibHits_Ebsco
+);
 }

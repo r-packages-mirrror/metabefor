@@ -12,10 +12,18 @@
 #' @param headingLevel The level of the heading to use is multiple modules
 #' were specified.
 #'
-#' @return Invisibly; or, when knitting, an object that knitr will print.
+#' @return The produced markdown; or, when knitting,
+#' an object that knitr will print.
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example Rxs project
+#' data('rxs_minimal_example_2', package="metabefor");
+#' 
+#' ### Show the basic Rxs tree that is specified
+#' ### in the Rxs specification
+#' metabefor::show_rxsTree_in_rxsStructure(
+#'   rxs_minimal_example_2
+#' );
 show_rxsTree_in_rxsStructure <- function(x,
                                          output = NULL,
                                          outputModuleFilename = "extraction-tree--simple--%s.pdf",
@@ -33,7 +41,7 @@ show_rxsTree_in_rxsStructure <- function(x,
       paste0(
         "<pre>",
         paste0(
-          capture.output(
+          utils::capture.output(
             print(extractionScriptTree)),
           collapse="\n"
         ),

@@ -6,7 +6,37 @@
 #' @return The cloned object
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example Rxs project
+#' data('example_rxsProject_1', package="metabefor");
+#'   
+#' ### Check whether in this object, value 'hi' exists:
+#' example_rxsProject_1$rxsTrees$qurid_7h50rzpq$hi;
+#' 
+#' ### (should be NULL)
+#'
+#' ### Try to make a copy 'the conventional way'
+#' copy_rxsProject_1 <-
+#'   example_rxsProject_1;
+#'   
+#' ### Change something
+#' copy_rxsProject_1$rxsTrees$qurid_7h50rzpq$hi <- "Hello";
+#' 
+#' ### Check that worked
+#' copy_rxsProject_1$rxsTrees$qurid_7h50rzpq$hi;
+#' 
+#' ### Show how magically stuff also changed in the
+#' ### original even though we didn't change anything
+#' example_rxsProject_1$rxsTrees$qurid_7h50rzpq$hi;
+#'
+#' ### Clone it instead
+#' copy_rxsProject_1 <-
+#'   metabefor::cloneRxsProject(example_rxsProject_1);
+#'   
+#' ### Make the same change in the copy
+#' copy_rxsProject_1$rxsTrees$qurid_7h50rzpq$hi <- "Goodbye";
+#' 
+#' ### Show how the value in the original didn't change again
+#' example_rxsProject_1$rxsTrees$qurid_7h50rzpq$hi;
 cloneRxsProject <- function(x,
                             silent = metabefor::opts$get("silent")) {
   

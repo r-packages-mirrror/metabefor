@@ -27,6 +27,27 @@ ready to be included in a knitted file; \code{"raw"} for the raw results; or
 
 \item{silent}{Whether to be silent or chatty.}
 }
+\value{
+A character vector with the extractor instructions in Markdown
+}
 \description{
 Show and/or write the extractor instructions
+}
+\examples{
+### Load an example rxs specification
+data("rxs_minimal_example_2", package="metabefor");
+
+### "Write" the extractor instructions but store
+### them in a character vector instead of writing
+### them to a file
+extractorInstructions <-
+  metabefor::write_extractor_instructions(
+    rxs_minimal_example_2
+  );
+
+### Show the beginning
+cat(substr(extractorInstructions, 1, 265));
+
+### Show a fragment with instructions about one entity
+cat(substr(extractorInstructions, 2070, 2790));
 }

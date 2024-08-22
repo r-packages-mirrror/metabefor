@@ -34,16 +34,14 @@
 #' @export
 #'
 #' @examples ### Load example datasets with sources
-#' sourcesExample1 <-
-#'   metabefor::openalex_example_1;
-#' sourcesExample2 <-
-#'   metabefor::openalex_example_2;
+#' data(openalex_example_1, package="metabefor");
+#' data(openalex_example_2, package="metabefor");
 #'
 #' ### Check duplicate sources
 #' dedupResults <-
 #'   metabefor::check_duplicate_sources(
-#'     sourcesExample1,
-#'     sourcesExample2
+#'     openalex_example_1,
+#'     openalex_example_2
 #'   );
 #'
 #' table(dedupResults);
@@ -78,6 +76,7 @@ check_duplicate_sources <- function(primarySources,
   
   ### For convenience
   doi_forDeduplicationCol <- paste0(doiCol, forDeduplicationSuffix);
+  title_forDeduplicationCol <- paste0("title", forDeduplicationSuffix);
   
   ### Columns to look at
   
@@ -467,7 +466,7 @@ check_duplicate_sources <- function(primarySources,
         lapply(
           stringDistanceDuplicates,
           function(i) {
-            return(primarySources[i, titleCol]);
+            return(primarySources[i, "title"]);
           }
         );
       
@@ -476,7 +475,7 @@ check_duplicate_sources <- function(primarySources,
           lapply(
             which(stringDistance_hasDuplicates),
             function(i) {
-              return(primarySources[i, titleCol]);
+              return(primarySources[i, "title"]);
             }
           );
       } else {
@@ -484,7 +483,7 @@ check_duplicate_sources <- function(primarySources,
           lapply(
             which(stringDistance_hasDuplicates),
             function(i) {
-              return(secondarySources[i, titleCol]);
+              return(secondarySources[i, "title"]);
             }
           );
       }

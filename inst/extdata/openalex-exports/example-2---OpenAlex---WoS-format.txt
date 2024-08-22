@@ -17,12 +17,12 @@ C1 [Hannah Long] University of Manchester, GB
    [David French] University of Manchester, GB
    [Joanna Brooks] Manchester Academic Health Science Centre, GB
    [Joanna Brooks] University of Manchester, GB
-C3 Manchester Academic Health Science Centre, GB; University of Manchester, GB
+C3 University of Manchester, GB; Manchester Academic Health Science Centre, GB
 RP Hannah Long (corresponding author), University of Manchester, GB
 RI Hannah Long/https://openalex.org/A5050739421, David French/https://openalex.org/A5033803383, Joanna Brooks/https://openalex.org/A5043015497
 OI Hannah Long/0000-0001-7306-8987, David French/0000-0002-7663-7804, Joanna Brooks/0000-0003-0220-9847
 FU 
-CT 447
+CT 450
 NR 47
 PU SAGE Publishing
 SN 2632-0843
@@ -37,25 +37,25 @@ DI 10.1177/2632084320947559
 PG 12
 PM
 OA hybrid
-DA 2024-08-06
+DA 2024-08-09
 PT U
 AU Tom Sensky
-   Stefan B√ºchi
+   Stefan B¸chi
 AF Tom Sensky
-   Stefan B√ºchi
+   Stefan B¸chi
 TI PRISM, a Novel Visual Metaphor Measuring Personally Salient Appraisals, Attitudes and Decision-Making: Qualitative Evidence Synthesis
 SO PLoS ONE
 LA English
 DT Review
 C1 [Tom Sensky] Centre for Mental Health, GB
    [Tom Sensky] Imperial College London, GB
-   [Stefan B√ºchi]
+   [Stefan B¸chi]
 C3 Imperial College London, GB; Centre for Mental Health, GB
 RP Tom Sensky (corresponding author), Centre for Mental Health, GB
-RI Tom Sensky/https://openalex.org/A5027383080, Stefan B√ºchi/https://openalex.org/A5028936069
+RI Tom Sensky/https://openalex.org/A5027383080, Stefan B¸chi/https://openalex.org/A5028936069
 OI Tom Sensky/0000-0001-8063-1889
 FU 
-CT 38
+CT 39
 NR 74
 PU Public Library of Science
 SN 1932-6203
@@ -70,7 +70,7 @@ DI 10.1371/journal.pone.0156284
 PG 
 PM 27214024
 OA gold
-DA 2024-08-06
+DA 2024-08-09
 PT U
 AU Pierre Pluye
 AF Pierre Pluye
@@ -99,15 +99,15 @@ DI 10.1136/ebmed-2014-110158
 PG 1
 PM 25633996
 OA hybrid
-DA 2024-08-06
+DA 2024-08-09
 PT U
 AU Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
 AF Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
@@ -116,13 +116,13 @@ SO BMC Pulmonary Medicine
 LA English
 DT Review
 C1 [Max Schlueter] IQVIA (United Kingdom), GB
-   [Am√©lie Beaudet] Actelion (Switzerland), CH
+   [AmÈlie Beaudet] Actelion (Switzerland), CH
    [Evan Davies] Actelion (Switzerland), CH
    [Binu Gurung] IQVIA (United Kingdom), GB
    [Andreas Karabis] IQVIA (United States), US
-C3 IQVIA (United States), US; Actelion (Switzerland), CH; IQVIA (United Kingdom), GB
-RI Max Schlueter/https://openalex.org/A5048332618, Am√©lie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
-OI Max Schlueter/0000-0003-1772-1421, Am√©lie Beaudet/0000-0003-0535-672X
+C3 IQVIA (United Kingdom), GB; Actelion (Switzerland), CH; IQVIA (United States), US
+RI Max Schlueter/https://openalex.org/A5048332618, AmÈlie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, AmÈlie Beaudet/0000-0003-0535-672X
 FU Actelion Pharmaceuticals
 CT 5
 NR 84
@@ -139,7 +139,7 @@ DI 10.1186/s12890-020-01241-4
 PG 
 PM 32723397
 OA gold
-DA 2024-08-06
+DA 2024-08-09
 PT J
 AU Matthew F. Flynn
 AF Matthew F. Flynn
@@ -149,7 +149,7 @@ LA English
 DT Article
 C1 [Matthew F. Flynn] NHS Greater Glasgow and Clyde, GB
    [Matthew F. Flynn] University of Edinburgh, GB
-C3 NHS Greater Glasgow and Clyde, GB; University of Edinburgh, GB
+C3 University of Edinburgh, GB; NHS Greater Glasgow and Clyde, GB
 RP Matthew F. Flynn (corresponding author), NHS Greater Glasgow and Clyde, GB
 RI Matthew F. Flynn/https://openalex.org/A5053746294
 OI Matthew F. Flynn/0000-0002-0499-9777
@@ -169,7 +169,7 @@ DI 10.1093/femsle/fnab114
 PG 
 PM 34617570
 OA hybrid
-DA 2024-08-06
+DA 2024-08-09
 PT U
 AU Sandra P. Small
 AF Sandra P. Small
@@ -198,36 +198,7 @@ DI 10.11124/jbies-23-00198
 PG 2
 PM 37282720
 OA bronze
-DA 2024-08-06
-PT U
-AU Paul Hunter
-AF Paul Hunter
-TI LibGuides: Systematic Reviews: Critical Appraisal & Evidence Synthesis
-SO
-LA English
-DT Libguides
-C1 [Paul Hunter]
-C3 
-RP Paul Hunter (corresponding author), None, None
-RI Paul Hunter/https://openalex.org/A5016040450
-OI Paul Hunter/0000-0001-7331-894X
-FU 
-CT 0
-NR 0
-PU
-SN
-EI
-PD DEC
-PY 2013
-VL
-IS
-BP
-EP
-DI 
-PG 
-PM
-OA closed
-DA 2024-08-06
+DA 2024-08-09
 PT J
 AU Geoff K Frampton
 AF Geoff K Frampton
@@ -256,7 +227,7 @@ DI
 PG 
 PM
 OA closed
-DA 2024-08-06
+DA 2024-08-09
 PT J
 AU Leonie van Grootel
    Karin Hannes
@@ -293,7 +264,7 @@ DI
 PG 
 PM
 OA closed
-DA 2024-08-06
+DA 2024-08-09
 PT U
 AU Alan Pearson
    John Field
@@ -308,7 +279,7 @@ DT Other
 C1 [Alan Pearson] University of Adelaide, AU
    [John Field] James Cook University, AU
    [Zoe Jordan]
-C3 University of Adelaide, AU; James Cook University, AU
+C3 James Cook University, AU; University of Adelaide, AU
 RI Alan Pearson/https://openalex.org/A5095795120, John Field/https://openalex.org/A5095793789, Zoe Jordan/https://openalex.org/A5102061201
 OI 
 FU 
@@ -327,15 +298,15 @@ DI 10.1002/9781444316544.ch6
 PG 27
 PM
 OA closed
-DA 2024-08-06
+DA 2024-08-09
 PT J
 AU Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
 AF Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
@@ -344,13 +315,13 @@ SO Value in Health
 LA English
 DT Article
 C1 [Max Schlueter] IQVIA (United Kingdom), GB
-   [Am√©lie Beaudet] Actelion (Switzerland), CH
+   [AmÈlie Beaudet] Actelion (Switzerland), CH
    [Evan Davies] Actelion (Switzerland), CH
    [Binu Gurung] IQVIA (United Kingdom), GB
    [Andreas Karabis]
-C3 Actelion (Switzerland), CH; IQVIA (United Kingdom), GB
-RI Max Schlueter/https://openalex.org/A5048332618, Am√©lie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
-OI Max Schlueter/0000-0003-1772-1421, Am√©lie Beaudet/0000-0003-0535-672X
+C3 IQVIA (United Kingdom), GB; Actelion (Switzerland), CH
+RI Max Schlueter/https://openalex.org/A5048332618, AmÈlie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, AmÈlie Beaudet/0000-0003-0535-672X
 FU 
 CT 0
 NR 0
@@ -367,7 +338,7 @@ DI 10.1016/j.jval.2019.09.2502
 PG 
 PM
 OA bronze
-DA 2024-08-06
+DA 2024-08-09
 PT J
 AU Ajima Olaghere
    David B. Wilson
@@ -382,11 +353,11 @@ DT Article
 C1 [Ajima Olaghere] Temple University, US
    [David B. Wilson] George Mason University, US
    [Catherine Kimbrell] George Mason University, US
-C3 Temple University, US; George Mason University, US
+C3 George Mason University, US; Temple University, US
 RP Ajima Olaghere (corresponding author), Temple University, US
 RI Ajima Olaghere/https://openalex.org/A5080381077, David B. Wilson/https://openalex.org/A5079556746, Catherine Kimbrell/https://openalex.org/A5004809697
 OI Ajima Olaghere/0000-0003-4547-187X, David B. Wilson/0000-0001-6461-3904, Catherine Kimbrell/0000-0002-1420-5184
-FU Office of Juvenile Justice and Delinquency Prevention [2014‚ÄêDC‚ÄêBX‚ÄêK001]
+FU Office of Juvenile Justice and Delinquency Prevention [2014-DC-BX-K001]
 CT 0
 NR 25
 PU Wiley
@@ -402,15 +373,15 @@ DI 10.1002/jrsm.1659
 PG 6
 PM 37525470
 OA hybrid
-DA 2024-08-06
+DA 2024-08-09
 PT U
 AU Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
 AF Max Schlueter
-   Am√©lie Beaudet
+   AmÈlie Beaudet
    Evan Davies
    Binu Gurung
    Andreas Karabis
@@ -419,13 +390,13 @@ SO Figshare
 LA English
 DT Review
 C1 [Max Schlueter]
-   [Am√©lie Beaudet]
+   [AmÈlie Beaudet]
    [Evan Davies]
    [Binu Gurung]
    [Andreas Karabis]
 C3 
-RI Max Schlueter/https://openalex.org/A5048332618, Am√©lie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
-OI Max Schlueter/0000-0003-1772-1421, Am√©lie Beaudet/0000-0003-0535-672X
+RI Max Schlueter/https://openalex.org/A5048332618, AmÈlie Beaudet/https://openalex.org/A5023321655, Evan Davies/https://openalex.org/A5078254098, Binu Gurung/https://openalex.org/A5000581869, Andreas Karabis/https://openalex.org/A5067179752
+OI Max Schlueter/0000-0003-1772-1421, AmÈlie Beaudet/0000-0003-0535-672X
 FU 
 CT 0
 NR 0
@@ -442,7 +413,7 @@ DI 10.6084/m9.figshare.12731548
 PG 
 PM
 OA gold
-DA 2024-08-06
+DA 2024-08-09
 ER
 
 

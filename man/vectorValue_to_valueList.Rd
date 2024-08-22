@@ -41,8 +41,37 @@ values with; names are values, values are labels.}
 in \code{allPossibleValues} that do not occur in the vector}
 }
 \value{
+The Rxs tree specified in \code{x}, invisibly.
+
 The list
 }
 \description{
 For example, \code{c('red', 'brown')} becomes \code{list(red = 1, brown = 1)}.
+}
+\examples{
+### Load an example Rxs project
+data('example_rxsProject_1', package="metabefor");
+
+### Look at the sample size specified in
+### an Rxs tree for a source
+example_rxsProject_1$rxsTrees$qurid_7h50rzmz$methods$sample$sampleSize$value;
+
+### Set it to a vector
+example_rxsProject_1$rxsTrees$qurid_7h50rzmz$methods$sample$sampleSize$value <-
+  c(80, 62);
+
+### Convert the values to a value list
+rxsTree_vectorValue_to_valueList(
+  example_rxsProject_1$rxsTrees$qurid_7h50rzmz,
+  "sampleSize"
+);
+
+### Verify that this happened
+example_rxsProject_1$rxsTrees$qurid_7h50rzmz$methods$sample$sampleSize$value;
+
+### Example for one vector
+metabefor::vectorValue_to_valueList(
+  c('red', 'brown')
+);
+
 }

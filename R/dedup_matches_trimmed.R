@@ -12,7 +12,7 @@
 #'
 #' @examples dedup_matches_trimmed(
 #'   c('a', 'b', 'c'),
-#'   c('c', 'd');
+#'   c('c', 'd')
 #' );
 dedup_matches_trimmed <-  function(needles, haystack, start=0, end=0) {
 

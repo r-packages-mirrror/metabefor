@@ -1,5 +1,16 @@
 #' @rdname freqTab_heatMaps
 #' @export
+#' @examples ### Load an example Rxs Project
+#' example_rxsProject_1 <- metabefor::example_rxsProject_1;
+#' 
+#' ### Create a heatmap
+#' metabefor::heatMap_from_rxsProject(
+#'   example_rxsProject_1,
+#'   "sourceAuthors",
+#'   "publicationYear",
+#'   rowLab = "Author",
+#'   colLab = "Year"
+#' );
 heatMap_from_rxsProject <- function(x,
                                     rowRegex,
                                     colRegex,

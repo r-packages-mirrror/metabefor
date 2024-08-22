@@ -4,16 +4,42 @@
 \alias{renderTreeAsGraph}
 \title{Render a tree as a graph}
 \usage{
-renderTreeAsGraph(tree, theme = metabefor::defaultGraphTheme())
+renderTreeAsGraph(
+  tree,
+  theme = metabefor::defaultGraphTheme(),
+  returnDot = FALSE
+)
 }
 \arguments{
 \item{tree}{The tree}
 
 \item{theme}{The theme}
+
+\item{returnDot}{Whether to return the specification in Dot.}
 }
 \value{
-The result of \code{DiagrammeR::render_graph()}.
+The result of \code{DiagrammeR::render_graph()}, or, if \code{returnDot=TRUE},
+a character vector with the specification in Dot.
 }
 \description{
 Render a tree as a graph
+}
+\examples{
+### Load an example Rxs project
+data('example_rxsProject_1', package="metabefor");
+
+### Show the tree for one source as a graph
+metabefor::renderTreeAsGraph(
+  example_rxsProject_1$rxsTrees$qurid_7h50rzpq
+);
+
+### You can also return the produced Dot specification
+dot <-
+  metabefor::renderTreeAsGraph(
+    example_rxsProject_1$rxsTrees$qurid_7h50rzpq, 
+    returnDot=TRUE
+  );
+
+### Show it (and maybe tweak it)
+cat(dot);
 }

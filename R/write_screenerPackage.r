@@ -29,7 +29,24 @@
 #' written configuration file
 #' @export
 #'
-#' @examples
+#' @examples ### Get the path to a temporary directory
+#' tempPath <- tempdir();
+#' 
+#' ### Load an example bibliography
+#' data("ebsco_example_1", package="metabefor");
+#' 
+#' ### Write screener packages
+#' metabefor::write_screenerPackage(
+#'   ebsco_example_1,
+#'   tempPath,
+#'   screeners = c("A", "B")
+#' );
+#' 
+#' ### Look at written files
+#' list.files(tempPath);
+#' 
+#' ### Look at contents of "screening_A" directory
+#' list.files(file.path(tempPath, "screening_A"));
 write_screenerPackage <- function(bibliographyDf,
                                   outputPath,
                                   screeners = c("a", "b"),

@@ -1,12 +1,24 @@
 #' Knit the Rxs Template
+#' 
+#' This function knits an Rxs template stored in a parsed Rxs specification,
+#' as produced by a call to [metabefor::rxs_fromSpecifications()], into an
+#' R Markdown (or Quarto) file. 
 #'
-#' @param x The object with the Rxs Specification as produced by a call to
+#' @param x The object with the Rxs structure as produced by a call to
 #' [metabefor::rxs_fromSpecifications()].
 #'
-#' @return
+#' @return A character vector with class "knit_asis".
 #' @export
 #'
-#' @examples
+#' @examples ### Load example Rxs structure
+#' data('rxs_minimal_example_2', package="metabefor");
+#' 
+#' ### Produce the Markdown
+#' knittableMarkdown <-
+#'   knit_rxsTemplate(rxs_minimal_example_2);
+#'
+#' ### Show the beginning
+#' cat(substr(knittableMarkdown, 1, 2463));
 knit_rxsTemplate <- function(x) {
   
   if (inherits(x, "rxsStructure")) {

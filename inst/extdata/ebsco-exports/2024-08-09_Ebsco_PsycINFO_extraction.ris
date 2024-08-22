@@ -1,0 +1,90 @@
+TY  - JOUR
+ID  - 2024-61198-001
+AN  - 2024-61198-001
+AU  - Gartlehner, Gerald
+AU  - Kahwati, Leila
+AU  - Hilscher, Rainer
+AU  - Thomas, Ian
+AU  - Kugley, Shannon
+AU  - Crotty, Karen
+AU  - Viswanathan, Meera
+AU  - Nussbaumer-Streit, Barbara
+AU  - Booth, Graham
+AU  - Erskine, Nathaniel
+AU  - Konet, Amanda
+AU  - Chew, Robert
+T1  - Data extraction for evidence synthesis using a large language model: A proof-of-concept study
+JF  - Research Synthesis Methods
+JO  - Research Synthesis Methods
+JA  - Res Synth Methods
+Y1  - 2024/07//
+VL  - 15
+IS  - 4
+SP  - 576
+EP  - 589
+PB  - John Wiley & Sons
+SN  - 1759-2879
+SN  - 1759-2887
+AD  - Gartlehner, Gerald, RTI International, Research Triangle Park, NC, US
+N1  - Accession Number: 2024-61198-001. PMID: 38432227 Partial author list: First Author & Affiliation: Gartlehner, Gerald; RTI International, Research Triangle Park, NC, US, gerald.gartlehner@donau-uni.ac.at ORCID: 0000-0001-5531-3678. Release Date: 20240311. Correction Date: 20240729. Publication Type: Journal (0100), Peer Reviewed Journal (0110). Format Covered: Electronic. Document Type: Journal Article. Language: English. Grant Information: Kahwati, Leila. Major Descriptor: Machine Learning; Large Language Models. Classification: Research Methods & Experimental Design (2260). Population: Human (10). Methodology: Empirical Study; Experimental Replication; Quantitative Study. Supplemental Data: Appendixes Internet; Other Internet. References Available: Y. Page Count: 14. Issue Publication Date: Jul, 2024. Publication History: First Posted Date: Mar 3, 2024; Accepted Date: Jan 26, 2024; Revised Date: Dec 18, 2023; First Submitted Date: Oct 2, 2023. Copyright Statement: Research Synthesis Methods published by John Wiley & Sons Ltd. This is an open access article under the terms of the Creative Commons Attribution License, which permits use, distribution and reproduction in any medium, provided the original work is properly cited. The Authors. 2024. 
+AB  - Data extraction is a crucial, yet labor-intensive and error-prone part of evidence synthesis. To date, efforts to harness machine learning for enhancing efficiency of the data extraction process have fallen short of achieving sufficient accuracy and usability. With the release of large language models (LLMs), new possibilities have emerged to increase efficiency and accuracy of data extraction for evidence synthesis. The objective of this proof-of-concept study was to assess the performance of an LLM (Claude 2) in extracting data elements from published studies, compared with human data extraction as employed in systematic reviews. Our analysis utilized a convenience sample of 10 English-language, open-access publications of randomized controlled trials included in a single systematic review. We selected 16 distinct types of data, posing varying degrees of difficulty (160 data elements across 10 studies). We used the browser version of Claude 2 to upload the portable document format of each publication and then prompted the model for each data element. Across 160 data elements, Claude 2 demonstrated an overall accuracy of 96.3% with a high test-retest reliability (replication 1: 96.9%; replication 2: 95.0% accuracy). Overall, Claude 2 made 6 errors on 160 data items. The most common errors (n = 4) were missed data items. Importantly, Claude 2's ease of use was high; it required no technical expertise or labeled training data for effective operation (i.e., zero-shot learning). Based on findings of our proof-of-concept study, leveraging LLMs has the potential to substantially enhance the efficiency and accuracy of data extraction for evidence syntheses. (PsycInfo Database Record (c) 2024 APA, all rights reserved)
+KW  - Data extraction
+KW  - evidence syntheses
+KW  - large language model
+KW  - Humans
+KW  - Proof of Concept Study
+KW  - Machine Learning
+KW  - Reproducibility of Results
+KW  - Systematic Reviews as Topic
+KW  - Randomized Controlled Trials as Topic
+KW  - Algorithms
+KW  - Information Storage and Retrieval
+KW  - Language
+KW  - Software
+KW  - Natural Language Processing
+KW  - Research Design
+KW  - Machine Learning
+KW  - Large Language Models
+U1  - Sponsor: RTI International. Other Details: Innovation Fund. Recipients: No recipient indicated
+U1  - Sponsor: RTI Fellows Program. Recipients: Kahwati, Leila; Viswanathan, Meera
+DO  - 10.1002/jrsm.1710
+UR  - https://login.ezproxy.elib10.ub.unimaas.nl/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=psyh&AN=2024-61198-001&site=ehost-live&scope=site
+DP  - EBSCOhost
+DB  - psyh
+ER  - 
+
+TY  - JOUR
+ID  - 2024-98437-001
+AN  - 2024-98437-001
+AU  - Konet, Amanda
+AU  - Thomas, Ian
+AU  - Gartlehner, Gerald
+AU  - Kahwati, Leila
+AU  - Hilscher, Rainer
+AU  - Kugley, Shannon
+AU  - Crotty, Karen
+AU  - Viswanathan, Meera
+AU  - Chew, Robert
+T1  - Performance of two large language models for data extraction in evidence synthesis
+JF  - Research Synthesis Methods
+JO  - Research Synthesis Methods
+JA  - Res Synth Methods
+Y1  - 2024/06/19/
+PB  - John Wiley & Sons
+SN  - 1759-2879
+SN  - 1759-2887
+N1  - Accession Number: 2024-98437-001. Partial author list: First Author & Affiliation: Konet, Amanda; Social, Statistical, and Environmental Sciences, RTI International, Research Triangle Park, NC, US, akonet@rti.org ORCID: 0000-0001-5295-6483. Release Date: 20240624. Publication Type: Journal (0100), Peer Reviewed Journal (0110). Format Covered: Electronic. Document Type: Journal Article. Language: English. Major Descriptor: Language Proficiency; Models; Uncertainty. Classification: Cognitive Psychology & Intelligent Systems (4100). Methodology: Literature Review; Systematic Review. References Available: Y. Publication History: Accepted Date: Jun 4, 2024; First Submitted Date: Nov 6, 2023. Copyright Statement: John Wiley & Sons Ltd. 2024. 
+AB  - Accurate data extraction is a key component of evidence synthesis and critical to valid results. The advent of publicly available large language models (LLMs) has generated interest in these tools for evidence synthesis and created uncertainty about the choice of LLM. We compare the performance of two widely available LLMs (Claude 2 and GPT-4) for extracting pre-specified data elements from 10 published articles included in a previously completed systematic review. We use prompts and full study PDFs to compare the outputs from the browser versions of Claude 2 and GPT-4. GPT-4 required use of a third-party plugin to upload and parse PDFs. Accuracy was high for Claude 2 (96.3%). The accuracy of GPT-4 with the plug-in was lower (68.8%); however, most of the errors were due to the plug-in. Both LLMs correctly recognized when prespecified data elements were missing from the source PDF and generated correct information for data elements that were not reported explicitly in the articles. A secondary analysis demonstrated that, when provided selected text from the PDFs, Claude 2 and GPT-4 accurately extracted 98.7% and 100% of the data elements, respectively. Limitations include the narrow scope of the study PDFs used, that prompt development was completed using only Claude 2, and that we cannot guarantee the open-source articles were not used to train the LLMs. This study highlights the potential for LLMs to revolutionize data extraction but underscores the importance of accurate PDF parsing. For now, it remains essential for a human investigator to validate LLM extractions. (PsycInfo Database Record (c) 2024 APA, all rights reserved)
+KW  - accuracy
+KW  - artificial intelligence
+KW  - data extraction
+KW  - evidence synthesis
+KW  - large language models
+KW  - Language Proficiency
+KW  - Models
+KW  - Uncertainty
+DO  - 10.1002/jrsm.1732
+UR  - https://login.ezproxy.elib10.ub.unimaas.nl/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=psyh&AN=2024-98437-001&site=ehost-live&scope=site
+DP  - EBSCOhost
+DB  - psyh
+ER  - 

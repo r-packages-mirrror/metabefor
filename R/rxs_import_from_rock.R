@@ -18,12 +18,20 @@ rxs_import_from_rock <- function(x,
                                  silent = metabefor::opts$get("silent"),
                                  rxsSourceId = metabefor::opts$get("rockInterfacing_rxsSourceId"),
                                  rxsEntityId = metabefor::opts$get("rockInterfacing_rxsEntityId")) {
-
+  
+  if (!(requireNamespace("rock", quietly = TRUE))) {
+    stop(wrap_error(
+      "To export to ROCK format, you need the `rock` R package. ",
+      "To install it, can use:\n\n  ",
+      "install.packages('rock');\n"
+    ));
+  }
+  
   ### Configure the rock package
   rock::opts$set(
     idRegexes = c(
       rock::opts$defaults$idRegexes,
-      setNames(
+      stats::setNames(
         c(paste0("\\[\\[", rxsSourceId, "[=:]([a-zA-Z0-9_]+)\\]\\]"),
           paste0("\\[\\[", rxsEntityId, "[=:]([a-zA-Z0-9_]+)\\]\\]")),
         nm = c(rxsSourceId, rxsEntityId)
@@ -39,21 +47,26 @@ rxs_import_from_rock <- function(x,
   ### Import source(s) and prepare coding for import into Rxs tree
   ###-----------------------------------------------------------------------------
   
-  if (dir.exists(input)) {
+  if ((length(input) == 1) && dir.exists(input)) {
     parsedSource <- rock::parse_sources(
       path = input,
       regex = filenameRegex,
       recursive = recursive,
       silent = silent
     );
-  } else if (file.exists(input)) {
+  } else if ((length(input) == 1) && file.exists(input)) {
     parsedSource <- rock::parse_source(
       file = input,
       silent = silent
     );
+  } else if (is.character(input)) {
+    parsedSource <- rock::parse_source(
+      text = input,
+      silent = silent
+    );
   } else {
-    stop("The `input` you specified ('", input, "') is neither",
-         "an existing directory nor an existing file.");
+    stop("The `input` you specified ('", input, "') is not",
+         "an existing directory, an existing file, or a character vector.");
   }
 
   ### Get all codeIds, all sourceIds and all entity Ids
@@ -172,13 +185,23 @@ rxs_import_from_rock <- function(x,
           names = input
         ));
   } else {
-    x$rockProducts <-
-      structure(
-        list(
-          parsedSource
-        ),
-        names = input
-      );
+    if ((length(input) == 1) && file.exists(input)) {
+      x$rockProducts <-
+        structure(
+          list(
+            parsedSource
+          ),
+          names = input
+        );
+    } else {
+      x$rockProducts <-
+        structure(
+          list(
+            parsedSource
+          ),
+          names = "(not imported from file)"
+        );
+    }
   }
   
   msg(

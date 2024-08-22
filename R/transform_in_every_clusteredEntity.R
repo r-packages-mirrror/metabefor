@@ -1,10 +1,11 @@
 #' Perform a transformation for every clustering entity
 #' 
-#' This function takes a full Rxs project object (as produced
+#' [metabefor::transform_in_every_clusteringEntity()] takes a full
+#' Rxs project object (as produced
 #' by [metabefor::rxs_parseExtractionScripts()]) and processes all Rxs
 #' trees, looking for clustering entities that match the `entityId_regex`
 #' regular expression (for information about what clustering entities are,
-#' see <https://r-packages.gitlab.io/metabefor/articles/definitions.html>)
+#' see <https://sysrevving.com/glossary.html>)
 #' and/or that contain a field matching the `requiredField_regex` regular
 #' expression, and passes those to function `fun` with `funArgs` as
 #' arguments. For `funArgs`, you can pass entity identifiers of clustered
@@ -35,11 +36,32 @@
 #' 
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example Rxs project
+#' data('example_rxsProject_1', package="metabefor");
+#' 
+#' ### Look at contents of a clustering entity holding
+#' ### information about an association between variables with
+#' ### identifiers 'chalk' and 'witches'
+#' example_rxsProject_1$rxsTrees$qurid_7h50rzpq$associations$chalk_and_witches$value;
+#' 
+#' ### Multiply the value of entity with identifier
+#' ### 'r' with 2 in all clustering entities
+#' metabefor::transform_in_every_clusteringEntity(
+#'   example_rxsProject_1,
+#'   newEntityName = "double_the_r",
+#'   fun = function(x) {
+#'     return(x * 2);
+#'   },
+#'   funArgs = c(x = "r"),
+#'   requiredField_regex = "^r$"
+#' );
+#' 
+#' ### See the added entity
+#' example_rxsProject_1$rxsTrees$qurid_7h50rzpq$associations$chalk_and_witches$value;
 transform_in_every_clusteringEntity <- function(x,
                                                 newEntityName,
                                                 fun,
-                                                funArgs,
+                                                funArgs = NULL,
                                                 entityId_regex = NULL,
                                                 requiredField_regex = NULL) {
   
@@ -103,7 +125,7 @@ transform_in_every_clusteringEntity <- function(x,
             selected <- any(grepl(requiredField_regex, names(currentNode$value)));
           }
         }
-        
+
         return(selected);
         
       }

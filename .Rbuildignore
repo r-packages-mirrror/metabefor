@@ -27,3 +27,7 @@ public
 __functions__to__curate__and__add._R_
 ^doc$
 ^Meta$
+
+### Deployment of PkgDown site at https://opens.science
+_deploy.sh
+

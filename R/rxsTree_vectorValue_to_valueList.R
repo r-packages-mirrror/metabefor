@@ -7,11 +7,30 @@
 #' @param allPossibleValues A list of all possible values; if provided,
 #' the value list will contain all those.
 #'
-#' @return
+#' @return The Rxs tree specified in `x`, invisibly.
 #' @rdname vectorValue_to_valueList
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example Rxs project
+#' data('example_rxsProject_1', package="metabefor");
+#' 
+#' ### Look at the sample size specified in
+#' ### an Rxs tree for a source
+#' example_rxsProject_1$rxsTrees$qurid_7h50rzmz$methods$sample$sampleSize$value;
+#' 
+#' ### Set it to a vector
+#' example_rxsProject_1$rxsTrees$qurid_7h50rzmz$methods$sample$sampleSize$value <-
+#'   c(80, 62);
+#' 
+#' ### Convert the values to a value list
+#' rxsTree_vectorValue_to_valueList(
+#'   example_rxsProject_1$rxsTrees$qurid_7h50rzmz,
+#'   "sampleSize"
+#' );
+#' 
+#' ### Verify that this happened
+#' example_rxsProject_1$rxsTrees$qurid_7h50rzmz$methods$sample$sampleSize$value;
+#' 
 rxsTree_vectorValue_to_valueList <- function(x,
                                              entityId,
                                              allPossibleValues = NULL) {

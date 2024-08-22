@@ -25,6 +25,20 @@ dedup_get_stringDistances(
 
 \item{silent}{Whether to be silent or chatty}
 }
+\value{
+A data frame with the string distances between the elements, with the
+first vector determining the rows, and the second vector, the columns.
+}
 \description{
 Get string distances, optionally using multiple cores
+}
+\examples{
+### Create two vectors with strings
+a <- c("Apple", "Blueberry", "Cherry", "Date");
+b <- c("Airplane", "Bus", "Cycle");
+
+dedup_get_stringDistances(
+  a,
+  b
+);
 }

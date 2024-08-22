@@ -68,16 +68,14 @@ any of them are duplicates.
 }
 \examples{
 ### Load example datasets with sources
-sourcesExample1 <-
-  metabefor::openalex_example_1;
-sourcesExample2 <-
-  metabefor::openalex_example_2;
+data(openalex_example_1, package="metabefor");
+data(openalex_example_2, package="metabefor");
 
 ### Check duplicate sources
 dedupResults <-
   metabefor::check_duplicate_sources(
-    sourcesExample1,
-    sourcesExample2
+    openalex_example_1,
+    openalex_example_2
   );
 
 table(dedupResults);

@@ -6,7 +6,18 @@
 #' @return A data frame
 #' @export
 #'
-#' @examples
+#' @examples ### Load example project
+#' example_rxsProject_1 <- metabefor::example_rxsProject_1;
+#' 
+#' ### Flatten it
+#' exampleDf <-
+#'   flattenRxsProject_to_wideDf(
+#'     example_rxsProject_1
+#'   );
+#'
+#' ### Show the result (which works because there are only two studies
+#' ### and very few entities; normally not recommended)
+#' exampleDf
 flattenRxsProject_to_wideDf <- function(x,
                                         silent = metabefor::opts$get("silent")) {
   

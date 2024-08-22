@@ -12,6 +12,34 @@ show_search_hits_with_dois(x, output = "kable")
 
 \item{output}{Output format: \code{"kable"} or \code{"table"}.}
 }
+\value{
+A character vector with the table in Markdown
+}
 \description{
 Show the number of search hits with DOIs
+}
+\examples{
+### Path to extra files in {metabefor} package
+metabefor_files_path <-
+  system.file(
+    "extdata",
+    package = "metabefor"
+  ); 
+
+### Example path with search hits
+EbscoExport_path <-
+  file.path(
+    metabefor_files_path,
+    "ebsco-exports"
+  ); 
+  
+bibHits_Ebsco <-
+  metabefor::import_search_results(
+    EbscoExport_path
+  );
+  
+### Show the databases
+metabefor::show_search_hits_with_dois(
+  bibHits_Ebsco
+);
 }

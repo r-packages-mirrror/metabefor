@@ -21,6 +21,13 @@ df_to_named_list <- function(df,
     stop("As `df`, you have to pass a data frame!");
   }
   
+  if (is.numeric(nameCol)) {
+    nameCol <- names(df)[nameCol];
+  }
+  if (is.numeric(otherCols)) {
+    otherCols <- names(df)[otherCols];
+  }
+  
   if (!(all(c(nameCol, otherCols) %in% names(df)))) {
     stop("Not all names specified in `nameCol` and `otherCols` exist in `df`!");
   }

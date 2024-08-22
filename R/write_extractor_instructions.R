@@ -9,10 +9,25 @@
 #' @param title,author The title and author to use when exporting.
 #' @param silent Whether to be silent or chatty.
 #'
-#' @return
+#' @return A character vector with the extractor instructions in Markdown
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example rxs specification
+#' data("rxs_minimal_example_2", package="metabefor");
+#' 
+#' ### "Write" the extractor instructions but store
+#' ### them in a character vector instead of writing
+#' ### them to a file
+#' extractorInstructions <-
+#'   metabefor::write_extractor_instructions(
+#'     rxs_minimal_example_2
+#'   );
+#'
+#' ### Show the beginning
+#' cat(substr(extractorInstructions, 1, 265));
+#' 
+#' ### Show a fragment with instructions about one entity
+#' cat(substr(extractorInstructions, 2070, 2790));
 write_extractor_instructions <- function(x,
                                          output = "asis",
                                          outputFile = NULL,
@@ -61,7 +76,7 @@ write_extractor_instructions <- function(x,
     stop("You have to pass either an object of class `rxsStructure` or ",
          "an object of class `rxsStructures`; basically, the object ",
          "returned by metabefor::rxs_fromSpecifications().\n\nInstead, ",
-         "you passed an object of class(es): ", vecTxtQ(class(rxsSpecObject)));
+         "you passed an object of class(es): ", vecTxtQ(class(x)));
 
   }
   

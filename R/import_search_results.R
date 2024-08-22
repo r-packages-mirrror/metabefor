@@ -18,6 +18,14 @@
 #' vectors, with each vector's name being the new field name (to copy to), and
 #' each character vector listing the fields to copy (to that new field name).
 #' Set to `NULL` or pass an empty list to not copy anything over.
+#' @param preparatoryReplacements Specify any replacements to be made in the
+#' file(s) to import, as a named character vector, where each element's *name*
+#' is the replacement, and the corresponding value is a Perl regular expression
+#' which will (case insensitively) be searched in the file (e.g. to replace
+#' all RIS tags `T1` with `TI`, pass `c("TI" = "^T1")` as value
+#' of `preparatoryReplacements`).
+#' @param synthesisr_tag_naming The value to pass to
+#' the `synthesisr::read_refs()` function as argument `tag_naming`.
 #' @param copySep When copying fields over (see `fieldsToCopy`), the separator
 #' to use when the new field is not empty (in which case the contents to copy
 #' over will be appended).
@@ -27,14 +35,58 @@
 #' @param search_metadataRegex A regular expression to match against the
 #' filenames. If it matches, metadata will be extracted in three capturing
 #' groups, in the order date (using ISO standard 8601 format, i.e. 2022-03-05),
-#' interface, and database.
+#' interface, and database, separated by underscores (`_`), with an optional
+#' fourth element, again separated with an underscore, that can be used to
+#' specify which query was run (in case multiple queries are used in the same
+#' database / interface combination and on the same date).
 #' @param silent Whether to be silent or chatty.
 #'
 #' @return An object with all the imported information, including, most
 #' importantly, the data frame `bibHitDf` with all results.
 #' @export
 #'
-#' @examples
+#' @examples ### Path to extra files in {metabefor} package
+#' metabefor_files_path <-
+#'   system.file(
+#'     "extdata",
+#'     package = "metabefor"
+#'   ); 
+#' 
+#' ### Path with OpenAlex exports
+#' OpenAlexExport_path <-
+#'   file.path(
+#'     metabefor_files_path,
+#'     "openalex-exports"
+#'   ); 
+#' 
+#' bibHits_OpenAlex <-
+#'   metabefor::import_search_results(
+#'     OpenAlexExport_path
+#'   );
+#'
+#' ### Look at the first five titles
+#' bibHits_OpenAlex$bibHitDf$title[1:5]
+#' 
+#' ### Another example, using the filenames to
+#' ### provide metadata about the date, database,
+#' ### interface, and query specification
+#' 
+#' ### Path with Esbco exports
+#' EbscoExport_path <-
+#'   file.path(
+#'     metabefor_files_path,
+#'     "ebsco-exports"
+#'   ); 
+#'   
+#' bibHits_Ebsco <-
+#'   metabefor::import_search_results(
+#'     EbscoExport_path
+#'   );
+#'   
+#' ### Show the databases
+#' metabefor::show_search_hits_by_database(
+#'   bibHits_Ebsco
+#' );
 import_search_results <- function(path,
                                   dirRegex = ".*",
                                   fileRegex = "\\.ris$",
@@ -42,7 +94,10 @@ import_search_results <- function(path,
                                   filesToIgnoreRegex = NULL,
                                   recursive = TRUE,
                                   perl = TRUE,
-                                  fieldsToCopy = list(doi = "L3"),
+                                  fieldsToCopy = list(doi = c("L3", "DO"),
+                                                      title = "T1"),
+                                  preparatoryReplacements = NULL,
+                                  synthesisr_tag_naming = "best_guess",
                                   copySep = " || ",
                                   idFieldName = "original_id",
                                   parallel = FALSE,
@@ -60,6 +115,7 @@ import_search_results <- function(path,
   search_originDate_col <- metabefor::opts$get("search_originDate_col");
   search_originInterface_col <- metabefor::opts$get("search_originInterface_col");
   search_originDatabase_col <- metabefor::opts$get("search_originDatabase_col");
+  search_originQuerySpec_col <- metabefor::opts$get("search_originQuerySpec_col");
 
   ### Get all subdirectories; search hits are placed in alphabetically
   ### ordered subdirectories.
@@ -201,17 +257,52 @@ import_search_results <- function(path,
         function(dir_and_file) {
           msg("  - ",
               silent = silent);
-          res <-
-            synthesisr::read_refs(
-              filename = file.path(path, dir_and_file[1], dir_and_file[2]),
-              verbose = !silent
-            );
+          
+          if (is.null(preparatoryReplacements)) {
+            
+            res <-
+              synthesisr::read_refs(
+                filename = file.path(path, dir_and_file[1], dir_and_file[2]),
+                tag_naming = synthesisr_tag_naming,
+                verbose = !silent
+              );
+            
+          } else {
+            
+            tmpFile <- tempfile(fileext = ".ris");
+            tmpChar <- readLines(file.path(path, dir_and_file[1], dir_and_file[2]));
+            
+            for (i in seq_along(preparatoryReplacements)) {
+
+              tmpChar <-
+                gsub(preparatoryReplacements[i],
+                     names(preparatoryReplacements)[i],
+                     tmpChar,
+                     perl = TRUE,
+                     ignore.case = TRUE);
+              
+            }
+            
+            writeLines(tmpChar, tmpFile);
+
+            res <-
+              synthesisr::read_refs(
+                filename = tmpFile,
+                tag_naming = synthesisr_tag_naming,
+                verbose = !silent
+              );
+            
+          }
+          
           res[, search_originFile_col] <- dir_and_file[2];
           res[, search_originDir_col] <- dir_and_file[1];
+          
           msg("  - Imported ", nrow(res),
               " records and ", ncol(res), " fields.\n",
               silent = silent);
+          
           return(res);
+          
         }
       );
 
@@ -220,6 +311,7 @@ import_search_results <- function(path,
   }
   
   if ((!is.null(fieldsToCopy)) && (length(fieldsToCopy) > 0)) {
+
     for (newField in names(fieldsToCopy)) {
       if (length(fieldsToCopy[[newField]]) > 0) {
         for (oldField in fieldsToCopy[[newField]]) {
@@ -227,7 +319,7 @@ import_search_results <- function(path,
             if (newField %in% names(bibHitDf)) {
               bibHitDf[, newField] <-
                 ifelse(
-                  is.na(bibHitDf[, newField]),
+                  is.na(bibHitDf[, newField]) | (nchar(trimws(bibHitDf[, newField])) == 0),
                   bibHitDf[, oldField],
                   paste0(bibHitDf[, newField], copySep, bibHitDf[, oldField])
                 );
@@ -274,11 +366,30 @@ import_search_results <- function(path,
   justFileNames <- bibHitDf[, search_originFile_col];
   
   bibHitDf[, search_originDate_col] <-
-    gsub(search_metadataRegex, "\\1", justFileNames);
+    gsub(search_metadataRegex, "\\1", justFileNames,
+         ignore.case = TRUE, perl = TRUE);
   bibHitDf[, search_originInterface_col] <-
-    gsub(search_metadataRegex, "\\2", justFileNames);
+    gsub(search_metadataRegex, "\\2", justFileNames,
+         ignore.case = TRUE, perl = TRUE);
   bibHitDf[, search_originDatabase_col] <-
-    gsub(search_metadataRegex, "\\3", justFileNames);
+    gsub(search_metadataRegex, "\\3", justFileNames,
+         ignore.case = TRUE, perl = TRUE);
+  bibHitDf[, search_originQuerySpec_col] <-
+    gsub(search_metadataRegex, "\\4", justFileNames,
+         ignore.case = TRUE, perl = TRUE);
+  
+  if (all(bibHitDf[, search_originDate_col] == justFileNames)) {
+    bibHitDf[, search_originDate_col] <- NULL;
+  }
+  if (all(bibHitDf[, search_originInterface_col] == justFileNames)) {
+    bibHitDf[, search_originInterface_col] <- NULL;
+  }
+  if (all(bibHitDf[, search_originDatabase_col] == justFileNames)) {
+    bibHitDf[, search_originDatabase_col] <- NULL;
+  }
+  if (all(bibHitDf[, search_originQuerySpec_col] == justFileNames)) {
+    bibHitDf[, search_originQuerySpec_col] <- NULL;
+  }
   
   if (!is.null(idFieldName)) {
     names(bibHitDf)[grepl("^[iI][dD]$", names(bibHitDf))] <-

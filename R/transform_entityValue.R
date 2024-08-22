@@ -1,10 +1,10 @@
 #' Perform a transformation selectively
 #' 
-#' This function takes a full Rxs project object (as produced
-#' by [metabefor::rxs_parseExtractionScripts()]) and processes all Rxs
-#' trees, looking for entities that match the `entityId_regex`
+#' [metabefor::transform_entityValue()] takes a full Rxs project object (as
+#' produced by [metabefor::rxs_parseExtractionScripts()]) and processes all
+#' Rxs trees, looking for entities that match the `entityId_regex`
 #' regular expression (for information about what clustering entities are,
-#' see <https://r-packages.gitlab.io/metabefor/articles/definitions.html>)
+#' see <https://sysrevving.com/glossary.html>)
 #' and passes those to function `fun`, passing the entity's value as the
 #' argument named in `entityValue_argName` and with `funArgs` as additional
 #' arguments.
@@ -28,7 +28,31 @@
 #' you can discard the result.
 #' @export
 #'
-#' @examples
+#' @examples ### Load an example Rxs project
+#' data('example_rxsProject_1', package="metabefor");
+#' 
+#' ### Show the sample sizes
+#' metabefor::get_singleValue(
+#'   example_rxsProject_1,
+#'   "sampleSize"
+#' );
+#' 
+#' ### Double the sample sizes
+#' metabefor::transform_entityValue(
+#'   example_rxsProject_1,
+#'   function(x) {
+#'     return(x * 2);
+#'   },
+#'   entityId_regex = "sampleSize"
+#' );
+#' 
+#' ### Show transformed result
+#' 
+#' ### Show the sample sizes
+#' metabefor::get_singleValue(
+#'   example_rxsProject_1,
+#'   "sampleSize_trfmd"
+#' );
 transform_entityValue <- function(x,
                                   fun,
                                   entityValue_argName = "x",

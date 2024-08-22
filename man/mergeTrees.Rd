@@ -33,3 +33,38 @@ trees (hence the name), so it may not fit other use cases: for example,
 when merging two leaf nodes with the same name and path, if the \code{value}
 attribute is a list, those lists are combined using \code{\link[base:c]{base::c()}}.
 }
+\examples{
+### Load an example Rxs project
+data('example_rxsProject_1', package="metabefor");
+
+### Look at the names of the original, raw trees:
+names(
+  example_rxsProject_1$rxsTrees_raw
+);
+
+### Look at the tree for the first module
+example_rxsProject_1$rxsTrees_raw[[
+  'rxs_minimal_example_module1--complete_1.rxs.Rmd'
+]];
+
+### Look at the tree for the second module
+example_rxsProject_1$rxsTrees_raw[[
+  'rxs_minimal_example_module2--complete_1.rxs.Rmd'
+]];
+
+### Merge them
+mergedRxsTree <-
+  metabefor::mergeTrees(
+    tree1 =
+      example_rxsProject_1$rxsTrees_raw[[
+        'rxs_minimal_example_module1--complete_1.rxs.Rmd'
+      ]],
+    tree2 = 
+      example_rxsProject_1$rxsTrees_raw[[
+        'rxs_minimal_example_module2--complete_1.rxs.Rmd'
+      ]],
+  );
+
+### View merged tree
+mergedRxsTree;
+}

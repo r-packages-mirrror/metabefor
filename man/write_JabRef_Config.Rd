@@ -71,3 +71,28 @@ This function writes one or more JabRef configuration files that set
 a number of fields to be visible to screeners, so that you can mask the
 screeners from fields like journal, authors, and publication year.
 }
+\examples{
+### Get the path to a temporary directory
+tempPath <- tempdir();
+
+### Write screener packages
+metabefor::write_JabRef_Config(
+  tempPath,
+  screeners = "A"
+);
+
+### Load written file
+jabRefConfig <-
+  readLines(
+    file.path(
+      tempPath,
+      "jabref.xml"
+    )
+  );
+
+### Show beginning of file
+cat(jabRefConfig[1:10], sep="\n");
+
+### Show bit in the middle with specific screening info
+cat(jabRefConfig[39:41], sep="\n");
+}

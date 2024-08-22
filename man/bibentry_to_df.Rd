@@ -15,6 +15,8 @@ bibentry_to_df(
 
 \item{authorCollapseFunc}{The function to use to collapse the vector of
 author names into one value.}
+
+\item{authorCollapseArgs}{Argyments to pass to \code{authorCollapseFunc()}.}
 }
 \value{
 A data frame

@@ -7,7 +7,8 @@
 extractor_instructions_from_sheet(x, headingLevel = 3)
 }
 \arguments{
-\item{x}{The spreadsheet}
+\item{x}{The spreadsheet with extractor instructions; or an rxs
+specification (as produced by a call to \code{\link[=rxs_fromSpecifications]{rxs_fromSpecifications()}}).}
 
 \item{headingLevel}{The top-most heading level to use}
 }
@@ -15,5 +16,19 @@ extractor_instructions_from_sheet(x, headingLevel = 3)
 The formatted extractor instructions
 }
 \description{
-Create extractor instructions from a spreadsheet
+This function produces a Markdown document with the extractor instructions
+as provided in an Rxs Specification.
+}
+\examples{
+### Load an example rxs specification
+data("rxs_minimal_example_2", package="metabefor");
+
+### Produce the instructions in Markdown format
+extractorInstructions <-
+  extractor_instructions_from_sheet(
+    rxs_minimal_example_2
+  );
+  
+### Show the produced markdown
+cat(extractorInstructions);
 }

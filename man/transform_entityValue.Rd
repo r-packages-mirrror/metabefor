@@ -42,12 +42,39 @@ will be changed in place given \code{data.tree}'s pass-by-reference logic; so
 you can discard the result.
 }
 \description{
-This function takes a full Rxs project object (as produced
-by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}) and processes all Rxs
-trees, looking for entities that match the \code{entityId_regex}
+\code{\link[=transform_entityValue]{transform_entityValue()}} takes a full Rxs project object (as
+produced by \code{\link[=rxs_parseExtractionScripts]{rxs_parseExtractionScripts()}}) and processes all
+Rxs trees, looking for entities that match the \code{entityId_regex}
 regular expression (for information about what clustering entities are,
-see \url{https://r-packages.gitlab.io/metabefor/articles/definitions.html})
+see \url{https://sysrevving.com/glossary.html})
 and passes those to function \code{fun}, passing the entity's value as the
 argument named in \code{entityValue_argName} and with \code{funArgs} as additional
 arguments.
+}
+\examples{
+### Load an example Rxs project
+data('example_rxsProject_1', package="metabefor");
+
+### Show the sample sizes
+metabefor::get_singleValue(
+  example_rxsProject_1,
+  "sampleSize"
+);
+
+### Double the sample sizes
+metabefor::transform_entityValue(
+  example_rxsProject_1,
+  function(x) {
+    return(x * 2);
+  },
+  entityId_regex = "sampleSize"
+);
+
+### Show transformed result
+
+### Show the sample sizes
+metabefor::get_singleValue(
+  example_rxsProject_1,
+  "sampleSize_trfmd"
+);
 }

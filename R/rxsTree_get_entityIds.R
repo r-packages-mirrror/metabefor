@@ -11,11 +11,10 @@
 #' @export
 #'
 #' @examples ### Load an example Rxs project
-#' example_rxsProject <-
-#'   metabefor::example_rxsProject;
+#' data("example_rxsProject_1", package="metabefor");
 #'
 #' metabefor::rxsProject_get_entityIds(
-#'   example_rxsProject
+#'   example_rxsProject_1
 #' );
 rxsTree_get_entityIds <- function(x,
                                   includeClusteredEntities = TRUE) {

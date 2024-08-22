@@ -74,7 +74,7 @@ query_full <- function(inclusion,
 
   resNode$AddChildNode(inclusion);
 
-  if (class(exclusion) == "mbf_query_conceptTerms") {
+  if (inherits(exclusion, "mbf_query_conceptTerms")) {
     childName <- attr(exclusion, "conceptName");
     resNode$AddChild(childName);
     resNode[[childName]]$object <-
@@ -84,7 +84,7 @@ query_full <- function(inclusion,
     for (j in seq_along(exclusion)) {
       resNode[[childName]]$AddChild(exclusion[j]);
     }
-  } else if (class(exclusion) == "mbf_query_requiredConcepts") {
+  } else if (inherits(exclusion, "mbf_query_requiredConcepts")) {
     resNode$AddChildNode(exclusion);
   } else {
     stop("Argument `exclusion` has an invalid class!");

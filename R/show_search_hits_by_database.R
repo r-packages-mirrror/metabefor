@@ -4,10 +4,32 @@
 #' [metabefor::import_search_results()].
 #' @param output Output format: `"kable"` or `"table"`.
 #'
-#' @return
+#' @return A character vector with the table with search results in Markdown
 #' @export
 #'
-#' @examples
+#' @examples ### Path to extra files in {metabefor} package
+#' metabefor_files_path <-
+#'   system.file(
+#'     "extdata",
+#'     package = "metabefor"
+#'   ); 
+#' 
+#' ### Example path with search hits
+#' EbscoExport_path <-
+#'   file.path(
+#'     metabefor_files_path,
+#'     "ebsco-exports"
+#'   ); 
+#'   
+#' bibHits_Ebsco <-
+#'   metabefor::import_search_results(
+#'     EbscoExport_path
+#'   );
+#'   
+#' ### Show the databases
+#' metabefor::show_search_hits_by_database(
+#'   bibHits_Ebsco
+#' );
 show_search_hits_by_database <- function(x,
                                          output = "kable") {
   
@@ -16,7 +38,7 @@ show_search_hits_by_database <- function(x,
          "a call to metabefor::import_search_results().");
   }
   
-  tbl <- table(searchResults$bibHitDf$originDatabase);
+  tbl <- table(x$bibHitDf$originDatabase);
   
   if (output == "kable") {
     return(
