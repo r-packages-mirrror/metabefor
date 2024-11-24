@@ -161,7 +161,9 @@ rxs_parseExtractionScripts <- function(path,
         encoding = encoding
       );
     
-    p$terminate();
+    if (!is.null(p)) {
+      p$terminate();
+    }
     
   } else {
     

@@ -12,14 +12,16 @@ get_short_dois <- function(x = NULL, strip10 = TRUE, throttle = TRUE,
                            silent = metabefor::opts$get('silent')) {
   
   if (!silent) {
-    cat("Fetching ", length(x), " ShortDOIs; throttling is turned on and the ",
-        "throttle time is set to ", throttleTime, " seconds, so if the requests ",
-        "require throttling this could take ", length(x) * throttleTime, " seconds.");
+    cat0("\nFetching ", length(x), " ShortDOIs; throttling is turned on and the ",
+         "throttle time is set to ", throttleTime, " seconds, so if the requests ",
+         "require throttling this could add ", length(x) * throttleTime,
+         " seconds to the total running time (which will probably be ",
+         "longer that that already).\n\n");
   }
   
   if (progress) {
     
-    if (requireNamespace(progress, quietly = TRUE)) {
+    if (requireNamespace("progress", quietly = TRUE)) {
       
       p <- progress::progress_bar$new(
         total = length(x),
@@ -33,6 +35,10 @@ get_short_dois <- function(x = NULL, strip10 = TRUE, throttle = TRUE,
       
     }
     
+  } else {
+    
+    p <- NULL;
+    
   }
   
   res <-
@@ -41,12 +47,15 @@ get_short_dois <- function(x = NULL, strip10 = TRUE, throttle = TRUE,
         x,
         get_short_doi,
         strip10 = strip10,
+        progress = p,
         throttle = throttle,
         throttleTime = throttleTime
       )
     );
     
-  p$terminate();
+  if (!is.null(p)) {
+    p$terminate();
+  }
 
   return(res);
     

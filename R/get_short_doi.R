@@ -7,8 +7,8 @@
 #' error (`throttle=FALSE`).
 #' @param throttleTime How long to wait when throttling.
 #' @param progress For `get_short_dois`, whether to show a progress bar; for
-#' `get_short_doi`, this is used to internally pass the progress bar object
-#'  (and so this parameter should not be used by users).
+#' `get_short_doi`, optionally, a progress bar to tick after the file
+#' has been parsed  (must be a [progress::progress_bar()] object.
 #' @return The short DOI or DOIs.
 #' @rdname short_dois
 #' @examples \dontrun{
@@ -19,7 +19,15 @@
 #' @export
 get_short_doi <- function(x = NULL, strip10 = TRUE,
                           throttle = TRUE, throttleTime = .1,
-                          progress = NULL) {
+                          progress = NULL,
+                          silent = metabefor::opts$get('silent')) {
+  
+  if (is.null(x) || is.na(x)) {
+    if (!silent) {
+      cat("You passed NULL or NA, so returning NA (invisibly).");
+    }
+    return(invisible(NA));
+  }
   
   x <- sub("https?://doi.org/", "", x);
 
@@ -30,19 +38,58 @@ get_short_doi <- function(x = NULL, strip10 = TRUE,
       "?format=json&mailto=gjalt-jorn@behaviorchange.eu"
     );
   
-  urlConnection <-
-    url(
-      urlToGet,
-      headers = c(
-        HTTPUserAgent = 
-          paste0(
-            options("HTTPUserAgent"),
-            "; metabefor/0.3 ",
-            "(https://r-packages.gitlab.io/metabefor; ",
-            "mailto:gjalt-jorn@behaviorchange.eu)"
+  tryCatch(
+    urlConnection <-
+      url(
+        urlToGet,
+        headers = c(
+          HTTPUserAgent = 
+            paste0(
+              options("HTTPUserAgent"),
+              "; metabefor/0.3 ",
+              "(https://r-packages.gitlab.io/metabefor; ",
+              "mailto:gjalt-jorn@behaviorchange.eu)"
+            )
           )
-        )
+      ),
+    warning = function(w) {
+      message("Warning when creating the URL connection!");
+      browser();
+    },
+    error = function(e) {
+      message("Error when creating the URL connection!");
+      browser();
+    }
+  );
+
+  ### Try to get the ShortDOI
+  res <-
+    tryCatch(
+      readLines(urlConnection),
+      warning = function(w) {
+        if (grepl("HTTP status was '400 Bad Request'", w$message)) {
+          warning("DOI ", x, " seems invalid; the ShortDOI service returned ",
+                  "a 400 error (bad request). You can check it by visiting\n\n",
+                  "https://shortdoi.org/", x,
+                  "\n\nin your browser.");
+          invisible(NA);
+          tryInvokeRestart("muffleWarning");
+        } else {
+          message("Warning when reading from the URL connection!");
+          browser();
+          invisible(NA);
+        }
+      },
+      error = function(e) {
+        message("Error when reading from the URL connection!");
+        browser();
+        invisible(NA);
+      }
     );
+  
+  if (all(is.na(res))) {
+    return(NA);
+  }
 
   if (!(any(grepl("\"ShortDOI\":", res))) && throttle) {
 

@@ -5,18 +5,37 @@
 \alias{get_short_dois}
 \title{Retrieve the short DOI for one or more DOIs}
 \usage{
-get_short_doi(x = NULL, strip10 = TRUE, throttle = TRUE)
+get_short_doi(
+  x = NULL,
+  strip10 = TRUE,
+  throttle = TRUE,
+  throttleTime = 0.1,
+  progress = NULL
+)
 
-get_short_dois(x = NULL, strip10 = TRUE)
+get_short_dois(
+  x = NULL,
+  strip10 = TRUE,
+  throttle = TRUE,
+  throttleTime = 0.1,
+  progress = FALSE,
+  silent = metabefor::opts$get("silent")
+)
 }
 \arguments{
 \item{x}{A DOI or a vector of DOIs.}
 
 \item{strip10}{Whether to strip the leading \verb{10/}.}
 
-\item{throttle}{Whether to wait for one second if no valid JSON containing
+\item{throttle}{Whether to wait for \code{throttleTime} if no valid JSON containing
 the short doi is returned (\code{throttle=TRUE}) or throw an
 error (\code{throttle=FALSE}).}
+
+\item{throttleTime}{How long to wait when throttling.}
+
+\item{progress}{For \code{get_short_dois}, whether to show a progress bar; for
+\code{get_short_doi}, this is used to internally pass the progress bar object
+(and so this parameter should not be used by users).}
 }
 \value{
 The short DOI or DOIs.
@@ -27,12 +46,14 @@ Retrieve the short DOI for one or more DOIs
 \examples{
 \dontrun{
 ### Get a short DOI, just the short DOI returned
-short_doi(doi = "10.1371/journal.pone.0042793")
-short_doi(doi = "10.1890/10-0340.1")
+metabefor::get_short_doi("10.1371/journal.pone.0042793");
+metabefor::get_short_doi("10.1890/10-0340.1");
 }
 \dontrun{
 ### Get a short DOI, just the short DOI returned
-short_doi(doi = "10.1371/journal.pone.0042793")
-short_doi(doi = "10.1890/10-0340.1")
+metabefor::get_short_dois(
+  c("10.1371/journal.pone.0042793",
+    "10.1890/10-0340.1")
+);
 }
 }
