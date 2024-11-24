@@ -13,8 +13,8 @@ get_short_dois <- function(x = NULL, strip10 = TRUE, throttle = TRUE,
   
   if (!silent) {
     cat("Fetching ", length(x), " ShortDOIs; throttling is turned on and the ",
-        "throttle time is set to ", throttle, " seconds, so if the requests ",
-        "require throttling this could take ", x * throttleTime, " seconds.");
+        "throttle time is set to ", throttleTime, " seconds, so if the requests ",
+        "require throttling this could take ", length(x) * throttleTime, " seconds.");
   }
   
   if (progress) {
