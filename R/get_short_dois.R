@@ -8,7 +8,7 @@
 #' }
 #' @export
 get_short_dois <- function(x = NULL, strip10 = TRUE, throttle = TRUE,
-                           throttleTime = .1,
+                           throttleTime = .1, progress = FALSE,
                            silent = metabefor::opts$get('silent')) {
   
   if (!silent) {
@@ -17,9 +17,25 @@ get_short_dois <- function(x = NULL, strip10 = TRUE, throttle = TRUE,
         "require throttling this could take ", x * throttleTime, " seconds.");
   }
   
-  progress
+  if (progress) {
+    
+    if (requireNamespace(progress, quietly = TRUE)) {
+      
+      p <- progress::progress_bar$new(
+        total = length(x),
+        format = ":spin [:bar] :percent in :elapsedfull, :eta to go");
+
+    } else {
+      
+      cat("You passed `progress=TRUE`, but you don't have the {progress} ",
+          "package installed. You can install it with:\n\n",
+          "install.packages('progress');");
+      
+    }
+    
+  }
   
-  return(
+  res <-
     unlist(
       lapply(
         x,
@@ -28,6 +44,10 @@ get_short_dois <- function(x = NULL, strip10 = TRUE, throttle = TRUE,
         throttle = throttle,
         throttleTime = throttleTime
       )
-    )
-  );
+    );
+    
+  p$terminate();
+
+  return(res);
+    
 }

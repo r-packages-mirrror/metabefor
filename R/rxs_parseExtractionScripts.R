@@ -161,6 +161,8 @@ rxs_parseExtractionScripts <- function(path,
         encoding = encoding
       );
     
+    p$terminate();
+    
   } else {
     
     ### Multi core approach

@@ -6,6 +6,9 @@
 #' the short doi is returned (`throttle=TRUE`) or throw an
 #' error (`throttle=FALSE`).
 #' @param throttleTime How long to wait when throttling.
+#' @param progress For `get_short_dois`, whether to show a progress bar; for
+#' `get_short_doi`, this is used to internally pass the progress bar object
+#'  (and so this parameter should not be used by users).
 #' @return The short DOI or DOIs.
 #' @rdname short_dois
 #' @examples \dontrun{
@@ -15,7 +18,8 @@
 #' }
 #' @export
 get_short_doi <- function(x = NULL, strip10 = TRUE,
-                          throttle = TRUE, throttleTime = .1) {
+                          throttle = TRUE, throttleTime = .1,
+                          progress = NULL) {
   
   x <- sub("https?://doi.org/", "", x);
 
@@ -64,6 +68,12 @@ get_short_doi <- function(x = NULL, strip10 = TRUE,
   
   if (strip10) {
     res <- gsub("^10/", "", res);
+  }
+  
+  if (!is.null(progress)) {
+    if (inherits(progress, "progress_bar")) {
+      progress$tick();
+    }
   }
   
   return(res);
