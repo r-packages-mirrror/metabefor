@@ -2,19 +2,20 @@
 #'
 #' @param x A DOI or a vector of DOIs.
 #' @param strip10 Whether to strip the leading `10/`.
-#' @param throttle Whether to wait for one second if no valid JSON containing
+#' @param throttle Whether to wait for `throttleTime` if no valid JSON containing
 #' the short doi is returned (`throttle=TRUE`) or throw an
 #' error (`throttle=FALSE`).
+#' @param throttleTime How long to wait when throttling.
 #' @return The short DOI or DOIs.
 #' @rdname short_dois
 #' @examples \dontrun{
 #' ### Get a short DOI, just the short DOI returned
-#' short_doi(doi = "10.1371/journal.pone.0042793")
-#' short_doi(doi = "10.1890/10-0340.1")
+#' metabefor::get_short_doi("10.1371/journal.pone.0042793");
+#' metabefor::get_short_doi("10.1890/10-0340.1");
 #' }
 #' @export
 get_short_doi <- function(x = NULL, strip10 = TRUE,
-                          throttle = TRUE) {
+                          throttle = TRUE, throttleTime = .1) {
   
   x <- sub("https?://doi.org/", "", x);
 
@@ -38,20 +39,24 @@ get_short_doi <- function(x = NULL, strip10 = TRUE,
           )
         )
     );
-  
-  res <- readLines(urlConnection);
-  
-  close(urlConnection);
+
+  if (!(any(grepl("\"ShortDOI\":", res))) && throttle) {
+
+    ### Wait
+    Sys.sleep(throttleTime);
+    
+    ### Try again
+    res <- readLines(urlConnection);
+
+  }
   
   if (!(any(grepl("\"ShortDOI\":", res)))) {
-    if (throttle) {
-      Sys.sleep(1);
-    } else {
       stop("No valid JSON containing a short DOI returned! Instead, ",
            "I received this:\n\n",
            paste0(res, collapse="\n"));
-    }
   }
+  
+  close(urlConnection);
   
   res <- grep("\"ShortDOI\":", res, value=TRUE);
 

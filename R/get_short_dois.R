@@ -1,11 +1,13 @@
 #' @rdname short_dois
 #' @examples \dontrun{
 #' ### Get a short DOI, just the short DOI returned
-#' short_doi(doi = "10.1371/journal.pone.0042793")
-#' short_doi(doi = "10.1890/10-0340.1")
+#' metabefor::get_short_dois(
+#'   c("10.1371/journal.pone.0042793",
+#'     "10.1890/10-0340.1")
+#' );
 #' }
 #' @export
-get_short_dois <- function(x = NULL, strip10 = TRUE) {
+get_short_dois <- function(x = NULL, strip10 = TRUE, throttle = .1) {
   return(
     unlist(
       lapply(
