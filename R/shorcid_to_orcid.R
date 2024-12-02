@@ -1,7 +1,7 @@
 #' @rdname ShORCIDs
 #' @export
 #'
-#' @examples
+#' @examples shorcid_to_orcid("i16g2sk1");
 shorcid_to_orcid <- function(x) {
   
   if (length(x) > 1) {
@@ -18,9 +18,9 @@ shorcid_to_orcid <- function(x) {
   
   checksum <- substring(x, nchar(x));
   
-  idbit <- substring(x, 1, nchar(x) - 1);
-
-  res <- metabefor::base30toNumeric(idbit);
+  idbit <- substring(x, 2, nchar(x) - 1);
+  
+  res <- base30toNumeric(idbit);
   
   res <- paste0(res, checksum);
   
@@ -35,7 +35,7 @@ shorcid_to_orcid <- function(x) {
                 substr(res, 9, 12),
                 "-",
                 substr(res, 13, 16));
-
+  
   return(res);
   
 }

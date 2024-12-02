@@ -23,7 +23,12 @@ Conversion ORCID to ShORCID occurs by detaching the last character (the
 checksum) and storing it. Then in the first string of characters, all
 non-numbers are removed and the resulting number is converted to a base 30
 system with \code{\link[=numericToBase30]{numericToBase30()}}. The checksum is then re-attached. This is
-one separately because the checksum can be X (i.e. the only character in an
-ORCID that's not necessarily numeric). Conversion the other way around just
+done separately because the checksum can be X (i.e. the only character in an
+ORCID that's not necessarily numeric). Then, an 'i' is prepended to ensure
+that the ShORCID starts with a letter. Conversion the other way around just
 inverts the process (and so uses \code{\link[=base30toNumeric]{base30toNumeric()}}).
+}
+\examples{
+orcid_to_shorcid("0000-0002-9540-5371");
+shorcid_to_orcid("i16g2sk1");
 }
