@@ -10,7 +10,8 @@ get_short_doi(
   strip10 = TRUE,
   throttle = TRUE,
   throttleTime = 0.1,
-  progress = NULL
+  progress = NULL,
+  silent = metabefor::opts$get("silent")
 )
 
 get_short_dois(
@@ -34,8 +35,8 @@ error (\code{throttle=FALSE}).}
 \item{throttleTime}{How long to wait when throttling.}
 
 \item{progress}{For \code{get_short_dois}, whether to show a progress bar; for
-\code{get_short_doi}, this is used to internally pass the progress bar object
-(and so this parameter should not be used by users).}
+\code{get_short_doi}, optionally, a progress bar to tick after the file
+has been parsed  (must be a \code{\link[progress:progress_bar]{progress::progress_bar()}} object.}
 }
 \value{
 The short DOI or DOIs.

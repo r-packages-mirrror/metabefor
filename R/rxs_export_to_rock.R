@@ -139,11 +139,14 @@ rxs_export_to_rock <- function(x,
     cols_to_iids <- c("sourceId");
     names(cols_to_iids) <- c(rxsSourceId);
     
+    includedEntities <-
+      entityId[entityId %in% names(df)];
+
     res <-
       rock::convert_df_to_source(
         data = df,
         output = outputFile,
-        cols_to_utterances = entityId,
+        cols_to_utterances = includedEntities,
         utterance_classId = rxsEntityId,
         cols_to_ciids = cols_to_iids
       );

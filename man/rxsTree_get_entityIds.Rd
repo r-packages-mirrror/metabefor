@@ -8,13 +8,26 @@
 \usage{
 rxsProject_get_entityIds(x, includeClusteredEntities = TRUE)
 
-rxsTree_get_entityIds(x, includeClusteredEntities = TRUE)
+rxsTree_get_entityIds(
+  x,
+  includeContainerEntities = TRUE,
+  includeClusteringEntities = TRUE,
+  includeClusteredEntities = TRUE
+)
 }
 \arguments{
 \item{x}{The rxs tree object or project object.}
 
 \item{includeClusteredEntities}{Whether to also include clustered
 entities (entities in a \code{list()} value).}
+
+\item{includeContainerEntities}{Whether to also include container
+entities (entities for which no value is extracted, but which contain
+other entities).}
+
+\item{includeClusteringEntities}{Whether to also include clustering
+entities (a type of container entities for which the contained entities are
+extracted as list elements).}
 }
 \value{
 A vector with entity names.

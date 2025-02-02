@@ -4,6 +4,12 @@
 #' all nodes in the tree object or project.
 #'
 #' @param x The rxs tree object or project object.
+#' @param includeContainerEntities Whether to also include container
+#' entities (entities for which no value is extracted, but which contain
+#' other entities).
+#' @param includeClusteringEntities Whether to also include clustering
+#' entities (a type of container entities for which the contained entities are
+#' extracted as list elements).
 #' @param includeClusteredEntities Whether to also include clustered
 #' entities (entities in a `list()` value).
 #'
@@ -17,6 +23,8 @@
 #'   example_rxsProject_1
 #' );
 rxsTree_get_entityIds <- function(x,
+                                  includeContainerEntities = TRUE,
+                                  includeClusteringEntities = TRUE,
                                   includeClusteredEntities = TRUE) {
   
   if (inherits(x, "rxs_parsedExtractionScripts")) {
@@ -72,8 +80,26 @@ rxsTree_get_entityIds <- function(x,
     entityIds <- 
       unname(
         unlist(
-          x$Get('name',
-                filterFun = function(node) !data.tree::isRoot(node))
+          x$Get(
+            'name',
+            filterFun = function(node) {
+              res <- !data.tree::isRoot(node);
+              if (!includeContainerEntities) {
+                ### Check whether this entity contains an extracted value
+                if (!("value" %in% node$attributes)) {
+                  res <- FALSE;
+                }
+              }
+              if (!includeClusteringEntities) {
+                if ("value" %in% node$attributes) {
+                  if (is.list(node$value)) {
+                    res <- FALSE;
+                  }
+                }
+              }
+              return(res);
+            }
+          )
         )
       );
     
