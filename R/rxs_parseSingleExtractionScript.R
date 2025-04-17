@@ -309,8 +309,41 @@ rxs_parseSingleExtractionScript <- function(filename,
 
     tmpRxsObject <- get(rxsObjectName, envir=parsingEnv); # envir=globalenv());
 
-    res$rxsTrees_raw <-
-      data.tree::Clone(tmpRxsObject);
+    if (inherits(tmpRxsObject, "Node")) {
+      
+      res$rxsTrees_raw <-
+        data.tree::Clone(tmpRxsObject);
+      
+        res$log <- c(
+          res$log,
+          msg("\n  - Cloned the Rxs tree (a data.tree object) and stored ",
+              "it in preparation for returning it.",
+              silent = silent)
+        );
+      
+    } else {
+      
+      browser();
+
+      res$rxsTrees_raw <- list();
+      
+      warningMsg <-
+        paste0(
+          "trying to clone the Rxs tree object, which is ",
+          "supposed to be a data.tree object, I discovered that it ",
+          "is not a data.tree object! It has class(es) ",
+          vecTxtQ(class(tmpRxsObject)), "."
+        );
+      
+      warning("When processing file ", filename, ", when ", warningMsg);
+        
+      res$log <- c(
+        res$log,
+        msg("\n  - ERROR: When ", warningMsg,
+            silent = silent)
+      );
+      
+    }
     
     class(res$rxsTrees_raw) <-
       union(c("rxs", "rxsObject"),
