@@ -123,6 +123,12 @@ get_multipleValues <- function(x,
       lapply(
         entityIdsWithRows,
         function(colName) {
+          # if (!(colName %in% names(allValueList))) {
+          #   browser();
+          # }
+          # if (!(colName %in% names(allValueList[[colName]]))) {
+          #   browser();
+          # }
           return(
             allValueList[[colName]][, colName, drop=FALSE]
           );
