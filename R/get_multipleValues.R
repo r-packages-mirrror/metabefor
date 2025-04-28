@@ -129,6 +129,7 @@ get_multipleValues <- function(x,
           # if (!(colName %in% names(allValueList[[colName]]))) {
           #   browser();
           # }
+
           return(
             allValueList[[colName]][, colName, drop=FALSE]
           );

@@ -210,7 +210,7 @@ get_singleValue_fromTree <- function(x,
         }
 
       } else if (returnDf) {
-
+        
         if (is.list(foundNode$value)) {
           ### (we look at foundNode$value instead of res because res may
           ###  have become a vector, even if foundNode$value is a list)
@@ -231,11 +231,19 @@ get_singleValue_fromTree <- function(x,
         } else {
           
           ### Wide dataframe, with one column for each entity
-          resDf <-
-            data.frame(rep(sourceId, length(res)),
-                       res);
           
+          if (length(res) > 0) {
+            resDf <-
+              data.frame(rep(sourceId, length(res)),
+                         res);
+          } else {
+            resDf <-
+              data.frame(sourceId,
+                         "_NULL_");
+          }
+
           names(resDf) <- c('sourceId', entityId);
+
           return(resDf);
           
         }
@@ -502,7 +510,9 @@ get_singleValue_fromTreeList <- function(x,
       lapply(
         names(res),
         function(x) {
-          res[[x]]$sourceId <- x;
+          if (nrow(res[[x]]) > 0) {
+            res[[x]]$sourceId <- x;
+          }
           return(res[[x]]);
         }
       );
