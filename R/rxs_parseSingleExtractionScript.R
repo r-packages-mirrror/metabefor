@@ -290,10 +290,10 @@ rxs_parseSingleExtractionScript <- function(filename,
       });
 
     if (showErrors) {
-      if (any(grepl("In file '",
-                    filename,
-                    "', encountered error while running Rxs",
-                    res$rxsOutput))) {
+      if (any(grepl(paste0("In file '",
+                           filename,
+                           "', encountered error while running Rxs"),
+                           res$rxsOutput))) {
         cat(paste0(res$rxsOutput, collapse="\n"));
       }
     }
