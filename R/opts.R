@@ -236,7 +236,7 @@ opts$defaults <-
     rxs_fg_list_codingHelp =
       "<entityTitle>: <entityDescription> <entityInstructions> [Examples: <examples>] [Value description: <valueDescription>]",
     
-    sourceIdDefaultValue = "\"\"",
+    sourceIdDefaultValue = "NULL", # "\"\"",
     sourceIdTitle = " SET UNIQUE SOURCE IDENTIFIER ",
     sourceIdDescription =
       paste0("A unique identifier used in this systematic ",
@@ -258,7 +258,7 @@ opts$defaults <-
              "underscores [_], and always have to start with a letter ",
              "(as a regular expression: ^[a-zA-Z][a-zA-Z0-9_]*$)."),
     
-    extractorIdDefaultValue = "\"\"",
+    extractorIdDefaultValue = "NULL", # "\"\"",
     extractorIdTitle = " SPECIFY YOUR EXTRACTOR IDENTIFIER ",
     extractorIdDescription =
       paste0("An identifier unique to every extractor"),
