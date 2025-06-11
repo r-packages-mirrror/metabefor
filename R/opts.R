@@ -273,7 +273,8 @@ opts$defaults <-
       openingRemarks = 
         paste0(
           "Welcome to the R Extraction Script (.rxs.Rmd file) for this ",
-          "source!\n\nYou can now start extracting. If you haven't yet ",
+          "source!\nThis version of the Rxs template was produced at <<date>>.",
+          "\n\nYou can now start extracting. If you haven't yet ",
           "studied the extractor instructions, please do so first. If you're ",
           "all set, good luck!"
         ),

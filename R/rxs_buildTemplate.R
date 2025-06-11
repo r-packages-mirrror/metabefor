@@ -41,7 +41,19 @@ rxs_buildTemplate <- function(rxsStructure,
     default = metabefor::opts$get("texts"),
     bespoke = rxsSpecification$textsList
   );
-
+  
+  ###---------------------------------------------------------------------------
+  ### Replacements
+  ###---------------------------------------------------------------------------
+  
+  texts$openingRemarks <-
+    gsub(
+      "<<date>>",
+      as.character(Sys.Date()),
+      texts$openingRemarks,
+      fixed = TRUE
+    );
+  
   ###---------------------------------------------------------------------------
   ### Opening and closing remarks
   ###---------------------------------------------------------------------------
