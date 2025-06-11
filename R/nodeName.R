@@ -21,8 +21,25 @@
 #' }
 nodeName <- function(x,
                      entityName = NULL,
+                     node = NULL,
                      thisEntityText = "this entity (with temporary name '%s')") {
   
+  ### Added on 2025-06-11, to allow completely empty
+  ### clustering entities to also omit the entity identifier
+  if (!is.null(node)) {
+    if (is.list(node$value)) {
+      if (all(unlist(lapply(node$value, is.null)))) {
+        if (is.null(x)) {
+          if (is.null(entityName)) {
+            return(paste0("empty_entity_id_", squids::squids(1)));
+          } else {
+            return(entityName);
+          }
+        }
+      }
+    }
+  }
+
   reservedNames <-
     c(metabefor::opts$get("rxsReservedNames"),
       data.tree::NODE_RESERVED_NAMES_CONST);

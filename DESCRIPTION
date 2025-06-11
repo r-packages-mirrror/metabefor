@@ -32,6 +32,7 @@ Imports:
   DiagrammeRsvg (>= 0.1),
   ggplot2 (>= 3.3),
   knitr (>= 1.3),
+  squids (>= 25.6),
   yum (>= 0.1)
 Suggests: 
   googlesheets4 (>= 0.3),

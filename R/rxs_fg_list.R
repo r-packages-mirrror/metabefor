@@ -119,7 +119,8 @@ rxs_fg_list <- function(node,
                                returnPathToRoot(node$parent),
                                "$", currentEntityName, "$value[['",
                                identifyingEntityName[1], "']], \"",
-                               currentEntityName, "\");"));
+                               currentEntityName, "\", node=",
+                               rxsCurrentNodeName, ");"));
     } else {
       nodeRenaming <- c(paste0(lV$indentSpaces,
                                rxsCurrentNodeName,
@@ -127,7 +128,9 @@ rxs_fg_list <- function(node,
                                rxsCurrentNodeName,
                                "$value[['",
                                identifyingEntityName[1], "']], \"",
-                               currentEntityName, "\");"));
+                               currentEntityName, "\", node=",
+                               rxsCurrentNodeName,
+                               ");"));
     }
     if (length(identifyingEntityName) > 1) {
       warning("More than one entity in the list '", node$name,
@@ -149,14 +152,17 @@ rxs_fg_list <- function(node,
                                "$name <- metabefor::nodeName(",
                                returnPathToRoot(node$parent),
                                "$", currentEntityName, "$value[[1]], \"",
-                               currentEntityName, "\");"));
+                               currentEntityName, "\", node=",
+                               rxsCurrentNodeName, ");"));
     } else {
       nodeRenaming <- c(paste0(lV$indentSpaces,
                                rxsCurrentNodeName,
                                "$name <- metabefor::nodeName(",
                                rxsCurrentNodeName,
                                "$value[[1]], \"",
-                               currentEntityName, "\");"));
+                               currentEntityName, "\", node=",
+                               rxsCurrentNodeName,
+                               ");"));
     }
   } else {
     nodeRenaming <- NULL;

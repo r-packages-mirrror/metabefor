@@ -7,6 +7,7 @@
 nodeName(
   x,
   entityName = NULL,
+  node = NULL,
   thisEntityText = "this entity (with temporary name '\%s')"
 )
 }
